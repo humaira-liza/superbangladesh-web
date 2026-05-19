@@ -1,0 +1,286 @@
+<h2 class="title">Admin Products</h2>
+
+<!-- FORM -->
+
+<div class="form">
+
+  <!-- NAME -->
+  <input
+    [(ngModel)]="form.name"
+    placeholder="Product Name">
+
+  <!-- PRICE -->
+  <input
+    [(ngModel)]="form.price"
+    type="number"
+    placeholder="Price">
+
+  <!-- CATEGORY -->
+  <select [(ngModel)]="form.categoryId">
+
+    <option [ngValue]="null" disabled selected>
+      Select Category
+    </option>
+
+    <!-- MAIN -->
+    <ng-container *ngFor="let main of categories">
+
+      <!-- MAIN ONLY -->
+      <option
+        *ngIf="!main.children || main.children.length === 0"
+        [ngValue]="main.id">
+
+        {{ main.name }}
+
+      </option>
+
+      <!-- SUB -->
+      <ng-container *ngFor="let sub of main.children">
+
+        <!-- SUB ONLY -->
+        <option
+          *ngIf="!sub.children || sub.children.length === 0"
+          [ngValue]="sub.id">
+
+          {{ main.name }}
+          →
+          {{ sub.name }}
+
+        </option>
+
+        <!-- CHILD -->
+        <option
+          *ngFor="let child of sub.children"
+          [ngValue]="child.id">
+
+          {{ main.name }}
+          →
+          {{ sub.name }}
+          →
+          {{ child.name }}
+
+        </option>
+
+      </ng-container>
+
+    </ng-container>
+
+  </select>
+
+  <!-- UNIT -->
+  <!-- UNIT -->
+<select [(ngModel)]="form.unit">
+
+  <option value="" disabled selected>
+    Select Unit
+  </option>
+
+  <option value="kg">
+    KG
+  </option>
+
+  <option value="gram">
+    Gram
+  </option>
+
+  <option value="liter">
+    Liter
+  </option>
+
+  <option value="ml">
+    ML
+  </option>
+
+  <option value="pcs">
+    Piece
+  </option>
+
+</select>
+
+  <!-- QUANTITY -->
+  <input
+    [(ngModel)]="form.quantity"
+    type="number"
+    placeholder="Quantity">
+
+  <!-- IMAGE -->
+  <input
+    type="file"
+    (change)="onFileChange($event)">
+
+  <!-- STOCK -->
+  <input
+    [(ngModel)]="form.stock"
+    type="number"
+    placeholder="Stock">
+
+    <!-- STOCK UNIT -->
+
+<select [(ngModel)]="form.stockUnit">
+
+  <option value="" disabled selected>
+    Stock Unit
+  </option>
+
+  <option value="kg">
+    KG
+  </option>
+
+  <option value="gram">
+    Gram
+  </option>
+
+  <option value="liter">
+    Liter
+  </option>
+
+  <option value="ml">
+    ML
+  </option>
+
+  <option value="pcs">
+    PCS
+  </option>
+
+</select>
+
+  <!-- BUTTON -->
+  <button (click)="save()">
+
+    {{ editingId ? 'Update Product' : 'Add Product' }}
+
+  </button>
+
+</div>
+
+<!-- PREVIEW -->
+
+<div
+  class="preview"
+  *ngIf="previewUrl">
+
+  <img [src]="previewUrl">
+
+</div>
+
+<!-- PRODUCTS -->
+
+<div class="products">
+
+  <div
+    *ngFor="let p of products"
+    class="card">
+
+    <!-- IMAGE -->
+    <div class="image-box">
+
+      <img
+        [src]="getImage(p.imageUrl)"
+        (error)="p.imageUrl=''">
+
+      <!-- PLUS BUTTON -->
+      <button class="plus-btn">
+        +
+      </button>
+
+    </div>
+
+    <!-- INFO -->
+
+    <div class="info">
+
+      <!-- NAME -->
+      <h3>
+        {{ p.name }}
+      </h3>
+
+      <!-- CATEGORY -->
+      <p class="cat">
+
+        <!-- CHILD -->
+        <ng-container *ngIf="p.category?.parent?.parent">
+
+          {{ p.category.parent.parent.name }}
+          →
+          {{ p.category.parent.name }}
+          →
+          {{ p.category.name }}
+
+        </ng-container>
+
+        <!-- SUB -->
+        <ng-container *ngIf="p.category?.parent && !p.category?.parent?.parent">
+
+          {{ p.category.parent.name }}
+          →
+          {{ p.category.name }}
+
+        </ng-container>
+
+        <!-- MAIN -->
+        <ng-container *ngIf="!p.category?.parent">
+
+          {{ p.category?.name }}
+
+        </ng-container>
+
+      </p>
+
+      <!-- PRICE -->
+      <p class="price">
+
+        ৳ {{ p.price }}
+
+      </p>
+
+      <!-- QUANTITY + UNIT -->
+      <p
+        class="unit"
+        *ngIf="p.quantity && p.unit">
+
+        {{ p.quantity }} {{ p.unit }}
+
+      </p>
+
+      <!-- STOCK -->
+<p
+  class="stock"
+  [ngClass]="{
+    'low': p.stock > 0 && p.stock <= 5,
+    'out': p.stock == 0
+  }"
+>
+
+  Stock:
+  {{ p.stock }}
+
+  {{ p.stockUnit | uppercase }}
+
+</p>
+
+      <!-- BUTTONS -->
+      <div class="actions">
+
+        <button
+          class="edit-btn"
+          (click)="edit(p)">
+
+          Edit
+
+        </button>
+
+        <button
+          class="delete-btn"
+          (click)="delete(p.id)">
+
+          Delete
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f6fa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f6fa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+app-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 999999 !important;
+}
+
+app-banner,
+app-sidebar,
+.products,
+.layout,
+.page {
+  position: relative;
+  z-index: 1;
+}

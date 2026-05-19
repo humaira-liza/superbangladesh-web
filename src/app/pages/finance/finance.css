@@ -1,0 +1,78 @@
+.finance-page{
+  padding:30px;
+  background:#f5f7fb;
+  min-height:100vh;
+}
+
+.header h1{
+  font-size:42px;
+  margin-bottom:10px;
+  color:#1e293b;
+}
+
+.header p{
+  color:#64748b;
+  margin-bottom:30px;
+  font-size:17px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+}
+
+.card{
+  padding:30px;
+  border-radius:20px;
+  color:white;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.card h3{
+  font-size:22px;
+  margin-bottom:15px;
+}
+
+.card h2{
+  font-size:48px;
+  margin-bottom:12px;
+}
+
+.card span{
+  opacity:0.9;
+}
+
+.revenue{
+  background:linear-gradient(135deg,#11998e,#38ef7d);
+}
+
+.profit{
+  background:linear-gradient(135deg,#fc466b,#3f5efb);
+}
+
+.invest{
+  background:linear-gradient(135deg,#f7971e,#ffd200);
+}
+
+.report{
+  margin-top:40px;
+}
+
+.report h2{
+  margin-bottom:20px;
+  color:#1e293b;
+}
+
+.report-box{
+  background:white;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 5px 18px rgba(0,0,0,0.08);
+}
+
+.report-box p{
+  font-size:18px;
+  margin-bottom:18px;
+  color:#334155;
+}

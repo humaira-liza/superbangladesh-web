@@ -1,0 +1,153 @@
+<div class="orders-page">
+
+  <!-- HEADER -->
+  <div class="header">
+
+    <p class="mini-title">
+      USER DASHBOARD
+    </p>
+
+    <h1>
+      My Orders
+    </h1>
+
+    <span>
+      Track your recent purchases & delivery status
+    </span>
+
+  </div>
+
+  <!-- LOADING -->
+  <div
+    class="loading-box"
+    *ngIf="loading"
+  >
+    Loading orders...
+  </div>
+
+  <!-- ORDERS -->
+  <div class="orders">
+
+    <div
+      class="card"
+      *ngFor="let o of orders"
+    >
+
+      <!-- TOP -->
+      <div class="top">
+
+        <!-- LEFT -->
+        <div>
+
+          <h2>
+            Order #{{o.id}}
+          </h2>
+
+          <div class="meta">
+
+            <p>👤 {{o.name}}</p>
+
+            <p>📞 {{o.phone}}</p>
+
+            <p>📍 {{o.address}}</p>
+
+          </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="top-right">
+
+          <div
+            class="status"
+            [ngClass]="o.status"
+          >
+            {{o.status}}
+          </div>
+
+          <button
+            class="delete-btn"
+            (click)="deleteOrder(o.id)"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- INFO -->
+      <div class="info-grid">
+
+        <div class="info-box">
+
+          <span>Total Amount</span>
+
+          <h3>
+            ৳ {{o.totalAmount}}
+          </h3>
+
+        </div>
+
+        <div class="info-box">
+
+          <span>Payment</span>
+
+          <h3
+            [ngClass]="{
+              'bkash': o.paymentMethod === 'BKASH',
+              'nogod': o.paymentMethod === 'NAGAD'
+            }"
+          >
+            {{o.paymentMethod}}
+          </h3>
+
+        </div>
+
+      </div>
+
+      <!-- ORDER ITEMS -->
+      <div
+        class="items-section"
+        *ngIf="o.items?.length"
+      >
+
+        <h4>
+          Ordered Products
+        </h4>
+
+        <div
+          class="item"
+          *ngFor="let item of o.items"
+        >
+
+          <div class="item-left">
+
+            <p class="product-name">
+              {{item.productName}}
+            </p>
+
+            <span class="product-price">
+              ৳ {{item.price}}
+            </span>
+
+          </div>
+
+          <span class="qty">
+            x{{item.quantity}}
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- DATE -->
+      <div class="date">
+        📅 {{o.createdAt | date:'medium'}}
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

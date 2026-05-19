@@ -1,0 +1,186 @@
+<div class="history-page">
+
+  <!-- HEADER -->
+  <div class="header">
+
+    <div>
+
+      <p class="mini-title">
+        INVENTORY HISTORY
+      </p>
+
+      <h1>
+        Purchase History
+      </h1>
+
+      <span>
+        Track supplier purchases and stock updates
+      </span>
+
+    </div>
+
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-bar">
+
+    <input
+      type="text"
+      placeholder="Search supplier..."
+      [(ngModel)]="searchText"
+      (input)="search()"
+    />
+
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-grid">
+
+    <div class="summary-card purchase">
+
+      <p>Total Purchase</p>
+
+      <h2>
+        ৳ {{ totalPurchase | number }}
+      </h2>
+
+    </div>
+
+    <div class="summary-card profit">
+
+      <p>Expected Profit</p>
+
+      <h2>
+        ৳ {{ totalProfit | number }}
+      </h2>
+
+    </div>
+
+  </div>
+
+  <!-- EMPTY -->
+  <div
+    class="empty"
+    *ngIf="!loading && filteredPurchases.length === 0"
+  >
+    No purchase history found
+  </div>
+
+  <!-- PURCHASE -->
+  <div
+    class="purchase-card"
+    *ngFor="let p of filteredPurchases"
+  >
+
+    <!-- TOP -->
+    <div class="card-top">
+
+      <div>
+
+        <h3>
+          {{ p.supplierName }}
+        </h3>
+
+        <div class="meta">
+
+          <span>
+            📞 {{ p.supplierContact }}
+          </span>
+
+          <span>
+            📅 {{ p.createdAt | date:'medium' }}
+          </span>
+
+        </div>
+
+      </div>
+
+      <button
+        class="delete-btn"
+        (click)="deletePurchase(p.id)"
+      >
+        Delete
+      </button>
+
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Buy</th>
+            <th>Sell</th>
+            <th>Profit</th>
+            <th>Stock</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr
+            *ngFor="let item of p.items"
+          >
+
+            <td>
+              {{ item.productName }}
+            </td>
+
+            <td>
+              {{ item.quantity }}
+            </td>
+
+            <td>
+              ৳ {{ item.unitPrice }}
+            </td>
+
+            <td>
+              ৳ {{ item.sellPrice }}
+            </td>
+
+            <td class="profit-text">
+
+              ৳
+              {{
+                (item.sellPrice - item.unitPrice)
+                * item.quantity
+              }}
+
+            </td>
+
+            <td>
+              {{ item.stock }}
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+
+      <div class="invoice">
+        Invoice Total
+      </div>
+
+      <div class="amount">
+        ৳ {{ p.totalAmount }}
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

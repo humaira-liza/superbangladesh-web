@@ -1,0 +1,193 @@
+<div class="inventory-page">
+
+  <!-- HEADER -->
+  <div class="header">
+
+    <h1>
+      📦 Inventory Management
+    </h1>
+
+    <p>
+      Monitor stock levels and refill products
+    </p>
+
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-grid">
+
+    <!-- LOW STOCK -->
+    <div
+      class="summary-card yellow clickable"
+      (click)="scrollToSection('lowStockSection')"
+    >
+
+      <h2>
+        {{ lowStock.length }}
+      </h2>
+
+      <p>
+        Low Stock Products
+      </p>
+
+    </div>
+
+    <!-- OUT OF STOCK -->
+    <div
+      class="summary-card red clickable"
+      (click)="scrollToSection('outStockSection')"
+    >
+
+      <h2>
+        {{ outOfStock.length }}
+      </h2>
+
+      <p>
+        Out Of Stock
+      </p>
+
+    </div>
+
+    <!-- ALERTS -->
+    <div
+      class="summary-card blue clickable"
+      (click)="scrollToSection('alertsSection')"
+    >
+
+      <h2>
+        {{ lowStock.length + outOfStock.length }}
+      </h2>
+
+      <p>
+        Inventory Alerts
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- LOADING -->
+  @if (loading) {
+
+    <div class="loading">
+
+      Loading inventory...
+
+    </div>
+
+  }
+
+  <!-- ALERT SECTION -->
+  <div id="alertsSection"></div>
+
+  <!-- OUT OF STOCK -->
+  @if (!loading && outOfStock.length > 0) {
+
+    <div id="outStockSection">
+
+      <h2 class="sub-title">
+
+        Out Of Stock
+
+      </h2>
+
+      <div class="inventory-grid">
+
+        @for (p of outOfStock; track p.id) {
+
+          <div class="inventory-card">
+
+            <img
+              [src]="'http://localhost:8081/' + p.imageUrl"
+              alt="product"
+            >
+
+            <h3>
+              {{ p.name }}
+            </h3>
+
+            <p class="meta">
+              {{ p.quantity }}
+              {{ p.unit }}
+            </p>
+
+            <div class="badge danger">
+
+              Out Of Stock
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    </div>
+
+  }
+
+  <!-- LOW STOCK -->
+  @if (!loading && lowStock.length > 0) {
+
+    <div id="lowStockSection">
+
+      <h2 class="sub-title">
+
+        Low Stock
+
+      </h2>
+
+      <div class="inventory-grid">
+
+        @for (p of lowStock; track p.id) {
+
+          <div class="inventory-card">
+
+            <img
+              [src]="'http://localhost:8081/' + p.imageUrl"
+              alt="product"
+            >
+
+            <h3>
+              {{ p.name }}
+            </h3>
+
+            <p class="meta">
+              {{ p.quantity }}
+              {{ p.unit }}
+            </p>
+
+            <div class="badge warning">
+
+              Stock Left:
+              {{ p.stock }}
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    </div>
+
+  }
+
+  <!-- EMPTY -->
+  @if (
+    !loading &&
+    lowStock.length === 0 &&
+    outOfStock.length === 0
+  ) {
+
+    <div class="empty-box">
+
+      ✅ All inventory products are in stock
+
+    </div>
+
+  }
+
+</div>

@@ -1,0 +1,162 @@
+<div class="orders-page">
+
+  <!-- HEADER -->
+  <div class="header">
+
+    <h1>📦 Order Management</h1>
+
+    <p>
+      Manage customer orders and delivery workflow
+    </p>
+
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-grid">
+
+    <!-- TOTAL -->
+    <div class="summary-card total-card">
+
+      <h3>Total Orders</h3>
+
+      <h2>{{ orders.length }}</h2>
+
+      <span>All customer orders</span>
+
+    </div>
+
+    <!-- REVENUE -->
+    <div class="summary-card revenue-card">
+
+      <h3>Total Revenue</h3>
+
+      <h2>৳ {{ totalAmount }}</h2>
+
+      <span>Completed order earnings</span>
+
+    </div>
+
+    <!-- PROCESSING -->
+    <div class="summary-card processing-card">
+
+      <h3>Processing</h3>
+
+      <h2>
+        {{
+          orders.filter(o => o.status === 'PROCESSING').length
+        }}
+      </h2>
+
+      <span>Orders in progress</span>
+
+    </div>
+
+    <!-- DONE -->
+    <div class="summary-card done-card">
+
+      <h3>Completed</h3>
+
+      <h2>
+        {{
+          orders.filter(o => o.status === 'DONE').length
+        }}
+      </h2>
+
+      <span>Delivered successfully</span>
+
+    </div>
+
+  </div>
+
+  <!-- EMPTY -->
+  <div
+    *ngIf="orders.length === 0"
+    class="empty"
+  >
+
+    No orders found
+
+  </div>
+
+  <!-- ORDERS -->
+  <div class="grid">
+
+    <div
+      *ngFor="let o of orders"
+      class="order-card"
+    >
+
+      <!-- TOP -->
+      <div class="top">
+
+        <div>
+
+          <h3>
+            Order #{{ o.id }}
+          </h3>
+
+          <p class="customer">
+            Customer Order
+          </p>
+
+          <p class="date">
+
+            {{ o.createdAt | date:'medium' }}
+
+          </p>
+
+        </div>
+
+        <span
+          class="status-text {{o.status}}"
+        >
+
+          {{o.status}}
+
+        </span>
+
+      </div>
+
+      <!-- BODY -->
+      <div class="body">
+
+        <div class="amount-box">
+
+          <span>Total Amount</span>
+
+          <h2>
+            ৳ {{ o.totalAmount }}
+          </h2>
+
+        </div>
+
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="actions">
+
+        <button
+          class="toggle-btn"
+          (click)="updateStatus(o)"
+        >
+
+          Update Status
+
+        </button>
+
+        <button
+          class="delete-btn"
+          (click)="delete(o.id)"
+        >
+
+          Delete
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

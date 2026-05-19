@@ -1,0 +1,328 @@
+<div class="checkout-page">
+
+  <!-- PAGE HEADER -->
+
+  <div class="checkout-header">
+
+    <div>
+
+      <p class="mini-title">
+        SECURE CHECKOUT
+      </p>
+
+      <h1 class="page-title">
+
+        <i class="fa-solid fa-bag-shopping"></i>
+
+        Checkout
+
+      </h1>
+
+      <span class="sub-title">
+        Complete your order details & payment
+      </span>
+
+    </div>
+
+    <!-- TOP SUMMARY -->
+
+    <div class="top-summary">
+
+      <div class="top-box">
+
+        <span>Items</span>
+
+        <h3>
+          {{ items.length }}
+        </h3>
+
+      </div>
+
+      <div class="top-box">
+
+        <span>Total</span>
+
+        <h3>
+          ৳ {{ total + 60 }}
+        </h3>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- GRID -->
+
+  <div class="checkout-grid">
+
+    <!-- LEFT -->
+
+    <div class="checkout-card">
+
+      <!-- SHIPPING -->
+
+      <div class="section-header">
+
+        <i class="fa-solid fa-location-dot"></i>
+
+        <h2>
+          Shipping Details
+        </h2>
+
+      </div>
+
+      <!-- NAME -->
+
+      <div class="form-group">
+
+        <label>Full Name</label>
+
+        <input
+          [(ngModel)]="name"
+          placeholder="Enter your full name"
+        />
+
+      </div>
+
+      <!-- PHONE -->
+
+      <div class="form-group">
+
+        <label>Phone Number</label>
+
+        <input
+          [(ngModel)]="phone"
+          placeholder="Enter your phone number"
+        />
+
+      </div>
+
+      <!-- ADDRESS -->
+
+      <div class="form-group">
+
+        <label>Delivery Address</label>
+
+        <textarea
+          [(ngModel)]="address"
+          placeholder="Write your complete address">
+        </textarea>
+
+      </div>
+
+      <!-- PAYMENT -->
+
+      <div class="payment-section">
+
+        <div class="section-header">
+
+          <i class="fa-solid fa-credit-card"></i>
+
+          <h2>
+            Payment Method
+          </h2>
+
+        </div>
+
+        <div class="payment-options">
+
+          <!-- BKASH -->
+
+          <label class="payment-card">
+
+            <input
+              type="radio"
+              name="payment"
+              value="BKASH"
+              [(ngModel)]="payment"
+            >
+
+            <img
+              src="https://download.logo.wine/logo/BKash/BKash-Logo.wine.png"
+              alt="bKash"
+            >
+
+            <span>bKash</span>
+
+          </label>
+
+          <!-- NAGAD -->
+
+          <label class="payment-card">
+
+            <input
+              type="radio"
+              name="payment"
+              value="NAGAD"
+              [(ngModel)]="payment"
+            >
+
+            <img
+              src="https://download.logo.wine/logo/Nagad/Nagad-Logo.wine.png"
+              alt="Nagad"
+            >
+
+            <span>Nagad</span>
+
+          </label>
+
+          <!-- COD -->
+
+          <label class="payment-card">
+
+            <input
+              type="radio"
+              name="payment"
+              value="COD"
+              [(ngModel)]="payment"
+            >
+
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/2489/2489756.png"
+              alt="Cash On Delivery"
+            >
+
+            <span>Cash On Delivery</span>
+
+          </label>
+
+        </div>
+
+      </div>
+
+      <!-- MAP -->
+
+      <div class="map-section">
+
+        <div class="section-header">
+
+          <i class="fa-solid fa-map-location-dot"></i>
+
+          <h2>
+            Delivery Location
+          </h2>
+
+        </div>
+
+        <iframe
+          width="100%"
+          height="280"
+          style="border:0;border-radius:22px"
+          loading="lazy"
+          src="https://www.google.com/maps?q=dhaka&output=embed">
+        </iframe>
+
+      </div>
+
+      <!-- BUTTON -->
+
+      <button
+        class="order-btn"
+        (click)="placeOrder()"
+      >
+
+        <i class="fa-solid fa-check"></i>
+
+        Place Order
+
+      </button>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="summary-card">
+
+      <div class="summary-top">
+
+        <div>
+
+          <p class="summary-mini">
+            ORDER DETAILS
+          </p>
+
+          <h2>
+            Order Summary
+          </h2>
+
+        </div>
+
+      </div>
+
+      <!-- ITEMS -->
+
+      <div
+        class="summary-item"
+        *ngFor="let p of items"
+      >
+
+        <div class="summary-left">
+
+          <div class="product-icon">
+
+            {{ p.name.charAt(0) }}
+
+          </div>
+
+          <div>
+
+            <h4>
+              {{ p.name }}
+            </h4>
+
+            <p>
+              Qty × {{ p.qty }}
+            </p>
+
+          </div>
+
+        </div>
+
+        <strong>
+          ৳ {{ p.price * (p.qty || 1) }}
+        </strong>
+
+      </div>
+
+      <!-- PRICE -->
+
+      <div class="price-box">
+
+        <div class="price-row">
+
+          <span>Subtotal</span>
+
+          <strong>
+            ৳ {{ total }}
+          </strong>
+
+        </div>
+
+        <div class="price-row">
+
+          <span>Delivery</span>
+
+          <strong>
+            ৳ 60
+          </strong>
+
+        </div>
+
+        <div class="price-row final-row">
+
+          <span>Total</span>
+
+          <h3>
+            ৳ {{ total + 60 }}
+          </h3>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

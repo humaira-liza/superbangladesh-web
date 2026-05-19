@@ -1,0 +1,212 @@
+<div class="page">
+
+  <app-banner></app-banner>
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <app-sidebar
+      (categoryClick)="onCategory($event)"
+      (allProducts)="onAllProducts()">
+    </app-sidebar>
+
+    <!-- RIGHT -->
+    <div class="products-section">
+
+      <!-- BREADCRUMB -->
+      <div
+        class="breadcrumb"
+        *ngIf="breadcrumb.length > 0">
+
+        <span
+          *ngFor="
+            let b of breadcrumb;
+            let last = last
+          ">
+
+          {{ b }}
+
+          <span *ngIf="!last">
+            >
+          </span>
+
+        </span>
+
+      </div>
+
+      <!-- CATEGORY GRID -->
+      <div
+        *ngIf="viewMode === 'categories'"
+        class="product-grid">
+
+        <div
+          *ngFor="
+            let c of selectedCategory?.children
+          "
+          class="product-card category-card"
+
+          (click)="onCategory({
+
+            id: c.id,
+
+            name: c.name,
+
+            imageUrl:
+              c.imageUrl || c.image_url,
+
+            children:
+              c.children || [],
+
+            parentName:
+              selectedCategory?.name,
+
+            mainName:
+              breadcrumb[0],
+
+            level:
+              c.children &&
+              c.children.length > 0
+                ? 'sub'
+                : 'child'
+          })">
+
+          <!-- IMAGE -->
+          <div class="image-box">
+
+            <img
+              [src]="
+                getCategoryImage(
+                  c.imageUrl || c.image_url
+                )
+              "
+
+              (error)="
+                onImgError($event)
+              "
+            />
+
+          </div>
+
+          <!-- NAME -->
+          <h3>
+            {{ c.name }}
+          </h3>
+
+        </div>
+
+      </div>
+
+      <!-- PRODUCTS -->
+      <div
+        *ngIf="viewMode === 'products'"
+        class="product-grid">
+
+        <div
+          *ngFor="
+            let p of filtered
+          "
+          class="product-card"
+          [class.out-product]="p.stock <= 0">
+
+          <!-- IMAGE -->
+          <div class="image-box">
+
+            <!-- OUT OF STOCK -->
+            <div
+              class="out-badge"
+              *ngIf="p.stock <= 0">
+
+              Out Of Stock
+
+            </div>
+
+            <img
+              [src]="
+                getImage(
+                  p.imageUrl || p.image_url
+                )
+              "
+
+              (error)="
+                onImgError($event)
+              "
+            />
+
+            <!-- ADD BUTTON -->
+            <button
+              class="add-btn"
+
+              (click)="
+                addToCart(p)
+              ">
+
+              +
+
+            </button>
+
+          </div>
+
+          <!-- PRICE -->
+          <div class="price-line">
+
+            <!-- CURRENT PRICE -->
+            <span class="price">
+
+              ৳{{ p.price }}
+
+            </span>
+
+            <!-- OLD PRICE -->
+            <span class="old-price">
+
+              ৳{{ p.price + 20 }}
+
+            </span>
+
+          </div>
+
+          <!-- NAME -->
+          <h3>
+
+            {{ p.name }}
+
+          </h3>
+
+          <!-- UNIT -->
+          <p
+            class="unit"
+            *ngIf="p.quantity && p.unit">
+
+            {{ p.quantity }} {{ p.unit }}
+
+          </p>
+
+          <!-- DELIVERY -->
+          <p class="delivery">
+
+            🕒 Delivery in 1 hour
+
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- EMPTY -->
+      <div
+        *ngIf="
+          viewMode === 'products' &&
+          !loading &&
+          filtered.length === 0
+        "
+        class="empty">
+
+        ❌ No products found
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,167 @@
+<div class="sidebar">
+
+  <div class="title">
+    Categories
+  </div>
+
+  <!-- ALL PRODUCTS -->
+
+  <div
+    class="item"
+    [class.active]="selectedId === 0"
+
+    (click)="handleAll($event)">
+
+    🛍️ All Products
+
+  </div>
+
+  <!-- MAIN CATEGORY -->
+
+  <div
+    *ngFor="
+      let c of categories
+    ">
+
+    <div
+      class="item"
+
+      [class.active]="
+        selectedId === c.id
+      "
+
+      (click)="
+        handleMain(c, $event)
+      ">
+
+      {{ c.name }}
+
+      <span
+        *ngIf="
+          c.children?.length
+        ">
+        ▶
+      </span>
+
+    </div>
+
+    <!-- SUB CATEGORY -->
+
+    <div
+      *ngIf="
+        expandedMain === c.id
+      "
+
+      class="sub">
+
+      <div
+        *ngFor="
+          let s of c.children
+        ">
+
+        <div
+          class="sub-item"
+
+          [class.active]="
+            selectedId === s.id
+          "
+
+          (click)="
+            handleSub(
+              s,
+              c,
+              $event
+            )
+          ">
+
+          {{ s.name }}
+
+          <span
+            *ngIf="
+              s.children?.length
+            ">
+            ▶
+          </span>
+
+        </div>
+
+        <!-- CHILD CATEGORY -->
+
+        <div
+          *ngIf="
+            expandedSub === s.id
+          "
+
+          class="child">
+
+          <div
+            *ngFor="
+              let ch of s.children
+            "
+
+            class="child-item"
+
+            [class.active]="
+              selectedId === ch.id
+            "
+
+            (click)="
+              handleChild(
+                ch,
+                s,
+                c,
+                $event
+              )
+            ">
+
+            {{ ch.name }}
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- EXTRA -->
+
+  <div class="extra">
+
+    <div
+      class="link"
+      routerLink="/safety">
+
+      🛡️ Safety Center
+
+    </div>
+
+    <div
+      class="link"
+      routerLink="/premium">
+
+      🥇 Premium Care
+
+    </div>
+
+    <div
+      class="link"
+      routerLink="/help">
+
+      📞 Help
+
+    </div>
+
+    <div
+      class="link"
+      routerLink="/complaint">
+
+      ⚠️ File a complaint
+
+    </div>
+
+  </div>
+
+</div>

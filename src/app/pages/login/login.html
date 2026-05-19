@@ -1,0 +1,36 @@
+<div class="login-wrapper">
+
+  <form class="login-card" (ngSubmit)="submit()">
+
+    <h2>Login</h2>
+
+    <input 
+      [(ngModel)]="email"
+      name="email"
+      type="email"
+      placeholder="Email"
+      required>
+
+    <!-- 🔐 PASSWORD WITH EYE -->
+    <div class="password-field">
+
+      <input 
+        [(ngModel)]="password"
+        name="password"
+        [type]="showPassword ? 'text' : 'password'"
+        placeholder="Password"
+        required>
+
+      <span class="eye" (click)="togglePassword()">
+        {{ showPassword ? '🙈' : '👁️' }}
+      </span>
+
+    </div>
+
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Logging in...' : 'Login' }}
+    </button>
+
+  </form>
+
+</div>

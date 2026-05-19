@@ -1,0 +1,209 @@
+<div class="analytics-page">
+
+  <!-- HEADER -->
+
+  <div class="header">
+
+    <div>
+
+      <p class="mini-title">
+        BUSINESS INSIGHTS
+      </p>
+
+      <h1>
+        📊 Revenue Analytics
+      </h1>
+
+      <p>
+        Track sales performance and revenue growth
+      </p>
+
+    </div>
+
+    <div class="header-actions">
+
+      <button routerLink="/admin/dashboard">
+        <i class="fa-solid fa-house"></i>
+        Dashboard
+      </button>
+
+      <button routerLink="/admin/orders">
+        <i class="fa-solid fa-box"></i>
+        Orders
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- STATS -->
+
+  <div class="stats-grid">
+
+    <!-- REVENUE -->
+
+    <div
+      class="stat-card revenue clickable"
+      routerLink="/admin/analytics"
+    >
+
+      <div class="top">
+
+        <h3>Total Revenue</h3>
+
+        <span>💰</span>
+
+      </div>
+
+      <h2>
+        ৳ {{ revenue }}
+      </h2>
+
+      <p>
+        Completed sales earnings
+      </p>
+
+    </div>
+
+    <!-- ORDERS -->
+
+    <div
+      class="stat-card orders clickable"
+      routerLink="/admin/orders"
+    >
+
+      <div class="top">
+
+        <h3>Total Orders</h3>
+
+        <span>📦</span>
+
+      </div>
+
+      <h2>
+        {{ orders }}
+      </h2>
+
+      <p>
+        Successful customer orders
+      </p>
+
+    </div>
+
+    <!-- CUSTOMERS -->
+
+    <div
+      class="stat-card customers clickable"
+      routerLink="/admin/orders"
+    >
+
+      <div class="top">
+
+        <h3>Customers</h3>
+
+        <span>👥</span>
+
+      </div>
+
+      <h2>
+        {{ customers }}
+      </h2>
+
+      <p>
+        Active buyers
+      </p>
+
+    </div>
+
+    <!-- GROWTH -->
+
+    <div
+      class="stat-card growth clickable"
+      routerLink="/admin/dashboard"
+    >
+
+      <div class="top">
+
+        <h3>Growth</h3>
+
+        <span>📈</span>
+
+      </div>
+
+      <h2>
+        {{ growth }}%
+      </h2>
+
+      <p>
+        Monthly business growth
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- SUMMARY -->
+
+  <div class="summary">
+
+    <div class="summary-top">
+
+      <h2>
+        📈 Revenue Summary
+      </h2>
+
+      <div class="summary-badge">
+        LIVE REPORT
+      </div>
+
+    </div>
+
+    <p>
+      Your business generated
+      <b>৳ {{ revenue }}</b>
+      revenue from
+      <b>{{ orders }}</b>
+      completed orders.
+    </p>
+
+    <p>
+      Customer activity and order flow are increasing steadily.
+    </p>
+
+    <div class="summary-grid">
+
+      <div class="mini-box">
+
+        <span>Average Order Value</span>
+
+        <h3>
+          ৳ {{ (revenue / orders) | number:'1.0-0' }}
+        </h3>
+
+      </div>
+
+      <div class="mini-box">
+
+        <span>Total Customers</span>
+
+        <h3>
+          {{ customers }}
+        </h3>
+
+      </div>
+
+      <div class="mini-box">
+
+        <span>Growth Rate</span>
+
+        <h3>
+          {{ growth }}%
+        </h3>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

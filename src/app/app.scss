@@ -1,0 +1,32 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #7b2ff7, #9b4dff);
+  padding: 12px 20px;
+  color: white;
+}
+
+.search input {
+  padding: 6px;
+  border-radius: 6px;
+  border: none;
+}
+
+.search button {
+  margin-left: 5px;
+  padding: 6px 10px;
+}
+
+.menu a {
+  margin-left: 15px;
+  color: white;
+  text-decoration: none;
+}
+
+.badge {
+  background: red;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-size: 12px;
+}

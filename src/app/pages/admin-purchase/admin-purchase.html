@@ -1,0 +1,52 @@
+<div class="container">
+
+  <h2>📦 Purchase Management</h2>
+
+  <!-- 🔥 ADD PURCHASE -->
+  <div class="form">
+
+    <input [(ngModel)]="supplierName" placeholder="Supplier Name">
+    <input [(ngModel)]="supplierContact" placeholder="Contact">
+    <input [(ngModel)]="notes" placeholder="Notes">
+
+    <button (click)="addItem()">+ Add Item</button>
+
+    <div *ngFor="let i of items">
+      <input [(ngModel)]="i.productId" placeholder="Product ID">
+      <input [(ngModel)]="i.quantity" placeholder="Qty">
+      <input [(ngModel)]="i.unitPrice" placeholder="Price">
+    </div>
+
+    <button (click)="submit()">Submit Purchase</button>
+  </div>
+
+  <hr>
+
+  <!-- 🔥 EMPTY -->
+  <div *ngIf="orders.length === 0">
+    No Purchase Found ❌
+  </div>
+
+  <!-- 🔥 LIST -->
+  <div *ngFor="let o of orders" class="card">
+
+    <h3>Order #{{o.id}}</h3>
+
+    <p><b>Supplier:</b> {{o.supplierName}}</p>
+    <p><b>Total:</b> ৳ {{o.totalAmount}}</p>
+    <p><b>Date:</b> {{o.createdAt}}</p>
+
+    <div *ngFor="let item of o.items">
+      <p>
+        🛒 {{item.productName}} |
+        Qty: {{item.quantity}} |
+        Stock: {{item.stock}}
+      </p>
+    </div>
+
+    <button (click)="editOrder(o)">Edit</button>
+    <button (click)="delete(o.id)">Delete</button>
+
+  </div>
+
+</div>

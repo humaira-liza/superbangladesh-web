@@ -1,0 +1,27 @@
+.floating-cart{
+  position:fixed;
+  right:20px;
+  top:300px;
+  width:120px;
+  background:#6f42c1;
+  color:white;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+
+.cart-icon{
+  font-size:30px;
+  margin-bottom:5px;
+}
+
+.floating-cart a{
+  display:block;
+  margin-top:10px;
+  color:white;
+  text-decoration:none;
+  background:#28a745;
+  padding:5px;
+  border-radius:5px;
+}

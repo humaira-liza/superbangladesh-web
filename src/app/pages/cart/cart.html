@@ -1,0 +1,193 @@
+<div class="cart-page">
+
+  <!-- HEADER -->
+
+  <div class="cart-header">
+
+    <div>
+
+      <p class="mini-title">
+        SHOPPING CART
+      </p>
+
+      <h1 class="title">
+
+        <i class="fa-solid fa-cart-shopping"></i>
+
+        My Cart
+
+      </h1>
+
+      <span class="sub">
+        Review your selected products before checkout
+      </span>
+
+    </div>
+
+    <!-- TOP SUMMARY -->
+
+    <div class="cart-summary">
+
+      <div class="summary-box">
+
+        <span>Items</span>
+
+        <h3>
+          {{ items.length }}
+        </h3>
+
+      </div>
+
+      <div class="summary-box">
+
+        <span>Total</span>
+
+        <h3>
+          ৳ {{ getTotal() }}
+        </h3>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- EMPTY -->
+
+  <div
+    *ngIf="items.length === 0"
+    class="empty"
+  >
+
+    <i class="fa-solid fa-cart-shopping"></i>
+
+    <h2>
+      Your cart is empty
+    </h2>
+
+    <p>
+      Add products to continue shopping
+    </p>
+
+  </div>
+
+  <!-- CART LAYOUT -->
+
+  <div
+    class="cart-layout"
+    *ngIf="items.length > 0"
+  >
+
+    <!-- LEFT SIDE -->
+
+    <div class="cart-list">
+
+      <div
+        class="cart-item"
+        *ngFor="let p of items"
+      >
+
+        <!-- ICON -->
+
+        <div class="icon">
+
+          {{ p.name[0] }}
+
+        </div>
+
+        <!-- INFO -->
+
+        <div class="info">
+
+          <h4>
+            {{ p.name }}
+          </h4>
+
+          <p>
+            ৳ {{ p.price }}
+          </p>
+
+        </div>
+
+        <!-- QTY -->
+
+        <div class="qty">
+
+          <button (click)="dec(p)">
+            −
+          </button>
+
+          <span>
+            {{ p.qty }}
+          </span>
+
+          <button (click)="inc(p)">
+            +
+          </button>
+
+        </div>
+
+        <!-- TOTAL -->
+
+        <div class="total">
+
+          ৳ {{ p.price * (p.qty || 1) }}
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+
+    <div class="checkout-box">
+
+      <h2>
+        Order Summary
+      </h2>
+
+      <div class="summary-row">
+
+        <span>Subtotal</span>
+
+        <strong>
+          ৳ {{ getTotal() }}
+        </strong>
+
+      </div>
+
+      <div class="summary-row">
+
+        <span>Delivery</span>
+
+        <strong>
+          ৳ 60
+        </strong>
+
+      </div>
+
+      <div class="summary-row total-row">
+
+        <span>Total</span>
+
+        <strong>
+          ৳ {{ getTotal() + 60 }}
+        </strong>
+
+      </div>
+
+      <button
+        class="checkout-btn"
+        (click)="goCheckout()"
+      >
+
+        Proceed to Checkout
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

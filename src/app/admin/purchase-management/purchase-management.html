@@ -1,0 +1,304 @@
+<div class="purchase-page">
+
+  <!-- HERO HEADER -->
+  <div class="hero-section">
+
+    <div>
+
+      <div class="mini-title">
+        INVENTORY CONTROL
+      </div>
+
+      <h1>
+        Purchase Management
+      </h1>
+
+      <p>
+        Manage supplier purchases, stock updates and pricing
+      </p>
+
+    </div>
+
+    <button
+      class="top-save-btn"
+      (click)="savePurchase()"
+    >
+      💾 Save Purchase
+    </button>
+
+  </div>
+
+  <!-- SUPPLIER CARD -->
+  <div class="section-card">
+
+    <div class="section-title">
+      Supplier Information
+    </div>
+
+    <div class="supplier-grid">
+
+      <!-- NAME -->
+      <div class="field">
+
+        <label>
+          Supplier Name
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="purchase.supplierName"
+          placeholder="Enter supplier name"
+        />
+
+      </div>
+
+      <!-- CONTACT -->
+      <div class="field">
+
+        <label>
+          Contact Number
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="purchase.supplierContact"
+          placeholder="Enter contact number"
+        />
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- PRODUCT ITEMS -->
+  <div
+    class="item-card"
+    *ngFor="let item of purchase.items; let i = index"
+  >
+
+    <div class="item-header">
+
+      <h3>
+        Product Item
+      </h3>
+
+      <button
+        class="remove-btn"
+        (click)="removeItem(i)"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <div class="item-grid">
+
+      <!-- CATEGORY -->
+      <div class="field">
+
+        <label>
+          Category
+        </label>
+
+        <select [(ngModel)]="item.category">
+
+          <option value="">
+            Select Category
+          </option>
+
+          <option
+            *ngFor="let c of categories"
+            [value]="c"
+          >
+            {{ c }}
+          </option>
+
+        </select>
+
+      </div>
+
+      <!-- PRODUCT -->
+      <div class="field product-field">
+
+        <label>
+          Search Product
+        </label>
+
+        <input
+          type="text"
+          placeholder="Search product..."
+          [(ngModel)]="item.search"
+        />
+
+        <!-- PRODUCT LIST -->
+        <div
+          class="product-dropdown"
+
+          *ngIf="
+            item.search ||
+            item.category
+          "
+        >
+
+          <div
+            class="product-option"
+
+            *ngFor="
+              let p of getFilteredProducts(item)
+            "
+
+            [class.active]="
+              item.productId == p.id
+            "
+
+            (click)="selectProduct(item, p)"
+          >
+
+            <!-- LEFT -->
+            <div class="product-left">
+
+              <div class="serial">
+                {{ p.id }}
+              </div>
+
+              <img
+                [src]="
+                  'http://localhost:8081/'
+                  + p.imageUrl
+                "
+              />
+
+              <div class="details">
+
+                <h4>
+                  {{ p.name }}
+                </h4>
+
+                <div class="cat">
+                  {{ p.category?.name }}
+                </div>
+
+                <div class="stock">
+
+                  Stock:
+                  {{ p.stock }}
+
+                  {{ p.unit }}
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- QTY -->
+      <div class="field">
+
+        <label>
+          Quantity
+        </label>
+
+        <div class="qty-wrapper">
+
+          <input
+            type="number"
+            [(ngModel)]="item.quantity"
+          />
+
+          <div class="unit-box">
+
+            {{
+              getSelectedProduct(
+                item.productId
+              )?.unit || 'Piece'
+            }}
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- BUY -->
+      <div class="field">
+
+        <label>
+          Buy Price
+        </label>
+
+        <input
+          type="number"
+          [(ngModel)]="item.unitPrice"
+        />
+
+      </div>
+
+      <!-- SELL -->
+      <div class="field">
+
+        <label>
+          Sell Price
+        </label>
+
+        <input
+          type="number"
+          [(ngModel)]="item.sellPrice"
+        />
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ACTION -->
+  <button
+    class="add-btn"
+    (click)="addItem()"
+  >
+    + Add New Product
+  </button>
+
+  <!-- SUMMARY -->
+  <div class="summary-grid">
+
+    <!-- TOTAL -->
+    <div class="summary-card blue">
+
+      <div class="summary-label">
+        Total Purchase
+      </div>
+
+      <div class="summary-value">
+
+        ৳ {{ getTotal() }}
+
+      </div>
+
+    </div>
+
+    <!-- PROFIT -->
+    <div class="summary-card green">
+
+      <div class="summary-label">
+        Expected Profit
+      </div>
+
+      <div class="summary-value">
+
+        ৳ {{ getProfit() }}
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
