@@ -45,7 +45,7 @@ export class Orders implements OnInit {
     this.loading = true;
 
     this.http.get<any[]>(
-      'http://localhost:8081/api/orders/my',
+      'http://superbangladesh-api-1.onrender.com/api/orders/my',
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -84,7 +84,7 @@ export class Orders implements OnInit {
     const token = localStorage.getItem('token');
 
     this.http.delete(
-      `http://localhost:8081/api/orders/${id}`,
+      `http://superbangladesh-api-1.onrender.com/api/orders/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`

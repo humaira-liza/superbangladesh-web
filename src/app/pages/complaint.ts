@@ -143,7 +143,7 @@ export class Complaint {
     message: this.message
   };
 
-  this.http.post('http://localhost:8081/api/complaints', data)
+  this.http.post('http://superbangladesh-api-1.onrender.com/api/complaints', data)
     .subscribe({
       next: () => {
         this.success = true;

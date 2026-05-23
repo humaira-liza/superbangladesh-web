@@ -50,7 +50,7 @@ export class Dashboard implements OnInit {
       localStorage.getItem('email');
 
     this.http.get<any>(
-      `http://localhost:8081/api/dashboard?email=${email}`
+      `http://superbangladesh-api-1.onrender.com/api/dashboard?email=${email}`
     )
     .subscribe({
 

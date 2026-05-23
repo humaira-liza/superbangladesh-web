@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PurchaseService {
 
-  API = 'http://localhost:8081/api/purchases';
+  API = 'http://superbangladesh-api-1.onrender.com/api/purchases';
 
   constructor(private http: HttpClient) {}
 

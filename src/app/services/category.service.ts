@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CategoryService {
 
-  private API = 'http://localhost:8081/api/categories';
+  private API = 'http://superbangladesh-api-1.onrender.com/api/categories';
 
   constructor(private http: HttpClient) {}
 

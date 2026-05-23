@@ -19,10 +19,7 @@
 
     </div>
 
-    <button
-      class="top-save-btn"
-      (click)="savePurchase()"
-    >
+    <button class="top-save-btn" (click)="savePurchase()">
       💾 Save Purchase
     </button>
 
@@ -44,11 +41,7 @@
           Supplier Name
         </label>
 
-        <input
-          type="text"
-          [(ngModel)]="purchase.supplierName"
-          placeholder="Enter supplier name"
-        />
+        <input type="text" [(ngModel)]="purchase.supplierName" placeholder="Enter supplier name" />
 
       </div>
 
@@ -59,11 +52,7 @@
           Contact Number
         </label>
 
-        <input
-          type="text"
-          [(ngModel)]="purchase.supplierContact"
-          placeholder="Enter contact number"
-        />
+        <input type="text" [(ngModel)]="purchase.supplierContact" placeholder="Enter contact number" />
 
       </div>
 
@@ -72,10 +61,7 @@
   </div>
 
   <!-- PRODUCT ITEMS -->
-  <div
-    class="item-card"
-    *ngFor="let item of purchase.items; let i = index"
-  >
+  <div class="item-card" *ngFor="let item of purchase.items; let i = index">
 
     <div class="item-header">
 
@@ -83,10 +69,7 @@
         Product Item
       </h3>
 
-      <button
-        class="remove-btn"
-        (click)="removeItem(i)"
-      >
+      <button class="remove-btn" (click)="removeItem(i)">
         ✕
       </button>
 
@@ -107,10 +90,7 @@
             Select Category
           </option>
 
-          <option
-            *ngFor="let c of categories"
-            [value]="c"
-          >
+          <option *ngFor="let c of categories" [value]="c">
             {{ c }}
           </option>
 
@@ -125,35 +105,19 @@
           Search Product
         </label>
 
-        <input
-          type="text"
-          placeholder="Search product..."
-          [(ngModel)]="item.search"
-        />
+        <input type="text" placeholder="Search product..." [(ngModel)]="item.search" />
 
         <!-- PRODUCT LIST -->
-        <div
-          class="product-dropdown"
-
-          *ngIf="
+        <div class="product-dropdown" *ngIf="
             item.search ||
             item.category
-          "
-        >
+          ">
 
-          <div
-            class="product-option"
-
-            *ngFor="
+          <div class="product-option" *ngFor="
               let p of getFilteredProducts(item)
-            "
-
-            [class.active]="
+            " [class.active]="
               item.productId == p.id
-            "
-
-            (click)="selectProduct(item, p)"
-          >
+            " (click)="selectProduct(item, p)">
 
             <!-- LEFT -->
             <div class="product-left">
@@ -162,12 +126,10 @@
                 {{ p.id }}
               </div>
 
-              <img
-                [src]="
-                  'http://localhost:8081/'
+              <img [src]="
+                  'http://superbangladesh-api-1.onrender.com/'
                   + p.imageUrl
-                "
-              />
+                " />
 
               <div class="details">
 
@@ -207,17 +169,14 @@
 
         <div class="qty-wrapper">
 
-          <input
-            type="number"
-            [(ngModel)]="item.quantity"
-          />
+          <input type="number" [(ngModel)]="item.quantity" />
 
           <div class="unit-box">
 
             {{
-              getSelectedProduct(
-                item.productId
-              )?.unit || 'Piece'
+            getSelectedProduct(
+            item.productId
+            )?.unit || 'Piece'
             }}
 
           </div>
@@ -233,10 +192,7 @@
           Buy Price
         </label>
 
-        <input
-          type="number"
-          [(ngModel)]="item.unitPrice"
-        />
+        <input type="number" [(ngModel)]="item.unitPrice" />
 
       </div>
 
@@ -247,10 +203,7 @@
           Sell Price
         </label>
 
-        <input
-          type="number"
-          [(ngModel)]="item.sellPrice"
-        />
+        <input type="number" [(ngModel)]="item.sellPrice" />
 
       </div>
 
@@ -259,10 +212,7 @@
   </div>
 
   <!-- ACTION -->
-  <button
-    class="add-btn"
-    (click)="addItem()"
-  >
+  <button class="add-btn" (click)="addItem()">
     + Add New Product
   </button>
 

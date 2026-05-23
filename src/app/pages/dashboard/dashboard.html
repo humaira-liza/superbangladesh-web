@@ -43,10 +43,7 @@
 
     <!-- REVENUE -->
 
-    <div
-      class="stat-card revenue"
-      routerLink="/admin/analytics"
-    >
+    <div class="stat-card revenue" routerLink="/admin/analytics">
 
       <div class="card-top">
 
@@ -74,10 +71,7 @@
 
     <!-- PROFIT -->
 
-    <div
-      class="stat-card profit"
-      routerLink="/admin/finance"
-    >
+    <div class="stat-card profit" routerLink="/admin/finance">
 
       <div class="card-top">
 
@@ -105,10 +99,7 @@
 
     <!-- INVEST -->
 
-    <div
-      class="stat-card invest"
-      routerLink="/admin/inventory"
-    >
+    <div class="stat-card invest" routerLink="/admin/inventory">
 
       <div class="card-top">
 
@@ -136,10 +127,7 @@
 
     <!-- ORDERS -->
 
-    <div
-      class="stat-card orders"
-      routerLink="/admin/orders"
-    >
+    <div class="stat-card orders" routerLink="/admin/orders">
 
       <div class="card-top">
 
@@ -167,10 +155,7 @@
 
     <!-- PRODUCTS -->
 
-    <div
-      class="stat-card products"
-      routerLink="/admin/products"
-    >
+    <div class="stat-card products" routerLink="/admin/products">
 
       <div class="card-top">
 
@@ -198,10 +183,7 @@
 
     <!-- COMPLAINTS -->
 
-    <div
-      class="stat-card complaints"
-      routerLink="/admin/complaints"
-    >
+    <div class="stat-card complaints" routerLink="/admin/complaints">
 
       <div class="card-top">
 
@@ -281,14 +263,9 @@
 
     <div class="product-grid">
 
-      <div
-        class="product-card"
-        *ngFor="let p of bestSales"
-      >
+      <div class="product-card" *ngFor="let p of bestSales">
 
-        <img
-          [src]="'http://localhost:8081/' + p.imageUrl"
-        />
+        <img [src]="'http://superbangladesh-api-1.onrender.com/' + p.imageUrl" />
 
         <div class="product-content">
 
@@ -340,14 +317,9 @@
 
       </div>
 
-      <div
-        class="inventory-item low"
-        *ngFor="let p of lowStock"
-      >
+      <div class="inventory-item low" *ngFor="let p of lowStock">
 
-        <img
-          [src]="'http://localhost:8081/' + p.imageUrl"
-        />
+        <img [src]="'http://superbangladesh-api-1.onrender.com/' + p.imageUrl" />
 
         <div>
 
@@ -385,14 +357,9 @@
 
       </div>
 
-      <div
-        class="inventory-item out"
-        *ngFor="let p of outOfStock"
-      >
+      <div class="inventory-item out" *ngFor="let p of outOfStock">
 
-        <img
-          [src]="'http://localhost:8081/' + p.imageUrl"
-        />
+        <img [src]="'http://superbangladesh-api-1.onrender.com/' + p.imageUrl" />
 
         <div>
 

@@ -97,7 +97,7 @@ export class AdminComplaints implements OnInit {
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.http.get<any[]>('http://localhost:8081/api/complaints')
+    this.http.get<any[]>('http://superbangladesh-api-1.onrender.com/api/complaints')
       .subscribe({
         next: (data) => {
 
