@@ -39,7 +39,7 @@ export class PurchaseHistory implements OnInit {
   loadPurchases() {
 
     this.http
-      .get<any[]>('http://superbangladesh-api-1.onrender.com/api/purchases')
+      .get<any[]>('/api/purchases')
       .subscribe({
 
         next: (res) => {
@@ -111,7 +111,7 @@ export class PurchaseHistory implements OnInit {
     if (!ok) return;
 
     this.http
-      .delete(`http://superbangladesh-api-1.onrender.com/api/purchases/${id}`)
+      .delete(`/api/purchases/${id}`)
       .subscribe({
 
         next: () => {

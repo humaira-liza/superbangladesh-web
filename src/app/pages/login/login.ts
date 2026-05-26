@@ -33,7 +33,7 @@ export class LoginComponent {
     this.loading = true;
 
     this.http.post<any>(
-      'http://superbangladesh-api-1.onrender.com/api/auth/login',
+      '/api/auth/login',
       {
         email: this.email,
         password: this.password

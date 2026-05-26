@@ -20,7 +20,7 @@ export class AdminOrders implements OnInit {
   totalAmount = 0;
   loading = true;
 
-  API = 'http://superbangladesh-api-1.onrender.com/api/orders';
+  API = '/api/orders';
 
   constructor(
     private http: HttpClient,

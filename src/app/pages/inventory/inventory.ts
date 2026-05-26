@@ -42,7 +42,7 @@ export class Inventory implements OnInit {
     console.log('EMAIL:', email);
 
     this.http.get<any>(
-      `http://superbangladesh-api-1.onrender.com/api/dashboard?email=${email}`
+      `/api/dashboard?email=${email}`
     )
     .subscribe({
 

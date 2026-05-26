@@ -100,7 +100,7 @@ export class Checkout implements OnInit {
 
     this.http.post(
 
-      'http://superbangladesh-api-1.onrender.com/api/orders',
+      '/api/orders',
 
       orderData,
 

@@ -19,7 +19,7 @@ export interface Product {
 @Injectable({ providedIn: 'root' })
 export class ProductService {
 
-  private apiUrl = 'http://superbangladesh-api-1.onrender.com/api/products';
+  private apiUrl = '/api/products';
 
   constructor(private http: HttpClient) {}
 

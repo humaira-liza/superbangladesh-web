@@ -265,7 +265,7 @@
 
       <div class="product-card" *ngFor="let p of bestSales">
 
-        <img [src]="'http://superbangladesh-api-1.onrender.com/' + p.imageUrl" />
+        <img [src]="'/' + p.imageUrl" />
 
         <div class="product-content">
 
@@ -319,7 +319,7 @@
 
       <div class="inventory-item low" *ngFor="let p of lowStock">
 
-        <img [src]="'http://superbangladesh-api-1.onrender.com/' + p.imageUrl" />
+        <img [src]="'/' + p.imageUrl" />
 
         <div>
 
@@ -359,7 +359,7 @@
 
       <div class="inventory-item out" *ngFor="let p of outOfStock">
 
-        <img [src]="'http://superbangladesh-api-1.onrender.com/' + p.imageUrl" />
+        <img [src]="'/' + p.imageUrl" />
 
         <div>
 

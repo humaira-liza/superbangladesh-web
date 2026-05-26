@@ -320,7 +320,7 @@ export class Home implements OnInit {
       return url;
     }
 
-    return `http://superbangladesh-api-1.onrender.com/images/${url}`;
+    return `/images/${url}`;
   }
 
   getCategoryImage(url: string) {
@@ -337,7 +337,7 @@ export class Home implements OnInit {
       return url;
     }
 
-    return `http://superbangladesh-api-1.onrender.com/images/${url}`;
+    return `/images/${url}`;
   }
 
   onImgError(event: any) {

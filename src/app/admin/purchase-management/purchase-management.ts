@@ -53,7 +53,7 @@ export class PurchaseManagement implements OnInit {
   loadProducts() {
 
     this.http.get<any[]>(
-      'http://superbangladesh-api-1.onrender.com/api/products'
+      '/api/products'
     )
     .subscribe({
 
@@ -212,7 +212,7 @@ export class PurchaseManagement implements OnInit {
     console.log(payload);
 
     this.http.post(
-      'http://superbangladesh-api-1.onrender.com/api/purchases',
+      '/api/purchases',
       payload
     )
     .subscribe({

@@ -43,7 +43,7 @@ export class Sidebar implements OnInit {
 
     this.http
       .get<any[]>(
-        'http://superbangladesh-api-1.onrender.com/api/categories/tree'
+        '/api/categories/tree'
       )
       .subscribe({
 

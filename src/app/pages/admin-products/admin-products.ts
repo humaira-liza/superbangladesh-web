@@ -115,7 +115,7 @@ export class AdminProducts implements OnInit {
       return url;
     }
 
-    return `http://superbangladesh-api-1.onrender.com/images/${url}`;
+    return `/images/${url}`;
   }
 
   // FILE CHANGE
