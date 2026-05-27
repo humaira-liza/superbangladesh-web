@@ -4,7 +4,11 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders
+} from '@angular/common/http';
+
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -21,6 +25,7 @@ import { Router } from '@angular/router';
 export class Orders implements OnInit {
 
   orders: any[] = [];
+
   loading = true;
 
   // ✅ BACKEND URL
@@ -34,14 +39,22 @@ export class Orders implements OnInit {
   ) {}
 
   ngOnInit() {
+
     this.loadOrders();
   }
 
   loadOrders() {
 
-    const token = localStorage.getItem('token');
+    console.log("🚀 LOADING ORDERS...");
+
+    const token =
+      localStorage.getItem('token');
+
+    console.log("🔐 TOKEN:", token);
 
     if (!token) {
+
+      alert('Login required');
 
       this.router.navigate(['/login']);
 
@@ -50,25 +63,30 @@ export class Orders implements OnInit {
 
     this.loading = true;
 
+    const headers = new HttpHeaders({
+
+      Authorization: `Bearer ${token}`
+
+    });
+
     this.http.get<any[]>(
 
       `${this.apiUrl}/api/orders/my`,
 
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
+      { headers }
 
     )
     .subscribe({
 
       next: (res) => {
 
-        console.log("USER ORDERS:", res);
+        console.log(
+          "✅ USER ORDERS RESPONSE:",
+          res
+        );
 
         this.orders = (res || []).sort(
-          (a,b) => b.id - a.id
+          (a, b) => b.id - a.id
         );
 
         this.loading = false;
@@ -78,7 +96,20 @@ export class Orders implements OnInit {
 
       error: (err) => {
 
-        console.error("ORDERS ERROR:", err);
+        console.log(
+          "❌ ORDERS API ERROR:",
+          err
+        );
+
+        console.log(
+          "❌ ERROR BODY:",
+          err?.error
+        );
+
+        console.log(
+          "❌ STATUS:",
+          err?.status
+        );
 
         this.loading = false;
 
@@ -87,21 +118,42 @@ export class Orders implements OnInit {
     });
   }
 
-  deleteOrder(id:number) {
+  deleteOrder(id: number) {
 
-    const token = localStorage.getItem('token');
+    const token =
+      localStorage.getItem('token');
+
+    if (!token) return;
+
+    const headers = new HttpHeaders({
+
+      Authorization: `Bearer ${token}`
+
+    });
 
     this.http.delete(
 
       `${this.apiUrl}/api/orders/${id}`,
 
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
+      { headers }
 
     )
-    .subscribe(() => this.loadOrders());
+    .subscribe({
+
+      next: () => {
+
+        console.log("✅ ORDER DELETED");
+
+        this.loadOrders();
+      },
+
+      error: (err) => {
+
+        console.log(
+          "❌ DELETE ERROR:",
+          err
+        );
+      }
+    });
   }
 }
