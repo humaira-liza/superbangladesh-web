@@ -27,9 +27,7 @@ import { ProductStateService } from '../../services/product-state.service';
 export class Home implements OnInit {
 
   allProducts: any[] = [];
-
   originalProducts: any[] = [];
-
   filtered: any[] = [];
 
   loading = false;
@@ -44,6 +42,10 @@ export class Home implements OnInit {
   currentSearch = '';
 
   breadcrumb: string[] = [];
+
+  // ✅ BACKEND URL
+  apiUrl =
+    'https://superbangladesh-api-1.onrender.com';
 
   constructor(
     private productService: ProductService,
@@ -192,7 +194,7 @@ export class Home implements OnInit {
   }
 
   // =========================
-  // ALL PRODUCTS CLICK
+  // ALL PRODUCTS
   // =========================
 
   onAllProducts() {
@@ -215,7 +217,7 @@ export class Home implements OnInit {
   }
 
   // =========================
-  // CATEGORY CLICK
+  // CATEGORY
   // =========================
 
   onCategory(data: any) {
@@ -229,10 +231,6 @@ export class Home implements OnInit {
     this.allProducts = [];
     this.filtered = [];
 
-    // =========================
-    // ALL PRODUCTS
-    // =========================
-
     if (
       data.level === 'all' ||
       data.id === 0
@@ -242,10 +240,6 @@ export class Home implements OnInit {
 
       return;
     }
-
-    // =========================
-    // BREADCRUMB
-    // =========================
 
     this.breadcrumb = [];
 
@@ -273,10 +267,6 @@ export class Home implements OnInit {
       );
     }
 
-    // =========================
-    // HAS CHILDREN
-    // =========================
-
     if (
       data.children &&
       data.children.length > 0
@@ -293,10 +283,6 @@ export class Home implements OnInit {
       return;
     }
 
-    // =========================
-    // FINAL PRODUCTS
-    // =========================
-
     this.selectedCategory = null;
 
     this.loadProducts(data.id);
@@ -310,7 +296,7 @@ export class Home implements OnInit {
 
     if (!url) {
 
-      return 'assets/images/no-image.png';
+      return 'assets/no-image.png';
     }
 
     if (
@@ -320,14 +306,15 @@ export class Home implements OnInit {
       return url;
     }
 
-    return `https://superbangladesh-api-1.onrender.com/images/${url}`;
+    // ✅ FIXED
+    return `${this.apiUrl}/images/${url}`;
   }
 
   getCategoryImage(url: string) {
 
     if (!url) {
 
-      return 'assets/images/no-image.png';
+      return 'assets/no-image.png';
     }
 
     if (
@@ -337,13 +324,14 @@ export class Home implements OnInit {
       return url;
     }
 
-    return `https://superbangladesh-api-1.onrender.com/images/${url}`;
+    // ✅ FIXED
+    return `${this.apiUrl}/images/${url}`;
   }
 
   onImgError(event: any) {
 
     event.target.src =
-      'assets/images/no-image.png';
+      'assets/no-image.png';
   }
 
   // =========================
