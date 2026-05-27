@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { CartService } from '../../services/cart';
 
@@ -25,6 +25,10 @@ export class Checkout implements OnInit {
 
   payment = 'BKASH';
 
+  // ✅ BACKEND URL
+  apiUrl =
+    'https://superbangladesh-api-1.onrender.com';
+
   constructor(
     private cart: CartService,
     private router: Router,
@@ -46,6 +50,8 @@ export class Checkout implements OnInit {
 
     this.items = this.cart.getItems();
 
+    console.log("🛒 CART ITEMS:", this.items);
+
     this.total = this.cart.getTotal();
   }
 
@@ -63,6 +69,8 @@ export class Checkout implements OnInit {
     }
 
     const token = localStorage.getItem('token');
+
+    console.log("🔐 CHECKOUT TOKEN:", token);
 
     if (!token) {
 
@@ -94,25 +102,34 @@ export class Checkout implements OnInit {
         quantity: i.qty || 1,
 
         price: i.price
-
       }))
     };
 
+    console.log("📦 ORDER DATA:", orderData);
+
+    const headers = new HttpHeaders({
+
+      Authorization: `Bearer ${token}`
+
+    });
+
     this.http.post(
 
-      '/api/orders',
+      `${this.apiUrl}/api/orders`,
 
       orderData,
 
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
+      { headers }
 
-    ).subscribe({
+    )
+    .subscribe({
 
-      next: () => {
+      next: (res) => {
+
+        console.log(
+          "✅ ORDER SUCCESS:",
+          res
+        );
 
         this.cart.clear();
 
@@ -123,11 +140,21 @@ export class Checkout implements OnInit {
 
       error: (err) => {
 
-        console.error(err);
+        console.log(
+          "❌ ORDER ERROR:",
+          err
+        );
 
-        alert('Order failed ❌');
+        console.log(
+          "❌ ERROR BODY:",
+          err?.error
+        );
+
+        alert(
+          err?.error?.message ||
+          'Order failed ❌'
+        );
       }
     });
   }
-
 }
