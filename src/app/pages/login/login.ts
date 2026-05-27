@@ -58,65 +58,61 @@ export class LoginComponent {
 
       next: (res) => {
 
-        console.log('LOGIN RESPONSE', res);
+        console.log(
+          'LOGIN RESPONSE',
+          res
+        );
 
         this.loading = false;
 
-        // ✅ SAFE CHECK
+        // ✅ response check
         if (!res) {
 
-          alert('No response from server');
+          alert(
+            'No response from server'
+          );
 
           return;
         }
 
-        if (res?.error) {
+        // ✅ save token
+        localStorage.setItem(
+          'token',
+          res.token || ''
+        );
 
-          alert(res.error);
+        localStorage.setItem(
+          'role',
+          res.role || ''
+        );
 
-          return;
-        }
+        localStorage.setItem(
+          'email',
+          res.email || ''
+        );
 
-        if (res?.token) {
+        // ✅ success message
+        alert('Login Success ✅');
 
-          localStorage.setItem(
-            'token',
-            res.token
-          );
-        }
+        // ✅ redirect
+        if (res.role === 'ADMIN') {
 
-        if (res?.role) {
-
-          localStorage.setItem(
-            'role',
-            res.role
-          );
-        }
-
-        if (res?.email) {
-
-          localStorage.setItem(
-            'email',
-            res.email
-          );
-        }
-
-        // ✅ REDIRECT
-        if (res?.role === 'ADMIN') {
-
-          this.router.navigate([
-            '/admin/orders'
-          ]);
+          window.location.href =
+            '/admin/orders';
 
         } else {
 
-          this.router.navigate(['/']);
+          window.location.href =
+            '/';
         }
       },
 
       error: (err) => {
 
-        console.log('LOGIN ERROR', err);
+        console.log(
+          'LOGIN ERROR',
+          err
+        );
 
         this.loading = false;
 
