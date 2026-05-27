@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './login.html',
-  styleUrls: ['./login.scss'] // ✅ make sure file exists
+  styleUrls: ['./login.scss']
 })
 export class LoginComponent {
 
@@ -19,52 +19,116 @@ export class LoginComponent {
   loading = false;
   showPassword = false;
 
+  // ✅ API URL
+  apiUrl =
+    'https://superbangladesh-api-1.onrender.com';
+
   constructor(
     private http: HttpClient,
     private router: Router
   ) {}
 
   togglePassword() {
-    this.showPassword = !this.showPassword;
+
+    this.showPassword =
+      !this.showPassword;
   }
 
   submit() {
 
+    if (!this.email || !this.password) {
+
+      alert('Enter email & password');
+
+      return;
+    }
+
     this.loading = true;
 
     this.http.post<any>(
-      '/api/auth/login',
+
+      `${this.apiUrl}/api/auth/login`,
+
       {
         email: this.email,
         password: this.password
       }
+
     ).subscribe({
 
       next: (res) => {
 
+        console.log('LOGIN RESPONSE', res);
+
         this.loading = false;
 
-        if (res.error) {
-          alert(res.error);
+        // ✅ SAFE CHECK
+        if (!res) {
+
+          alert('No response from server');
+
           return;
         }
 
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('role', res.role);
-        localStorage.setItem('email', res.email);
+        if (res?.error) {
 
-        if (res.role === 'ADMIN') {
-          this.router.navigate(['/admin/orders']);
+          alert(res.error);
+
+          return;
+        }
+
+        if (res?.token) {
+
+          localStorage.setItem(
+            'token',
+            res.token
+          );
+        }
+
+        if (res?.role) {
+
+          localStorage.setItem(
+            'role',
+            res.role
+          );
+        }
+
+        if (res?.email) {
+
+          localStorage.setItem(
+            'email',
+            res.email
+          );
+        }
+
+        // ✅ REDIRECT
+        if (res?.role === 'ADMIN') {
+
+          this.router.navigate([
+            '/admin/orders'
+          ]);
+
         } else {
+
           this.router.navigate(['/']);
         }
       },
 
-      error: () => {
-        this.loading = false;
-        alert("Login failed ❌");
-      }
+      error: (err) => {
 
+        console.log('LOGIN ERROR', err);
+
+        this.loading = false;
+
+        alert(
+
+          err?.error?.message ||
+
+          err?.message ||
+
+          'Login failed ❌'
+        );
+      }
     });
   }
 }
