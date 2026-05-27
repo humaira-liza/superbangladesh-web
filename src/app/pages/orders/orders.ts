@@ -16,12 +16,16 @@ import { Router } from '@angular/router';
 
   templateUrl: './orders.html',
 
-  styleUrls: ['./orders.scss'] // 🔥 THIS WAS MISSING
+  styleUrls: ['./orders.scss']
 })
 export class Orders implements OnInit {
 
   orders: any[] = [];
   loading = true;
+
+  // ✅ BACKEND URL
+  apiUrl =
+    'https://superbangladesh-api-1.onrender.com';
 
   constructor(
     private http: HttpClient,
@@ -38,19 +42,24 @@ export class Orders implements OnInit {
     const token = localStorage.getItem('token');
 
     if (!token) {
+
       this.router.navigate(['/login']);
+
       return;
     }
 
     this.loading = true;
 
     this.http.get<any[]>(
-      '/api/orders/my',
+
+      `${this.apiUrl}/api/orders/my`,
+
       {
         headers: {
           Authorization: `Bearer ${token}`
         }
       }
+
     )
     .subscribe({
 
@@ -58,7 +67,6 @@ export class Orders implements OnInit {
 
         console.log("USER ORDERS:", res);
 
-        // 🔥 NEWEST ORDER FIRST
         this.orders = (res || []).sort(
           (a,b) => b.id - a.id
         );
@@ -70,7 +78,7 @@ export class Orders implements OnInit {
 
       error: (err) => {
 
-        console.error(err);
+        console.error("ORDERS ERROR:", err);
 
         this.loading = false;
 
@@ -84,12 +92,15 @@ export class Orders implements OnInit {
     const token = localStorage.getItem('token');
 
     this.http.delete(
-      `/api/orders/${id}`,
+
+      `${this.apiUrl}/api/orders/${id}`,
+
       {
         headers: {
           Authorization: `Bearer ${token}`
         }
       }
+
     )
     .subscribe(() => this.loadOrders());
   }
