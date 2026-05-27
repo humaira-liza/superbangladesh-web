@@ -310,7 +310,7 @@ export class Home implements OnInit {
 
     if (!url) {
 
-      return 'assets/no-image.png';
+      return 'assets/images/no-image.png';
     }
 
     if (
@@ -320,14 +320,14 @@ export class Home implements OnInit {
       return url;
     }
 
-    return `/images/${url}`;
+    return `https://superbangladesh-api-1.onrender.com/images/${url}`;
   }
 
   getCategoryImage(url: string) {
 
     if (!url) {
 
-      return 'assets/no-image.png';
+      return 'assets/images/no-image.png';
     }
 
     if (
@@ -337,13 +337,13 @@ export class Home implements OnInit {
       return url;
     }
 
-    return `/images/${url}`;
+    return `https://superbangladesh-api-1.onrender.com/images/${url}`;
   }
 
   onImgError(event: any) {
 
     event.target.src =
-      'assets/no-image.png';
+      'assets/images/no-image.png';
   }
 
   // =========================
