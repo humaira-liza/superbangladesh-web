@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class ProductService {
 
- private api = '/api/products';
+private api = 'https://superbangladesh-api-1.onrender.com/api/products';
 
   constructor(private http: HttpClient) {}
 
