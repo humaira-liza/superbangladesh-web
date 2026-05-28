@@ -1,3 +1,4 @@
+```ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -99,13 +100,25 @@ export class Checkout implements OnInit {
 
         productName: i.name,
 
-        quantity: i.qty || 1,
+        // ✅ FIXED
+        quantity:
+          i.quantity ||
+          i.qty ||
+          1,
 
         price: i.price
       }))
     };
 
-    console.log("📦 ORDER DATA:", orderData);
+    console.log(
+      "📦 ORDER DATA:",
+      orderData
+    );
+
+    console.log(
+      "🛒 FINAL ORDER JSON:",
+      JSON.stringify(orderData)
+    );
 
     const headers = new HttpHeaders({
 
@@ -158,3 +171,4 @@ export class Checkout implements OnInit {
     });
   }
 }
+```
