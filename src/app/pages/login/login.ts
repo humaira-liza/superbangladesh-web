@@ -45,84 +45,101 @@ export class LoginComponent {
 
     this.loading = true;
 
-    this.http.post<any>(
+    // 🔥 WAKE BACKEND FIRST
+    this.http.get(
 
-      `${this.apiUrl}/api/auth/login`,
-
-      {
-        email: this.email,
-        password: this.password
-      }
+      `${this.apiUrl}/api/products`
 
     ).subscribe({
 
-      next: (res) => {
+      next: () => {
 
-        console.log(
-          'LOGIN RESPONSE',
-          res
-        );
+        // 🔥 LOGIN REQUEST
+        this.http.post<any>(
 
-        this.loading = false;
+          `${this.apiUrl}/api/auth/login`,
 
-        // ✅ response check
-        if (!res) {
+          {
+            email: this.email,
+            password: this.password
+          }
 
-          alert(
-            'No response from server'
-          );
+        ).subscribe({
 
-          return;
-        }
+          next: (res) => {
 
-        // ✅ save token
-        localStorage.setItem(
-          'token',
-          res.token || ''
-        );
+            console.log(
+              'LOGIN RESPONSE',
+              res
+            );
 
-        localStorage.setItem(
-          'role',
-          res.role || ''
-        );
+            this.loading = false;
 
-        localStorage.setItem(
-          'email',
-          res.email || ''
-        );
+            if (!res) {
 
-        // ✅ success message
-        alert('Login Success ✅');
+              alert(
+                'No response from server'
+              );
 
-        // ✅ redirect
-        if (res.role === 'ADMIN') {
+              return;
+            }
 
-          window.location.href =
-            '/admin/orders';
+            // ✅ SAVE TOKEN
+            localStorage.setItem(
+              'token',
+              res.token || ''
+            );
 
-        } else {
+            localStorage.setItem(
+              'role',
+              res.role || ''
+            );
 
-          window.location.href =
-            '/';
-        }
+            localStorage.setItem(
+              'email',
+              res.email || ''
+            );
+
+            // ✅ REDIRECT
+            if (res.role === 'ADMIN') {
+
+              window.location.href =
+                '/admin/orders';
+
+            } else {
+
+              window.location.href =
+                '/';
+            }
+          },
+
+          error: (err) => {
+
+            console.log(
+              'LOGIN ERROR',
+              err
+            );
+
+            this.loading = false;
+
+            alert(
+
+              err?.error?.message ||
+
+              err?.message ||
+
+              'Login failed ❌'
+            );
+          }
+        });
       },
 
-      error: (err) => {
-
-        console.log(
-          'LOGIN ERROR',
-          err
-        );
+      error: () => {
 
         this.loading = false;
 
         alert(
-
-          err?.error?.message ||
-
-          err?.message ||
-
-          'Login failed ❌'
+          'Server is waking up... try again in 10 seconds ⏳'
         );
       }
     });
