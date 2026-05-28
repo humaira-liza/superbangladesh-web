@@ -67,12 +67,16 @@
 
     </a>
 
+    <!-- USER ONLY -->
+
     <a
-      *ngIf="isLoggedIn()"
+      *ngIf="isLoggedIn() && !isAdmin()"
       routerLink="/orders"
     >
       My Orders
     </a>
+
+    <!-- LOGIN -->
 
     <a
       *ngIf="!isLoggedIn()"
@@ -81,12 +85,16 @@
       Login
     </a>
 
+    <!-- LOGOUT -->
+
     <a
       *ngIf="isLoggedIn()"
       (click)="logout()"
     >
       Logout
     </a>
+
+    <!-- ADMIN -->
 
     <a
       *ngIf="isAdmin()"
