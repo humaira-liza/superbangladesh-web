@@ -9,8 +9,7 @@ import { CartService } from '../../services/cart';
   selector: 'app-product-details',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './product-details.html',
-  styleUrls: ['./product-details.scss']
+  templateUrl: './product-details.html'
 })
 
 export class ProductDetails implements OnInit {
