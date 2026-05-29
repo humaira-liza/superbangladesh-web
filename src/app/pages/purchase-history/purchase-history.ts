@@ -42,18 +42,20 @@ loadPurchases() {
 
   this.http.get(
     '/api/purchases',
-    { responseType: 'text' }
+    {
+      responseType: 'text'
+    }
   )
   .subscribe({
 
     next: (res) => {
 
-      console.log('RAW RESPONSE:');
+      console.log('RAW RESPONSE');
       console.log(res);
 
       const data = JSON.parse(res);
 
-      console.log('PARSED DATA:');
+      console.log('PARSED DATA');
       console.log(data);
 
       this.purchases = data.reverse();
@@ -67,7 +69,8 @@ loadPurchases() {
 
     error: (err) => {
 
-      console.log('PURCHASE ERROR:', err);
+      console.log('PURCHASE ERROR');
+      console.log(err);
 
       this.loading = false;
     }
