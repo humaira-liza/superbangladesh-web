@@ -52,6 +52,16 @@ export class PurchaseManagement implements OnInit {
     this.loadProducts();
   }
 
+  // IMAGE URL
+  getImage(url: string) {
+
+    if (!url) {
+      return 'assets/no-image.png';
+    }
+
+    return `${this.apiUrl}/images/${url}`;
+  }
+
   // LOAD PRODUCTS
   loadProducts() {
 
@@ -73,9 +83,11 @@ export class PurchaseManagement implements OnInit {
 
           ...new Set(
 
-            this.products.map(
-              p => p.category?.name
-            ).filter(Boolean)
+            this.products
+              .map(
+                p => p.category?.name
+              )
+              .filter(Boolean)
 
           )
 

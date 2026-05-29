@@ -125,11 +125,10 @@
               <div class="serial">
                 {{ p.id }}
               </div>
-
-              <img [src]="
-                  '/'
-                  + p.imageUrl
-                " />
+<img
+  [src]="getImage(p.imageUrl)"
+  (error)="$any($event.target).src='assets/no-image.png'"
+/>
 
               <div class="details">
 
