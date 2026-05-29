@@ -63,15 +63,18 @@ export class AdminOrders implements OnInit {
 
         error: (err) => {
 
-          console.error(
-            'ADMIN ERROR:',
-            err
-          );
+  console.log('STATUS =', err.status);
 
-          this.loading = false;
+  console.log('MESSAGE =', err.message);
 
-          this.cdr.detectChanges();
-        }
+  console.log('ERROR =', err.error);
+
+  console.log('FULL =', err);
+
+  this.loading = false;
+
+  this.cdr.detectChanges();
+}
       });
   }
 
