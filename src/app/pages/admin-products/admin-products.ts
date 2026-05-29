@@ -103,20 +103,23 @@ export class AdminProducts implements OnInit {
   }
 
   // IMAGE URL
-  getImage(url: string) {
 
-    if (!url || url === 'null') {
+getImage(url: string) {
 
-      return 'assets/no-image.png';
-    }
+  if (!url || url === 'null') {
 
-    if (url.startsWith('http')) {
-
-      return url;
-    }
-
-    return `/images/${url}`;
+    return 'assets/no-image.png';
   }
+
+  
+  if (url.startsWith('http')) {
+
+    return url;
+  }
+
+  // BACKEND SERVER
+  return `https://superbangladesh-api-1.onrender.com/images/${url}`;
+}
 
   // FILE CHANGE
   onFileChange(event: any) {
