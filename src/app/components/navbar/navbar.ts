@@ -89,9 +89,9 @@ export class Navbar {
 
   sidebarOpen = false;
 
-toggleSidebar() {
+  toggleSidebar() {
 
-  this.sidebarOpen = !this.sidebarOpen;
+    alert('Menu clicked');
 
-}
+  }
 }
