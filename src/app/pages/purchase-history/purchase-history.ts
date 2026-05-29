@@ -36,34 +36,42 @@ export class PurchaseHistory implements OnInit {
   }
 
   // LOAD
- loadPurchases() {
+loadPurchases() {
 
   console.log('LOAD PURCHASES CALLED');
 
-  this.http
-    .get<any[]>('/api/purchases')
-    .subscribe({
+  this.http.get(
+    '/api/purchases',
+    { responseType: 'text' }
+  )
+  .subscribe({
 
-      next: (res) => {
+    next: (res) => {
 
-        console.log('PURCHASES:', res);
+      console.log('RAW RESPONSE:');
+      console.log(res);
 
-        this.purchases = res.reverse();
+      const data = JSON.parse(res);
 
-        this.filteredPurchases = this.purchases;
+      console.log('PARSED DATA:');
+      console.log(data);
 
-        this.calculateTotals();
+      this.purchases = data.reverse();
 
-        this.loading = false;
-      },
+      this.filteredPurchases = this.purchases;
 
-      error: (err) => {
+      this.calculateTotals();
 
-        console.log('PURCHASE ERROR:', err);
+      this.loading = false;
+    },
 
-        this.loading = false;
-      }
-    });
+    error: (err) => {
+
+      console.log('PURCHASE ERROR:', err);
+
+      this.loading = false;
+    }
+  });
 }
 
   // TOTALS
