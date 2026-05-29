@@ -5,7 +5,7 @@
   z-index:999999;
 }
 
-/* NAVBAR */
+/* NAVBAR */S
 
 .navbar{
 
@@ -67,6 +67,9 @@
 /* INPUT */
 
 .search input{
+
+
+  
 
   width:340px;
 
@@ -391,25 +394,22 @@
   }
 
   .search input{
-    width:100%;
-  }
+  width:100%;
+  min-width:0;
+}
 
-  .right{
-    display:none;
-  }
+ .right{
+  display:flex;
+  flex-wrap:wrap;
+  width:100%;
+  gap:8px;
+  margin-top:10px;
+}
 
   /* FIXED FLOATING CART */
-
-  .floating-cart{
-
-    right:14px;
-
-    bottom:90px;
-
-    width:64px;
-
-    z-index:999;
-  }
+.floating-cart{
+  display:none;
+}
 
   .mobile-nav{
 
