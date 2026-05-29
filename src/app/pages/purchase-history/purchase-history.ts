@@ -16,6 +16,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class PurchaseHistory implements OnInit {
 
+  apiUrl =
+    'https://superbangladesh-api-1.onrender.com';
+
   purchases: any[] = [];
 
   filteredPurchases: any[] = [];
@@ -28,54 +31,55 @@ export class PurchaseHistory implements OnInit {
 
   searchText = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
 
     this.loadPurchases();
   }
 
-  // LOAD
-loadPurchases() {
+  // LOAD PURCHASES
+  loadPurchases() {
 
-  console.log('LOAD PURCHASES CALLED');
+    console.log('LOAD PURCHASES CALLED');
 
-  this.http.get(
-    '/api/purchases',
-    {
-      responseType: 'text'
-    }
-  )
-  .subscribe({
+    this.http
+      .get<any[]>(
+        `${this.apiUrl}/api/purchases`
+      )
+      .subscribe({
 
-    next: (res) => {
+        next: (res) => {
 
-      console.log('RAW RESPONSE');
-      console.log(res);
+          console.log(
+            'PURCHASES:',
+            res
+          );
 
-      const data = JSON.parse(res);
+          this.purchases =
+            (res || []).reverse();
 
-      console.log('PARSED DATA');
-      console.log(data);
+          this.filteredPurchases =
+            this.purchases;
 
-      this.purchases = data.reverse();
+          this.calculateTotals();
 
-      this.filteredPurchases = this.purchases;
+          this.loading = false;
+        },
 
-      this.calculateTotals();
+        error: (err) => {
 
-      this.loading = false;
-    },
+          console.log(
+            'PURCHASE ERROR:',
+            err
+          );
 
-    error: (err) => {
-
-      console.log('PURCHASE ERROR');
-      console.log(err);
-
-      this.loading = false;
-    }
-  });
-}
+          this.loading = false;
+        }
+      });
+  }
 
   // TOTALS
   calculateTotals() {
@@ -84,56 +88,80 @@ loadPurchases() {
 
     this.totalProfit = 0;
 
-    this.filteredPurchases.forEach(purchase => {
+    this.filteredPurchases.forEach(
+      purchase => {
 
-      this.totalPurchase += purchase.totalAmount || 0;
+        this.totalPurchase +=
+          purchase.totalAmount || 0;
 
-      purchase.items?.forEach((item:any) => {
+        purchase.items?.forEach(
+          (item: any) => {
 
-        const profit =
-          (item.sellPrice - item.unitPrice)
-          * item.quantity;
+            const profit =
 
-        this.totalProfit += profit;
+              (
+                item.sellPrice -
+                item.unitPrice
+              )
 
-      });
+              * item.quantity;
 
-    });
+            this.totalProfit +=
+              profit;
+          }
+        );
+      }
+    );
   }
 
   // SEARCH
   search() {
 
     const text =
-      this.searchText.toLowerCase();
+      this.searchText
+        .toLowerCase();
 
     this.filteredPurchases =
-      this.purchases.filter(p =>
 
-        p.supplierName
-          ?.toLowerCase()
-          .includes(text)
+      this.purchases.filter(
+        p =>
 
+          p.supplierName
+            ?.toLowerCase()
+            .includes(text)
       );
 
     this.calculateTotals();
   }
 
   // DELETE
-  deletePurchase(id:number) {
+  deletePurchase(
+    id: number
+  ) {
 
-    const ok =
-      confirm('Delete this purchase history?');
+    const ok = confirm(
+      'Delete this purchase history?'
+    );
 
     if (!ok) return;
 
     this.http
-      .delete(`/api/purchases/${id}`)
+      .delete(
+        `${this.apiUrl}/api/purchases/${id}`
+      )
       .subscribe({
 
         next: () => {
 
           this.loadPurchases();
+        },
+
+        error: (err) => {
+
+          console.log(
+            'DELETE ERROR:',
+            err
+          );
         }
       });
   }
