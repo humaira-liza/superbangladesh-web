@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   templateUrl: './purchase-history.html',
-  styleUrl: './purchase-history.css',
+  styleUrls: ['./purchase-history.css']
 })
 export class PurchaseHistory implements OnInit {
 
@@ -36,29 +36,35 @@ export class PurchaseHistory implements OnInit {
   }
 
   // LOAD
-  loadPurchases() {
+ loadPurchases() {
 
-    this.http
-      .get<any[]>('/api/purchases')
-      .subscribe({
+  console.log('LOAD PURCHASES CALLED');
 
-        next: (res) => {
+  this.http
+    .get<any[]>('/api/purchases')
+    .subscribe({
 
-          this.purchases = res.reverse();
+      next: (res) => {
 
-          this.filteredPurchases = this.purchases;
+        console.log('PURCHASES:', res);
 
-          this.calculateTotals();
+        this.purchases = res.reverse();
 
-          this.loading = false;
-        },
+        this.filteredPurchases = this.purchases;
 
-        error: () => {
+        this.calculateTotals();
 
-          this.loading = false;
-        }
-      });
-  }
+        this.loading = false;
+      },
+
+      error: (err) => {
+
+        console.log('PURCHASE ERROR:', err);
+
+        this.loading = false;
+      }
+    });
+}
 
   // TOTALS
   calculateTotals() {
