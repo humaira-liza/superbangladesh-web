@@ -86,4 +86,12 @@ export class Navbar {
 
     this.showChat = !this.showChat;
   }
+
+  sidebarOpen = false;
+
+toggleSidebar() {
+
+  this.sidebarOpen = !this.sidebarOpen;
+
+}
 }
