@@ -20,7 +20,8 @@ export class AdminOrders implements OnInit {
   totalAmount = 0;
   loading = true;
 
-  API = '/api/orders';
+  API =
+    'https://superbangladesh-api-1.onrender.com/api/orders';
 
   constructor(
     private http: HttpClient,
@@ -32,48 +33,77 @@ export class AdminOrders implements OnInit {
   }
 
   load() {
+
     this.loading = true;
 
-    this.http.get<any[]>(this.API + "/all").subscribe({
-      next: (res) => {
+    this.http
+      .get<any[]>(`${this.API}/all`)
+      .subscribe({
 
-        console.log("ADMIN ORDERS:", res);
+        next: (res) => {
 
-        // 🔥 SET ORDERS
-        this.orders = res || [];
+          console.log(
+            'ADMIN ORDERS:',
+            res
+          );
 
-        // 🔥 TOTAL CALC
-        this.totalAmount = this.orders
-          .reduce((sum, o) => sum + (o.totalAmount || 0), 0);
+          this.orders = res || [];
 
-        this.loading = false;
-        this.cdr.detectChanges();
-      },
+          this.totalAmount =
+            this.orders.reduce(
+              (sum, o) =>
+                sum + (o.totalAmount || 0),
+              0
+            );
 
-      error: (err) => {
-        console.error("ADMIN ERROR:", err);
-        this.loading = false;
-        this.cdr.detectChanges();
-      }
-    });
+          this.loading = false;
+
+          this.cdr.detectChanges();
+        },
+
+        error: (err) => {
+
+          console.error(
+            'ADMIN ERROR:',
+            err
+          );
+
+          this.loading = false;
+
+          this.cdr.detectChanges();
+        }
+      });
   }
 
-  // 🔁 STATUS CHANGE
   updateStatus(o: any) {
-    this.http.put(`${this.API}/${o.id}/status`, {})
+
+    this.http
+      .put(
+        `${this.API}/${o.id}/status`,
+        {}
+      )
       .subscribe(() => this.load());
   }
 
-  // ❌ DELETE
   delete(id: number) {
-    if(confirm("Delete this order?")) {
-      this.http.delete(`${this.API}/${id}`)
+
+    if (
+      confirm('Delete this order?')
+    ) {
+
+      this.http
+        .delete(
+          `${this.API}/${id}`
+        )
         .subscribe(() => this.load());
     }
   }
 
-  // 🔥 TRACK BY
-  trackById(index: number, item: any) {
+  trackById(
+    index: number,
+    item: any
+  ) {
+
     return item.id;
   }
 }
