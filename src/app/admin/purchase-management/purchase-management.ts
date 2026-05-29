@@ -19,23 +19,26 @@ import {
 })
 export class PurchaseManagement implements OnInit {
 
-  products:any[] = [];
+  apiUrl =
+    'https://superbangladesh-api-1.onrender.com';
 
-  categories:string[] = [];
+  products: any[] = [];
 
-  purchase:any = {
+  categories: string[] = [];
+
+  purchase: any = {
 
     supplierName: '',
     supplierContact: '',
 
     items: [
       {
-        category:'',
-        productId:'',
-        search:'',
-        quantity:1,
-        unitPrice:0,
-        sellPrice:0
+        category: '',
+        productId: '',
+        search: '',
+        quantity: 1,
+        unitPrice: 0,
+        sellPrice: 0
       }
     ]
   };
@@ -53,47 +56,60 @@ export class PurchaseManagement implements OnInit {
   loadProducts() {
 
     this.http.get<any[]>(
-      '/api/products'
+      `${this.apiUrl}/api/products`
     )
     .subscribe({
 
       next: (res) => {
 
-        this.products = res;
+        console.log(
+          'PRODUCTS:',
+          res
+        );
 
-        // UNIQUE CATEGORY
+        this.products = res || [];
+
         this.categories = [
 
           ...new Set(
 
-            res.map(
+            this.products.map(
               p => p.category?.name
-            )
+            ).filter(Boolean)
+
           )
 
-        ];
+        ] as string[];
       },
 
       error: (err) => {
 
-        console.log(err);
+        console.log(
+          'PRODUCT ERROR:',
+          err
+        );
       }
     });
   }
 
   // SELECT PRODUCT
-  selectProduct(item:any, product:any) {
+  selectProduct(
+    item: any,
+    product: any
+  ) {
 
     item.productId = product.id;
 
     item.search = product.name;
 
-    // AUTO SELL PRICE
-    item.sellPrice = product.price || 0;
+    item.sellPrice =
+      product.price || 0;
   }
 
   // SELECTED PRODUCT
-  getSelectedProduct(productId:any){
+  getSelectedProduct(
+    productId: any
+  ) {
 
     return this.products.find(
       p => p.id == productId
@@ -101,7 +117,9 @@ export class PurchaseManagement implements OnInit {
   }
 
   // FILTER PRODUCTS
-  getFilteredProducts(item:any){
+  getFilteredProducts(
+    item: any
+  ) {
 
     return this.products.filter(p => {
 
@@ -109,19 +127,24 @@ export class PurchaseManagement implements OnInit {
 
         !item.category ||
 
-        p.category?.name === item.category;
+        p.category?.name ===
+        item.category;
 
       const matchSearch =
 
         !item.search ||
 
         p.name
-          .toLowerCase()
+          ?.toLowerCase()
           .includes(
-            item.search.toLowerCase()
+            item.search
+              .toLowerCase()
           );
 
-      return matchCategory && matchSearch;
+      return (
+        matchCategory &&
+        matchSearch
+      );
     });
   }
 
@@ -130,19 +153,24 @@ export class PurchaseManagement implements OnInit {
 
     this.purchase.items.push({
 
-      category:'',
-      productId:'',
-      search:'',
-      quantity:1,
-      unitPrice:0,
-      sellPrice:0
+      category: '',
+      productId: '',
+      search: '',
+      quantity: 1,
+      unitPrice: 0,
+      sellPrice: 0
     });
   }
 
   // REMOVE ITEM
-  removeItem(index:number) {
+  removeItem(
+    index: number
+  ) {
 
-    this.purchase.items.splice(index,1);
+    this.purchase.items.splice(
+      index,
+      1
+    );
   }
 
   // TOTAL
@@ -150,10 +178,13 @@ export class PurchaseManagement implements OnInit {
 
     let total = 0;
 
-    for(let item of this.purchase.items){
+    for (
+      let item of this.purchase.items
+    ) {
 
       total +=
-        item.quantity * item.unitPrice;
+        item.quantity *
+        item.unitPrice;
     }
 
     return total;
@@ -164,76 +195,93 @@ export class PurchaseManagement implements OnInit {
 
     let profit = 0;
 
-    for(let item of this.purchase.items){
+    for (
+      let item of this.purchase.items
+    ) {
 
       profit += (
 
-        (item.sellPrice - item.unitPrice)
+        (
+          item.sellPrice -
+          item.unitPrice
+        ) *
 
-        * item.quantity
+        item.quantity
       );
     }
 
     return profit;
   }
 
-  // SAVE
+  // SAVE PURCHASE
   savePurchase() {
 
     const payload = {
 
       supplierName:
-        this.purchase.supplierName,
+        this.purchase
+          .supplierName,
 
       supplierContact:
-        this.purchase.supplierContact,
+        this.purchase
+          .supplierContact,
 
       totalAmount:
         this.getTotal(),
 
       items:
 
-      this.purchase.items.map((i:any) => ({
+      this.purchase.items.map(
+        (i: any) => ({
 
-        productId:
-          Number(i.productId),
+          productId:
+            Number(i.productId),
 
-        quantity:
-          Number(i.quantity),
+          quantity:
+            Number(i.quantity),
 
-        unitPrice:
-          Number(i.unitPrice),
+          unitPrice:
+            Number(i.unitPrice),
 
-        sellPrice:
-          Number(i.sellPrice)
-      }))
+          sellPrice:
+            Number(i.sellPrice)
+        })
+      )
     };
 
-    console.log(payload);
+    console.log(
+      'PURCHASE:',
+      payload
+    );
 
     this.http.post(
-      '/api/purchases',
+
+      `${this.apiUrl}/api/purchases`,
+
       payload
+
     )
     .subscribe({
 
       next: () => {
 
-        alert('✅ Purchase Saved');
+        alert(
+          '✅ Purchase Saved'
+        );
 
         this.purchase = {
 
-          supplierName:'',
-          supplierContact:'',
+          supplierName: '',
+          supplierContact: '',
 
-          items:[
+          items: [
             {
-              category:'',
-              productId:'',
-              search:'',
-              quantity:1,
-              unitPrice:0,
-              sellPrice:0
+              category: '',
+              productId: '',
+              search: '',
+              quantity: 1,
+              unitPrice: 0,
+              sellPrice: 0
             }
           ]
         };
@@ -241,9 +289,14 @@ export class PurchaseManagement implements OnInit {
 
       error: (err) => {
 
-        console.log(err);
+        console.log(
+          'SAVE ERROR:',
+          err
+        );
 
-        alert('❌ Save Failed');
+        alert(
+          '❌ Save Failed'
+        );
       }
     });
   }
