@@ -1,4 +1,35 @@
+
+
+<!-- MOBILE HEADER -->
+
+<div class="mobile-header">
+
+  <button class="menu-btn">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+  <div class="mobile-logo">
+    Super Bangladesh
+  </div>
+
+  <a
+    *ngIf="!isLoggedIn()"
+    routerLink="/login"
+    class="mobile-login">
+    Login
+  </a>
+
+  <a
+    *ngIf="isLoggedIn()"
+    (click)="logout()"
+    class="mobile-login">
+    Logout
+  </a>
+
+</div>
+
 <div class="navbar">
+
 
   <!-- LEFT -->
 
@@ -189,65 +220,3 @@
 
 </div>
 
-<!-- MOBILE NAV -->
-
-<div class="mobile-nav">
-
-  <!-- HOME -->
-
-  <div
-    class="mobile-item"
-    (click)="goHome()"
-  >
-
-    <i class="fa-solid fa-house"></i>
-
-    <span>Home</span>
-
-  </div>
-
-  <!-- CART -->
-
-  <div
-    class="mobile-item"
-    routerLink="/cart"
-  >
-
-    <i class="fa-solid fa-cart-shopping"></i>
-
-    <span>Cart</span>
-
-    <div class="mobile-badge">
-      {{cart.count()}}
-    </div>
-
-  </div>
-
-  <!-- CHAT -->
-
-  <div
-    class="mobile-item"
-    (click)="toggleChat()"
-  >
-
-    <i class="fa-solid fa-comments"></i>
-
-    <span>Chat</span>
-
-  </div>
-
-  <!-- FACEBOOK PAGE -->
-
-  <a
-    href="https://www.facebook.com/share/1C1rQ6txJr/"
-    target="_blank"
-    class="mobile-item"
-  >
-
-    <i class="fa-brands fa-facebook-f"></i>
-
-    <span>Page</span>
-
-  </a>
-
-</div>
