@@ -1,13 +1,13 @@
 
 
+
 <!-- MOBILE HEADER -->
 
 <div class="mobile-header">
 
   <button class="menu-btn">
-  <i class="fa-solid fa-bars"></i>
-</button>
-
+    <i class="fa-solid fa-bars"></i>
+  </button>
 
   <div class="mobile-logo">
     Super Bangladesh
@@ -25,6 +25,26 @@
     (click)="logout()"
     class="mobile-login">
     Logout
+  </a>
+
+</div>
+
+<!-- MOBILE LINKS -->
+
+<div class="mobile-links">
+
+  <a (click)="goHome()">
+    Home
+  </a>
+
+  <a routerLink="/cart">
+    Cart ({{cart.count()}})
+  </a>
+
+  <a
+    *ngIf="isLoggedIn() && !isAdmin()"
+    routerLink="/orders">
+    My Orders
   </a>
 
 </div>
