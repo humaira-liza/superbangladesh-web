@@ -259,11 +259,11 @@ app-sidebar{
 @media(max-width:768px){
 
   .layout{
-    flex-direction:column;
+    display:block;
   }
 
   app-sidebar{
-    width:100%;
+    display:none;
   }
 
   .products-section{
@@ -271,10 +271,7 @@ app-sidebar{
   }
 
   .product-grid{
-
-    grid-template-columns:
-      repeat(2,1fr);
-
+    grid-template-columns:repeat(2,1fr);
     gap:18px 14px;
   }
 
@@ -283,10 +280,8 @@ app-sidebar{
   }
 
   .add-btn{
-
     width:42px;
     height:42px;
-
     font-size:28px;
   }
 
@@ -299,9 +294,7 @@ app-sidebar{
   }
 
   .product-card h3{
-
     font-size:15px;
-
     min-height:46px;
   }
 
