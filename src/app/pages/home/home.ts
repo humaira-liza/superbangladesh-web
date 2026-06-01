@@ -26,6 +26,12 @@ import { ProductStateService } from '../../services/product-state.service';
 })
 export class Home implements OnInit {
 
+  mobileMenuOpen = false;
+
+toggleMobileMenu() {
+  this.mobileMenuOpen = !this.mobileMenuOpen;
+}
+
   allProducts: any[] = [];
   originalProducts: any[] = [];
   filtered: any[] = [];
