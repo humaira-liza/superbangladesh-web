@@ -21,6 +21,8 @@
   class="mobile-sidebar"
   *ngIf="sidebarOpen">
 
+  <h2>Super Bangladesh</h2>
+
   <a (click)="goHome()">🏠 Home</a>
 
   <a routerLink="/cart">
@@ -30,9 +32,7 @@
   <a
     *ngIf="isLoggedIn() && !isAdmin()"
     routerLink="/orders">
-
     📦 My Orders
-
   </a>
 
   <a routerLink="/login">
