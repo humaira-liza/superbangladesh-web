@@ -91,7 +91,7 @@ export class Navbar {
 
   toggleSidebar() {
 
-    alert('Menu clicked');
+  this.sidebarOpen = !this.sidebarOpen;
 
-  }
+}
 }

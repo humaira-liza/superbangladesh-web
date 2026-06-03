@@ -15,6 +15,32 @@
     Super Bangladesh
   </div>
 
+  <!-- MOBILE SIDEBAR -->
+
+<div
+  class="mobile-sidebar"
+  *ngIf="sidebarOpen">
+
+  <a (click)="goHome()">🏠 Home</a>
+
+  <a routerLink="/cart">
+    🛒 Cart ({{cart.count()}})
+  </a>
+
+  <a
+    *ngIf="isLoggedIn() && !isAdmin()"
+    routerLink="/orders">
+
+    📦 My Orders
+
+  </a>
+
+  <a routerLink="/login">
+    🔐 Login
+  </a>
+
+</div>
+
   <a
     *ngIf="!isLoggedIn()"
     routerLink="/login"
