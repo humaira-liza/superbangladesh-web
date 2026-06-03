@@ -1,19 +1,45 @@
 <div class="page">
 
+  <!-- MOBILE MENU BUTTON -->
+
+  <button
+    class="menu-btn"
+    (click)="toggleMobileMenu()">
+
+    ☰
+
+  </button>
+
+  <!-- MOBILE SIDEBAR -->
+
+  <div
+    class="mobile-sidebar"
+    *ngIf="mobileMenuOpen">
+
+    <app-sidebar
+      (categoryClick)="onCategory($event)"
+      (allProducts)="onAllProducts()">
+    </app-sidebar>
+
+  </div>
+
   <app-banner></app-banner>
 
   <div class="layout">
 
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR DESKTOP -->
+
     <app-sidebar
       (categoryClick)="onCategory($event)"
       (allProducts)="onAllProducts()">
     </app-sidebar>
 
     <!-- RIGHT -->
+
     <div class="products-section">
 
       <!-- BREADCRUMB -->
+
       <div
         class="breadcrumb"
         *ngIf="breadcrumb.length > 0">
@@ -35,6 +61,7 @@
       </div>
 
       <!-- CATEGORY GRID -->
+
       <div
         *ngIf="viewMode === 'categories'"
         class="product-grid">
@@ -70,7 +97,6 @@
                 : 'child'
           })">
 
-          <!-- IMAGE -->
           <div class="image-box">
 
             <img
@@ -87,7 +113,6 @@
 
           </div>
 
-          <!-- NAME -->
           <h3>
             {{ c.name }}
           </h3>
@@ -97,6 +122,7 @@
       </div>
 
       <!-- PRODUCTS -->
+
       <div
         *ngIf="viewMode === 'products'"
         class="product-grid">
@@ -108,10 +134,8 @@
           class="product-card"
           [class.out-product]="p.stock <= 0">
 
-          <!-- IMAGE -->
           <div class="image-box">
 
-            <!-- OUT OF STOCK -->
             <div
               class="out-badge"
               *ngIf="p.stock <= 0">
@@ -132,7 +156,6 @@
               "
             />
 
-            <!-- ADD BUTTON -->
             <button
               class="add-btn"
 
@@ -146,17 +169,14 @@
 
           </div>
 
-          <!-- PRICE -->
           <div class="price-line">
 
-            <!-- CURRENT PRICE -->
             <span class="price">
 
               ৳{{ p.price }}
 
             </span>
 
-            <!-- OLD PRICE -->
             <span class="old-price">
 
               ৳{{ p.price + 20 }}
@@ -165,14 +185,12 @@
 
           </div>
 
-          <!-- NAME -->
           <h3>
 
             {{ p.name }}
 
           </h3>
 
-          <!-- UNIT -->
           <p
             class="unit"
             *ngIf="p.quantity && p.unit">
@@ -181,7 +199,6 @@
 
           </p>
 
-          <!-- DELIVERY -->
           <p class="delivery">
 
             🕒 Delivery in 1 hour
@@ -193,6 +210,7 @@
       </div>
 
       <!-- EMPTY -->
+
       <div
         *ngIf="
           viewMode === 'products' &&
