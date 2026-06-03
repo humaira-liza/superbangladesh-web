@@ -263,7 +263,8 @@ app-sidebar{
   }
 
   app-sidebar{
-    display:none;
+    display:block;
+    width:100%;
   }
 
   .products-section{
