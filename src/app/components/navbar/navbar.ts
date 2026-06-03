@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { Sidebar } from '../sidebar/sidebar';
 import { CartService } from '../../services/cart';
 import { ProductStateService } from '../../services/product-state.service';
 
@@ -10,10 +10,11 @@ import { ProductStateService } from '../../services/product-state.service';
   selector: 'app-navbar',
   standalone: true,
   imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule
-  ],
+  CommonModule,
+  RouterModule,
+  FormsModule,
+  Sidebar
+],
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.scss']
 })

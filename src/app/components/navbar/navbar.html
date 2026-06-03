@@ -21,26 +21,9 @@
   class="mobile-sidebar"
   *ngIf="sidebarOpen">
 
-  <h2>Super Bangladesh</h2>
-
-  <a (click)="goHome()">🏠 Home</a>
-
-  <a routerLink="/cart">
-    🛒 Cart ({{cart.count()}})
-  </a>
-
-  <a
-    *ngIf="isLoggedIn() && !isAdmin()"
-    routerLink="/orders">
-    📦 My Orders
-  </a>
-
-  <a routerLink="/login">
-    🔐 Login
-  </a>
+  <app-sidebar></app-sidebar>
 
 </div>
-
   <a
     *ngIf="!isLoggedIn()"
     routerLink="/login"
