@@ -129,7 +129,7 @@ toggleMobileMenu() {
   // =========================
 
   loadProducts(id: number) {
-    alert('LOAD PRODUCTS ' + id);
+    
 
     this.loading = true;
 
@@ -230,7 +230,7 @@ toggleMobileMenu() {
 
 onCategory(data: any) {
 
-  alert('HOME RECEIVED');
+  
 
   console.log('CATEGORY RECEIVED', data);
 
