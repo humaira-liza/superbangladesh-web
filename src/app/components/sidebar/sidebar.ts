@@ -142,7 +142,7 @@ export class Sidebar implements OnInit {
   parent: any
 ): void {
 
-
+alert('SUB CLICK');
 
   this.selectedId = sub.id;
 
@@ -220,6 +220,7 @@ export class Sidebar implements OnInit {
     event.stopPropagation();
 
     this.onSub(
+
       sub,
       parent
     );
