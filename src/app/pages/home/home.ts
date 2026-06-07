@@ -227,76 +227,48 @@ toggleMobileMenu() {
   // CATEGORY
   // =========================
 
-  onCategory(data: any) {
-     alert('CATEGORY RECEIVED');
-    console.log('CATEGORY RECEIVED', data);
+onCategory(data: any) {
+
+  console.log('CATEGORY RECEIVED', data);
 
   this.mobileMenuOpen = false;
 
-  console.log(data);
-
   if (!data) return;
-    this.state.setSearch('');
 
-    this.allProducts = [];
-    this.filtered = [];
+  this.state.setSearch('');
 
-    if (
-      data.level === 'all' ||
-      data.id === 0
-    ) {
+  this.allProducts = [];
+  this.filtered = [];
 
-      this.onAllProducts();
-
-      return;
-    }
-
-    this.breadcrumb = [];
-
-    if (data.mainName) {
-
-      this.breadcrumb.push(
-        data.mainName
-      );
-    }
-
-    if (
-      data.parentName &&
-      data.parentName !== data.mainName
-    ) {
-
-      this.breadcrumb.push(
-        data.parentName
-      );
-    }
-
-    if (data.name) {
-
-      this.breadcrumb.push(
-        data.name
-      );
-    }
-
-    if (
-      data.children &&
-      data.children.length > 0
-    ) {
-
-      this.selectedCategory =
-        { ...data };
-
-      this.viewMode =
-        'categories';
-
-      this.cdr.detectChanges();
-
-      return;
-    }
-
-    this.selectedCategory = null;
-
-    this.loadProducts(data.id);
+  if (
+    data.level === 'all' ||
+    data.id === 0
+  ) {
+    this.onAllProducts();
+    return;
   }
+
+  this.breadcrumb = [];
+
+  if (data.mainName) {
+    this.breadcrumb.push(data.mainName);
+  }
+
+  if (
+    data.parentName &&
+    data.parentName !== data.mainName
+  ) {
+    this.breadcrumb.push(data.parentName);
+  }
+
+  if (data.name) {
+    this.breadcrumb.push(data.name);
+  }
+
+  this.selectedCategory = null;
+
+  this.loadProducts(data.id);
+}
 
   // =========================
   // IMAGE
