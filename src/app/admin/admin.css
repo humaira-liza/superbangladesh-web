@@ -153,35 +153,53 @@ body{
 
 @media(max-width:768px){
 
-  .admin-layout{
-    flex-direction:column;
-  }
-
   .sidebar{
 
     width:100%;
-
-    height:auto;
 
     position:relative;
 
     top:0;
 
-    display:flex;
+    height:auto;
 
-    align-items:center;
+    display:block;
 
-    gap:12px;
+    overflow:visible;
 
-    overflow-x:auto;
-
-    overflow-y:hidden;
-
-    white-space:nowrap;
+    white-space:normal;
 
     padding:14px;
   }
 
+  .sidebar h2{
+    display:block;
+    font-size:24px;
+    margin-bottom:20px;
+  }
+
+  .sidebar a{
+
+    display:block;
+
+    width:100%;
+
+    margin-bottom:10px;
+
+    font-size:15px;
+  }
+
+  .content{
+
+    width:100%;
+
+    margin-left:0;
+
+    margin-top:0;
+
+    padding:14px;
+  }
+}
   .sidebar h2{
     display:none;
   }
