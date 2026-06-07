@@ -59,10 +59,13 @@
     My Orders
   </a>
 
+  <a
+    *ngIf="isAdmin()"
+    routerLink="/admin/dashboard">
+    Admin
+  </a>
+
 </div>
-
-<div class="navbar">
-
 
   <!-- LEFT -->
 
