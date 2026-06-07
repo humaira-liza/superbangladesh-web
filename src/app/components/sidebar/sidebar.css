@@ -183,8 +183,12 @@
 
     width:100%;
 
-    height:auto;
+    height:100vh;
 
-    border-radius:20px;
+    overflow-y:auto;
+
+    border-radius:0;
+
+    padding-bottom:120px;
   }
 }
