@@ -252,10 +252,15 @@ getImage(url: string) {
 
             error: (err) => {
 
-              console.log(err);
+  console.log('FULL ERROR = ', err);
 
-              alert('❌ Image upload failed');
-            }
+  alert(
+    'STATUS = ' + err.status +
+    '\n\nMESSAGE = ' + err.message +
+    '\n\nERROR = ' +
+    JSON.stringify(err.error)
+  );
+}
           });
 
       } else {
@@ -326,10 +331,15 @@ getImage(url: string) {
 
               error: (err) => {
 
-                console.log(err);
+  console.log('FULL ERROR = ', err);
 
-                alert('❌ Product add failed');
-              }
+  alert(
+    'STATUS = ' + err.status +
+    '\n\nMESSAGE = ' + err.message +
+    '\n\nERROR = ' +
+    JSON.stringify(err.error)
+  );
+}
             });
         },
 
