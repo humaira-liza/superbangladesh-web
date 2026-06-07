@@ -27,9 +27,10 @@
   *ngIf="mobileMenuOpen">
 
   <app-sidebar
-    (categoryClick)="onCategory($event)"
-    (allProducts)="onAllProducts()">
+    (categoryClick)="onCategory($event)">
   </app-sidebar>
+    
+  
 
 </div>
 
@@ -38,9 +39,10 @@
     <!-- SIDEBAR DESKTOP -->
 
     <app-sidebar
-      (categoryClick)="onCategory($event)"
-      (allProducts)="onAllProducts()">
+      (categoryClick)="onCategory($event)">
     </app-sidebar>
+   
+    
 
     <!-- RIGHT -->
 

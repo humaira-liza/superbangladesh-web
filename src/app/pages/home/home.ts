@@ -204,6 +204,8 @@ toggleMobileMenu() {
   // =========================
 
  onAllProducts() {
+  
+  this.mobileMenuOpen = false;
 
   this.mobileMenuOpen = false;
 
@@ -230,7 +232,7 @@ toggleMobileMenu() {
 
 onCategory(data: any) {
 
-  
+  this.mobileMenuOpen = false;
 
   console.log('CATEGORY RECEIVED', data);
 
