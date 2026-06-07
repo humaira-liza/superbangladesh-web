@@ -129,6 +129,7 @@ toggleMobileMenu() {
   // =========================
 
   loadProducts(id: number) {
+    alert('LOAD PRODUCTS ' + id);
 
     this.loading = true;
 
