@@ -138,27 +138,29 @@ export class Sidebar implements OnInit {
   // ======================
 
   onSub(
-    sub: any,
-    parent: any
-  ): void {
+  sub: any,
+  parent: any
+): void {
 
-    this.selectedId = sub.id;
+  alert('SUB CLICK = ' + sub.name);
 
-    this.expandedSub =
-      this.expandedSub === sub.id
-        ? null
-        : sub.id;
+  this.selectedId = sub.id;
 
-    this.categoryClick.emit({
+  this.expandedSub =
+    this.expandedSub === sub.id
+      ? null
+      : sub.id;
 
-      ...sub,
+  this.categoryClick.emit({
 
-      parentName:
-        parent?.name,
+    ...sub,
 
-      level: 'sub'
-    });
-  }
+    parentName:
+      parent?.name,
+
+    level: 'sub'
+  });
+}
 
   // ======================
   // CHILD CATEGORY
