@@ -232,9 +232,9 @@ toggleMobileMenu() {
 
 onCategory(data: any) {
 
-  this.mobileMenuOpen = false;
+  alert('CATEGORY CLICKED');
 
-  console.log('CATEGORY RECEIVED', data);
+  console.log(data);
 
   this.mobileMenuOpen = false;
 
