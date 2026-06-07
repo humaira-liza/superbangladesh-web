@@ -202,9 +202,11 @@ toggleMobileMenu() {
   // ALL PRODUCTS
   // =========================
 
-  onAllProducts() {
+ onAllProducts() {
 
-    this.breadcrumb = ['All Products'];
+  this.mobileMenuOpen = false;
+
+  this.breadcrumb = ['All Products'];
 
     this.selectedCategory = null;
 
@@ -227,10 +229,11 @@ toggleMobileMenu() {
 
   onCategory(data: any) {
 
-    console.log(data);
+  this.mobileMenuOpen = false;
 
-    if (!data) return;
+  console.log(data);
 
+  if (!data) return;
     this.state.setSearch('');
 
     this.allProducts = [];

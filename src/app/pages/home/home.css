@@ -341,42 +341,7 @@ app-sidebar{
   display:none;
 }
 
-
-.menu-btn{
-  display:none;
-}
-
-.mobile-sidebar{
-  display:none;
-}
-
-@media(max-width:768px){
-
-  .menu-btn{
-    display:block;
-    position:fixed;
-    top:15px;
-    left:15px;
-    z-index:99999;
-    font-size:28px;
-    background:#fff;
-    border:none;
-    padding:10px 15px;
-    border-radius:10px;
-  }
-
-  .mobile-sidebar{
-    display:block;
-    position:fixed;
-    top:0;
-    left:0;
-    width:280px;
-    height:100vh;
-    z-index:9999;
-    background:#fff;
-    overflow:auto;
-  }
-}
+/* MOBILE CATEGORY MENU */
 
 .mobile-menu-btn{
   display:none;
@@ -386,82 +351,65 @@ app-sidebar{
   display:none;
 }
 
-@media(max-width:768px){
-
-  .mobile-menu-btn{
-
-    display:block;
-
-    margin:10px;
-
-    padding:12px 18px;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:#2563eb;
-
-    color:white;
-
-    font-weight:700;
-  }
-
-  .mobile-sidebar{
-
-    display:block;
-
-    position:fixed;
-
-    top:0;
-    left:0;
-
-    width:280px;
-    height:100vh;
-
-    z-index:999999;
-
-    background:white;
-
-    overflow:auto;
-  }
-}
-
-.mobile-menu-btn{
-  display:none;
-}
-
-.mobile-sidebar{
+.mobile-overlay{
   display:none;
 }
 
 @media(max-width:768px){
 
-  .mobile-menu-btn{
-    display:block;
-    margin:10px;
-    padding:12px 16px;
-    border:none;
-    border-radius:10px;
-    background:#0ea5e9;
-    color:white;
-    font-weight:700;
-  }
-
-  .mobile-sidebar{
-    display:block;
-    position:fixed;
-    top:0;
-    left:0;
-    width:280px;
-    height:100vh;
-    background:white;
-    z-index:9999;
-    overflow:auto;
-    box-shadow:0 0 20px rgba(0,0,0,.2);
-  }
-
+  /* Hide desktop sidebar */
   .layout > app-sidebar{
     display:none;
   }
+
+  .mobile-menu-btn{
+    display:block;
+
+    position:fixed;
+
+    top:15px;
+    left:15px;
+
+    width:56px;
+    height:56px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:white;
+
+    color:#111827;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    z-index:10000;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
+
+  .mobile-overlay{
+    display:block;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    z-index:9998;
+  }
+
+  .mobile-sidebar{
+    display:block;
+    position:fixed;
+    top:0;
+    left:0;
+    width:280px;
+    height:100vh;
+    background:#fff;
+    z-index:9999;
+    overflow-y:auto;
+    box-shadow:0 0 20px rgba(0,0,0,.25);
+  }
+}
+
+
