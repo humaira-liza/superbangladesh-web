@@ -114,6 +114,7 @@ export class Sidebar implements OnInit {
   // ======================
 
   onMain(cat: any): void {
+    console.log('MAIN CLICK', cat);
 
     this.selectedId = cat.id;
 

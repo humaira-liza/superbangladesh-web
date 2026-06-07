@@ -228,6 +228,7 @@ toggleMobileMenu() {
   // =========================
 
   onCategory(data: any) {
+    console.log('CATEGORY RECEIVED', data);
 
   this.mobileMenuOpen = false;
 
