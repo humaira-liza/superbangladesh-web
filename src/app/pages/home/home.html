@@ -1,29 +1,31 @@
 <div class="page">
 
-  <!-- MOBILE MENU BUTTON -->
-
-  <button
-    class="menu-btn"
-    (click)="toggleMobileMenu()">
-
-    ☰
-
-  </button>
-
-  <!-- MOBILE SIDEBAR -->
-
-  <div
-    class="mobile-sidebar"
-    *ngIf="mobileMenuOpen">
-
-    <app-sidebar
-      (categoryClick)="onCategory($event)"
-      (allProducts)="onAllProducts()">
-    </app-sidebar>
-
-  </div>
+  
 
   <app-banner></app-banner>
+
+  <!-- MOBILE CATEGORY BUTTON -->
+
+<button
+  class="mobile-menu-btn"
+  (click)="toggleMobileMenu()">
+
+  ☰ Categories
+
+</button>
+
+<!-- MOBILE SIDEBAR -->
+
+<div
+  class="mobile-sidebar"
+  *ngIf="mobileMenuOpen">
+
+  <app-sidebar
+    (categoryClick)="onCategory($event)"
+    (allProducts)="onAllProducts()">
+  </app-sidebar>
+
+</div>
 
   <div class="layout">
 
