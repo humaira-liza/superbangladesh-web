@@ -230,6 +230,8 @@ toggleMobileMenu() {
 
 onCategory(data: any) {
 
+  alert('HOME RECEIVED');
+
   console.log('CATEGORY RECEIVED', data);
 
   this.mobileMenuOpen = false;
