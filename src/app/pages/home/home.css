@@ -23,12 +23,8 @@
   align-items:flex-start;
 }
 
-/* SIDEBAR */
 
-app-sidebar{
-  width:240px;
-  flex-shrink:0;
-}
+
 
 /* RIGHT */
 
@@ -380,5 +376,13 @@ app-sidebar{
   .products-section{
     padding-bottom:80px;
   }
+
+  @media(max-width:768px){
+
+  .layout > app-sidebar{
+    display:none !important;
+  }
+
+}
 
 

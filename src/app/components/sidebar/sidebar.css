@@ -180,16 +180,23 @@
 @media(max-width:768px){
 
   .sidebar{
-    width:100% !important;
-    max-width:100%;
+    width:100%;
     height:auto;
-    min-height:auto;
 
     border-radius:0;
 
     padding:10px;
 
-    overflow-x:hidden;
+    overflow-y:auto;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .sidebar{
+    display:block !important;
+    visibility:visible !important;
   }
 
 }

@@ -15,12 +15,29 @@
     Super Bangladesh
   </div>
 
+  <div
+  class="mobile-overlay"
+  *ngIf="sidebarOpen"
+  (click)="toggleSidebar()">
+</div>
+
+  
+
   <!-- MOBILE SIDEBAR -->
    <div
   class="mobile-sidebar"
   *ngIf="sidebarOpen">
 
   <app-sidebar></app-sidebar>
+
+  <a
+    *ngIf="isAdmin()"
+    routerLink="/admin/dashboard"
+    (click)="sidebarOpen=false">
+
+    Admin Dashboard
+
+  </a>
 
 </div>
 
@@ -43,36 +60,14 @@
 
 <!-- MOBILE LINKS -->
 
-<div class="mobile-links">
-
-  <a (click)="goHome()">
-    Home
-  </a>
-
-  <a routerLink="/cart">
-    Cart ({{cart.count()}})
-  </a>
-
-  <a
-    *ngIf="isLoggedIn() && !isAdmin()"
-    routerLink="/orders">
-    My Orders
-  </a>
-
-  <a
-    *ngIf="isAdmin()"
-    routerLink="/admin/dashboard">
-    Admin
-  </a>
-
-</div>
-
 <!-- ADD THIS -->
 <div class="navbar">
 
   <!-- LEFT -->
 
   <div class="left">
+
+    
 
     <!-- LOGO -->
 
