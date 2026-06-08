@@ -7,10 +7,12 @@
 
   <div class="layout">
 
-    <!-- RIGHT -->
+  <app-sidebar
+    (categoryClick)="onCategory($event)">
+  </app-sidebar>
 
-    <div class="products-section">
-
+  <div class="products-section">
+    
       <!-- BREADCRUMB -->
 
       <div
