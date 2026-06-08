@@ -142,6 +142,8 @@ onSub(
   parent: any
 ): void {
 
+  console.log('SUB CLICK', sub);
+
   this.selectedId = sub.id;
 
   this.expandedSub =
@@ -149,12 +151,6 @@ onSub(
       ? null
       : sub.id;
 
-  // child category থাকলে expand হবে
-  if (sub.children?.length > 0) {
-    return;
-  }
-
-  // child না থাকলে product দেখাবে
   this.categoryClick.emit({
     ...sub,
     parentName: parent?.name,
