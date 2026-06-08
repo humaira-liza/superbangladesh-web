@@ -137,12 +137,10 @@ export class Sidebar implements OnInit {
   // SUB CATEGORY
   // ======================
 
-  onSub(
+onSub(
   sub: any,
   parent: any
 ): void {
-
-
 
   this.selectedId = sub.id;
 
@@ -151,13 +149,15 @@ export class Sidebar implements OnInit {
       ? null
       : sub.id;
 
+  // child category থাকলে expand হবে
+  if (sub.children?.length > 0) {
+    return;
+  }
+
+  // child না থাকলে product দেখাবে
   this.categoryClick.emit({
-
     ...sub,
-
-    parentName:
-      parent?.name,
-
+    parentName: parent?.name,
     level: 'sub'
   });
 }
