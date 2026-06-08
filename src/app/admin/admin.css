@@ -122,18 +122,11 @@ body{
 /* CONTENT */
 
 .content{
-
   flex:1;
-
   margin-left:260px;
-
-  width:calc(100% - 260px);
-
   padding:24px;
-
   margin-top:82px;
-
-  overflow-x:hidden;
+  overflow-x:auto;
 }
 
 /* SCROLLBAR */
@@ -154,16 +147,23 @@ body{
 @media (max-width: 768px) {
 
   .admin-layout{
-    flex-direction: column;
+    display:block;
   }
 
   .sidebar{
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-    padding: 12px;
+    position:static;
+    width:100%;
+    height:auto;
+
+    padding:8px;
+
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+
+    background:#fff;
+
+    box-shadow:none;
   }
 
   .sidebar h2{
@@ -171,16 +171,22 @@ body{
   }
 
   .sidebar a{
-    margin-bottom:8px;
-    font-size:14px;
-    padding:12px;
+    margin:0;
+    padding:10px 12px;
+
+    font-size:13px;
+
+    border-radius:10px;
+
+    background:#f1f5f9;
+
+    color:#111827;
   }
 
   .content{
     width:100%;
-    margin-left:0;
-    margin-top:0;
-    padding:12px;
+    margin:0;
+    padding:10px;
   }
 
 }
