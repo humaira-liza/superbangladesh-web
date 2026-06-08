@@ -59,11 +59,11 @@ app-sidebar{
 
 .product-card{
 
-  background:#fafafa;
+  background:white;
 
-  border-radius:18px;
+  border-radius:12px;
 
-  padding:14px;
+  padding:8px;
 
   position:relative;
 
@@ -71,7 +71,9 @@ app-sidebar{
 
   cursor:pointer;
 
-  border:1px solid #ececec;
+  border:none;
+
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 
 .product-card:hover{
@@ -252,8 +254,6 @@ app-sidebar{
   font-weight:700;
 }
 
-/* MOBILE */
-
 @media(max-width:768px){
 
   .layout{
@@ -270,12 +270,16 @@ app-sidebar{
   }
 
   .product-grid{
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .product-card{
+    padding:8px;
+  }
 
   .image-box{
-    height:130px;
+    height:110px;
   }
 
   .add-btn{
@@ -285,7 +289,7 @@ app-sidebar{
   }
 
   .price{
-    font-size:22px;
+    font-size:18px;
   }
 
   .old-price{
@@ -293,8 +297,8 @@ app-sidebar{
   }
 
   .product-card h3{
-    font-size:15px;
-    min-height:46px;
+    font-size:14px;
+    min-height:auto;
   }
 
   .unit{
@@ -302,6 +306,7 @@ app-sidebar{
   }
 
 }
+
 
 /* OUT OF STOCK */
 
@@ -348,15 +353,20 @@ app-sidebar{
 @media(max-width:768px){
 
   .mobile-menu-btn{
-    display:block;
-    width:100%;
-    padding:12px;
-    margin:10px 0;
-    background:#7c3aed;
-    color:white;
-    border:none;
-    border-radius:10px;
-  }
+  display:block;
+  width:calc(100% - 20px);
+  margin:10px;
+  padding:14px;
+
+  background:#7c3aed;
+  color:white;
+
+  border:none;
+  border-radius:12px;
+
+  font-size:16px;
+  font-weight:700;
+}
 
 }
 
@@ -397,6 +407,47 @@ app-sidebar{
   overflow-y:auto;
   z-index:9999;
 }
+}
+
+.mobile-order-bar{
+  display:none;
+}
+
+@media(max-width:768px){
+
+  .mobile-order-bar{
+    display:flex;
+
+    position:fixed;
+    bottom:0;
+    left:0;
+
+    width:100%;
+    height:60px;
+
+    z-index:9999;
+  }
+
+  .chat-btn{
+    width:70px;
+    border:none;
+    background:#ff6b6b;
+    color:white;
+    font-size:24px;
+  }
+
+  .order-btn{
+    flex:1;
+    border:none;
+    background:#7c3aed;
+    color:white;
+    font-size:18px;
+    font-weight:700;
+  }
+
+  .products-section{
+    padding-bottom:80px;
+  }
 }
 
 
