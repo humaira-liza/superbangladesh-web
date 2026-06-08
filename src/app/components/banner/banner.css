@@ -3,7 +3,7 @@
   height:300px;
   position:relative;
   overflow:hidden;
-  margin-top:80px;   /* navbar height */
+  
   margin-bottom:20px;
   z-index:1;
 }
