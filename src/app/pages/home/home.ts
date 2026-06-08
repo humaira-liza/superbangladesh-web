@@ -59,20 +59,29 @@ toggleMobileMenu() {
     private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {
+ ngOnInit() {
 
-    this.loadAll();
+  this.loadAll();
 
-    this.state.search$
-      .subscribe(value => {
+  this.state.search$
+    .subscribe(value => {
 
-        this.currentSearch =
-          value || '';
+      this.currentSearch =
+        value || '';
 
-        this.applySearch();
-      });
-  }
+      this.applySearch();
+    });
 
+  this.state.category$
+    .subscribe(id => {
+
+      if (!id) return;
+
+      console.log('STATE CATEGORY =', id);
+
+      this.loadProducts(id);
+    });
+}
   // =========================
   // LOAD ALL
   // =========================

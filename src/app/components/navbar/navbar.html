@@ -28,7 +28,9 @@
   class="mobile-sidebar"
   *ngIf="sidebarOpen">
 
-  <app-sidebar></app-sidebar>
+ <app-sidebar
+  (categoryClick)="onMobileCategory($event)">
+</app-sidebar>
 
   <a
     *ngIf="isAdmin()"

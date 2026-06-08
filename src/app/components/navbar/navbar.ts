@@ -93,4 +93,18 @@ export class Navbar {
  toggleSidebar() {
   this.sidebarOpen = !this.sidebarOpen;
 }
+
+onMobileCategory(data: any) {
+
+  console.log('MOBILE CATEGORY', data);
+
+  this.sidebarOpen = false;
+
+  if (!data) return;
+
+  this.state.setCategory(data.id);
+
+  this.router.navigate(['/']);
+}
+
 }
