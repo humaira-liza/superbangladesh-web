@@ -10,6 +10,12 @@
   padding-top:140px;
 }
 
+@media(max-width:768px){
+  .page{
+    padding-top:80px;
+  }
+}
+
 /* LAYOUT */
 
 .layout{
@@ -347,111 +353,12 @@ app-sidebar{
   display:none;
 }
 
-/* MOBILE CATEGORY MENU */
-
-.mobile-menu-btn{
-  display:none;
-}
-
-@media(max-width:768px){
-
-  .mobile-menu-btn{
-
-  display:block;
-
-  width:calc(100% - 24px);
-
-  margin:12px;
-
-  height:56px;
-
-  background:#7c3aed;
-
-  color:white;
-
-  border:none;
-
-  border-radius:14px;
-
-  font-size:18px;
-
-  font-weight:700;
-}
-
-}
-
-.mobile-sidebar{
-  display:none;
-}
-
-.mobile-overlay{
-  display:none;
-}
-
-@media(max-width:768px){
-
-  /* Hide desktop sidebar */
-  .layout > app-sidebar{
-    display:none;
-  }
-
- 
-
-  .mobile-overlay{
-    display:block;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.45);
-    z-index:9998;
-  }
-
-.mobile-sidebar{
-  display:block;
-  position:fixed;
-  top:0;
-  left:0;
-
-  width:78%;
-  max-width:300px;
-
-  height:100vh;
-
-  background:white;
-
-  overflow-y:auto;
-
-  z-index:9999;
-}
-}
 
 .mobile-order-bar{
   display:none;
 }
 
-@media(max-width:768px){
 
-.mobile-sidebar{
-  display:block;
-  position:fixed;
-  top:0;
-  left:0;
-
-  width:78%;
-  max-width:300px;
-
-  height:100vh;
-
-  background:white;
-
-  padding:20px;
-
-  overflow-y:auto;
-
-  z-index:9999;
-
-  box-shadow:
-  0 0 30px rgba(0,0,0,.2);
-}
 
   .chat-btn{
     width:70px;
@@ -473,6 +380,5 @@ app-sidebar{
   .products-section{
     padding-bottom:80px;
   }
-}
 
 

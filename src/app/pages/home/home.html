@@ -4,35 +4,11 @@
 
   <app-banner></app-banner>
 
-  <!-- MOBILE CATEGORY BUTTON -->
 
-<button
-  class="mobile-menu-btn"
-  (click)="toggleMobileMenu()">
 
-  ☰ Categories
 
-</button>
 
-<div
-  class="mobile-overlay"
-  *ngIf="mobileMenuOpen"
-  (click)="toggleMobileMenu()">
-</div>
 
-<!-- MOBILE SIDEBAR -->
-
-<div
-  class="mobile-sidebar"
-  *ngIf="mobileMenuOpen">
-
-  <app-sidebar
-    (categoryClick)="onCategory($event)">
-  </app-sidebar>
-    
-  
-
-</div>
 
   <div class="layout">
 
