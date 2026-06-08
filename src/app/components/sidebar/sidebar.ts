@@ -142,7 +142,7 @@ export class Sidebar implements OnInit {
   parent: any
 ): void {
 
-alert('SUB CLICK');
+
 
   this.selectedId = sub.id;
 

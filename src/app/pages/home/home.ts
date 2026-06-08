@@ -234,7 +234,7 @@ toggleMobileMenu() {
 
 onCategory(data: any) {
 
-  alert('CATEGORY CLICKED');
+  
 
   console.log(data);
 
