@@ -22,6 +22,12 @@ body {
   overflow-x: hidden;
 }
 
+html,
+body{
+  width:100%;
+  overflow-x:hidden;
+}
+
 app-navbar {
   position: sticky;
   top: 0;

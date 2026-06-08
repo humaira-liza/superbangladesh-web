@@ -143,6 +143,8 @@ toggleMobileMenu() {
 
           console.log('CATEGORY = ', res);
 
+          
+
           this.allProducts =
             [...(res || [])];
 
