@@ -272,9 +272,20 @@ onCategory(data: any) {
     this.breadcrumb.push(data.name);
   }
 
-  this.selectedCategory = null;
+ // child category থাকলে category page দেখাও
+if (data.children && data.children.length > 0) {
 
-  this.loadProducts(data.id);
+  this.selectedCategory = data;
+
+  this.viewMode = 'categories';
+
+  return;
+}
+
+// শেষ level হলে products দেখাও
+this.selectedCategory = null;
+
+this.loadProducts(data.id);
 }
 
   // =========================
