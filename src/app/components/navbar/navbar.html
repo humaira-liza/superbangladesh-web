@@ -15,6 +15,18 @@
     Super Bangladesh
   </div>
 
+  <a
+  routerLink="/cart"
+  class="mobile-cart">
+
+  <i class="fa-solid fa-cart-shopping"></i>
+
+  <span class="mobile-badge">
+    {{cart.count()}}
+  </span>
+
+</a>
+
   <div
   class="mobile-overlay"
   *ngIf="sidebarOpen"
