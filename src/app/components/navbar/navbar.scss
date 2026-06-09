@@ -255,10 +255,8 @@
 
 .chat-wrapper{
 
-  position:fixed;
-
-  right:18px;
-  bottom:34px;
+  right:16px;
+  bottom:90px;
 
   z-index:999999;
 
@@ -504,19 +502,21 @@
     display:none;
   }
 
-  .mobile-header{
+.mobile-header{
 
-    display:flex;
+  display:flex;
 
-    align-items:center;
-    justify-content:space-between;
+  align-items:center;
+  justify-content:space-between;
 
-    padding:14px 16px;
+  height:70px;
 
-    background:white;
+  padding:0 14px;
 
-    border-bottom:1px solid #e5e7eb;
-  }
+  background:white;
+
+  border-bottom:1px solid #e5e7eb;
+}
 
 .menu-btn{
 
@@ -535,9 +535,9 @@
   align-items:center;
   justify-content:center;
 }
- .mobile-logo{
+.mobile-logo{
 
-  font-size:18px;
+  font-size:22px;
 
   font-weight:900;
 
@@ -736,6 +736,21 @@
     font-size:15px;
 
     outline:none;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .mobile-search{
+
+    position:sticky;
+
+    top:70px;
+
+    z-index:999;
+
+    background:white;
   }
 
 }
