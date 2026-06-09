@@ -22,6 +22,20 @@ export class AdminProducts implements OnInit {
   products: any[] = [];
   categories: any[] = [];
 
+  searchText = '';
+
+get filteredProducts() {
+
+  if (!this.searchText?.trim()) {
+    return this.products;
+  }
+
+  return this.products.filter((p: any) =>
+    p.name?.toLowerCase()
+      .includes(this.searchText.toLowerCase())
+  );
+}
+
   loading = true;
 
   form: any = {

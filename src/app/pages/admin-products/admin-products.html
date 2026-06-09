@@ -163,12 +163,24 @@
 
 </div>
 
+<!-- SEARCH -->
+
+<div class="search-box">
+
+  <input
+    type="text"
+    [(ngModel)]="searchText"
+    placeholder="🔍 Search Product..."
+  >
+
+</div>
+
 <!-- PRODUCTS -->
 
 <div class="products">
 
   <div
-    *ngFor="let p of products"
+   *ngFor="let p of filteredProducts"
     class="card">
 
     <!-- IMAGE -->
