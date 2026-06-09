@@ -63,7 +63,7 @@
 
   padding:10px;
 
-  height:auto;
+  height:260px;
 
   position:relative;
 
@@ -91,7 +91,7 @@
 .image-box{
   position:relative;
   width:100%;
-  height:110px;
+  height:100px;
 
   display:flex;
   align-items:center;
@@ -124,8 +124,8 @@
   right:0;
   bottom:8px;
 
-  width:54px;
-  height:54px;
+  width:46px;
+  height:46px;
 
   border-radius:50%;
 
@@ -135,7 +135,7 @@
 
   color:#7c3aed;
 
-  font-size:38px;
+  font-size:28px;
 
   font-weight:300;
 
@@ -170,7 +170,7 @@
 
 .price{
 
-  font-size:24px;
+  font-size:20px;
 
   font-weight:900;
 
@@ -209,11 +209,11 @@
 
 .category-card{
   text-align:center;
-  height:260px;
+  height:220px;
 }
 
 .category-card .image-box{
-  height:160px;
+  height:120px;
 }
 
 /* UNIT */
@@ -288,21 +288,22 @@
 
   .product-card{
     padding:8px;
+     height:220px;
   }
 
   .image-box{
-  height:110px;
-  
+  height:80px;
+
 }
 
   .add-btn{
-    width:42px;
-    height:42px;
-    font-size:28px;
-  }
+  width:36px;
+  height:36px;
+  font-size:22px;
+}
 
   .price{
-    font-size:18px;
+    font-size:16px;
   }
 
   .old-price{
@@ -424,6 +425,18 @@
   -webkit-box-orient:vertical;
 
   overflow:hidden;
+}
+
+@media(max-width:768px){
+
+  .category-card{
+    height:170px;
+  }
+
+  .category-card .image-box{
+    height:90px;
+  }
+
 }
 
 
