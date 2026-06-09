@@ -157,9 +157,9 @@
   display:grid;
 
   grid-template-columns:
-  repeat(auto-fit,minmax(320px,1fr));
+  repeat(auto-fit,minmax(260px,1fr));
 
-  gap:30px;
+  gap:20px;
 
   padding-bottom:40px;
 }
@@ -206,7 +206,7 @@
 .image-box img{
 
   width:100%;
-  height:240px;
+  height:160px;
 
   object-fit:contain;
 
@@ -257,14 +257,14 @@
 /* INFO */
 
 .info{
-  padding:24px;
+  padding:16px;
 }
 
 /* NAME */
 
 .info h3{
 
-  font-size:28px;
+  font-size:18px;
   font-weight:800;
 
   color:#111827;
@@ -291,7 +291,7 @@
 
 .price{
 
-  font-size:34px;
+  font-size:20px;
   font-weight:900;
 
   color:#111827;
@@ -388,9 +388,9 @@
 
   border:none;
 
-  border-radius:16px;
+  border-radius:12px;
 
-  padding:14px;
+  padding:10px;
 
   font-size:15px;
   font-weight:800;
@@ -451,8 +451,8 @@
   }
 
   .image-box img{
-    height:190px;
-  }
+  height:140px;
+}
 
   .meta-row{
     flex-direction:column;
