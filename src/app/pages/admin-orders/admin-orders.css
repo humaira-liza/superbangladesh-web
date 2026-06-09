@@ -255,3 +255,17 @@ html{
   }
 
 }
+
+.customer-info{
+  margin-bottom:16px;
+}
+
+.customer-info p{
+  margin:6px 0;
+  font-size:14px;
+  color:#374151;
+}
+
+.customer-info strong{
+  color:#111827;
+}
