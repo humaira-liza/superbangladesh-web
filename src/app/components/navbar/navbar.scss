@@ -185,11 +185,11 @@
 
   position:fixed;
 
-  right:18px;
+  right:14px;
 
-  bottom:120px;
+  bottom:100px;
 
-  width:72px;
+  width:58px;
 
   background:white;
 
@@ -220,13 +220,13 @@
 
 .cart-count{
   font-size:11px;
-  color:#ec4899;
+  color:#e181b1;
   margin-bottom:6px;
 }
 
 .cart-icon{
-  font-size:28px;
-  color:#ec4899;
+  font-size:20px;
+  color:#c689a7;
 }
 
 /* PRICE */
@@ -236,17 +236,17 @@
   background:
   linear-gradient(
     135deg,
-    #ec4899,
-    #f43f5e
+    #d390b1,
+    #e37184
   );
 
   color:white;
 
   text-align:center;
 
-  padding:12px 0;
+  padding:8px 0;
 
-  font-size:20px;
+  font-size:14px;
 
   font-weight:900;
 }
@@ -279,8 +279,10 @@
 
 .chat-item{
 
-  width:62px;
-  height:62px;
+  width:48px;
+  height:48px;
+
+  font-size:20px;
 
   border-radius:50%;
 
@@ -292,7 +294,7 @@
 
   text-decoration:none;
 
-  font-size:28px;
+  
 
   box-shadow:
   0 10px 24px rgba(0,0,0,0.16);
@@ -320,8 +322,8 @@
 
 .main-chat-btn{
 
-  width:70px;
-  height:70px;
+  width:56px;
+  height:56px;
 
   border:none;
 
@@ -336,7 +338,7 @@
 
   color:white;
 
-  font-size:30px;
+  font-size:22px;
 
   cursor:pointer;
 
@@ -415,8 +417,8 @@
 }
 
 .chat-wrapper{
-  right:16px;
-  bottom:130px;
+  right:12px;
+  bottom:105px;
 }
 
   .mobile-nav{
