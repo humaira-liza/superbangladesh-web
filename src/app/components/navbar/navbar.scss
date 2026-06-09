@@ -255,6 +255,8 @@
 
 .chat-wrapper{
 
+  position:fixed;
+
   right:16px;
   bottom:90px;
 
@@ -537,17 +539,21 @@
 }
 .mobile-logo{
 
-  font-size:22px;
+  flex:1;
+
+  margin:0 10px;
+
+  font-size:20px;
 
   font-weight:900;
 
   color:#166534;
 
-  white-space:nowrap;
-
   overflow:hidden;
 
   text-overflow:ellipsis;
+
+  white-space:nowrap;
 }
   .mobile-login{
 
@@ -721,22 +727,27 @@
     border-bottom:1px solid #e5e7eb;
   }
 
-  .mobile-search input{
+.mobile-search input{
 
-    width:100%;
+  width:100%;
 
-    height:48px;
+  height:52px;
 
-    border:1px solid #dbe3ee;
+  border:none;
 
-    border-radius:14px;
+  border-radius:16px;
 
-    padding:0 16px;
+  background:#f8fafc;
 
-    font-size:15px;
+  padding:0 18px;
 
-    outline:none;
-  }
+  font-size:16px;
+
+  box-shadow:
+    0 2px 8px rgba(0,0,0,.06);
+
+  outline:none;
+}
 
 }
 
