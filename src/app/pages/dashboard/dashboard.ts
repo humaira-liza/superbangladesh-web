@@ -49,12 +49,18 @@ export class Dashboard implements OnInit {
       localStorage.getItem('userEmail') ||
       localStorage.getItem('email');
 
+      console.log('EMAIL =', email);
+
+console.log('URL =', `/api/dashboard?email=${email}`);
+
     this.http.get<any>(
       `/api/dashboard?email=${email}`
     )
     .subscribe({
 
       next: (res) => {
+
+        console.log('DASHBOARD RESPONSE =', res);
 
         this.totalProducts = res.totalProducts || 0;
         this.totalOrders = res.totalOrders || 0;
@@ -73,14 +79,18 @@ export class Dashboard implements OnInit {
         this.cdr.detectChanges();
       },
 
-      error: (err) => {
+     error: (err) => {
 
-        console.log(err);
+  console.log('DASHBOARD ERROR =', err);
 
-        this.loading = false;
+  console.log('STATUS =', err.status);
 
-        this.cdr.detectChanges();
-      }
+  console.log('ERROR BODY =', err.error);
+
+  this.loading = false;
+
+  this.cdr.detectChanges();
+}
     });
   }
 }
