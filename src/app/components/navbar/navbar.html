@@ -15,19 +15,28 @@
     Super Bangladesh
   </div>
 
-  
+  <div class="mobile-actions">
+
+  <a routerLink="/" class="mobile-home">
+    <i class="fa-solid fa-house"></i>
+  </a>
+
+  <a routerLink="/cart" class="mobile-cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+
+    <span class="mobile-badge">
+      {{cart.count()}}
+    </span>
+  </a>
 
   <a
-  routerLink="/cart"
-  class="mobile-cart">
+    *ngIf="isLoggedIn()"
+    (click)="logout()"
+    class="mobile-login">
+    Logout
+  </a>
 
-  <i class="fa-solid fa-cart-shopping"></i>
-
-  <span class="mobile-badge">
-    {{cart.count()}}
-  </span>
-
-</a>
+</div>
 
   <div
   class="mobile-overlay"
@@ -59,20 +68,6 @@
 
 </div>
 
-
-  <a
-    *ngIf="!isLoggedIn()"
-    routerLink="/login"
-    class="mobile-login">
-    Login
-  </a>
-
-  <a
-    *ngIf="isLoggedIn()"
-    (click)="logout()"
-    class="mobile-login">
-    Logout
-  </a>
 
 </div>
 
