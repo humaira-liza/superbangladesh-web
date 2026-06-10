@@ -223,18 +223,27 @@ onSub(
   }
 
   handleChild(
-    child: any,
-    sub: any,
-    main: any,
-    event: Event
-  ): void {
+  child: any,
+  sub: any,
+  main: any,
+  event: Event
+): void {
 
-    event.stopPropagation();
+  event.stopPropagation();
 
-    this.onChild(
-      child,
-      sub,
-      main
-    );
-  }
+  this.onChild(
+    child,
+    sub,
+    main
+  );
+}
+
+closeSidebar(): void {
+
+  this.categoryClick.emit({
+    level: 'close'
+  });
+
+}
+
 }
