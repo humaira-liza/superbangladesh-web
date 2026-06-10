@@ -100,6 +100,10 @@ onMobileCategory(data: any) {
 
   this.sidebarOpen = false;
 
+  if (data?.level === 'close') {
+    return;
+  }
+
   if (!data) return;
 
   this.state.setCategory(data.id);
