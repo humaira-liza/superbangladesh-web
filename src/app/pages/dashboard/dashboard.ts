@@ -53,9 +53,9 @@ export class Dashboard implements OnInit {
 
 console.log('URL =', `/api/dashboard?email=${email}`);
 
-    this.http.get<any>(
-      `/api/dashboard?email=${email}`
-    )
+   this.http.get<any>(
+  `https://superbangladesh-api-1.onrender.com/api/dashboard?email=${email}`
+)
     .subscribe({
 
       next: (res) => {
