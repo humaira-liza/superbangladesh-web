@@ -162,7 +162,14 @@ export const routes: Routes = [
       {
         path: 'purchase-history',
         component: PurchaseHistory
-      }
+      },
+
+      {
+  path:'suppliers',
+  loadComponent:() =>
+    import('./admin/suppliers/suppliers')
+    .then(m => m.Suppliers)
+}
 
     ]
   },

@@ -35,6 +35,8 @@ export class Sidebar implements OnInit {
 
   selectedId = 0;
 
+  isAdmin = localStorage.getItem('role')?.toLowerCase() === 'admin';
+
   constructor(
     private http: HttpClient
   ) {}

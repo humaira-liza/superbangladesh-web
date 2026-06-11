@@ -1,0 +1,51 @@
+<div class="page">
+
+  <h1>🏭 Supplier Management</h1>
+
+  <div class="form">
+
+    <input
+      [(ngModel)]="name"
+      placeholder="Supplier Name"
+    >
+
+    <input
+      [(ngModel)]="phone"
+      placeholder="Phone"
+    >
+
+    <input
+      [(ngModel)]="address"
+      placeholder="Address"
+    >
+
+    <button (click)="saveSupplier()">
+      Save Supplier
+    </button>
+
+  </div>
+
+  <div class="list">
+
+    <div
+      class="supplier"
+      *ngFor="let s of suppliers"
+    >
+
+      <h3>{{ s.name }}</h3>
+
+      <p>{{ s.phone }}</p>
+
+      <p>{{ s.address }}</p>
+
+      <button
+        (click)="deleteSupplier(s.id)"
+      >
+        Delete
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

@@ -162,6 +162,17 @@
   ⚠️ File a complaint
 </a>
 
+<a
+  *ngIf="isAdmin"
+  class="link"
+  routerLink="/admin/suppliers"
+  (click)="closeSidebar()">
+
+  <i class="fa-solid fa-truck"></i>
+  Suppliers
+
+</a>
+
   </div>
 
 </div>
