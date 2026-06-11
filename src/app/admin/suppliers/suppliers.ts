@@ -18,6 +18,8 @@ export class Suppliers implements OnInit {
   phone = '';
   address = '';
 
+  editingId: number | null = null;
+
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
@@ -33,6 +35,15 @@ export class Suppliers implements OnInit {
     });
   }
 
+  editSupplier(s:any) {
+
+    this.editingId = s.id;
+
+    this.name = s.name;
+    this.phone = s.phone;
+    this.address = s.address;
+  }
+
   saveSupplier() {
 
     const body = {
@@ -41,18 +52,43 @@ export class Suppliers implements OnInit {
       address: this.address
     };
 
+    // UPDATE
+    if (this.editingId) {
+
+      this.http.put(
+        `https://superbangladesh-api-1.onrender.com/api/suppliers/${this.editingId}`,
+        body
+      )
+      .subscribe(() => {
+
+        this.resetForm();
+        this.loadSuppliers();
+
+      });
+
+      return;
+    }
+
+    // CREATE
     this.http.post(
       'https://superbangladesh-api-1.onrender.com/api/suppliers',
       body
     )
     .subscribe(() => {
 
-      this.name = '';
-      this.phone = '';
-      this.address = '';
-
+      this.resetForm();
       this.loadSuppliers();
+
     });
+  }
+
+  resetForm() {
+
+    this.editingId = null;
+
+    this.name = '';
+    this.phone = '';
+    this.address = '';
   }
 
   deleteSupplier(id:number) {

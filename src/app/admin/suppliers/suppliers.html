@@ -20,8 +20,8 @@
     >
 
     <button (click)="saveSupplier()">
-      Save Supplier
-    </button>
+  {{ editingId ? 'Update Supplier' : 'Save Supplier' }}
+</button>
 
   </div>
 
@@ -39,10 +39,14 @@
       <p>{{ s.address }}</p>
 
       <button
-        (click)="deleteSupplier(s.id)"
-      >
-        Delete
-      </button>
+  (click)="editSupplier(s)">
+  Edit
+</button>
+
+<button
+  (click)="deleteSupplier(s.id)">
+  Delete
+</button>
 
     </div>
 
