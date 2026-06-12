@@ -25,32 +25,54 @@ export class PurchaseManagement implements OnInit {
   products: any[] = [];
 
   categories: string[] = [];
+  suppliers: any[] = [];
 
-  purchase: any = {
+ purchase: any = {
 
-    supplierName: '',
-    supplierContact: '',
+  supplierId: null,
 
-    items: [
-      {
-        category: '',
-        productId: '',
-        search: '',
-        quantity: 1,
-        unitPrice: 0,
-        sellPrice: 0
-      }
-    ]
-  };
+  supplierName: '',
+  supplierContact: '',
+
+  paidAmount: 0,
+
+  items: [
+    {
+      category: '',
+      productId: '',
+      search: '',
+      quantity: 1,
+      unitPrice: 0,
+      sellPrice: 0
+    }
+  ]
+};
 
   constructor(
     private http: HttpClient
   ) {}
 
-  ngOnInit(): void {
+ ngOnInit(): void {
 
-    this.loadProducts();
-  }
+  this.loadProducts();
+
+  this.loadSuppliers();
+}
+
+onSupplierChange() {
+
+  const supplier = this.suppliers.find(
+    s => s.id == this.purchase.supplierId
+  );
+
+  if (!supplier) return;
+
+  this.purchase.supplierName =
+    supplier.name;
+
+  this.purchase.supplierContact =
+    supplier.phone;
+}
 
   // IMAGE URL
   getImage(url: string) {
@@ -103,6 +125,19 @@ export class PurchaseManagement implements OnInit {
       }
     });
   }
+
+  loadSuppliers() {
+
+  this.http.get<any[]>(
+
+    `${this.apiUrl}/api/suppliers`
+
+  ).subscribe(res => {
+
+    this.suppliers = res || [];
+
+  });
+}
 
   // SELECT PRODUCT
   selectProduct(
@@ -225,41 +260,58 @@ export class PurchaseManagement implements OnInit {
     return profit;
   }
 
+  getDue(): number {
+
+  return (
+
+    this.getTotal()
+
+    -
+
+    (this.purchase.paidAmount || 0)
+
+  );
+}
+
   // SAVE PURCHASE
   savePurchase() {
 
-    const payload = {
+  const payload = {
 
-      supplierName:
-        this.purchase
-          .supplierName,
+  supplierId:
+    this.purchase.supplierId,
 
-      supplierContact:
-        this.purchase
-          .supplierContact,
+  paidAmount:
+    this.purchase.paidAmount,
 
-      totalAmount:
-        this.getTotal(),
+  supplierName:
+    this.purchase.supplierName,
 
-      items:
+  supplierContact:
+    this.purchase.supplierContact,
 
-      this.purchase.items.map(
-        (i: any) => ({
+  totalAmount:
+    this.getTotal(),
 
-          productId:
-            Number(i.productId),
+  items:
 
-          quantity:
-            Number(i.quantity),
+  this.purchase.items.map(
+    (i: any) => ({
 
-          unitPrice:
-            Number(i.unitPrice),
+      productId:
+        Number(i.productId),
 
-          sellPrice:
-            Number(i.sellPrice)
-        })
-      )
-    };
+      quantity:
+        Number(i.quantity),
+
+      unitPrice:
+        Number(i.unitPrice),
+
+      sellPrice:
+        Number(i.sellPrice)
+    })
+  )
+};
 
     console.log(
       'PURCHASE:',
@@ -283,20 +335,24 @@ export class PurchaseManagement implements OnInit {
 
         this.purchase = {
 
-          supplierName: '',
-          supplierContact: '',
+  supplierId: null,
 
-          items: [
-            {
-              category: '',
-              productId: '',
-              search: '',
-              quantity: 1,
-              unitPrice: 0,
-              sellPrice: 0
-            }
-          ]
-        };
+  supplierName: '',
+  supplierContact: '',
+
+  paidAmount: 0,
+
+  items: [
+    {
+      category: '',
+      productId: '',
+      search: '',
+      quantity: 1,
+      unitPrice: 0,
+      sellPrice: 0
+    }
+  ]
+};
       },
 
       error: (err) => {

@@ -41,7 +41,23 @@
           Supplier Name
         </label>
 
-        <input type="text" [(ngModel)]="purchase.supplierName" placeholder="Enter supplier name" />
+        <select
+[(ngModel)]="purchase.supplierId"
+(change)="onSupplierChange()">
+
+  <option [ngValue]="null">
+    Select Supplier
+  </option>
+
+  <option
+    *ngFor="let s of suppliers"
+    [ngValue]="s.id">
+
+    {{ s.name }}
+
+  </option>
+
+</select>
 
       </div>
 
@@ -55,6 +71,19 @@
         <input type="text" [(ngModel)]="purchase.supplierContact" placeholder="Enter contact number" />
 
       </div>
+
+      <div class="field">
+
+  <label>
+    Paid Amount
+  </label>
+
+  <input
+    type="number"
+    [(ngModel)]="purchase.paidAmount"
+    placeholder="Enter paid amount" />
+
+</div>
 
     </div>
 
@@ -215,37 +244,44 @@
     + Add New Product
   </button>
 
-  <!-- SUMMARY -->
-  <div class="summary-grid">
+<!-- SUMMARY -->
+<div class="summary-grid">
 
-    <!-- TOTAL -->
-    <div class="summary-card blue">
+  <!-- TOTAL -->
+  <div class="summary-card blue">
 
-      <div class="summary-label">
-        Total Purchase
-      </div>
-
-      <div class="summary-value">
-
-        ৳ {{ getTotal() }}
-
-      </div>
-
+    <div class="summary-label">
+      Total Purchase
     </div>
 
-    <!-- PROFIT -->
-    <div class="summary-card green">
+    <div class="summary-value">
+      ৳ {{ getTotal() }}
+    </div>
 
-      <div class="summary-label">
-        Expected Profit
-      </div>
+  </div>
 
-      <div class="summary-value">
+  <!-- PROFIT -->
+  <div class="summary-card green">
 
-        ৳ {{ getProfit() }}
+    <div class="summary-label">
+      Expected Profit
+    </div>
 
-      </div>
+    <div class="summary-value">
+      ৳ {{ getProfit() }}
+    </div>
 
+  </div>
+
+  <!-- DUE -->
+  <div class="summary-card orange">
+
+    <div class="summary-label">
+      Supplier Due
+    </div>
+
+    <div class="summary-value">
+      ৳ {{ getDue() }}
     </div>
 
   </div>
