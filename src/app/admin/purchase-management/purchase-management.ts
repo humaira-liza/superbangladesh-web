@@ -61,8 +61,23 @@ export class PurchaseManagement implements OnInit {
 
 onSupplierChange() {
 
+  console.log(
+    'Selected ID:',
+    this.purchase.supplierId
+  );
+
+  console.log(
+    'All Suppliers:',
+    this.suppliers
+  );
+
   const supplier = this.suppliers.find(
     s => s.id == this.purchase.supplierId
+  );
+
+  console.log(
+    'Found Supplier:',
+    supplier
   );
 
   if (!supplier) return;
@@ -126,15 +141,33 @@ onSupplierChange() {
     });
   }
 
-  loadSuppliers() {
+loadSuppliers() {
 
   this.http.get<any[]>(
 
     `${this.apiUrl}/api/suppliers`
 
-  ).subscribe(res => {
+  ).subscribe({
 
-    this.suppliers = res || [];
+    next: (res) => {
+
+      console.log(
+        'SUPPLIERS:',
+        res
+      );
+
+      this.suppliers = res || [];
+
+    },
+
+    error: (err) => {
+
+      console.log(
+        'SUPPLIER ERROR:',
+        err
+      );
+
+    }
 
   });
 }
