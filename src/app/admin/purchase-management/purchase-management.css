@@ -547,6 +547,16 @@
   );
 }
 
+.summary-card.orange{
+
+  background:
+  linear-gradient(
+    135deg,
+    #f97316,
+    #fb923c
+  );
+}
+
 .summary-label{
 
   font-size:22px;
