@@ -59,8 +59,23 @@ export class PurchaseHistory implements OnInit {
             res
           );
 
+          res.forEach((p:any) => {
+
+  console.log(
+    'ID:',
+    p.id,
+    'TOTAL:',
+    p.totalAmount,
+    'PAID:',
+    p.paidAmount
+  );
+
+});
+
           this.purchases =
             (res || []).reverse();
+
+
 
           this.filteredPurchases =
             this.purchases;
