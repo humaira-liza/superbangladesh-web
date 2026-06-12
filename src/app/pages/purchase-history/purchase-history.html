@@ -33,30 +33,40 @@
 
   </div>
 
-  <!-- SUMMARY -->
-  <div class="summary-grid">
+<!-- SUMMARY -->
+<div class="summary-grid">
 
-    <div class="summary-card purchase">
+  <div class="summary-card purchase">
 
-      <p>Total Purchase</p>
+    <p>Total Purchase</p>
 
-      <h2>
-        ৳ {{ totalPurchase | number }}
-      </h2>
-
-    </div>
-
-    <div class="summary-card profit">
-
-      <p>Expected Profit</p>
-
-      <h2>
-        ৳ {{ totalProfit | number }}
-      </h2>
-
-    </div>
+    <h2>
+      ৳ {{ totalPurchase | number }}
+    </h2>
 
   </div>
+
+  <div class="summary-card profit">
+
+    <p>Expected Profit</p>
+
+    <h2>
+      ৳ {{ totalProfit | number }}
+    </h2>
+
+  </div>
+
+  <div class="summary-card due">
+
+    <p>Supplier Due</p>
+
+    <h2>
+      ৳ {{ totalDue | number }}
+    </h2>
+
+  </div>
+
+</div>
 
   <!-- EMPTY -->
   <div

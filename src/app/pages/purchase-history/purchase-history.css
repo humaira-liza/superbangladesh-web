@@ -93,7 +93,7 @@
   display:grid;
 
   grid-template-columns:
-  repeat(2,1fr);
+  repeat(3,1fr);
 
   gap:22px;
 
@@ -435,4 +435,14 @@ tbody tr:hover{
 
     padding:14px;
   }
+}
+
+.due{
+
+  background:
+  linear-gradient(
+    135deg,
+    #f97316,
+    #fb923c
+  );
 }

@@ -28,6 +28,7 @@ export class PurchaseHistory implements OnInit {
   totalPurchase = 0;
 
   totalProfit = 0;
+  totalDue = 0;
 
   searchText = '';
 
@@ -82,37 +83,48 @@ export class PurchaseHistory implements OnInit {
   }
 
   // TOTALS
-  calculateTotals() {
+ calculateTotals() {
 
-    this.totalPurchase = 0;
+  this.totalPurchase = 0;
 
-    this.totalProfit = 0;
+  this.totalProfit = 0;
 
-    this.filteredPurchases.forEach(
-      purchase => {
+  this.totalDue = 0;
 
-        this.totalPurchase +=
-          purchase.totalAmount || 0;
+  this.filteredPurchases.forEach(
+    purchase => {
 
-        purchase.items?.forEach(
-          (item: any) => {
+      this.totalPurchase +=
+        purchase.totalAmount || 0;
 
-            const profit =
-
-              (
-                item.sellPrice -
-                item.unitPrice
-              )
-
-              * item.quantity;
-
-            this.totalProfit +=
-              profit;
-          }
+      this.totalDue +=
+        (
+          purchase.totalAmount || 0
+        )
+        -
+        (
+          purchase.paidAmount || 0
         );
-      }
-    );
-  }
+
+      purchase.items?.forEach(
+        (item: any) => {
+
+          const profit =
+
+            (
+              item.sellPrice -
+              item.unitPrice
+            )
+
+            * item.quantity;
+
+          this.totalProfit +=
+            profit;
+        }
+      );
+    }
+  );
+}
 
   // SEARCH
   search() {
