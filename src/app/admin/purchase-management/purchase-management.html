@@ -41,9 +41,9 @@
           Supplier Name
         </label>
 
-        <select
-[(ngModel)]="purchase.supplierId"
-(change)="onSupplierChange()">
+<select
+  [(ngModel)]="purchase.supplierId"
+  (change)="onSupplierChange()">
 
   <option [ngValue]="null">
     Select Supplier
@@ -59,7 +59,10 @@
 
 </select>
 
-      </div>
+<div *ngFor="let s of suppliers">
+  {{ s.name }}
+</div>
+</div>
 
       <!-- CONTACT -->
       <div class="field">
