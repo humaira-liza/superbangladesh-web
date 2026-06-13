@@ -26,14 +26,20 @@ export class Suppliers implements OnInit {
     this.loadSuppliers();
   }
 
-  loadSuppliers() {
-    this.http.get<any[]>(
-      'https://superbangladesh-api-1.onrender.com/api/suppliers'
-    )
-    .subscribe(res => {
-      this.suppliers = res;
-    });
-  }
+loadSuppliers() {
+
+  this.http.get<any[]>(
+    'https://superbangladesh-api-1.onrender.com/api/suppliers'
+  )
+  .subscribe(res => {
+
+    console.log('SUPPLIERS API:', res);
+
+    this.suppliers = [...res];
+
+  });
+
+}
 
   editSupplier(s:any) {
 
@@ -59,12 +65,15 @@ export class Suppliers implements OnInit {
         `https://superbangladesh-api-1.onrender.com/api/suppliers/${this.editingId}`,
         body
       )
-      .subscribe(() => {
+      .subscribe((saved:any) => {
 
-        this.resetForm();
-        this.loadSuppliers();
+  console.log('SAVED:', saved);
 
-      });
+  this.resetForm();
+
+  this.loadSuppliers();
+
+});
 
       return;
     }
