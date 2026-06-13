@@ -446,3 +446,33 @@ tbody tr:hover{
     #fb923c
   );
 }
+
+.footer{
+
+  display:flex;
+
+  justify-content:flex-end;
+
+  align-items:center;
+
+  gap:12px;
+
+  flex-wrap:wrap;
+
+  padding-top:16px;
+}
+
+.paid-amount{
+
+  color:#2563eb;
+}
+
+.due-amount{
+
+  color:#f97316;
+}
+
+.due-label{
+
+  margin-left:20px;
+}
