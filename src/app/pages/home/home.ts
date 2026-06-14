@@ -311,7 +311,7 @@ this.loadProducts(data.id);
   // IMAGE
   // =========================
 
-  getImage(url: string) {
+getImage(url: string) {
 
   if (!url) {
     return 'assets/no-image.png';
@@ -321,10 +321,10 @@ this.loadProducts(data.id);
     return url;
   }
 
-  return `${this.apiUrl}/images/${encodeURIComponent(url)}`;
+  return `${this.apiUrl}/images/${url}`;
 }
 
- getCategoryImage(url: string) {
+getCategoryImage(url: string) {
 
   if (!url) {
     return 'assets/no-image.png';
@@ -334,7 +334,7 @@ this.loadProducts(data.id);
     return url;
   }
 
-  return `${this.apiUrl}/images/${encodeURIComponent(url)}`;
+  return `${this.apiUrl}/images/${url}`;
 }
 
   onImgError(event: any) {
