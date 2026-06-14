@@ -313,39 +313,29 @@ this.loadProducts(data.id);
 
   getImage(url: string) {
 
-    if (!url) {
-
-      return 'assets/no-image.png';
-    }
-
-    if (
-      url.startsWith('http')
-    ) {
-
-      return url;
-    }
-
-    // ✅ FIXED
-    return `${this.apiUrl}/images/${url}`;
+  if (!url) {
+    return 'assets/no-image.png';
   }
 
-  getCategoryImage(url: string) {
-
-    if (!url) {
-
-      return 'assets/no-image.png';
-    }
-
-    if (
-      url.startsWith('http')
-    ) {
-
-      return url;
-    }
-
-    // ✅ FIXED
-    return `${this.apiUrl}/images/${url}`;
+  if (url.startsWith('http')) {
+    return url;
   }
+
+  return `${this.apiUrl}/images/${encodeURIComponent(url)}`;
+}
+
+ getCategoryImage(url: string) {
+
+  if (!url) {
+    return 'assets/no-image.png';
+  }
+
+  if (url.startsWith('http')) {
+    return url;
+  }
+
+  return `${this.apiUrl}/images/${encodeURIComponent(url)}`;
+}
 
   onImgError(event: any) {
 
@@ -357,11 +347,14 @@ this.loadProducts(data.id);
   // CART
   // =========================
 
-  addToCart(product: any) {
+ addToCart(product: any) {
 
-    if (product.stock > 0) {
-
-      this.cart.add(product);
-    }
+  if (product.stock > 0) {
+    this.cart.add(product);
   }
+}
+
+trackByProduct(index: number, item: any) {
+  return item.id;
+}
 }

@@ -74,17 +74,18 @@
 
           <div class="image-box">
 
-            <img
-              [src]="
-                getCategoryImage(
-                  c.imageUrl || c.image_url
-                )
-              "
-
-              (error)="
-                onImgError($event)
-              "
-            />
+          <img
+  loading="lazy"
+  decoding="async"
+  [src]="
+    getCategoryImage(
+      c.imageUrl || c.image_url
+    )
+  "
+  (error)="
+    onImgError($event)
+  "
+/>
 
           </div>
 
@@ -102,12 +103,13 @@
         *ngIf="viewMode === 'products'"
         class="product-grid">
 
-        <div
-          *ngFor="
-            let p of filtered
-          "
-          class="product-card"
-          [class.out-product]="p.stock <= 0">
+       <div
+  *ngFor="
+    let p of filtered;
+    trackBy: trackByProduct
+  "
+  class="product-card"
+  [class.out-product]="p.stock <= 0">
 
           <div class="image-box">
 
@@ -119,17 +121,18 @@
 
             </div>
 
-            <img
-              [src]="
-                getImage(
-                  p.imageUrl || p.image_url
-                )
-              "
-
-              (error)="
-                onImgError($event)
-              "
-            />
+          <img
+  loading="lazy"
+  decoding="async"
+  [src]="
+    getImage(
+      p.imageUrl || p.image_url
+    )
+  "
+  (error)="
+    onImgError($event)
+  "
+/>
 
             <button
               class="add-btn"
