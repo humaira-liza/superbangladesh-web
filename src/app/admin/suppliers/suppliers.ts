@@ -22,20 +22,26 @@ export class Suppliers implements OnInit {
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    this.loadSuppliers();
-  }
+ngOnInit() {
+
+  console.log('PAGE LOADED');
+
+  this.loadSuppliers();
+
+}
 
 loadSuppliers() {
+
+  console.log('LOAD SUPPLIERS');
 
   this.http.get<any[]>(
     'https://superbangladesh-api-1.onrender.com/api/suppliers'
   )
   .subscribe(res => {
 
-    console.log('SUPPLIERS API:', res);
+    console.log('SUPPLIERS:', res);
 
-    this.suppliers = [...res];
+    this.suppliers = res;
 
   });
 
