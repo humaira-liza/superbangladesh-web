@@ -72,15 +72,22 @@ toggleMobileMenu() {
       this.applySearch();
     });
 
-  this.state.category$
-    .subscribe(id => {
+ this.state.category$
+.subscribe(id => {
 
-      if (!id) return;
+  console.log('STATE CATEGORY =', id);
 
-      console.log('STATE CATEGORY =', id);
+  if (
+    id === undefined ||
+    id === null ||
+    id === 0
+  ) {
+    return;
+  }
 
-      this.loadProducts(id);
-    });
+  this.loadProducts(Number(id));
+
+});
 }
   // =========================
   // LOAD ALL
@@ -137,12 +144,17 @@ toggleMobileMenu() {
   // LOAD CATEGORY PRODUCTS
   // =========================
 
-  loadProducts(id: number) {
-    
+loadProducts(id: number) {
 
-    this.loading = true;
+  console.log('LOAD CATEGORY ID =', id);
 
-    this.viewMode = 'products';
+  if (!id) {
+    return;
+  }
+
+  this.loading = true;
+
+  this.viewMode = 'products';
 
     this.productService
       .getByCategory(id)
@@ -216,8 +228,6 @@ toggleMobileMenu() {
 
  onAllProducts() {
   
-  this.mobileMenuOpen = false;
-
   this.mobileMenuOpen = false;
 
   this.breadcrumb = ['All Products'];
