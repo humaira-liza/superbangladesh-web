@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-suppliers',
@@ -20,7 +21,10 @@ export class Suppliers implements OnInit {
 
   editingId: number | null = null;
 
-  constructor(private http: HttpClient) {}
+ constructor(
+  private http: HttpClient,
+  private cdr: ChangeDetectorRef
+) {}
 
 ngOnInit() {
 
@@ -37,13 +41,20 @@ loadSuppliers() {
   this.http.get<any[]>(
     'https://superbangladesh-api-1.onrender.com/api/suppliers'
   )
-  .subscribe(res => {
+.subscribe(res => {
 
-    console.log('SUPPLIERS:', res);
+  console.log('SUPPLIERS:', res);
 
-    this.suppliers = res;
+  this.suppliers = [...res];
 
-  });
+  this.cdr.detectChanges();
+
+  console.log(
+    'COUNT:',
+    this.suppliers.length
+  );
+
+});
 
 }
 
