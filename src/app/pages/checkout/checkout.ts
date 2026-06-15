@@ -97,20 +97,16 @@ export class Checkout implements OnInit {
 
       paidAmount: this.paidAmount,
 
-      items: this.items.map((i: any) => ({
+    items: this.items.map((i: any) => ({
 
-        productId: i.id,
+  productId: i.id,
 
-        productName: i.name,
+  productName: i.name,
 
-        // ✅ FIXED
-        quantity:
-          i.quantity ||
-          i.qty ||
-          1,
+  quantity: i.qty || 1,
 
-        price: i.price
-      }))
+  price: i.price
+}))
     };
 
     console.log(
