@@ -150,15 +150,28 @@
 
 </div>
 
-        <div class="amount-box">
+    <div class="amount-grid">
 
-          <span>Total Amount</span>
+  <div class="amount-box">
+    <span>Total Amount</span>
+    <h2>৳ {{ o.totalAmount }}</h2>
+  </div>
 
-          <h2>
-            ৳ {{ o.totalAmount }}
-          </h2>
+  <div class="amount-box">
+    <span>Paid Amount</span>
+    <h2 style="color:green">
+      ৳ {{ o.paidAmount || 0 }}
+    </h2>
+  </div>
 
-        </div>
+  <div class="amount-box">
+    <span>Due Amount</span>
+    <h2 style="color:#ff6b00">
+      ৳ {{ (o.totalAmount || 0) - (o.paidAmount || 0) }}
+    </h2>
+  </div>
+
+</div>
 
       </div>
 

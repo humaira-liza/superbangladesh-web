@@ -269,3 +269,50 @@ html{
 .customer-info strong{
   color:#111827;
 }
+
+.amount-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(3,1fr);
+
+  gap:12px;
+
+  margin-top:15px;
+}
+
+.amount-box{
+
+  background:#f8fafc;
+
+  padding:16px;
+
+  border-radius:16px;
+}
+
+.amount-box span{
+
+  color:#64748b;
+
+  font-size:13px;
+
+  font-weight:600;
+}
+
+.amount-box h2{
+
+  margin-top:8px;
+
+  font-size:28px;
+
+  font-weight:900;
+}
+
+@media(max-width:768px){
+
+  .amount-grid{
+
+    grid-template-columns:1fr;
+  }
+}
