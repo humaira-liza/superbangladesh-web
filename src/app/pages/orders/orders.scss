@@ -233,9 +233,9 @@
 
   grid-template-columns:repeat(4,1fr);
 
-  gap:18px;
+  gap:12px;
 
-  margin-bottom:24px;
+  margin-bottom:20px;
 }
 
 /* INFO BOX */
@@ -244,41 +244,59 @@
 
   background:#f8fafc;
 
-  padding:20px;
+  padding:14px;
 
-  border-radius:20px;
+  border-radius:16px;
+
+  text-align:center;
+
+  min-height:110px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
 }
 
 .info-box span{
 
   color:#64748b;
 
-  font-size:14px;
+  font-size:12px;
 
-  font-weight:600;
+  font-weight:700;
+
+  line-height:1.4;
 }
 
 .info-box h3{
 
-  margin-top:12px;
+  margin-top:8px;
 
-  font-size:30px;
+  font-size:18px;
 
   font-weight:900;
 
-  color:#111827;
+  line-height:1.2;
+
+  word-break:break-word;
 }
 
 /* PAYMENT */
 
 .bkash{
-
   color:#e2136e !important;
+  font-size:16px !important;
+  font-weight:900;
+  letter-spacing:0.5px;
 }
 
 .nogod{
-
   color:#f59e0b !important;
+  font-size:16px !important;
+  font-weight:900;
+  letter-spacing:0.5px;
 }
 
 /* ITEMS SECTION */
@@ -417,4 +435,32 @@
   .info-grid{
   grid-template-columns:1fr 1fr;
 }
+}
+
+/* EXTRA MOBILE FIX */
+
+@media(max-width:768px){
+
+  .info-grid{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .info-box{
+    min-height:90px;
+    padding:12px;
+  }
+
+  .info-box h3{
+    font-size:16px;
+  }
+
+  .card{
+    padding:20px;
+    border-radius:22px;
+  }
+
+  .top h2{
+    font-size:26px;
+  }
 }
