@@ -1,0 +1,93 @@
+.page{
+  padding:30px;
+  min-height:100vh;
+  background:#f4f7fb;
+}
+
+.page h1{
+  font-size:54px;
+  font-weight:900;
+  color:#0f172a;
+  margin-bottom:25px;
+}
+
+/* FORM */
+
+.form{
+  display:grid;
+  grid-template-columns:2fr 1.5fr 2fr auto;
+  gap:15px;
+  margin-bottom:30px;
+}
+
+.form input{
+  height:58px;
+  border:none;
+  border-radius:16px;
+  padding:0 18px;
+  font-size:15px;
+  background:white;
+  box-shadow:0 4px 12px rgba(0,0,0,.06);
+}
+
+.form button{
+  border:none;
+  background:#2563eb;
+  color:white;
+  padding:0 25px;
+  border-radius:16px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.form button:hover{
+  background:#1d4ed8;
+}
+
+/* COUNT */
+
+.list > p{
+  margin-bottom:20px;
+  font-size:18px;
+  font-weight:700;
+  color:#64748b;
+}
+
+/* SUPPLIER CARD */
+
+.supplier{
+  background:white;
+  border-radius:24px;
+  padding:24px;
+  margin-bottom:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
+.supplier h3{
+  font-size:30px;
+  color:#111827;
+  margin-bottom:10px;
+}
+
+.supplier p{
+  color:#64748b;
+  margin-bottom:8px;
+  font-size:15px;
+}
+
+/* DUE */
+
+.due{
+  margin-top:12px;
+  font-size:22px !important;
+  font-weight:900;
+  color:#f97316 !important;
+}
+
+/* BUTTON AREA */
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+}
