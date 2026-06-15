@@ -25,6 +25,7 @@ export class Checkout implements OnInit {
   address = '';
 
   payment = 'BKASH';
+  paidAmount = 0;
 
   // ✅ BACKEND URL
   apiUrl =
@@ -93,6 +94,8 @@ export class Checkout implements OnInit {
       totalAmount: this.total + 60,
 
       paymentMethod: this.payment,
+
+      paidAmount: this.paidAmount,
 
       items: this.items.map((i: any) => ({
 
