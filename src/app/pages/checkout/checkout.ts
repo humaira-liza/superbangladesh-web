@@ -95,7 +95,7 @@ export class Checkout implements OnInit {
 
       paymentMethod: this.payment,
 
-      
+      paidAmount: this.paidAmount,
 
       items: this.items.map((i: any) => ({
 
