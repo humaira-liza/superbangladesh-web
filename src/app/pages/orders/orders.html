@@ -79,32 +79,40 @@
       <!-- INFO -->
       <div class="info-grid">
 
-        <div class="info-box">
+  <div class="info-box">
+    <span>Total Amount</span>
+    <h3>
+      ৳ {{ o.totalAmount }}
+    </h3>
+  </div>
 
-          <span>Total Amount</span>
+  <div class="info-box">
+    <span>Paid Amount</span>
+    <h3 style="color:green">
+      ৳ {{ o.paidAmount || 0 }}
+    </h3>
+  </div>
 
-          <h3>
-            ৳ {{o.totalAmount}}
-          </h3>
+  <div class="info-box">
+    <span>Due Amount</span>
+    <h3 style="color:#ff6b00">
+      ৳ {{ (o.totalAmount || 0) - (o.paidAmount || 0) }}
+    </h3>
+  </div>
 
-        </div>
+  <div class="info-box">
+    <span>Payment</span>
+    <h3
+      [ngClass]="{
+        'bkash': o.paymentMethod === 'BKASH',
+        'nogod': o.paymentMethod === 'NAGAD'
+      }"
+    >
+      {{ o.paymentMethod }}
+    </h3>
+  </div>
 
-        <div class="info-box">
-
-          <span>Payment</span>
-
-          <h3
-            [ngClass]="{
-              'bkash': o.paymentMethod === 'BKASH',
-              'nogod': o.paymentMethod === 'NAGAD'
-            }"
-          >
-            {{o.paymentMethod}}
-          </h3>
-
-        </div>
-
-      </div>
+</div>
 
       <!-- ORDER ITEMS -->
       <div
