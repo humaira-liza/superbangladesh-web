@@ -39,6 +39,10 @@
 
       <p>{{ s.address }}</p>
 
+      <p class="due">
+  Due: ৳ {{ s.due || 0 }}
+</p>
+
       <button
   (click)="editSupplier(s)">
   Edit
