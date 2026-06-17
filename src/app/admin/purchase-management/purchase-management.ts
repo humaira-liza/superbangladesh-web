@@ -309,6 +309,16 @@ loadSuppliers() {
   // SAVE PURCHASE
   savePurchase() {
 
+    console.log(
+  'SUPPLIER ID:',
+  this.purchase.supplierId
+);
+
+console.log(
+  'FULL PURCHASE:',
+  this.purchase
+);
+
   const payload = {
 
   supplierId:
