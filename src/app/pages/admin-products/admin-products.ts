@@ -219,7 +219,7 @@ getImage(url: string) {
     // UPDATE PRODUCT
     // =====================
 
-    if (this.editingId) {
+    if (this.editingId !== null) {
 
       const updateData: any = {
 
@@ -367,60 +367,59 @@ getImage(url: string) {
   }
 
   // FINAL UPDATE
-  finalUpdate(data: any) {
+ finalUpdate(data: any) {
 
-    this.ps
-      .updateProduct(this.editingId!, data)
-      .subscribe({
+  console.log("Editing ID =", this.editingId);
+  console.log("Update Data =", data);
 
-        next: () => {
+  this.ps
+    .updateProduct(this.editingId!, data)
+    .subscribe({
 
-          alert('✅ Updated');
+      next: () => {
 
-          this.reset();
+        alert('✅ Updated');
 
-          this.load();
-        },
+        this.reset();
 
-        error: (err) => {
+        this.load();
+      },
 
-          console.log(err);
+      error: (err) => {
 
-          alert('❌ Update failed');
-        }
-      });
-  }
+        console.log("FULL ERROR =", err);
+
+        alert('❌ Update failed');
+      }
+    });
+}
 
   // EDIT
   edit(p: any) {
 
-    this.form = {
+  console.log("EDIT PRODUCT =", p);
 
-      name: p.name,
+  this.form = {
 
-      price: p.price,
+    name: p.name,
+    price: p.price,
+    categoryId: p.category?.id || null,
 
-      categoryId: p.category?.id || null,
+    unit: p.unit || '',
+    quantity: p.quantity || '',
 
-      // PRODUCT SIZE
-      unit: p.unit || '',
+    stock: p.stock || '',
+    stockUnit: p.stockUnit || '',
 
-      quantity: p.quantity || '',
+    imageUrl: p.imageUrl || ''
+  };
 
-      // STOCK
-      stock: p.stock || '',
+  this.previewUrl = this.getImage(p.imageUrl);
 
-      stockUnit: p.stockUnit || '',
+  this.selectedFile = null;
 
-      imageUrl: p.imageUrl || ''
-    };
-
-    this.previewUrl = this.getImage(p.imageUrl);
-
-    this.selectedFile = null;
-
-    this.editingId = p.id;
-  }
+  this.editingId = p.id;
+}
 
   // DELETE
   delete(id: number) {
