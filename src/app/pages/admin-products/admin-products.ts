@@ -398,6 +398,7 @@ getImage(url: string) {
   edit(p: any) {
 
   console.log("EDIT PRODUCT =", p);
+  console.log("FORM IMAGE =", p.imageUrl);
 
   this.form = {
 
