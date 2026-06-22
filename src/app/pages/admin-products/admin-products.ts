@@ -77,25 +77,27 @@ get filteredProducts() {
   // LOAD PRODUCTS
   load() {
 
-    this.loading = true;
+  this.loading = true;
 
-    this.ps.getProducts().subscribe({
+  this.ps.getProducts().subscribe({
 
-      next: (res: any[]) => {
+    next: (res: any[]) => {
 
-        this.products = res || [];
+      console.log("ALL PRODUCTS =", res);
 
-        this.loading = false;
+      this.products = res || [];
 
-        this.cdr.detectChanges();
-      },
+      this.loading = false;
 
-      error: () => {
+      this.cdr.detectChanges();
+    },
 
-        this.loading = false;
-      }
-    });
-  }
+    error: () => {
+
+      this.loading = false;
+    }
+  });
+}
 
   // LOAD CATEGORY TREE
   loadCategories() {
