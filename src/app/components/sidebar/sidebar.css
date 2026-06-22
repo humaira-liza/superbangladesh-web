@@ -202,3 +202,16 @@
   }
 
 }
+
+.sidebar {
+    width: 250px;
+    position: relative;
+}
+
+.sub {
+    padding-left: 20px;
+}
+
+.child {
+    padding-left: 20px;
+}  

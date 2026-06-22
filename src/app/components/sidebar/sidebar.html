@@ -1,4 +1,6 @@
-<div class="sidebar">
+<div class="sidebar"
+
+     (mouseleave)="closeMain()">
 
   <div class="title">
     Categories
@@ -27,16 +29,18 @@
       let c of categories
     ">
 
-    <div
-      class="item"
+   <div
+  class="item"
 
-      [class.active]="
-        selectedId === c.id
-      "
+  [class.active]="
+    selectedId === c.id
+  "
 
-      (click)="
-        handleMain(c, $event)
-      ">
+  (mouseenter)="expandedMain = c.id"
+
+  (click)="
+    handleMain(c, $event)
+  ">
 
       {{ c.name }}
 
@@ -63,20 +67,22 @@
           let s of c.children
         ">
 
-        <div
-          class="sub-item"
+       <div
+  class="sub-item"
 
-          [class.active]="
-            selectedId === s.id
-          "
+  [class.active]="
+    selectedId === s.id
+  "
 
-          (click)="
-            handleSub(
-              s,
-              c,
-              $event
-            )
-          ">
+  (mouseenter)="expandedSub = s.id"
+
+  (click)="
+    handleSub(
+      s,
+      c,
+      $event
+    )
+  ">
 
           {{ s.name }}
 

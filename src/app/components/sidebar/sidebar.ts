@@ -248,4 +248,11 @@ closeSidebar(): void {
 
 }
 
+closeMain(): void {
+
+  this.expandedMain = null;
+  this.expandedSub = null;
+
+}
+
 }
