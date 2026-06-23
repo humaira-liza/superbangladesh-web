@@ -12,13 +12,17 @@
       Main Category
     </option>
 
-    <option
-      *ngFor="let c of categories"
-      [ngValue]="c.id">
+    <ng-container *ngFor="let c of categories">
 
-      {{ c.name }}
+  <option
+    *ngIf="!c.parent"
+    [ngValue]="c.id">
 
-    </option>
+    {{ c.name }}
+
+  </option>
+
+</ng-container>
 
   </select>
 
