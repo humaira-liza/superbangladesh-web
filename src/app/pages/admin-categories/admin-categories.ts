@@ -19,8 +19,11 @@ export class AdminCategories implements OnInit {
     parentId: null
   };
 
-  api =
-    'https://superbangladesh-api-1.onrender.com/api/categories';
+loadApi =
+'https://superbangladesh-api-1.onrender.com/api/categories/tree';
+
+saveApi =
+'https://superbangladesh-api-1.onrender.com/api/categories';
 
   constructor(
     private http: HttpClient
@@ -33,7 +36,7 @@ export class AdminCategories implements OnInit {
  load() {
 
   this.http
-    .get<any[]>(this.api)
+    .get<any[]>(this.loadApi)
     .subscribe({
 
       next: (res) => {
@@ -63,7 +66,7 @@ export class AdminCategories implements OnInit {
     };
 
     this.http
-      .post(this.api, data)
+      .post(this.saveApi, data)
       .subscribe(() => {
 
         alert('Category Added');
