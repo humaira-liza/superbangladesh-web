@@ -35,6 +35,9 @@ import { Analytics } from './pages/analytics/analytics';
 import { PurchaseManagement } from './admin/purchase-management/purchase-management';
 import { PurchaseHistory } from './pages/purchase-history/purchase-history';
 
+
+import { AdminCategories } from './pages/admin-categories/admin-categories';
+
 export const routes: Routes = [
 
   // 🔓 PUBLIC
@@ -123,6 +126,11 @@ export const routes: Routes = [
         path: 'products',
         component: AdminProducts
       },
+
+      {
+  path: 'categories',
+  component: AdminCategories
+},
 
       {
         path: 'orders',
