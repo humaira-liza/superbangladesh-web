@@ -30,15 +30,26 @@ export class AdminCategories implements OnInit {
     this.load();
   }
 
-  load() {
+ load() {
 
-    this.http
-      .get<any[]>(this.api)
-      .subscribe(res => {
+  this.http
+    .get<any[]>(this.api)
+    .subscribe({
+
+      next: (res) => {
+
+        console.log('CATEGORIES = ', res);
 
         this.categories = res || [];
-      });
-  }
+      },
+
+      error: (err) => {
+
+        console.log('ERROR = ', err);
+      }
+
+    });
+}
 
   save() {
 
