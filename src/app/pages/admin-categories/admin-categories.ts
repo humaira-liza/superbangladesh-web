@@ -54,20 +54,26 @@ saveApi =
     });
 }
 
-  save() {
+save() {
 
-    const data = {
+  const data = {
+    name: this.form.name,
 
-      name: this.form.name,
+    parent: this.form.parentId
+      ? { id: this.form.parentId }
+      : null
+  };
 
-      parent: this.form.parentId
-        ? { id: this.form.parentId }
-        : null
-    };
+  console.log(data); // এটা রাখো
 
-    this.http
-      .post(this.saveApi, data)
-      .subscribe(() => {
+  this.http
+    .post(
+      'https://superbangladesh-api-1.onrender.com/api/categories',
+      data
+    )
+    .subscribe({
+
+      next: () => {
 
         alert('Category Added');
 
@@ -77,6 +83,13 @@ saveApi =
         };
 
         this.load();
-      });
-  }
+      },
+
+      error: (err) => {
+
+        console.log('SAVE ERROR = ', err);
+      }
+
+    });
+}
 }
