@@ -6,28 +6,67 @@
     [(ngModel)]="form.name"
     placeholder="Category Name">
 
+  <input
+    [(ngModel)]="form.imageUrl"
+    placeholder="Image URL">
+
   <select [(ngModel)]="form.parentId">
 
     <option [ngValue]="null">
       Main Category
     </option>
 
-    <ng-container *ngFor="let c of categories">
+    <option
+      *ngFor="let c of categories"
+      [ngValue]="c.id">
 
-  <option
-    *ngIf="!c.parent"
-    [ngValue]="c.id">
+      {{ c.name }}
 
-    {{ c.name }}
-
-  </option>
-
-</ng-container>
+    </option>
 
   </select>
 
   <button (click)="save()">
-    Add Category
+
+    {{ editingId
+      ? 'Update Category'
+      : 'Add Category' }}
+
   </button>
+
+</div>
+
+<hr>
+
+<div *ngFor="let c of categories">
+
+  <div style="
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:10px 0;">
+
+    <img
+      *ngIf="c.imageUrl"
+      [src]="c.imageUrl"
+      width="60"
+      height="60"
+      style="
+        object-fit:cover;
+        border-radius:10px;">
+
+    <span>
+      {{ c.name }}
+    </span>
+
+    <button (click)="edit(c)">
+      Edit
+    </button>
+
+    <button (click)="delete(c.id)">
+      Delete
+    </button>
+
+  </div>
 
 </div>

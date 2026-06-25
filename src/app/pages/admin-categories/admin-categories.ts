@@ -14,16 +14,19 @@ export class AdminCategories implements OnInit {
 
   categories: any[] = [];
 
+  editingId: number | null = null;
+
   form = {
     name: '',
-    parentId: null
+    imageUrl: '',
+    parentId: null as number | null
   };
 
-loadApi =
-'https://superbangladesh-api-1.onrender.com/api/categories/tree';
+  loadApi =
+  'https://superbangladesh-api-1.onrender.com/api/categories/tree';
 
-saveApi =
-'https://superbangladesh-api-1.onrender.com/api/categories';
+  saveApi =
+  'https://superbangladesh-api-1.onrender.com/api/categories';
 
   constructor(
     private http: HttpClient
@@ -33,63 +36,127 @@ saveApi =
     this.load();
   }
 
- load() {
+  load() {
 
-  this.http
-    .get<any[]>(this.loadApi)
-    .subscribe({
+    this.http
+      .get<any[]>(this.loadApi)
+      .subscribe({
 
-      next: (res) => {
+        next: (res) => {
 
-        console.log('CATEGORIES = ', res);
+          console.log('CATEGORIES = ', res);
 
-        this.categories = res || [];
-      },
+          this.categories = res || [];
+        },
 
-      error: (err) => {
+        error: (err) => {
 
-        console.log('ERROR = ', err);
-      }
+          console.log('ERROR = ', err);
+        }
 
-    });
-}
+      });
+  }
 
-save() {
+  save() {
 
-  console.log('PARENT ID = ', this.form.parentId);
+    const data = {
 
-  const data = {
+      name: this.form.name,
 
-    name: this.form.name,
+      imageUrl: this.form.imageUrl,
 
-    parent: this.form.parentId
-      ? { id: this.form.parentId }
-      : null
-  };
+      parent: this.form.parentId
+        ? { id: this.form.parentId }
+        : null
+    };
 
-  console.log('DATA = ', data);
+    // UPDATE
 
-  this.http
-    .post(this.saveApi, data)
-    .subscribe({
+    if (this.editingId) {
 
-      next: () => {
+      this.http
+        .put(
+          `${this.saveApi}/${this.editingId}`,
+          data
+        )
+        .subscribe(() => {
 
-        alert('Category Added');
+          alert('Category Updated');
 
-        this.form = {
-          name: '',
-          parentId: null
-        };
+          this.reset();
+        });
+
+      return;
+    }
+
+    // ADD
+
+    this.http
+      .post(this.saveApi, data)
+      .subscribe({
+
+        next: () => {
+
+          alert('Category Added');
+
+          this.reset();
+        },
+
+        error: (err) => {
+
+          console.log(err);
+        }
+
+      });
+  }
+
+  edit(c: any) {
+
+    this.editingId = c.id;
+
+    this.form = {
+
+      name: c.name,
+
+      imageUrl:
+        c.imageUrl || '',
+
+      parentId:
+        c.parent?.id || null
+    };
+  }
+
+  delete(id: number) {
+
+    if (!confirm('Delete Category?')) {
+      return;
+    }
+
+    this.http
+      .delete(
+        `${this.saveApi}/${id}`
+      )
+      .subscribe(() => {
+
+        alert('Deleted');
 
         this.load();
-      },
+      });
+  }
 
-      error: (err) => {
+  reset() {
 
-        console.log('SAVE ERROR = ', err);
-      }
+    this.editingId = null;
 
-    });
-}
+    this.form = {
+
+      name: '',
+
+      imageUrl: '',
+
+      parentId: null
+    };
+
+    this.load();
+  }
 }
