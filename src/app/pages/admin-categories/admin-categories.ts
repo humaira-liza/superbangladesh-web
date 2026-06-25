@@ -56,7 +56,10 @@ saveApi =
 
 save() {
 
+  console.log('PARENT ID = ', this.form.parentId);
+
   const data = {
+
     name: this.form.name,
 
     parent: this.form.parentId
@@ -64,13 +67,10 @@ save() {
       : null
   };
 
-  console.log(data); // এটা রাখো
+  console.log('DATA = ', data);
 
   this.http
-    .post(
-      'https://superbangladesh-api-1.onrender.com/api/categories',
-      data
-    )
+    .post(this.saveApi, data)
     .subscribe({
 
       next: () => {
