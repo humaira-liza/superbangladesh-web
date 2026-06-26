@@ -291,7 +291,7 @@ onCategory(data: any) {
     this.breadcrumb.push(data.name);
   }
 
- // child category থাকলে category page দেখাও
+
 if (data.children && data.children.length > 0) {
 
   this.selectedCategory = data;
@@ -301,15 +301,15 @@ if (data.children && data.children.length > 0) {
   return;
 }
 
-// শেষ level হলে products দেখাও
+
 this.selectedCategory = null;
 
 this.loadProducts(data.id);
 }
 
-  // =========================
+
   // IMAGE
-  // =========================
+
 
 getImage(url: string) {
 

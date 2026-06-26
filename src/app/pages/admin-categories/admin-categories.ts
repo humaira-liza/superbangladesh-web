@@ -16,17 +16,18 @@ export class AdminCategories implements OnInit {
 
   editingId: number | null = null;
 
+  selectedFile: File | null = null;
+
   form = {
     name: '',
-    imageUrl: '',
     parentId: null as number | null
   };
 
   loadApi =
-  'https://superbangladesh-api-1.onrender.com/api/categories/tree';
+    'https://superbangladesh-api-1.onrender.com/api/categories/tree';
 
   saveApi =
-  'https://superbangladesh-api-1.onrender.com/api/categories';
+    'https://superbangladesh-api-1.onrender.com/api/categories';
 
   constructor(
     private http: HttpClient
@@ -57,18 +58,39 @@ export class AdminCategories implements OnInit {
       });
   }
 
+  onFileSelected(event: any) {
+
+    if (event.target.files.length > 0) {
+
+      this.selectedFile =
+        event.target.files[0];
+    }
+  }
+
   save() {
 
-    const data = {
+    const formData = new FormData();
 
-      name: this.form.name,
+    formData.append(
+      'name',
+      this.form.name
+    );
 
-      imageUrl: this.form.imageUrl,
+    if (this.form.parentId) {
 
-      parent: this.form.parentId
-        ? { id: this.form.parentId }
-        : null
-    };
+      formData.append(
+        'parentId',
+        String(this.form.parentId)
+      );
+    }
+
+    if (this.selectedFile) {
+
+      formData.append(
+        'file',
+        this.selectedFile
+      );
+    }
 
     // UPDATE
 
@@ -77,7 +99,7 @@ export class AdminCategories implements OnInit {
       this.http
         .put(
           `${this.saveApi}/${this.editingId}`,
-          data
+          formData
         )
         .subscribe(() => {
 
@@ -92,7 +114,7 @@ export class AdminCategories implements OnInit {
     // ADD
 
     this.http
-      .post(this.saveApi, data)
+      .post(this.saveApi, formData)
       .subscribe({
 
         next: () => {
@@ -117,9 +139,6 @@ export class AdminCategories implements OnInit {
     this.form = {
 
       name: c.name,
-
-      imageUrl:
-        c.imageUrl || '',
 
       parentId:
         c.parent?.id || null
@@ -148,11 +167,11 @@ export class AdminCategories implements OnInit {
 
     this.editingId = null;
 
+    this.selectedFile = null;
+
     this.form = {
 
       name: '',
-
-      imageUrl: '',
 
       parentId: null
     };

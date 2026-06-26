@@ -7,8 +7,8 @@
     placeholder="Category Name">
 
   <input
-    [(ngModel)]="form.imageUrl"
-    placeholder="Image URL">
+    type="file"
+    (change)="onFileSelected($event)">
 
   <select [(ngModel)]="form.parentId">
 
@@ -40,15 +40,16 @@
 
 <div *ngFor="let c of categories">
 
-  <div style="
+  <div
+    style="
       display:flex;
       align-items:center;
       gap:10px;
-      margin:10px 0;">
+      margin:15px 0;">
 
     <img
       *ngIf="c.imageUrl"
-      [src]="c.imageUrl"
+      [src]="'https://superbangladesh-api-1.onrender.com' + c.imageUrl"
       width="60"
       height="60"
       style="
@@ -56,7 +57,9 @@
         border-radius:10px;">
 
     <span>
+
       {{ c.name }}
+
     </span>
 
     <button (click)="edit(c)">
