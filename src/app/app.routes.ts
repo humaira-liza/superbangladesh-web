@@ -38,6 +38,7 @@ import { PurchaseHistory } from './pages/purchase-history/purchase-history';
 
 import { AdminCategories } from './pages/admin-categories/admin-categories';
 import { AdminBanners } from './pages/admin-banners/admin-banners';
+import { AdminCustomers } from './pages/admin-customers/admin-customers';
 
 export const routes: Routes = [
 
@@ -137,6 +138,11 @@ export const routes: Routes = [
         path: 'banners',
         component: AdminBanners
       },
+
+      {
+  path: 'customers',
+  component: AdminCustomers
+},
 
       {
         path: 'orders',

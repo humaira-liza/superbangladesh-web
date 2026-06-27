@@ -1,0 +1,32 @@
+<div class="customers-page">
+
+  <h1>👥 Customer Management</h1>
+
+  <div class="customer-card"
+       *ngFor="let c of customers">
+
+    <h2>{{ c.name }}</h2>
+
+    <p><b>Email:</b> {{ c.email }}</p>
+
+    <p><b>Phone:</b> {{ c.phone }}</p>
+
+    <p><b>Total Orders:</b> {{ c.orders }}</p>
+
+    <p><b>Total Spent:</b> ৳{{ c.totalSpent }}</p>
+
+    <div class="actions">
+
+      <button class="block-btn">
+        Block
+      </button>
+
+      <button class="delete-btn">
+        Delete
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,51 @@
+.customers-page {
+  padding: 30px;
+}
+
+.customers-page h1 {
+  font-size: 48px;
+  margin-bottom: 30px;
+}
+
+.customer-card {
+
+  background: white;
+  border-radius: 20px;
+
+  padding: 25px;
+
+  margin-bottom: 20px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+.customer-card h2 {
+  margin-bottom: 15px;
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+.actions button {
+
+  border: none;
+
+  padding: 12px 25px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  margin-right: 10px;
+
+  color: white;
+}
+
+.block-btn {
+  background: orange;
+}
+
+.delete-btn {
+  background: #ef4444;
+}
