@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
         <a routerLink="/admin/dashboard" routerLinkActive="active">📊 Dashboard</a>
         <a routerLink="/admin/products" routerLinkActive="active">🛒 Products</a>
         <a routerLink="/admin/orders" routerLinkActive="active">📦 Orders</a>
+        <a routerLink="/admin/banners" routerLinkActive="active">🖼️ Banners</a>
 
       </div>
 
