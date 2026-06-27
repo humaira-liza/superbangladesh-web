@@ -47,19 +47,22 @@ export class AdminCategories implements OnInit {
 
         this.categories = res || [];
 
-        // Main Category
-        this.mainCategories = res || [];
+        // MAIN CATEGORY
+        this.mainCategories = [...this.categories];
 
-        // Sub Category
+        // SUB CATEGORY LIST
         this.subCategories = [];
 
-        this.mainCategories.forEach(m => {
+        this.mainCategories.forEach(main => {
 
-          if (m.children) {
+          if (main.children?.length) {
 
-            this.subCategories.push(
-              ...m.children
-            );
+            main.children.forEach((sub: any) => {
+
+              this.subCategories.push(sub);
+
+            });
+
           }
 
         });
@@ -138,13 +141,22 @@ export class AdminCategories implements OnInit {
 
     this.editingId = c.id;
 
+    let type = 'MAIN';
+
+    if (c.parent && c.parent.parent) {
+
+      type = 'CHILD';
+
+    } else if (c.parent) {
+
+      type = 'SUB';
+    }
+
     this.form = {
 
       name: c.name,
 
-      type: c.parent
-        ? 'SUB'
-        : 'MAIN',
+      type: type,
 
       parentId:
         c.parent?.id || null
@@ -164,6 +176,7 @@ export class AdminCategories implements OnInit {
         alert('Deleted');
 
         this.load();
+
       });
   }
 

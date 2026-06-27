@@ -10,7 +10,7 @@
     type="file"
     (change)="onFileSelected($event)">
 
-  <!-- Category Type -->
+  <!-- TYPE -->
 
   <select [(ngModel)]="form.type">
 
@@ -28,7 +28,7 @@
 
   </select>
 
-  <!-- MAIN -> SUB -->
+  <!-- SUB -->
 
   <select
     *ngIf="form.type === 'SUB'"
@@ -48,7 +48,7 @@
 
   </select>
 
-  <!-- SUB -> CHILD -->
+  <!-- CHILD -->
 
   <select
     *ngIf="form.type === 'CHILD'"
@@ -62,7 +62,7 @@
       *ngFor="let c of subCategories"
       [ngValue]="c.id">
 
-      {{ c.name }}
+      {{ c.parent?.name }} → {{ c.name }}
 
     </option>
 
@@ -80,11 +80,9 @@
 
 <hr>
 
-<!-- TREE VIEW -->
+<!-- MAIN -->
 
 <div *ngFor="let main of categories">
-
-  <!-- MAIN -->
 
   <div
     style="
@@ -130,7 +128,8 @@
       <img
         *ngIf="sub.imageUrl"
         [src]="imageBase + sub.imageUrl"
-        width="50">
+        width="50"
+        height="50">
 
       ↳ {{ sub.name }}
 
@@ -160,7 +159,8 @@
         <img
           *ngIf="child.imageUrl"
           [src]="imageBase + child.imageUrl"
-          width="40">
+          width="40"
+          height="40">
 
         ↳↳ {{ child.name }}
 
