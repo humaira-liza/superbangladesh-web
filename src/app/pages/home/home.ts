@@ -317,12 +317,20 @@ getImage(url: string) {
     return 'assets/no-image.png';
   }
 
+  // Full URL
   if (url.startsWith('http')) {
     return url;
   }
 
+  // Uploaded image
+  if (url.startsWith('/uploads')) {
+    return `${this.apiUrl}${url}`;
+  }
+
+  // Old image
   return `${this.apiUrl}/images/${url}`;
 }
+
 
 getCategoryImage(url: string) {
 
@@ -330,10 +338,17 @@ getCategoryImage(url: string) {
     return 'assets/no-image.png';
   }
 
+  // Full URL
   if (url.startsWith('http')) {
     return url;
   }
 
+  // Uploaded image
+  if (url.startsWith('/uploads')) {
+    return `${this.apiUrl}${url}`;
+  }
+
+  // Old image
   return `${this.apiUrl}/images/${url}`;
 }
 
