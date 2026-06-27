@@ -17,6 +17,7 @@ import { RouterModule } from '@angular/router';
       </div>
 
       <div class="content">
+      
         <router-outlet></router-outlet>
       </div>
 
