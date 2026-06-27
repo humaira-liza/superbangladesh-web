@@ -1,9 +1,25 @@
-<div class="carousel">
+<div
+  class="carousel"
+  *ngIf="images.length">
 
-  <button class="nav prev" (click)="prev()">❮</button>
+  <button
+    class="nav prev"
+    (click)="prev()">
 
-  <img [src]="images[current]" />
+    ❮
 
-  <button class="nav next" (click)="next()">❯</button>
+  </button>
+
+  <img
+    [src]="images[current]"
+    alt="Banner">
+
+  <button
+    class="nav next"
+    (click)="next()">
+
+    ❯
+
+  </button>
 
 </div>

@@ -1,0 +1,30 @@
+<h2>Banner Carousel</h2>
+
+<input
+  type="file"
+  (change)="select($event)">
+
+<button (click)="save()">
+  Upload Banner
+</button>
+
+<hr>
+
+<div
+  *ngFor="let b of banners"
+  style="margin:20px">
+
+  <img
+    [src]="b.imageUrl"
+    width="350">
+
+  <br><br>
+
+  <button
+    (click)="delete(b.id)">
+
+    Delete
+
+  </button>
+
+</div>
