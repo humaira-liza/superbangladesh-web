@@ -16,19 +16,19 @@ export class AdminCustomers implements OnInit {
   customers: any[] = [];
 
   ngOnInit(): void {
+    this.loadCustomers();
+  }
 
-    this.customerService.getCustomers()
-      .subscribe({
-        next: (data) => {
-          console.log(data);
-          this.customers = data;
-        },
-
-        error: (err) => {
-          console.error(err);
-        }
-      });
-
+  loadCustomers() {
+    this.customerService.getCustomers().subscribe({
+      next: (data) => {
+        this.customers = data;
+        console.log(data);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 
 }
