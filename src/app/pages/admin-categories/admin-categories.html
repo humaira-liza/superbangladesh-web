@@ -10,14 +10,56 @@
     type="file"
     (change)="onFileSelected($event)">
 
-  <select [(ngModel)]="form.parentId">
+  <!-- Category Type -->
 
-    <option [ngValue]="null">
+  <select [(ngModel)]="form.type">
+
+    <option value="MAIN">
       Main Category
     </option>
 
+    <option value="SUB">
+      Sub Category
+    </option>
+
+    <option value="CHILD">
+      Child Category
+    </option>
+
+  </select>
+
+  <!-- MAIN -> SUB -->
+
+  <select
+    *ngIf="form.type === 'SUB'"
+    [(ngModel)]="form.parentId">
+
+    <option [ngValue]="null">
+      Select Main Category
+    </option>
+
     <option
-      *ngFor="let c of categories"
+      *ngFor="let c of mainCategories"
+      [ngValue]="c.id">
+
+      {{ c.name }}
+
+    </option>
+
+  </select>
+
+  <!-- SUB -> CHILD -->
+
+  <select
+    *ngIf="form.type === 'CHILD'"
+    [(ngModel)]="form.parentId">
+
+    <option [ngValue]="null">
+      Select Sub Category
+    </option>
+
+    <option
+      *ngFor="let c of subCategories"
       [ngValue]="c.id">
 
       {{ c.name }}
@@ -38,7 +80,11 @@
 
 <hr>
 
-<div *ngFor="let c of categories">
+<!-- TREE VIEW -->
+
+<div *ngFor="let main of categories">
+
+  <!-- MAIN -->
 
   <div
     style="
@@ -48,27 +94,87 @@
       margin:15px 0;">
 
     <img
-      *ngIf="c.imageUrl"
-      [src]="'https://superbangladesh-api-1.onrender.com' + c.imageUrl"
+      *ngIf="main.imageUrl"
+      [src]="imageBase + main.imageUrl"
       width="60"
       height="60"
       style="
-        object-fit:cover;
-        border-radius:10px;">
+      object-fit:cover;
+      border-radius:10px;">
 
-    <span>
+    <b>{{ main.name }}</b>
 
-      {{ c.name }}
-
-    </span>
-
-    <button (click)="edit(c)">
+    <button (click)="edit(main)">
       Edit
     </button>
 
-    <button (click)="delete(c.id)">
+    <button (click)="delete(main.id)">
       Delete
     </button>
+
+  </div>
+
+  <!-- SUB -->
+
+  <div
+    *ngFor="let sub of main.children"
+    style="margin-left:40px">
+
+    <div
+      style="
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:10px 0;">
+
+      <img
+        *ngIf="sub.imageUrl"
+        [src]="imageBase + sub.imageUrl"
+        width="50">
+
+      ↳ {{ sub.name }}
+
+      <button (click)="edit(sub)">
+        Edit
+      </button>
+
+      <button (click)="delete(sub.id)">
+        Delete
+      </button>
+
+    </div>
+
+    <!-- CHILD -->
+
+    <div
+      *ngFor="let child of sub.children"
+      style="margin-left:40px">
+
+      <div
+        style="
+        display:flex;
+        align-items:center;
+        gap:10px;
+        margin:8px 0;">
+
+        <img
+          *ngIf="child.imageUrl"
+          [src]="imageBase + child.imageUrl"
+          width="40">
+
+        ↳↳ {{ child.name }}
+
+        <button (click)="edit(child)">
+          Edit
+        </button>
+
+        <button (click)="delete(child.id)">
+          Delete
+        </button>
+
+      </div>
+
+    </div>
 
   </div>
 

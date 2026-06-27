@@ -13,21 +13,23 @@ import { HttpClient } from '@angular/common/http';
 export class AdminCategories implements OnInit {
 
   categories: any[] = [];
+  mainCategories: any[] = [];
+  subCategories: any[] = [];
 
   editingId: number | null = null;
-
   selectedFile: File | null = null;
 
   form = {
     name: '',
+    type: 'MAIN',
     parentId: null as number | null
   };
 
-  loadApi =
-    'https://superbangladesh-api-1.onrender.com/api/categories/tree';
-
-  saveApi =
+  api =
     'https://superbangladesh-api-1.onrender.com/api/categories';
+
+  imageBase =
+    'https://superbangladesh-api-1.onrender.com';
 
   constructor(
     private http: HttpClient
@@ -40,20 +42,27 @@ export class AdminCategories implements OnInit {
   load() {
 
     this.http
-      .get<any[]>(this.loadApi)
-      .subscribe({
+      .get<any[]>(`${this.api}/tree`)
+      .subscribe(res => {
 
-        next: (res) => {
+        this.categories = res || [];
 
-          console.log('CATEGORIES = ', res);
+        // Main Category
+        this.mainCategories = res || [];
 
-          this.categories = res || [];
-        },
+        // Sub Category
+        this.subCategories = [];
 
-        error: (err) => {
+        this.mainCategories.forEach(m => {
 
-          console.log('ERROR = ', err);
-        }
+          if (m.children) {
+
+            this.subCategories.push(
+              ...m.children
+            );
+          }
+
+        });
 
       });
   }
@@ -69,16 +78,16 @@ export class AdminCategories implements OnInit {
 
   save() {
 
-    const formData = new FormData();
+    const fd = new FormData();
 
-    formData.append(
+    fd.append(
       'name',
       this.form.name
     );
 
     if (this.form.parentId) {
 
-      formData.append(
+      fd.append(
         'parentId',
         String(this.form.parentId)
       );
@@ -86,7 +95,7 @@ export class AdminCategories implements OnInit {
 
     if (this.selectedFile) {
 
-      formData.append(
+      fd.append(
         'file',
         this.selectedFile
       );
@@ -96,40 +105,33 @@ export class AdminCategories implements OnInit {
 
     if (this.editingId) {
 
-      this.http
-        .put(
-          `${this.saveApi}/${this.editingId}`,
-          formData
-        )
-        .subscribe(() => {
+      this.http.put(
+        `${this.api}/${this.editingId}`,
+        fd
+      ).subscribe(() => {
 
-          alert('Category Updated');
+        alert('Category Updated');
 
-          this.reset();
-        });
+        this.reset();
+
+      });
 
       return;
     }
 
     // ADD
 
-    this.http
-      .post(this.saveApi, formData)
-      .subscribe({
+    this.http.post(
+      this.api,
+      fd
+    ).subscribe(() => {
 
-        next: () => {
+      alert('Category Added');
 
-          alert('Category Added');
+      this.reset();
 
-          this.reset();
-        },
+    });
 
-        error: (err) => {
-
-          console.log(err);
-        }
-
-      });
   }
 
   edit(c: any) {
@@ -139,6 +141,10 @@ export class AdminCategories implements OnInit {
     this.form = {
 
       name: c.name,
+
+      type: c.parent
+        ? 'SUB'
+        : 'MAIN',
 
       parentId:
         c.parent?.id || null
@@ -152,9 +158,7 @@ export class AdminCategories implements OnInit {
     }
 
     this.http
-      .delete(
-        `${this.saveApi}/${id}`
-      )
+      .delete(`${this.api}/${id}`)
       .subscribe(() => {
 
         alert('Deleted');
@@ -172,6 +176,8 @@ export class AdminCategories implements OnInit {
     this.form = {
 
       name: '',
+
+      type: 'MAIN',
 
       parentId: null
     };
