@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CustomerService } from '../../services/customer';
 
 @Component({
   selector: 'app-admin-customers',
@@ -8,26 +9,26 @@ import { CommonModule } from '@angular/common';
   templateUrl: './admin-customers.html',
   styleUrls: ['./admin-customers.css']
 })
-export class AdminCustomers {
+export class AdminCustomers implements OnInit {
 
-  customers = [
-    {
-      id: 1,
-      name: 'Habibur Rahman',
-      email: 'habib@gmail.com',
-      phone: '01711111111',
-      orders: 5,
-      totalSpent: 4500
-    },
+  private customerService = inject(CustomerService);
 
-    {
-      id: 2,
-      name: 'Humaira Liza',
-      email: 'liza@gmail.com',
-      phone: '01537521368',
-      orders: 3,
-      totalSpent: 2200
-    }
-  ];
+  customers: any[] = [];
+
+  ngOnInit(): void {
+
+    this.customerService.getCustomers()
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          this.customers = data;
+        },
+
+        error: (err) => {
+          console.error(err);
+        }
+      });
+
+  }
 
 }
