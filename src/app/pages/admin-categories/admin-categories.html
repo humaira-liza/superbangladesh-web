@@ -10,6 +10,22 @@
     type="file"
     (change)="onFileSelected($event)">
 
+  <!-- IMAGE PREVIEW -->
+
+  <div *ngIf="previewImage">
+
+    <img
+      [src]="previewImage"
+      width="120"
+      height="120"
+      style="
+        margin:10px 0;
+        border-radius:12px;
+        object-fit:cover;
+        border:1px solid #ddd;">
+
+  </div>
+
   <!-- TYPE -->
 
   <select [(ngModel)]="form.type">
@@ -84,23 +100,17 @@
 
 <div *ngFor="let main of categories">
 
-  <div
-    style="
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin:15px 0;">
+  <div class="main-row">
 
     <img
       *ngIf="main.imageUrl"
       [src]="imageBase + main.imageUrl"
       width="60"
-      height="60"
-      style="
-      object-fit:cover;
-      border-radius:10px;">
+      height="60">
 
-    <b>{{ main.name }}</b>
+    <span class="main-name">
+      {{ main.name }}
+    </span>
 
     <button (click)="edit(main)">
       Edit
@@ -116,63 +126,50 @@
 
   <div
     *ngFor="let sub of main.children"
-    style="margin-left:40px">
+    class="sub-row">
 
-    <div
-      style="
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin:10px 0;">
+    <img
+      *ngIf="sub.imageUrl"
+      [src]="imageBase + sub.imageUrl"
+      width="50"
+      height="50">
 
-      <img
-        *ngIf="sub.imageUrl"
-        [src]="imageBase + sub.imageUrl"
-        width="50"
-        height="50">
+    ↳ {{ sub.name }}
 
-      ↳ {{ sub.name }}
+    <button (click)="edit(sub)">
+      Edit
+    </button>
 
-      <button (click)="edit(sub)">
-        Edit
-      </button>
+    <button (click)="delete(sub.id)">
+      Delete
+    </button>
 
-      <button (click)="delete(sub.id)">
-        Delete
-      </button>
+  </div>
 
-    </div>
+  <!-- CHILD -->
 
-    <!-- CHILD -->
+  <div
+    *ngFor="let sub of main.children">
 
     <div
       *ngFor="let child of sub.children"
-      style="margin-left:40px">
+      class="child-row">
 
-      <div
-        style="
-        display:flex;
-        align-items:center;
-        gap:10px;
-        margin:8px 0;">
+      <img
+        *ngIf="child.imageUrl"
+        [src]="imageBase + child.imageUrl"
+        width="40"
+        height="40">
 
-        <img
-          *ngIf="child.imageUrl"
-          [src]="imageBase + child.imageUrl"
-          width="40"
-          height="40">
+      ↳↳ {{ child.name }}
 
-        ↳↳ {{ child.name }}
+      <button (click)="edit(child)">
+        Edit
+      </button>
 
-        <button (click)="edit(child)">
-          Edit
-        </button>
-
-        <button (click)="delete(child.id)">
-          Delete
-        </button>
-
-      </div>
+      <button (click)="delete(child.id)">
+        Delete
+      </button>
 
     </div>
 

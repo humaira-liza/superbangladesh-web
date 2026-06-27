@@ -17,7 +17,9 @@ export class AdminCategories implements OnInit {
   subCategories: any[] = [];
 
   editingId: number | null = null;
+
   selectedFile: File | null = null;
+  previewImage: string | null = null;
 
   form = {
     name: '',
@@ -47,10 +49,8 @@ export class AdminCategories implements OnInit {
 
         this.categories = res || [];
 
-        // MAIN CATEGORY
         this.mainCategories = [...this.categories];
 
-        // SUB CATEGORY LIST
         this.subCategories = [];
 
         this.mainCategories.forEach(main => {
@@ -76,6 +76,16 @@ export class AdminCategories implements OnInit {
 
       this.selectedFile =
         event.target.files[0];
+
+      const reader = new FileReader();
+
+      reader.onload = () => {
+
+        this.previewImage =
+          reader.result as string;
+      };
+
+     reader.readAsDataURL(this.selectedFile!);
     }
   }
 
@@ -161,6 +171,11 @@ export class AdminCategories implements OnInit {
       parentId:
         c.parent?.id || null
     };
+
+    this.previewImage =
+      c.imageUrl
+        ? this.imageBase + c.imageUrl
+        : null;
   }
 
   delete(id: number) {
@@ -170,12 +185,26 @@ export class AdminCategories implements OnInit {
     }
 
     this.http
-      .delete(`${this.api}/${id}`)
-      .subscribe(() => {
+      .delete(
+        `${this.api}/${id}`,
+        { responseType: 'text' }
+      )
+      .subscribe({
 
-        alert('Deleted');
+        next: () => {
 
-        this.load();
+          alert('Deleted');
+
+          this.load();
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error ||
+            'Cannot delete category'
+          );
+        }
 
       });
   }
@@ -185,6 +214,8 @@ export class AdminCategories implements OnInit {
     this.editingId = null;
 
     this.selectedFile = null;
+
+    this.previewImage = null;
 
     this.form = {
 
