@@ -61,7 +61,7 @@ export class LoginComponent {
 
           {
             email: this.email,
-           rawPassword: this.password
+            password: this.password
           }
 
         ).subscribe({
