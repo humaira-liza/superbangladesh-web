@@ -20,16 +20,24 @@ export class AdminCustomers implements OnInit {
   }
 
   loadCustomers() {
-    this.customerService.getCustomers().subscribe({
-      next: (data) => {
-        console.log(data);
-        this.customers = data;
-      },
 
-      error: (err) => {
-        console.error(err);
-      }
-    });
+    this.customerService
+      .getCustomers()
+      .subscribe({
+
+        next: (data) => {
+
+          console.log(data);
+
+          this.customers = data;
+        },
+
+        error: (err) => {
+
+          console.error(err);
+        }
+
+      });
   }
 
   deleteCustomer(id: number) {
@@ -49,12 +57,41 @@ export class AdminCustomers implements OnInit {
               c => c.id !== id
             );
 
-          alert('Customer deleted successfully');
+          alert(
+            'Customer deleted successfully'
+          );
         },
 
         error: (err) => {
+
           console.error(err);
+
           alert('Delete failed');
+        }
+
+      });
+  }
+
+  toggleBlock(customer: any) {
+
+    this.customerService
+      .toggleBlock(customer.id)
+      .subscribe({
+
+        next: (updated: any) => {
+
+          customer.blocked =
+            updated.blocked;
+
+        },
+
+        error: (err) => {
+
+          console.error(err);
+
+          alert(
+            'Block/Unblock failed'
+          );
         }
 
       });

@@ -21,4 +21,11 @@ export class CustomerService {
       `${this.API}/${id}`
     );
   }
+
+  toggleBlock(id: number) {
+    return this.http.put(
+      `${this.API}/${id}/toggle-block`,
+      {}
+    );
+  }
 }

@@ -4,8 +4,7 @@
 
   <div
     class="customer-card"
-    *ngFor="let c of customers"
-  >
+    *ngFor="let c of customers">
 
     <h2>{{ c.email }}</h2>
 
@@ -15,17 +14,42 @@
 
     <p><b>Role:</b> {{ c.role }}</p>
 
+    <p>
+      <b>Status:</b>
+
+      <span
+        [style.color]="
+          c.blocked
+            ? 'red'
+            : 'green'
+        ">
+
+        {{ c.blocked
+            ? 'Blocked'
+            : 'Active' }}
+
+      </span>
+
+    </p>
+
     <div class="actions">
 
-      <button class="block-btn">
-        Block
+      <button
+        class="block-btn"
+        (click)="toggleBlock(c)">
+
+        {{ c.blocked
+            ? 'Unblock'
+            : 'Block' }}
+
       </button>
 
       <button
         class="delete-btn"
-        (click)="deleteCustomer(c.id)"
-      >
+        (click)="deleteCustomer(c.id)">
+
         Delete
+
       </button>
 
     </div>
