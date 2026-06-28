@@ -16,6 +16,10 @@ export class AdminCustomers implements OnInit {
   customers: any[] = [];
 
   ngOnInit(): void {
+    this.loadCustomers();
+  }
+
+  loadCustomers() {
     this.customerService.getCustomers().subscribe({
       next: (data) => {
         console.log(data);
@@ -28,4 +32,31 @@ export class AdminCustomers implements OnInit {
     });
   }
 
+  deleteCustomer(id: number) {
+
+    if (!confirm('Delete this customer?')) {
+      return;
+    }
+
+    this.customerService
+      .deleteCustomer(id)
+      .subscribe({
+
+        next: () => {
+
+          this.customers =
+            this.customers.filter(
+              c => c.id !== id
+            );
+
+          alert('Customer deleted successfully');
+        },
+
+        error: (err) => {
+          console.error(err);
+          alert('Delete failed');
+        }
+
+      });
+  }
 }

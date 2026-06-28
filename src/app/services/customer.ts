@@ -16,4 +16,9 @@ export class CustomerService {
     return this.http.get<any[]>(this.API);
   }
 
+  deleteCustomer(id: number) {
+    return this.http.delete(
+      `${this.API}/${id}`
+    );
+  }
 }
