@@ -68,12 +68,11 @@ export class LoginComponent {
 
           next: (res) => {
 
-            console.log(
-              'LOGIN RESPONSE',
-              res
-            );
+  alert(JSON.stringify(res));
 
-            this.loading = false;
+  console.log('LOGIN RESPONSE', res);
+
+  this.loading = false;
 
             if (!res) {
 
