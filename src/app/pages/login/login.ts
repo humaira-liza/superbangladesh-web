@@ -68,7 +68,7 @@ export class LoginComponent {
 
           next: (res) => {
 
-  alert(JSON.stringify(res));
+  //alert(JSON.stringify(res));
 
   console.log('LOGIN RESPONSE', res);
 
