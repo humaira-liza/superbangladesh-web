@@ -4,15 +4,47 @@
 
   <app-banner></app-banner>
 
+  <!-- POPULAR CATEGORIES -->
 
-  <div class="layout">
+<div
+  class="popular-section"
+  *ngIf="popularCategories.length > 0">
+
+  <h2>🔥 Popular Categories</h2>
+
+ <div class="popular-grid-container">
+
+  <div class="popular-grid">
+
+    <div
+      class="popular-card"
+      *ngFor="let c of popularCategories"
+      (click)="onCategory(c)">
+
+      <img
+        [src]="getCategoryImage(c.imageUrl || c.image_url)"
+        (error)="onImgError($event)"
+      />
+
+      <p>{{ c.name }}</p>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+
+
+<div class="layout">
 
   <app-sidebar
     (categoryClick)="onCategory($event)">
   </app-sidebar>
 
   <div class="products-section">
-    
       <!-- BREADCRUMB -->
 
       <div

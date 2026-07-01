@@ -35,6 +35,10 @@ toggleMobileMenu() {
   originalProducts: any[] = [];
   filtered: any[] = [];
 
+  popularCategories: any[] = [];
+
+  
+
   loading = false;
 
   viewMode:
@@ -114,11 +118,20 @@ toggleMobileMenu() {
 
           this.allProducts =
             [...this.originalProducts];
+this.filtered =
+  [...this.allProducts];
 
-          this.filtered =
-            [...this.allProducts];
+this.popularCategories =
+  this.allProducts
+    .filter(p => p.category)
+    .map(p => p.category)
+    .filter(
+      (v, i, arr) =>
+        arr.findIndex(x => x.id === v.id) === i
+    )
+    .slice(0, 6);
 
-          this.loading = false;
+this.loading = false;
 
           this.applySearch();
 

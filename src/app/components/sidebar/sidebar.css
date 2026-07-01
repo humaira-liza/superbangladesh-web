@@ -1,27 +1,26 @@
-.sidebar {
 
-  width: 230px;
+:host{
+    display:block;
+    width:230px;
+    flex-shrink:0;
 
-  background:
-  linear-gradient(
-    180deg,
-    #0f172a 0%,
-    #111827 100%
-  );
+    position:sticky;
+    top:90px;
+    align-self:flex-start;
+}
 
-  padding: 18px 16px;
+.sidebar{
+    width:100%;
 
-  border-radius: 24px;
+    background:linear-gradient(180deg,#0f172a 0%,#111827 100%);
+    padding:18px 16px;
+    border-radius:24px;
 
-  height: calc(100vh - 40px);
+    max-height:calc(100vh - 100px);
+    overflow-y:auto;
 
-  overflow-y: auto;
-
-  box-shadow:
-  0 10px 30px rgba(0,0,0,0.18);
-
-  border:
-  1px solid rgba(255,255,255,0.05);
+    box-shadow:0 10px 30px rgba(0,0,0,.18);
+    border:1px solid rgba(255,255,255,.05);
 }
 
 /* SCROLLBAR */
@@ -203,10 +202,6 @@
 
 }
 
-.sidebar {
-    width: 250px;
-    position: relative;
-}
 
 .sub {
     padding-left: 20px;
