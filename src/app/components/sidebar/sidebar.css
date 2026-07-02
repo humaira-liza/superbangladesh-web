@@ -1,16 +1,13 @@
-
 :host{
     display:block;
     width:230px;
-    flex-shrink:0;
-
-    position:sticky;
-    top:90px;
+    flex:0 0 230px;
     align-self:flex-start;
 }
 
 .sidebar{
-    width:100%;
+    position:sticky;
+    top:90px;
 
     background:linear-gradient(180deg,#0f172a 0%,#111827 100%);
     padding:18px 16px;
@@ -18,9 +15,6 @@
 
     max-height:calc(100vh - 100px);
     overflow-y:auto;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.18);
-    border:1px solid rgba(255,255,255,.05);
 }
 
 /* SCROLLBAR */

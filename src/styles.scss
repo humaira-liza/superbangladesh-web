@@ -28,10 +28,17 @@ body{
   overflow-x:hidden;
 }
 
-app-navbar {
-  position: sticky;
-  top: 0;
-  z-index: 999999 !important;
+app-navbar{
+
+  z-index:999999;
+}
+
+body{
+  padding-top:78px;
+}
+
+.layout{
+    overflow:visible !important;
 }
 
 app-banner,

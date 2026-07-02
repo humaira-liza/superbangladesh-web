@@ -1,6 +1,4 @@
-<div class="sidebar"
-
-     (mouseleave)="closeMain()">
+<div class="sidebar">
 
   <div class="title">
     Categories
@@ -36,7 +34,6 @@
     selectedId === c.id
   "
 
-  (mouseenter)="expandedMain = c.id"
 
   (click)="
     handleMain(c, $event)
@@ -73,8 +70,6 @@
   [class.active]="
     selectedId === s.id
   "
-
-  (mouseenter)="expandedSub = s.id"
 
   (click)="
     handleSub(
