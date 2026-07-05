@@ -1,51 +1,70 @@
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f5f6fa;
-}
+/* =========================
+   GLOBAL RESET
+========================= */
 
 * {
   box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f5f6fa;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  overflow-x: hidden;
 }
 
 html,
-body{
-  width:100%;
-  overflow-x:hidden;
+body {
+  width: 100%;
+  margin: 0;
+  overflow-x: hidden;
 }
 
-app-navbar{
+body {
+  margin: 0;
+  padding-top: 78px;
 
-  z-index:999999;
+  font-family: 'Segoe UI', sans-serif;
+
+  background: #f5f6fa;
 }
 
-body{
-  padding-top:78px;
+
+/* =========================
+   NAVBAR
+========================= */
+
+app-navbar {
+  position: relative;
+  z-index: 999999;
 }
 
-.layout{
-    overflow:visible !important;
+
+/* =========================
+   MAIN LAYOUT
+========================= */
+
+.layout {
+  overflow: visible !important;
 }
 
 app-banner,
-
 .products,
 .layout,
 .page {
   position: relative;
   z-index: 1;
+}
+
+
+/* =========================
+   DRAWER OPEN
+========================= */
+
+body.cart-drawer-open {
+  overflow-x: hidden;
+}
+
+
+/* =========================
+   DRAWER OPEN হলে
+   FLOATING CART + CHAT HIDE
+========================= */
+
+body.cart-drawer-open .floating-cart,
+body.cart-drawer-open .chat-wrapper {
+  display: none !important;
 }

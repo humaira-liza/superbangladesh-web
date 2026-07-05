@@ -1,256 +1,422 @@
 <div class="page">
 
-  
-
-  <app-banner></app-banner>
-
-  <!-- POPULAR CATEGORIES -->
-
-<div
-  class="popular-section"
-  *ngIf="popularCategories.length > 0">
-
-  <h2>🔥 Popular Categories</h2>
-
- <div class="popular-grid-container">
-
-  <div class="popular-grid">
-
-    <div
-      class="popular-card"
-      *ngFor="let c of popularCategories"
-      (click)="onCategory(c)">
-
-      <img
-        [src]="getCategoryImage(c.imageUrl || c.image_url)"
-        (error)="onImgError($event)"
-      />
-
-      <p>{{ c.name }}</p>
-
-    </div>
-
-  </div>
-
-</div>
-
-</div>
+  <div class="layout">
 
 
+    <!-- =========================
+         DESKTOP SIDEBAR
+         ALWAYS OPEN
+    ========================== -->
 
-<div class="layout">
+    <aside class="desktop-sidebar">
 
- <app-sidebar
-  (categoryClick)="onCategory($event)">
-</app-sidebar>
+      <app-sidebar>
+      </app-sidebar>
 
-  <div class="products-section">
-      <!-- BREADCRUMB -->
+    </aside>
 
-      <div
-  class="breadcrumb"
-  *ngIf="breadcrumb.length > 0">
 
-        <span
-          *ngFor="
-            let b of breadcrumb;
-            let last = last
-          ">
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
 
-          {{ b }}
+    <main class="main-content">
 
-          <span *ngIf="!last">
-            >
-          </span>
 
-        </span>
+   <!-- BANNER -->
 
-      </div>
+<app-banner
+  *ngIf="!currentSearch"
+>
+</app-banner>
 
-      <!-- CATEGORY GRID -->
 
-      <div
-        *ngIf="viewMode === 'categories'"
-        class="product-grid">
+<!-- FEATURES -->
 
-        <div
-          *ngFor="
-            let c of selectedCategory?.children
-          "
-          class="product-card category-card"
+<app-features
+  *ngIf="!currentSearch"
+>
+</app-features>
 
-          (click)="onCategory({
 
-            id: c.id,
+      <!-- =========================
+           TRENDING / SEARCH PRODUCTS
+      ========================== -->
 
-            name: c.name,
+      <section
+        #productsSection
+        class="trending-section"
+      >
 
-            imageUrl:
-              c.imageUrl || c.image_url,
+        <div class="trending-header">
 
-            children:
-              c.children || [],
+          <h2>
+            {{
+              currentSearch
+                ? 'Search Results'
+                : 'Trending'
+            }}
+          </h2>
 
-            parentName:
-              selectedCategory?.name,
 
-            mainName:
-              breadcrumb[0],
+          <button
+            *ngIf="!currentSearch && originalProducts.length > 0"
+            type="button"
+            class="see-all-btn"
+            (click)="toggleAllTrending()"
+          >
 
-            level:
-              c.children &&
-              c.children.length > 0
-                ? 'sub'
-                : 'child'
-          })">
+            {{
+              showAllTrending
+                ? 'Show Less'
+                : 'See All'
+            }}
 
-          <div class="image-box">
+            ❯❯
 
-          <img
-  loading="lazy"
-  decoding="async"
-  [src]="
-    getCategoryImage(
-      c.imageUrl || c.image_url
-    )
-  "
-  (error)="
-    onImgError($event)
-  "
-/>
-
-          </div>
-
-          <h3>
-            {{ c.name }}
-          </h3>
+          </button>
 
         </div>
 
-      </div>
 
-      <!-- PRODUCTS -->
+        <!-- =========================
+             PRODUCT GRID
+        ========================== -->
 
-      <div
-        *ngIf="viewMode === 'products'"
-        class="product-grid">
+        <div
+          class="trending-grid"
+          *ngIf="
+            (
+              currentSearch
+                ? filtered
+                : (
+                    showAllTrending
+                      ? originalProducts
+                      : featuredProducts
+                  )
+            ).length > 0
+          "
+        >
 
-       <div
-  *ngFor="
-    let p of filtered;
-    trackBy: trackByProduct
-  "
-  class="product-card"
-  [class.out-product]="p.stock <= 0">
+          <article
+            class="trending-card"
 
-          <div class="image-box">
+            *ngFor="
+              let p of (
+                currentSearch
+                  ? filtered
+                  : (
+                      showAllTrending
+                        ? originalProducts
+                        : featuredProducts
+                    )
+              );
+              trackBy: trackByProduct
+            "
 
-            <div
-              class="out-badge"
-              *ngIf="p.stock <= 0">
+            [class.out-product]="
+              p.stock <= 0
+            "
+          >
 
-              Out Of Stock
+
+            <div class="trending-image-box">
+
+
+              <!-- OUT OF STOCK -->
+
+              <div
+                class="out-badge"
+                *ngIf="p.stock <= 0"
+              >
+                Out Of Stock
+              </div>
+
+
+              <!-- PRODUCT IMAGE -->
+
+              <img
+                loading="lazy"
+                decoding="async"
+
+                [src]="
+                  getImage(
+                    p.imageUrl ||
+                    p.image_url
+                  )
+                "
+
+                (error)="
+                  onImgError($event)
+                "
+
+                [alt]="p.name"
+              />
+
+
+              <!-- ADD BUTTON -->
+
+              <button
+                *ngIf="
+                  p.stock > 0 &&
+                  !isInCart(p)
+                "
+
+                type="button"
+
+                class="trending-add-btn"
+
+                (click)="
+                  addToCart(
+                    p,
+                    $event
+                  )
+                "
+              >
+                +
+              </button>
+
+
+              <!-- QUANTITY CONTROL -->
+
+              <div
+                *ngIf="
+                  p.stock > 0 &&
+                  isInCart(p)
+                "
+
+                class="trending-qty-control"
+              >
+
+
+                <button
+                  type="button"
+
+                  (click)="
+                    decreaseQty(
+                      p,
+                      $event
+                    )
+                  "
+                >
+                  −
+                </button>
+
+
+                <span>
+                  {{ getCartQty(p) }}
+                </span>
+
+
+                <button
+                  type="button"
+
+                  (click)="
+                    increaseQty(
+                      p,
+                      $event
+                    )
+                  "
+                >
+                  +
+                </button>
+
+              </div>
 
             </div>
 
-          <img
-  loading="lazy"
-  decoding="async"
-  [src]="
-    getImage(
-      p.imageUrl || p.image_url
-    )
-  "
-  (error)="
-    onImgError($event)
-  "
-/>
 
-            <button
-              class="add-btn"
+            <!-- PRODUCT NAME -->
 
-              (click)="
-                addToCart(p)
-              ">
+            <h3>
+              {{ p.name }}
+            </h3>
 
-              +
 
-            </button>
+            <!-- UNIT -->
 
-          </div>
+            <p
+              class="trending-unit"
 
-          <div class="price-line">
+              *ngIf="
+                p.quantity &&
+                p.unit
+              "
+            >
+              {{ p.quantity }}
+              {{ p.unit }}
+            </p>
 
-            <span class="price">
 
-              ৳{{ p.price }}
+            <!-- PRICE -->
 
-            </span>
+            <div class="trending-price-line">
 
-            <span class="old-price">
+              <span class="trending-old-price">
+                ৳{{ p.price + 20 }}
+              </span>
 
-              ৳{{ p.price + 20 }}
 
-            </span>
+              <span class="trending-price">
+                ৳{{ p.price }}
+              </span>
 
-          </div>
+            </div>
+
+          </article>
+
+        </div>
+
+
+        <!-- =========================
+             NO SEARCH RESULT
+        ========================== -->
+
+        <div
+          *ngIf="
+            currentSearch &&
+            filtered.length === 0
+          "
+          class="no-search-result"
+        >
 
           <h3>
-
-            {{ p.name }}
-
+            No products found
           </h3>
 
-          <p
-            class="unit"
-            *ngIf="p.quantity && p.unit">
-
-            {{ p.quantity }} {{ p.unit }}
-
-          </p>
-
-          <p class="delivery">
-
-            🕒 Delivery in 1 hour
-
+          <p>
+            No product matched "{{ currentSearch }}"
           </p>
 
         </div>
 
-      </div>
+      </section>
 
-      <!-- EMPTY -->
+
+      <!-- =========================
+           POPULAR CATEGORIES
+
+           SEARCH করলে HIDE
+      ========================== -->
+
+      <section
+        class="popular-section"
+
+        *ngIf="
+          !currentSearch &&
+          popularCategories.length > 0
+        "
+      >
+
+        <h2>
+          🔥 Popular Categories
+        </h2>
+
+
+        <div class="popular-grid-container">
+
+          <div class="popular-grid">
 
             <div
-        *ngIf="
-          viewMode === 'products' &&
-          !loading &&
-          filtered.length === 0
-        "
-        class="empty">
+              class="popular-card"
 
-        ❌ No products found
+              *ngFor="
+                let c of popularCategories
+              "
 
-      </div>
+              (click)="
+                onCategory(c)
+              "
+            >
+
+              <img
+                loading="lazy"
+                decoding="async"
+
+                [src]="
+                  getCategoryImage(
+                    c.imageUrl ||
+                    c.image_url
+                  )
+                "
+
+                (error)="
+                  onImgError($event)
+                "
+              />
+
+
+              <p>
+                {{ c.name }}
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           SHOP MORE
+
+           SEARCH করলে HIDE
+      ========================== -->
+
+      <app-shop-more
+        *ngIf="!currentSearch"
+      >
+      </app-shop-more>
+
+
+      <!-- =========================
+           POPULAR BRANDS
+
+           SEARCH করলে HIDE
+      ========================== -->
+
+      <app-popular-brands
+        *ngIf="!currentSearch"
+      >
+      </app-popular-brands>
+
+
+    </main>
+
+
+    <!-- =========================
+         MOBILE ORDER BAR
+    ========================== -->
+
+    <div class="mobile-order-bar">
+
+      <button
+        type="button"
+        class="chat-btn"
+      >
+        💬
+      </button>
+
+
+      <button
+        type="button"
+        class="order-btn"
+      >
+        Place Order
+      </button>
 
     </div>
 
   </div>
 
-  <!-- MOBILE ORDER BAR -->
-
-  <div class="mobile-order-bar">
-
-    <button class="chat-btn">
-      💬
-    </button>
-
-    <button class="order-btn">
-      Place Order
-    </button>
-
-  </div>
-
 </div>
 
-  
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<app-footer>
+</app-footer>

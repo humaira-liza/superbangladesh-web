@@ -1,0 +1,210 @@
+<div
+  class="drawer-overlay"
+  (click)="close()">
+</div>
+
+
+<aside class="cart-drawer">
+
+  <!-- CHALDAL STYLE SIDE ARROW -->
+
+  <button
+    type="button"
+    class="drawer-arrow"
+    (click)="close()"
+    aria-label="Close cart">
+
+    ❯
+
+  </button>
+
+
+  <!-- TOP INFO -->
+
+  <div class="delivery-message">
+
+    Place this order and earn cashback rewards
+
+  </div>
+
+
+  <!-- BODY -->
+
+  <div class="drawer-body">
+
+
+    <!-- EMPTY CART -->
+
+    <div
+      class="empty-cart"
+      *ngIf="cart.getItems().length === 0">
+
+      <div class="empty-icon">
+        🛒
+      </div>
+
+      <h3>
+        Your Cart is Empty
+      </h3>
+
+      <p>
+        Added products will appear here
+      </p>
+
+    </div>
+
+
+    <!-- CART ITEMS -->
+
+    <div
+      class="cart-items"
+      *ngIf="cart.getItems().length > 0">
+
+
+      <!-- SINGLE ITEM -->
+
+      <div
+        class="cart-item"
+        *ngFor="let item of cart.getItems()">
+
+
+        <!-- IMAGE -->
+
+        <img
+          class="item-image"
+
+          [src]="
+            getImage(
+              item.imageUrl ||
+              item.image_url
+            )
+          "
+
+          (error)="onImgError($event)"
+
+          alt="Product"
+        />
+
+
+        <!-- CENTER INFO -->
+
+        <div class="item-info">
+
+          <h3>
+            {{ item.name }}
+          </h3>
+
+
+          <p
+            class="item-unit"
+            *ngIf="
+              item.quantity &&
+              item.unit
+            ">
+
+            {{ item.quantity }}
+            {{ item.unit }}
+
+          </p>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="item-right">
+
+
+          <!-- QUANTITY -->
+
+          <div class="quantity-box">
+
+            <button
+              type="button"
+              (click)="decreaseItem(item)">
+
+              −
+
+            </button>
+
+
+            <span>
+              {{ item.qty }}
+            </span>
+
+
+            <button
+              type="button"
+              (click)="increaseItem(item)">
+
+              +
+
+            </button>
+
+          </div>
+
+
+          <!-- PRICE + DELETE -->
+
+          <div class="price-remove-row">
+
+
+            <!-- PRICE -->
+
+            <div class="item-price">
+
+              ৳{{ item.price * item.qty }}
+
+            </div>
+
+
+            <!-- DELETE -->
+
+            <button
+              class="remove-btn"
+              type="button"
+              (click)="cart.remove(item)"
+              title="Remove item">
+
+              <i class="fa-solid fa-trash"></i>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER -->
+
+  <div
+    class="drawer-footer"
+    *ngIf="cart.getItems().length > 0">
+
+    <button
+      class="checkout-btn"
+      type="button"
+      (click)="checkout()">
+
+
+      <span>
+        Checkout
+      </span>
+
+
+      <span>
+        ৳{{ cart.getTotal() }}
+      </span>
+
+
+    </button>
+
+  </div>
+
+</aside>

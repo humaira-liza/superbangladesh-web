@@ -1,0 +1,117 @@
+.brands-section{
+  background:#fff;
+  margin:20px;
+  border-radius:16px;
+  padding:30px;
+}
+
+.brands-section h2{
+  text-align:center;
+  font-size:32px;
+  margin-bottom:30px;
+  color:#111827;
+  font-weight:800;
+}
+
+.brands{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:22px;
+}
+
+.brand-card{
+  width:125px;
+  height:90px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  background:#ffffff;
+
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+
+  padding:10px;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 4px 14px rgba(0,0,0,.06);
+
+  transition:.25s;
+}
+
+.brand-card:hover{
+  transform:translateY(-5px);
+
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.12);
+}
+
+.brand-card img{
+  width:90px;
+  height:48px;
+
+  object-fit:contain;
+
+  display:block;
+}
+
+.brand-name{
+  margin-top:7px;
+
+  font-size:12px;
+  font-weight:700;
+
+  color:#475569;
+
+  text-align:center;
+}
+
+/* image না থাকলে শুধু brand name সুন্দরভাবে থাকবে */
+
+.brand-card.image-error{
+  background:#f8fafc;
+}
+
+.brand-card.image-error .brand-name{
+  margin-top:0;
+
+  font-size:15px;
+  color:#111827;
+}
+
+@media(max-width:768px){
+
+  .brands-section{
+    margin:10px;
+    padding:20px 12px;
+  }
+
+  .brands-section h2{
+    font-size:24px;
+    margin-bottom:20px;
+  }
+
+  .brands{
+    gap:12px;
+  }
+
+  .brand-card{
+    width:95px;
+    height:75px;
+  }
+
+  .brand-card img{
+    width:70px;
+    height:38px;
+  }
+
+  .brand-name{
+    font-size:10px;
+  }
+}

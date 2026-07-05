@@ -1,109 +1,273 @@
 import {
   Component,
   OnInit,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  ElementRef,
+  ViewChild
 } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule
+} from '@angular/common';
 
-import { Sidebar } from '../../components/sidebar/sidebar';
-import { Banner } from '../../components/banner/banner';
+import {
+  Sidebar
+} from '../../components/sidebar/sidebar';
 
-import { ProductService } from '../../services/product.service';
-import { CartService } from '../../services/cart';
-import { ProductStateService } from '../../services/product-state.service';
+import {
+  Banner
+} from '../../components/banner/banner';
+
+import {
+  Features
+} from '../../components/features/features';
+
+import {
+  PopularBrands
+} from '../../components/popular-brands/popular-brands';
+
+import {
+  ShopMore
+} from '../../components/shop-more/shop-more';
+
+import {
+  Footer
+} from '../../components/footer/footer';
+
+import {
+  ProductService
+} from '../../services/product.service';
+
+import {
+  CartService
+} from '../../services/cart';
+
+import {
+  ProductStateService
+} from '../../services/product-state.service';
+
 
 @Component({
   selector: 'app-home',
+
   standalone: true,
+
   imports: [
     CommonModule,
     Sidebar,
-    Banner
+    Banner,
+    Features,
+    ShopMore,
+    PopularBrands,
+    Footer
   ],
+
   templateUrl: './home.html',
+
   styleUrls: ['./home.css']
 })
 export class Home implements OnInit {
 
- mobileMenuOpen = false;
 
-toggleMobileMenu() {
-  this.mobileMenuOpen = !this.mobileMenuOpen;
-}
+  // =========================
+  // PRODUCTS SECTION
+  // =========================
+
+  @ViewChild('productsSection')
+  productsSection?: ElementRef<HTMLElement>;
+
+
+  // =========================
+  // MOBILE MENU
+  // =========================
+
+  mobileMenuOpen = false;
+
+
+  // =========================
+  // PRODUCTS
+  // =========================
+
   allProducts: any[] = [];
+
   originalProducts: any[] = [];
+
   filtered: any[] = [];
+
+  featuredProducts: any[] = [];
+
+
+  // =========================
+  // TRENDING TOGGLE
+  // =========================
+
+  showAllTrending = false;
+
+
+  // =========================
+  // POPULAR CATEGORIES
+  // =========================
 
   popularCategories: any[] = [];
 
-  
+
+  // =========================
+  // LOADING
+  // =========================
 
   loading = false;
+
+
+  // =========================
+  // VIEW MODE
+  // =========================
 
   viewMode:
     'products' |
     'categories'
     = 'products';
 
+
+  // =========================
+  // SELECTED CATEGORY
+  // =========================
+
   selectedCategory: any = null;
+
+
+  // =========================
+  // SEARCH
+  // =========================
 
   currentSearch = '';
 
+
+  // =========================
+  // BREADCRUMB
+  // =========================
+
   breadcrumb: string[] = [];
 
-  // ✅ BACKEND URL
+
+  // =========================
+  // API URL
+  // =========================
+
   apiUrl =
     'https://superbangladesh-api-1.onrender.com';
 
+
+  // =========================
+  // CONSTRUCTOR
+  // =========================
+
   constructor(
-    private productService: ProductService,
-    private cart: CartService,
-    private state: ProductStateService,
-    private cdr: ChangeDetectorRef
+    private productService:
+      ProductService,
+
+    public cart:
+      CartService,
+
+    private state:
+      ProductStateService,
+
+    private cdr:
+      ChangeDetectorRef
   ) {}
 
- ngOnInit() {
 
-  this.loadAll();
+  // =========================
+  // INIT
+  // =========================
 
-  this.state.search$
-    .subscribe(value => {
+  ngOnInit(): void {
 
-      this.currentSearch =
-        value || '';
+    this.loadAll();
 
-      this.applySearch();
-    });
 
- this.state.category$
-.subscribe(id => {
+    // SEARCH STATE
 
-  console.log('STATE CATEGORY =', id);
+    this.state.search$
+  .subscribe(value => {
 
-  if (
-    id === undefined ||
-    id === null ||
-    id === 0
-  ) {
-    return;
+    this.currentSearch =
+      value || '';
+
+    this.applySearch();
+
+    this.cdr.detectChanges();
+
+    if (
+      this.currentSearch.trim()
+    ) {
+
+      setTimeout(() => {
+
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+
+      }, 0);
+
+    }
+
+  });
+
+    // CATEGORY STATE
+
+    this.state.category$
+      .subscribe(id => {
+
+        console.log(
+          'STATE CATEGORY =',
+          id
+        );
+
+
+        if (
+          id === undefined ||
+          id === null ||
+          id === 0
+        ) {
+          return;
+        }
+
+
+        this.loadProducts(
+          Number(id)
+        );
+      });
   }
 
-  this.loadProducts(Number(id));
 
-});
-}
   // =========================
-  // LOAD ALL
+  // MOBILE MENU
   // =========================
 
-  loadAll() {
+  toggleMobileMenu(): void {
+
+    this.mobileMenuOpen =
+      !this.mobileMenuOpen;
+  }
+
+
+  // =========================
+  // LOAD ALL PRODUCTS
+  // =========================
+
+  loadAll(): void {
 
     this.loading = true;
 
-    this.viewMode = 'products';
 
-    this.selectedCategory = null;
+    this.viewMode =
+      'products';
+
+
+    this.selectedCategory =
+      null;
+
 
     this.productService
       .getProducts()
@@ -111,63 +275,155 @@ toggleMobileMenu() {
 
         next: (res) => {
 
-          console.log('ALL = ', res);
+          console.log(
+            'ALL PRODUCTS =',
+            res
+          );
+
+
+          // STORE ALL PRODUCTS
 
           this.originalProducts =
             [...(res || [])];
 
+
           this.allProducts =
             [...this.originalProducts];
-this.filtered =
-  [...this.allProducts];
 
-this.popularCategories =
-  this.allProducts
-    .filter(p => p.category)
-    .map(p => p.category)
-    .filter(
-      (v, i, arr) =>
-        arr.findIndex(x => x.id === v.id) === i
-    )
-    .slice(0, 6);
 
-this.loading = false;
+          this.filtered =
+            [...this.originalProducts];
+
+
+          // =========================
+          // TRENDING PRODUCTS
+          // FIRST 10 PRODUCTS
+          // =========================
+
+          this.featuredProducts =
+            this.originalProducts.slice(
+              0,
+              10
+            );
+
+
+          // DEFAULT COLLAPSED
+
+          this.showAllTrending =
+            false;
+
+
+          // =========================
+          // POPULAR CATEGORIES
+          // =========================
+
+          this.popularCategories =
+            this.originalProducts
+
+              .filter(
+                p => p.category
+              )
+
+              .map(
+                p => p.category
+              )
+
+              .filter(
+                (v, i, arr) =>
+                  arr.findIndex(
+                    x =>
+                      Number(x.id) ===
+                      Number(v.id)
+                  ) === i
+              )
+
+              .slice(
+                0,
+                6
+              );
+
+
+          this.loading = false;
+
 
           this.applySearch();
+
 
           this.cdr.detectChanges();
         },
 
+
         error: (err) => {
 
-          console.log(err);
+          console.error(
+            'LOAD ALL ERROR =',
+            err
+          );
+
 
           this.loading = false;
+
+
+          this.originalProducts = [];
 
           this.allProducts = [];
 
           this.filtered = [];
+
+          this.featuredProducts = [];
+
+          this.popularCategories = [];
+
+
+          this.showAllTrending =
+            false;
+
 
           this.cdr.detectChanges();
         }
       });
   }
 
+
+  // =========================
+  // TOGGLE ALL TRENDING
+  // =========================
+
+  toggleAllTrending(): void {
+
+    this.showAllTrending =
+      !this.showAllTrending;
+
+
+    this.cdr.detectChanges();
+  }
+
+
   // =========================
   // LOAD CATEGORY PRODUCTS
   // =========================
 
-loadProducts(id: number) {
+  loadProducts(
+    id: number
+  ): void {
 
-  console.log('LOAD CATEGORY ID =', id);
+    console.log(
+      'LOAD CATEGORY ID =',
+      id
+    );
 
-  if (!id) {
-    return;
-  }
 
-  this.loading = true;
+    if (!id) {
+      return;
+    }
 
-  this.viewMode = 'products';
+
+    this.loading = true;
+
+
+    this.viewMode =
+      'products';
+
 
     this.productService
       .getByCategory(id)
@@ -175,48 +431,66 @@ loadProducts(id: number) {
 
         next: (res) => {
 
-          console.log('CATEGORY = ', res);
+          console.log(
+            'CATEGORY PRODUCTS =',
+            res
+          );
 
-          
 
           this.allProducts =
             [...(res || [])];
 
+
           this.filtered =
             [...this.allProducts];
 
+
           this.loading = false;
+
 
           this.applySearch();
 
+
           this.cdr.detectChanges();
+
+
+          this.scrollToCategorySection();
         },
+
 
         error: (err) => {
 
-          console.log(err);
+          console.error(
+            'CATEGORY ERROR =',
+            err
+          );
+
 
           this.loading = false;
+
 
           this.allProducts = [];
 
           this.filtered = [];
+
 
           this.cdr.detectChanges();
         }
       });
   }
 
+
   // =========================
   // SEARCH
   // =========================
 
-  applySearch() {
+  applySearch(): void {
 
     const text =
       this.currentSearch
         ?.trim()
         .toLowerCase();
+
 
     if (!text) {
 
@@ -226,163 +500,464 @@ loadProducts(id: number) {
       return;
     }
 
-    this.filtered =
-      this.allProducts.filter(p =>
 
-        p.name
-          ?.toLowerCase()
-          .includes(text)
+    this.filtered =
+      this.allProducts.filter(
+
+        p =>
+          p.name
+            ?.toLowerCase()
+            .includes(text)
       );
   }
 
+
   // =========================
-  // ALL PRODUCTS
+  // SEE ALL PRODUCTS
   // =========================
 
- onAllProducts() {
-  
-  this.mobileMenuOpen = false;
+  onAllProducts(): void {
 
-  this.breadcrumb = ['All Products'];
+    console.log(
+      'SEE ALL CLICKED'
+    );
 
-    this.selectedCategory = null;
 
-    this.viewMode = 'products';
+    this.mobileMenuOpen =
+      false;
+
+
+    this.selectedCategory =
+      null;
+
+
+    this.breadcrumb = [
+      'All Products'
+    ];
+
+
+    this.viewMode =
+      'products';
+
+
+    // RESTORE ALL PRODUCTS
 
     this.allProducts =
       [...this.originalProducts];
 
+
     this.filtered =
       [...this.originalProducts];
 
+
+    // APPLY SEARCH IF ANY
+
     this.applySearch();
 
+
+    // UPDATE UI
+
     this.cdr.detectChanges();
+
+
+    // SCROLL TO PRODUCTS
+
+    this.scrollToCategorySection();
   }
+
+
+  // =========================
+  // SCROLL TO PRODUCTS
+  // =========================
+
+  scrollToCategorySection(): void {
+
+    setTimeout(() => {
+
+      if (!this.productsSection) {
+
+        console.log(
+          'productsSection not found'
+        );
+
+        return;
+      }
+
+
+      const navbarHeight =
+        90;
+
+
+      const elementTop =
+
+        this.productsSection
+          .nativeElement
+          .getBoundingClientRect()
+          .top
+
+        + window.scrollY;
+
+
+      window.scrollTo({
+
+        top:
+          elementTop -
+          navbarHeight -
+          15,
+
+        behavior:
+          'smooth'
+      });
+
+    }, 100);
+  }
+
 
   // =========================
   // CATEGORY
   // =========================
 
-onCategory(data: any) {
+  onCategory(
+    data: any
+  ): void {
 
-  
+    console.log(
+      'CATEGORY CLICK =',
+      data
+    );
 
-  console.log(data);
 
-  this.mobileMenuOpen = false;
+    this.mobileMenuOpen =
+      false;
 
-  if (!data) return;
 
-  this.state.setSearch('');
+    if (!data) {
+      return;
+    }
 
-  this.allProducts = [];
-  this.filtered = [];
 
-  if (
-    data.level === 'all' ||
-    data.id === 0
-  ) {
-    this.onAllProducts();
-    return;
+    this.state.setSearch('');
+
+
+    this.allProducts = [];
+
+    this.filtered = [];
+
+
+    // =========================
+    // ALL PRODUCTS
+    // =========================
+
+    if (
+      data.level === 'all' ||
+      data.id === 0
+    ) {
+
+      this.onAllProducts();
+
+      return;
+    }
+
+
+    // =========================
+    // BREADCRUMB
+    // =========================
+
+    this.breadcrumb = [];
+
+
+    if (data.mainName) {
+
+      this.breadcrumb.push(
+        data.mainName
+      );
+    }
+
+
+    if (
+      data.parentName &&
+      data.parentName !==
+        data.mainName
+    ) {
+
+      this.breadcrumb.push(
+        data.parentName
+      );
+    }
+
+
+    if (data.name) {
+
+      this.breadcrumb.push(
+        data.name
+      );
+    }
+
+
+    // =========================
+    // CATEGORY CHILDREN
+    // =========================
+
+    if (
+      data.children &&
+      data.children.length > 0
+    ) {
+
+      this.selectedCategory =
+        data;
+
+
+      this.viewMode =
+        'categories';
+
+
+      this.cdr.detectChanges();
+
+
+      this.scrollToCategorySection();
+
+
+      return;
+    }
+
+
+    // =========================
+    // FINAL PRODUCTS
+    // =========================
+
+    this.selectedCategory =
+      null;
+
+
+    this.viewMode =
+      'products';
+
+
+    this.cdr.detectChanges();
+
+
+    this.loadProducts(
+      Number(data.id)
+    );
   }
 
-  this.breadcrumb = [];
 
-  if (data.mainName) {
-    this.breadcrumb.push(data.mainName);
+  // =========================
+  // PRODUCT IMAGE
+  // =========================
+
+  getImage(
+    url: string
+  ): string {
+
+    if (!url) {
+
+      return 'assets/no-image.png';
+    }
+
+
+    if (
+      url.startsWith('http')
+    ) {
+
+      return url;
+    }
+
+
+    if (
+      url.startsWith('/uploads')
+    ) {
+
+      return `${this.apiUrl}${url}`;
+    }
+
+
+    return (
+      `${this.apiUrl}/images/${url}`
+    );
   }
 
-  if (
-    data.parentName &&
-    data.parentName !== data.mainName
-  ) {
-    this.breadcrumb.push(data.parentName);
+
+  // =========================
+  // CATEGORY IMAGE
+  // =========================
+
+  getCategoryImage(
+    url: string
+  ): string {
+
+    if (!url) {
+
+      return 'assets/no-image.png';
+    }
+
+
+    if (
+      url.startsWith('http')
+    ) {
+
+      return url;
+    }
+
+
+    if (
+      url.startsWith('/uploads')
+    ) {
+
+      return `${this.apiUrl}${url}`;
+    }
+
+
+    return (
+      `${this.apiUrl}/images/${url}`
+    );
   }
 
-  if (data.name) {
-    this.breadcrumb.push(data.name);
-  }
 
+  // =========================
+  // IMAGE ERROR
+  // =========================
 
-if (data.children && data.children.length > 0) {
-
-  this.selectedCategory = data;
-
-  this.viewMode = 'categories';
-
-  return;
-}
-
-
-this.selectedCategory = null;
-
-this.loadProducts(data.id);
-}
-
-
-  // IMAGE
-
-
-getImage(url: string) {
-
-  if (!url) {
-    return 'assets/no-image.png';
-  }
-
-  // Full URL
-  if (url.startsWith('http')) {
-    return url;
-  }
-
-  // Uploaded image
-  if (url.startsWith('/uploads')) {
-    return `${this.apiUrl}${url}`;
-  }
-
-  // Old image
-  return `${this.apiUrl}/images/${url}`;
-}
-
-
-getCategoryImage(url: string) {
-
-  if (!url) {
-    return 'assets/no-image.png';
-  }
-
-  // Full URL
-  if (url.startsWith('http')) {
-    return url;
-  }
-
-  // Uploaded image
-  if (url.startsWith('/uploads')) {
-    return `${this.apiUrl}${url}`;
-  }
-
-  // Old image
-  return `${this.apiUrl}/images/${url}`;
-}
-
-  onImgError(event: any) {
+  onImgError(
+    event: any
+  ): void {
 
     event.target.src =
       'assets/no-image.png';
   }
 
+
   // =========================
-  // CART
+  // ADD TO CART
   // =========================
 
- addToCart(product: any) {
+  addToCart(
+    product: any,
+    event?: Event
+  ): void {
 
-  if (product.stock > 0) {
-    this.cart.add(product);
+    event?.preventDefault();
+
+    event?.stopPropagation();
+
+
+    if (
+      product.stock !== undefined &&
+      product.stock !== null &&
+      Number(product.stock) <= 0
+    ) {
+
+      return;
+    }
+
+
+    this.cart.add(
+      product
+    );
+
+
+    this.cdr.detectChanges();
+
+
+    // AUTO OPEN CART DRAWER
+
+    window.dispatchEvent(
+
+      new CustomEvent(
+        'open-cart-drawer'
+      )
+    );
   }
-}
 
-trackByProduct(index: number, item: any) {
-  return item.id;
-}
+
+  // =========================
+  // INCREASE QTY
+  // =========================
+
+  increaseQty(
+    product: any,
+    event?: Event
+  ): void {
+
+    event?.preventDefault();
+
+    event?.stopPropagation();
+
+
+    this.cart.increaseByProduct(
+      product
+    );
+
+
+    this.cdr.detectChanges();
+  }
+
+
+  // =========================
+  // DECREASE QTY
+  // =========================
+
+  decreaseQty(
+    product: any,
+    event?: Event
+  ): void {
+
+    event?.preventDefault();
+
+    event?.stopPropagation();
+
+
+    this.cart.decreaseByProduct(
+      product
+    );
+
+
+    this.cdr.detectChanges();
+  }
+
+
+  // =========================
+  // GET CART QTY
+  // =========================
+
+  getCartQty(
+    product: any
+  ): number {
+
+    return this.cart.getQty(
+      product?.id
+    );
+  }
+
+
+  // =========================
+  // IS IN CART
+  // =========================
+
+  isInCart(
+    product: any
+  ): boolean {
+
+    return (
+      this.getCartQty(
+        product
+      ) > 0
+    );
+  }
+
+
+  // =========================
+  // TRACK BY
+  // =========================
+
+  trackByProduct(
+    index: number,
+    item: any
+  ): any {
+
+    return (
+      item?.id ??
+      index
+    );
+  }
 }

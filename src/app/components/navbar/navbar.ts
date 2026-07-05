@@ -1,28 +1,106 @@
-import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Sidebar } from '../sidebar/sidebar';
-import { CartService } from '../../services/cart';
-import { ProductStateService } from '../../services/product-state.service';
+import {
+  Component,
+  HostListener
+} from '@angular/core';
+
+import {
+  Router,
+  RouterModule
+} from '@angular/router';
+
+import {
+  FormsModule
+} from '@angular/forms';
+
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  Sidebar
+} from '../sidebar/sidebar';
+
+import {
+  CartService
+} from '../../services/cart';
+
+import {
+  ProductStateService
+} from '../../services/product-state.service';
+
 
 @Component({
   selector: 'app-navbar',
+
   standalone: true,
+
   imports: [
-  CommonModule,
-  RouterModule,
-  FormsModule,
-  Sidebar
-],
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    Sidebar
+  ],
+
   templateUrl: './navbar.html',
-  styleUrls: ['./navbar.scss']
+
+  styleUrls: [
+    './navbar.scss'
+  ]
 })
 export class Navbar {
 
+
+  /* =========================
+     SEARCH
+  ========================= */
+
   searchText = '';
 
+
+  /* =========================
+     LOCATION
+  ========================= */
+
+  selectedLocation =
+    localStorage.getItem('selectedLocation')
+    || 'Dhaka';
+
+  showLocationMenu = false;
+
+
+  /* =========================
+     LANGUAGE
+  ========================= */
+
+  selectedLanguage =
+    localStorage.getItem('language')
+    || 'en';
+
+
+  /* =========================
+     CHAT
+  ========================= */
+
   showChat = false;
+
+
+  /* =========================
+     MOBILE CATEGORY SIDEBAR
+  ========================= */
+
+  sidebarOpen = false;
+
+
+  /* =========================
+     DESKTOP 3-DASH MENU
+  ========================= */
+
+  desktopMenuOpen = false;
+
+
+  /* =========================
+     CONSTRUCTOR
+  ========================= */
 
   constructor(
     public cart: CartService,
@@ -30,85 +108,301 @@ export class Navbar {
     private state: ProductStateService
   ) {}
 
+
+  /* =========================
+     AUTH
+  ========================= */
+
   isLoggedIn(): boolean {
 
-    const token = localStorage.getItem('token');
+    const token =
+      localStorage.getItem('token');
 
     return !!token;
   }
 
+
   isAdmin(): boolean {
 
-    const role = localStorage.getItem('role');
+    const role =
+      localStorage.getItem('role');
 
-    return role?.toLowerCase() === 'admin';
+    return (
+      role?.toLowerCase() === 'admin'
+    );
   }
 
-  logout() {
+
+  logout(): void {
 
     localStorage.removeItem('token');
-    localStorage.removeItem('userEmail');
+
+    localStorage.removeItem(
+      'userEmail'
+    );
+
     localStorage.removeItem('role');
 
-    this.router.navigate(['/login']);
+    this.desktopMenuOpen = false;
+
+    this.sidebarOpen = false;
+
+    this.router.navigate([
+      '/login'
+    ]);
   }
 
-  goHome() {
+
+  /* =========================
+     LANGUAGE CHANGE
+  ========================= */
+
+  changeLanguage(
+    language: 'en' | 'bn'
+  ): void {
+
+    this.selectedLanguage =
+      language;
+
+    localStorage.setItem(
+      'language',
+      language
+    );
+  }
+
+
+  /* =========================
+     HOME
+  ========================= */
+
+  goHome(): void {
 
     this.searchText = '';
 
     this.state.setSearch('');
+
     this.state.setCategory(0);
 
-    this.router.navigate(['/']);
+    this.showLocationMenu = false;
+
+    this.desktopMenuOpen = false;
+
+    this.sidebarOpen = false;
+
+    this.router.navigate([
+      '/'
+    ]);
   }
 
-  search() {
 
-    const value = this.searchText.trim();
+  /* =========================
+     SEARCH
+  ========================= */
 
-    this.state.setCategory(0);
+  search(): void {
+
+    const value =
+      this.searchText.trim();
+
+    /*
+      Search text state-এ পাঠাবে।
+      এখানে category reset করছি না।
+    */
 
     this.state.setSearch(value);
 
-    this.router.navigate(['/']);
+
+    /*
+      যদি Home page-এ না থাকি,
+      শুধু তখন Home page-এ যাবে।
+    */
+
+    if (
+      this.router.url.split('?')[0] !== '/'
+    ) {
+
+      this.router.navigate([
+        '/'
+      ]);
+    }
   }
 
-  clearSearch() {
+
+  /* =========================
+     CLEAR SEARCH
+  ========================= */
+
+  clearSearch(): void {
 
     this.searchText = '';
 
     this.state.setSearch('');
 
-    this.router.navigate(['/']);
+
+    /*
+      অন্য page-এ থাকলে
+      Home page-এ যাবে
+    */
+
+    if (
+      this.router.url.split('?')[0] !== '/'
+    ) {
+
+      this.router.navigate([
+        '/'
+      ]);
+    }
   }
 
-  toggleChat() {
 
-    this.showChat = !this.showChat;
+  /* =========================
+     LOCATION
+  ========================= */
+
+  toggleLocationMenu(
+    event?: MouseEvent
+  ): void {
+
+    if (event) {
+      event.stopPropagation();
+    }
+
+    this.desktopMenuOpen = false;
+
+    this.showLocationMenu =
+      !this.showLocationMenu;
   }
 
-  sidebarOpen = false;
 
- toggleSidebar() {
-  this.sidebarOpen = !this.sidebarOpen;
-}
+  selectLocation(
+    location: string
+  ): void {
 
-onMobileCategory(data: any) {
+    this.selectedLocation =
+      location;
 
-  console.log('MOBILE CATEGORY', data);
+    this.showLocationMenu =
+      false;
 
-  this.sidebarOpen = false;
-
-  if (data?.level === 'close') {
-    return;
+    localStorage.setItem(
+      'selectedLocation',
+      location
+    );
   }
 
-  if (!data) return;
 
-  this.state.setCategory(data.id);
+  /* =========================
+     DESKTOP 3-DASH MENU
+  ========================= */
 
-  this.router.navigate(['/']);
-}
+  toggleDesktopMenu(
+    event: MouseEvent
+  ): void {
+
+    event.stopPropagation();
+
+    this.showLocationMenu = false;
+
+    this.desktopMenuOpen =
+      !this.desktopMenuOpen;
+  }
+
+
+  closeDesktopMenu(): void {
+
+    this.desktopMenuOpen = false;
+  }
+
+
+  /* =========================
+     DOCUMENT CLICK
+  ========================= */
+
+  @HostListener(
+    'document:click'
+  )
+  closeMenus(): void {
+
+    this.showLocationMenu = false;
+
+    this.desktopMenuOpen = false;
+  }
+
+
+  /* =========================
+     CHAT
+  ========================= */
+
+  toggleChat(): void {
+
+    this.showChat =
+      !this.showChat;
+  }
+
+
+  /* =========================
+     MOBILE SIDEBAR
+  ========================= */
+
+  toggleSidebar(): void {
+
+    this.sidebarOpen =
+      !this.sidebarOpen;
+  }
+
+
+  /* =========================
+     MOBILE CATEGORY
+  ========================= */
+
+  onMobileCategory(
+    data: any
+  ): void {
+
+    this.sidebarOpen = false;
+
+    if (
+      data?.level === 'close'
+    ) {
+      return;
+    }
+
+    if (!data) {
+      return;
+    }
+
+    /*
+      Category click করলে
+      search clear হবে
+    */
+
+    this.searchText = '';
+
+    this.state.setSearch('');
+
+    this.state.setCategory(
+      data.id
+    );
+
+    this.router.navigate([
+      '/'
+    ]);
+  }
+
+
+  /* =========================
+     CART DRAWER
+  ========================= */
+
+  openCartDrawer(): void {
+
+    window.dispatchEvent(
+
+      new CustomEvent(
+        'open-cart-drawer'
+      )
+
+    );
+  }
 
 }

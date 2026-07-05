@@ -1,0 +1,681 @@
+:host{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  display:block;
+}
+
+
+/* =========================
+   DARK OVERLAY
+========================= */
+
+.drawer-overlay{
+  position:fixed;
+  inset:0;
+
+  background:rgba(0,0,0,.50);
+
+  z-index:1;
+}
+
+
+/* =========================
+   DRAWER
+========================= */
+
+.cart-drawer{
+  position:fixed;
+
+  top:90px;
+  right:0;
+
+  width:345px;
+  max-width:100%;
+
+  height:calc(100dvh - 90px);
+
+  background:#f7f7f8;
+
+  z-index:2;
+
+  display:flex;
+  flex-direction:column;
+
+  box-shadow:
+    -4px 0 16px
+    rgba(0,0,0,.18);
+
+  animation:
+    drawerIn .22s ease;
+}
+
+
+@keyframes drawerIn{
+
+  from{
+    transform:
+      translateX(100%);
+  }
+
+  to{
+    transform:
+      translateX(0);
+  }
+}
+
+
+/* =========================
+   TOP MESSAGE
+========================= */
+
+.delivery-message{
+  min-height:28px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:5px 8px;
+
+  background:#d94c63;
+  color:#fff;
+
+  font-size:11px;
+  line-height:1.2;
+  font-weight:600;
+
+  text-align:center;
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+.drawer-body{
+  flex:1;
+
+  min-height:0;
+
+  overflow-y:auto;
+  overflow-x:hidden;
+
+  padding:0;
+
+  background:#f7f7f8;
+}
+
+
+/* =========================
+   ITEMS
+========================= */
+
+.cart-items{
+  display:flex;
+  flex-direction:column;
+
+  gap:0;
+
+  background:#fff;
+}
+
+
+/* =========================
+   PRODUCT ROW
+========================= */
+
+.cart-item{
+  position:relative;
+
+  width:100%;
+  min-height:86px;
+
+  display:grid;
+
+  grid-template-columns:
+    50px
+    minmax(0,1fr)
+    100px;
+
+  column-gap:8px;
+
+  align-items:center;
+
+  padding:9px 8px;
+
+  background:#fff;
+
+  border-radius:0;
+
+  border-bottom:
+    1px solid #ececef;
+
+  box-shadow:none;
+
+  box-sizing:border-box;
+}
+
+
+/* =========================
+   IMAGE
+========================= */
+
+.item-image{
+  width:46px;
+  height:46px;
+
+  display:block;
+
+  object-fit:contain;
+
+  background:#fff;
+
+  border-radius:0;
+}
+
+
+/* =========================
+   INFO
+========================= */
+
+.item-info{
+  min-width:0;
+
+  display:flex;
+  flex-direction:column;
+
+  justify-content:center;
+}
+
+
+/* =========================
+   PRODUCT NAME
+========================= */
+
+.item-info h3{
+  margin:0 0 5px;
+
+  font-size:14px;
+  line-height:1.3;
+  font-weight:500;
+
+  color:#333;
+
+  display:-webkit-box;
+
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+
+  overflow:hidden;
+}
+
+
+/* =========================
+   UNIT
+========================= */
+
+.item-unit{
+  margin:0;
+
+  font-size:12px;
+  line-height:1.25;
+
+  color:#777;
+}
+
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.item-right{
+  width:100px;
+  min-width:100px;
+
+  display:flex;
+  flex-direction:column;
+
+  align-items:flex-end;
+  justify-content:center;
+
+  gap:7px;
+}
+
+
+/* =========================
+   QUANTITY CONTROL
+========================= */
+
+.quantity-box{
+  height:25px;
+
+  display:flex;
+  align-items:center;
+
+  background:#f8f8f8;
+
+  border:
+    1px solid #e1e1e1;
+
+  border-radius:15px;
+
+  overflow:hidden;
+}
+
+
+/* =========================
+   PLUS MINUS
+========================= */
+
+.quantity-box button{
+  width:27px;
+  height:25px;
+
+  padding:0;
+
+  border:none;
+
+  background:transparent;
+
+  color:#777;
+
+  font-size:16px;
+  line-height:1;
+
+  cursor:pointer;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+
+.quantity-box button:hover{
+  background:#eeeeee;
+  color:#555;
+}
+
+
+/* =========================
+   QTY NUMBER
+========================= */
+
+.quantity-box span{
+  width:25px;
+
+  text-align:center;
+
+  font-size:13px;
+  line-height:1;
+
+  font-weight:600;
+
+  color:#444;
+}
+
+
+/* =========================
+   PRICE + DELETE ROW
+========================= */
+
+.price-remove-row{
+  width:100%;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:6px;
+}
+
+
+/* =========================
+   PRICE
+========================= */
+
+.item-price{
+  flex:1;
+
+  min-width:0;
+
+  margin:0;
+
+  font-size:13px;
+  line-height:1.2;
+  font-weight:700;
+
+  color:#333;
+
+  text-align:left;
+
+  white-space:nowrap;
+}
+
+
+/* =========================
+   REMOVE BUTTON
+========================= */
+
+.remove-btn{
+  position:static;
+
+  flex:0 0 24px;
+
+  width:24px;
+  height:24px;
+
+  padding:0;
+
+  border:none;
+  border-radius:50%;
+
+  background:#f1f1f1;
+
+  color:#999;
+
+  cursor:pointer;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  transition:
+    background .2s ease,
+    color .2s ease,
+    transform .2s ease;
+}
+
+
+.remove-btn i{
+  font-size:11px;
+
+  line-height:1;
+
+  pointer-events:none;
+}
+
+
+.remove-btn:hover{
+  background:#fee2e2;
+
+  color:#dc2626;
+
+  transform:scale(1.08);
+}
+
+
+/* =========================
+   EMPTY CART
+========================= */
+
+.empty-cart{
+  height:100%;
+
+  display:flex;
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+
+  text-align:center;
+}
+
+
+.empty-icon{
+  font-size:38px;
+
+  margin-bottom:10px;
+}
+
+
+.empty-cart h3{
+  margin:0 0 6px;
+
+  font-size:17px;
+}
+
+
+.empty-cart p{
+  margin:0;
+
+  font-size:12px;
+
+  color:#888;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.drawer-footer{
+  flex-shrink:0;
+
+  padding:
+    9px 10px 12px;
+
+  background:#fff;
+
+  border-top:
+    1px solid #e5e5e5;
+}
+
+
+/* =========================
+   CHECKOUT BUTTON
+========================= */
+
+.checkout-btn{
+  width:100%;
+  height:44px;
+
+  padding:
+    0 7px 0 13px;
+
+  border:none;
+  border-radius:7px;
+
+  background:#9b5de0;
+
+  color:#fff;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  font-size:14px;
+  font-weight:700;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 1px 4px
+    rgba(0,0,0,.15);
+}
+
+
+.checkout-btn:hover{
+  background:#8d4fd3;
+}
+
+
+/* =========================
+   TOTAL BOX
+========================= */
+
+.checkout-btn span:last-child{
+  min-width:76px;
+
+  padding:6px 8px;
+
+  border-radius:6px;
+
+  background:#7d35cc;
+
+  text-align:center;
+
+  font-size:13px;
+
+  white-space:nowrap;
+}
+
+
+/* =========================
+   CHALDAL STYLE SIDE ARROW
+========================= */
+
+.drawer-arrow{
+  position:absolute;
+
+  left:-22px;
+  top:50%;
+
+  transform:
+    translateY(-50%);
+
+  width:22px;
+  height:74px;
+
+  padding:0;
+
+  border:none;
+
+  border-radius:
+    6px 0 0 6px;
+
+  background:#e5e5e5;
+
+  color:#777;
+
+  font-size:30px;
+  font-weight:700;
+  line-height:1;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  cursor:pointer;
+
+  z-index:10;
+
+  box-shadow:
+    -2px 1px 5px
+    rgba(0,0,0,.08);
+
+  transition:
+    background .2s ease,
+    color .2s ease;
+}
+
+
+.drawer-arrow:hover{
+  background:#d7d7d7;
+
+  color:#555;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+  .cart-drawer{
+    width:100%;
+  }
+
+
+  .cart-item{
+    min-height:82px;
+
+    grid-template-columns:
+      46px
+      minmax(0,1fr)
+      96px;
+
+    column-gap:7px;
+
+    padding:8px 7px;
+  }
+
+
+  .item-image{
+    width:43px;
+    height:43px;
+  }
+
+
+  .item-info h3{
+    font-size:11.5px;
+  }
+
+
+  .item-right{
+    width:96px;
+    min-width:96px;
+  }
+
+
+  .quantity-box button{
+    width:24px;
+  }
+
+
+  .quantity-box span{
+    width:22px;
+  }
+
+
+  .price-remove-row{
+    gap:5px;
+  }
+
+
+  .item-price{
+    font-size:12px;
+  }
+
+
+  .remove-btn{
+    flex-basis:22px;
+
+    width:22px;
+    height:22px;
+  }
+
+
+  .remove-btn i{
+    font-size:10px;
+  }
+
+
+  .drawer-footer{
+    padding:8px;
+  }
+
+
+  .checkout-btn{
+    height:44px;
+  }
+
+
+  .drawer-arrow{
+    left:0;
+
+    width:28px;
+    height:64px;
+
+    border-radius:
+      0 6px 6px 0;
+
+    background:
+      rgba(229,229,229,.95);
+  }
+
+}

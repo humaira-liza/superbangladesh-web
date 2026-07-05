@@ -1,25 +1,41 @@
 import {
   Component,
   OnInit,
+  OnDestroy,
   Output,
-  EventEmitter
+  EventEmitter,
+  ChangeDetectorRef
 } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
+import {
+  Router,
+  RouterModule,
+  NavigationEnd
+} from '@angular/router';
+
+import {
+  Subject,
+  filter,
+  takeUntil
+} from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
+
   imports: [
     CommonModule,
     RouterModule
   ],
+
   templateUrl: './sidebar.html',
   styleUrls: ['./sidebar.css']
 })
-export class Sidebar implements OnInit {
+export class Sidebar
+  implements OnInit, OnDestroy {
 
   @Output()
   categoryClick =
@@ -27,142 +43,399 @@ export class Sidebar implements OnInit {
 
   categories: any[] = [];
 
-  expandedMain:
-    number | null = null;
+  expandedMain: number | null = null;
 
-  expandedSub:
-    number | null = null;
+  expandedSub: number | null = null;
 
-  selectedId = 0;
+  selectedId: number | null = null;
 
-  isAdmin = localStorage.getItem('role')?.toLowerCase() === 'admin';
+  private destroy$ =
+    new Subject<void>();
+
+  isAdmin =
+    localStorage
+      .getItem('role')
+      ?.toLowerCase() === 'admin';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    public router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
+
+
+  // =========================
+  // INIT
+  // =========================
 
   ngOnInit(): void {
 
+    this.loadCategories();
+
+    this.router.events
+      .pipe(
+        filter(
+          event =>
+            event instanceof NavigationEnd
+        ),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+
+        this.restoreSidebarFromUrl();
+      });
+  }
+
+
+  // =========================
+  // LOAD CATEGORY TREE
+  // =========================
+
+  loadCategories(): void {
+
     this.http
       .get<any[]>(
-  'https://superbangladesh-api-1.onrender.com/api/categories/tree'
-)
+        'https://superbangladesh-api-1.onrender.com/api/categories/tree'
+      )
+      .pipe(
+        takeUntil(this.destroy$)
+      )
       .subscribe({
 
         next: (res) => {
 
           const order = [
-
             'Food',
-
-             'Baby Care',
-
-              'Home & Kitchen',
-
+            'Baby Care',
+            'Home & Kitchen',
             'Health & Wellness',
-
             'Stationery & Office',
-
             'Toys & Sports',
-
-             'Beauty & MakeUp'
-
+            'Beauty & MakeUp'
           ];
 
-          this.categories =
-            (res || []).sort(
-
-              (a: any, b: any) =>
-
-                order.indexOf(a.name) -
-                order.indexOf(b.name)
+          const normalized =
+            this.normalizeCategories(
+              Array.isArray(res)
+                ? res
+                : []
             );
 
-          console.log(
-            'CATEGORY TREE:',
-            this.categories
-          );
+          const sortedCategories =
+            normalized.sort(
+              (a: any, b: any) => {
+
+                const ai =
+                  order.indexOf(a.name);
+
+                const bi =
+                  order.indexOf(b.name);
+
+                return (
+                  (ai === -1 ? 999 : ai) -
+                  (bi === -1 ? 999 : bi)
+                );
+              }
+            );
+
+          // IMPORTANT FIX
+          // current Angular check শেষ হওয়ার পরে assign
+          setTimeout(() => {
+
+            this.categories =
+              sortedCategories;
+
+            console.log(
+              'CATEGORY TREE =',
+              this.categories
+            );
+
+            this.restoreSidebarFromUrl();
+
+            this.cdr.detectChanges();
+
+          }, 0);
         },
 
         error: (err) => {
 
-          console.error(err);
+          console.error(
+            'CATEGORY TREE ERROR =',
+            err
+          );
 
-          this.categories = [];
+          setTimeout(() => {
+
+            this.categories = [];
+
+            this.cdr.detectChanges();
+
+          }, 0);
         }
       });
   }
 
-  // ======================
-  // ALL PRODUCTS
-  // ======================
 
-  onAll(): void {
+  // =========================
+  // NORMALIZE CATEGORY TREE
+  // =========================
 
-    this.selectedId = 0;
+  normalizeCategories(
+    categories: any[]
+  ): any[] {
 
-    this.expandedMain = null;
-    this.expandedSub = null;
+    return categories.map(
+      (cat: any) => {
 
-    this.categoryClick.emit({
+        const children =
+          Array.isArray(cat?.children)
+            ? cat.children
+            : [];
 
-      id: 0,
-      level: 'all'
-    });
+        return {
+
+          ...cat,
+
+          id: Number(cat.id),
+
+          children:
+            this.normalizeCategories(
+              children
+            )
+        };
+      }
+    );
   }
 
-  // ======================
-  // MAIN CATEGORY
-  // ======================
 
-  onMain(cat: any): void {
-    console.log('MAIN CLICK', cat);
+  // =========================
+  // RESTORE FROM URL
+  // =========================
 
-    this.selectedId = cat.id;
+  restoreSidebarFromUrl(): void {
+
+    if (
+      !Array.isArray(this.categories) ||
+      this.categories.length === 0
+    ) {
+      return;
+    }
+
+    const url =
+      this.router.url.split('?')[0];
+
+    console.log(
+      'SIDEBAR URL =',
+      url
+    );
+
+    const match =
+      url.match(
+        /^\/category\/(\d+)$/
+      );
+
+    // Home / non-category page
+    if (!match) {
+
+      this.selectedId = null;
+
+      this.expandedMain = null;
+
+      this.expandedSub = null;
+
+      return;
+    }
+
+    const currentId =
+      Number(match[1]);
+
+    const path =
+      this.findCategoryPath(
+        this.categories,
+        currentId
+      );
+
+    console.log(
+      'CATEGORY PATH =',
+      path
+    );
+
+    if (path.length === 0) {
+
+      this.selectedId = null;
+
+      this.expandedMain = null;
+
+      this.expandedSub = null;
+
+      return;
+    }
+
+    this.selectedId =
+      Number(
+        path[path.length - 1].id
+      );
 
     this.expandedMain =
-      this.expandedMain === cat.id
-        ? null
-        : cat.id;
+      Number(path[0].id);
+
+    // Main category
+    if (path.length === 1) {
+
+      this.expandedSub = null;
+
+      return;
+    }
+
+    // Sub category
+    if (path.length === 2) {
+
+      const sub =
+        path[1];
+
+      const children =
+        Array.isArray(sub?.children)
+          ? sub.children
+          : [];
+
+      this.expandedSub =
+        children.length > 0
+          ? Number(sub.id)
+          : null;
+
+      return;
+    }
+
+    // Child category
+    this.expandedSub =
+      Number(path[1].id);
+  }
+
+
+  // =========================
+  // FIND CATEGORY PATH
+  // =========================
+
+  findCategoryPath(
+    categories: any[],
+    targetId: number,
+    currentPath: any[] = []
+  ): any[] {
+
+    for (const cat of categories) {
+
+      const newPath = [
+        ...currentPath,
+        cat
+      ];
+
+      if (
+        Number(cat?.id) ===
+        Number(targetId)
+      ) {
+        return newPath;
+      }
+
+      const children =
+        Array.isArray(cat?.children)
+          ? cat.children
+          : [];
+
+      if (children.length > 0) {
+
+        const found =
+          this.findCategoryPath(
+            children,
+            targetId,
+            newPath
+          );
+
+        if (found.length > 0) {
+          return found;
+        }
+      }
+    }
+
+    return [];
+  }
+
+
+  // =========================
+  // MAIN CATEGORY
+  // =========================
+
+  onMain(
+    cat: any
+  ): void {
+
+    if (!cat?.id) {
+      return;
+    }
+
+    const id =
+      Number(cat.id);
+
+    this.selectedId = id;
+
+    this.expandedMain = id;
 
     this.expandedSub = null;
 
-    this.categoryClick.emit({
-
-      ...cat,
-
-      level: 'main'
-    });
+    this.router.navigate([
+      '/category',
+      id
+    ]);
   }
 
-  // ======================
+
+  // =========================
   // SUB CATEGORY
-  // ======================
+  // =========================
 
-onSub(
-  sub: any,
-  parent: any
-): void {
+  onSub(
+    sub: any,
+    parent: any
+  ): void {
 
-  console.log('SUB CLICK', sub);
+    if (
+      !sub?.id ||
+      !parent?.id
+    ) {
+      return;
+    }
 
-  this.selectedId = sub.id;
+    const subId =
+      Number(sub.id);
 
-  this.expandedSub =
-    this.expandedSub === sub.id
-      ? null
-      : sub.id;
+    const parentId =
+      Number(parent.id);
 
-  this.categoryClick.emit({
-    ...sub,
-    parentName: parent?.name,
-    level: 'sub'
-  });
-}
+    this.selectedId =
+      subId;
 
-  // ======================
+    this.expandedMain =
+      parentId;
+
+    const children =
+      Array.isArray(sub?.children)
+        ? sub.children
+        : [];
+
+    this.expandedSub =
+      children.length > 0
+        ? subId
+        : null;
+
+    this.router.navigate([
+      '/category',
+      subId
+    ]);
+  }
+
+
+  // =========================
   // CHILD CATEGORY
-  // ======================
+  // =========================
 
   onChild(
     child: any,
@@ -170,44 +443,53 @@ onSub(
     main: any
   ): void {
 
-    this.selectedId = child.id;
+    if (
+      !child?.id ||
+      !sub?.id ||
+      !main?.id
+    ) {
+      return;
+    }
 
-    this.categoryClick.emit({
+    const childId =
+      Number(child.id);
 
-      ...child,
+    this.selectedId =
+      childId;
 
-      parentName:
-        sub?.name,
+    this.expandedMain =
+      Number(main.id);
 
-      mainName:
-        main?.name,
+    this.expandedSub =
+      Number(sub.id);
 
-      level: 'child'
-    });
+    this.router.navigate([
+      '/category',
+      childId
+    ]);
   }
 
-  // ======================
-  // HANDLES
-  // ======================
 
-  handleAll(
-    event: Event
-  ): void {
-
-    event.stopPropagation();
-
-    this.onAll();
-  }
+  // =========================
+  // HANDLE MAIN
+  // =========================
 
   handleMain(
     cat: any,
     event: Event
   ): void {
 
+    event.preventDefault();
+
     event.stopPropagation();
 
     this.onMain(cat);
   }
+
+
+  // =========================
+  // HANDLE SUB
+  // =========================
 
   handleSub(
     sub: any,
@@ -215,44 +497,90 @@ onSub(
     event: Event
   ): void {
 
+    event.preventDefault();
+
     event.stopPropagation();
 
     this.onSub(
-
       sub,
       parent
     );
   }
 
+
+  // =========================
+  // HANDLE CHILD
+  // =========================
+
   handleChild(
-  child: any,
-  sub: any,
-  main: any,
-  event: Event
-): void {
+    child: any,
+    sub: any,
+    main: any,
+    event: Event
+  ): void {
 
-  event.stopPropagation();
+    event.preventDefault();
 
-  this.onChild(
-    child,
-    sub,
-    main
-  );
-}
+    event.stopPropagation();
 
-closeSidebar(): void {
+    this.onChild(
+      child,
+      sub,
+      main
+    );
+  }
 
-  this.categoryClick.emit({
-    level: 'close'
-  });
 
-}
+  // =========================
+  // CLOSE SIDEBAR
+  // =========================
 
-closeMain(): void {
+  closeSidebar(): void {
 
-  this.expandedMain = null;
-  this.expandedSub = null;
+    this.categoryClick.emit({
+      level: 'close'
+    });
+  }
 
-}
 
+  // =========================
+  // CATEGORY ICON
+  // =========================
+
+  getCategoryIcon(
+    name: string
+  ): string {
+
+    const icons:
+      Record<string, string> = {
+
+        'Food': '🛍️',
+
+        'Baby Care': '🧴',
+
+        'Home & Kitchen': '🛋️',
+
+        'Health & Wellness': '⚕️',
+
+        'Stationery & Office': '📚',
+
+        'Toys & Sports': '🧸',
+
+        'Beauty & MakeUp': '💄'
+      };
+
+    return icons[name] || '📦';
+  }
+
+
+  // =========================
+  // DESTROY
+  // =========================
+
+  ngOnDestroy(): void {
+
+    this.destroy$.next();
+
+    this.destroy$.complete();
+  }
 }

@@ -1,77 +1,135 @@
-
-
-
-<!-- MOBILE HEADER -->
+<!-- =========================
+     MOBILE HEADER
+========================= -->
 
 <div class="mobile-header">
 
-<button
-  class="menu-btn"
-  (click)="toggleSidebar()">
-  <i class="fa-solid fa-bars"></i>
-</button>
+  <button
+    type="button"
+    class="menu-btn"
+    (click)="toggleSidebar()"
+  >
+    <i class="fa-solid fa-bars"></i>
+  </button>
 
-  <div class="mobile-logo">
-    Super Bangladesh
+
+  <!-- MOBILE BRAND -->
+
+  <div
+    class="mobile-brand"
+    (click)="goHome()"
+  >
+
+    <img
+      src="/images/love-logo.png"
+      alt="Super Bangladesh Logo"
+      class="mobile-brand-logo"
+    />
+
+    <div class="mobile-logo">
+      Super Bangladesh
+    </div>
+
   </div>
+
 
   <div class="mobile-actions">
 
-  <a routerLink="/" class="mobile-home">
-    <i class="fa-solid fa-house"></i>
-  </a>
+    <a
+      routerLink="/"
+      class="mobile-home"
+    >
+      <i class="fa-solid fa-house"></i>
+    </a>
 
-  <a routerLink="/cart" class="mobile-cart">
-    <i class="fa-solid fa-cart-shopping"></i>
 
-    <span class="mobile-badge">
-      {{cart.count()}}
-    </span>
-  </a>
+    <a
+      class="mobile-cart"
+      (click)="openCartDrawer()"
+    >
+      <i class="fa-solid fa-cart-shopping"></i>
 
-  <a
-    *ngIf="isLoggedIn()"
-    (click)="logout()"
-    class="mobile-login">
-    Logout
-  </a>
+      <span class="mobile-badge">
+        {{ cart.count() }}
+      </span>
+    </a>
 
-</div>
+
+    <a
+      *ngIf="isLoggedIn()"
+      (click)="logout()"
+      class="mobile-login"
+    >
+      {{
+        selectedLanguage === 'bn'
+          ? 'লগআউট'
+          : 'Logout'
+      }}
+    </a>
+
+  </div>
+
+
+  <!-- MOBILE OVERLAY -->
 
   <div
-  class="mobile-overlay"
-  *ngIf="sidebarOpen"
-  (click)="toggleSidebar()">
-</div>
+    class="mobile-overlay"
+    *ngIf="sidebarOpen"
+    (click)="toggleSidebar()"
+  >
+  </div>
 
-
-
-  
 
   <!-- MOBILE SIDEBAR -->
-   <div
-  class="mobile-sidebar"
-  *ngIf="sidebarOpen">
 
- <app-sidebar
-  (categoryClick)="onMobileCategory($event)">
-</app-sidebar>
+  <div
+    class="mobile-sidebar"
+    *ngIf="sidebarOpen"
+  >
 
-  <a
-    *ngIf="isAdmin()"
-    routerLink="/admin/dashboard"
-    (click)="sidebarOpen=false">
+    <app-sidebar
+      (categoryClick)="onMobileCategory($event)"
+    >
+    </app-sidebar>
 
-    Admin Dashboard
 
-  </a>
+    <!-- USER MY ORDERS -->
+
+    <a
+      *ngIf="isLoggedIn() && !isAdmin()"
+      routerLink="/orders"
+      (click)="sidebarOpen = false"
+    >
+      {{
+        selectedLanguage === 'bn'
+          ? 'আমার অর্ডার'
+          : 'My Orders'
+      }}
+    </a>
+
+
+    <!-- ADMIN DASHBOARD -->
+
+    <a
+      *ngIf="isAdmin()"
+      routerLink="/admin/dashboard"
+      (click)="sidebarOpen = false"
+    >
+      {{
+        selectedLanguage === 'bn'
+          ? 'অ্যাডমিন ড্যাশবোর্ড'
+          : 'Admin Dashboard'
+      }}
+    </a>
+
+  </div>
 
 </div>
 
 
-</div>
-
-<!-- MOBILE SEARCH -->
+<!-- =========================
+     MOBILE SEARCH
+========================= -->
 
 <div class="mobile-search">
 
@@ -79,30 +137,141 @@
     type="text"
     [(ngModel)]="searchText"
     (input)="search()"
-    placeholder="🔍 Search products..."
+
+    [placeholder]="
+      selectedLanguage === 'bn'
+        ? 'পণ্য খুঁজুন...'
+        : 'Search products...'
+    "
   />
 
 </div>
 
-<!-- MOBILE LINKS -->
 
-<!-- ADD THIS -->
+<!-- =========================
+     DESKTOP NAVBAR
+========================= -->
+
 <div class="navbar">
 
-  <!-- LEFT -->
+
+  <!-- =========================
+       DESKTOP 3-DASH WRAPPER
+  ========================== -->
+
+  <div
+    class="desktop-menu-wrapper"
+    (click)="$event.stopPropagation()"
+  >
+
+    <button
+      type="button"
+      class="desktop-menu-btn"
+      (click)="toggleDesktopMenu($event)"
+      aria-label="Open account menu"
+    >
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+
+    <!-- 3-DASH DROPDOWN -->
+
+    <div
+      class="desktop-account-menu"
+      *ngIf="desktopMenuOpen"
+    >
+
+    <!-- HOME -->
+
+<a
+  routerLink="/"
+  (click)="closeDesktopMenu()"
+>
+  <i class="fa-solid fa-house"></i>
+
+  <span>
+    {{
+      selectedLanguage === 'bn'
+        ? 'হোম'
+        : 'Home'
+    }}
+  </span>
+</a>
+
+      <!-- USER ORDER HISTORY -->
+
+      <a
+        *ngIf="isLoggedIn() && !isAdmin()"
+        routerLink="/orders"
+        (click)="closeDesktopMenu()"
+      >
+
+        <i class="fa-solid fa-clock-rotate-left"></i>
+
+        <span>
+          {{
+            selectedLanguage === 'bn'
+              ? 'আমার অর্ডার'
+              : 'My Orders'
+          }}
+        </span>
+
+      </a>
+
+
+      <!-- ADMIN DASHBOARD -->
+
+      <a
+        *ngIf="isAdmin()"
+        routerLink="/admin/dashboard"
+        (click)="closeDesktopMenu()"
+      >
+
+        <i class="fa-solid fa-user-shield"></i>
+
+        <span>
+          {{
+            selectedLanguage === 'bn'
+              ? 'অ্যাডমিন ড্যাশবোর্ড'
+              : 'Admin Dashboard'
+          }}
+        </span>
+
+      </a>
+
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       LEFT
+  ========================== -->
 
   <div class="left">
 
-    
 
-    <!-- LOGO -->
+    <!-- BRAND -->
 
     <div
-      class="logo"
+      class="brand"
       (click)="goHome()"
     >
-      Super Bangladesh
+
+      <img
+        src="/images/love-logo.png"
+        alt="Super Bangladesh Logo"
+        class="brand-logo"
+      />
+
+
+      <div class="logo">
+        Super Bangladesh
+      </div>
+
     </div>
+
 
     <!-- SEARCH -->
 
@@ -112,22 +281,27 @@
         type="text"
         [(ngModel)]="searchText"
         (input)="search()"
-        placeholder="Search products..."
+
+        [placeholder]="
+          selectedLanguage === 'bn'
+            ? 'পণ্য খুঁজুন (যেমন: তেল, চাল, ডিম)'
+            : 'Search for products (e.g. oil, rice, eggs)'
+        "
       />
 
-      <!-- CLEAR -->
 
       <button
         *ngIf="searchText"
+        type="button"
         class="clear-btn"
         (click)="clearSearch()"
       >
         ✕
       </button>
 
-      <!-- SEARCH -->
 
       <button
+        type="button"
         class="search-btn"
         (click)="search()"
       >
@@ -136,36 +310,145 @@
 
     </div>
 
+
+    <!-- LOCATION -->
+
+    <div class="location-wrapper">
+
+      <button
+        type="button"
+        class="location-btn"
+        (click)="toggleLocationMenu($event)"
+      >
+
+        <i class="fa-solid fa-location-dot"></i>
+
+        <span>
+          {{ selectedLocation }}
+        </span>
+
+        <i
+          class="fa-solid fa-chevron-down location-arrow"
+        >
+        </i>
+
+      </button>
+
+
+      <div
+        class="location-dropdown"
+        *ngIf="showLocationMenu"
+        (click)="$event.stopPropagation()"
+      >
+
+        <button
+          type="button"
+          (click)="selectLocation('Dhaka')"
+        >
+          {{
+            selectedLanguage === 'bn'
+              ? 'ঢাকা'
+              : 'Dhaka'
+          }}
+        </button>
+
+
+        <button
+          type="button"
+          (click)="selectLocation('Chattogram')"
+        >
+          {{
+            selectedLanguage === 'bn'
+              ? 'চট্টগ্রাম'
+              : 'Chattogram'
+          }}
+        </button>
+
+
+        <button
+          type="button"
+          (click)="selectLocation('Sylhet')"
+        >
+          {{
+            selectedLanguage === 'bn'
+              ? 'সিলেট'
+              : 'Sylhet'
+          }}
+        </button>
+
+
+        <button
+          type="button"
+          (click)="selectLocation('Rajshahi')"
+        >
+          {{
+            selectedLanguage === 'bn'
+              ? 'রাজশাহী'
+              : 'Rajshahi'
+          }}
+        </button>
+
+
+        <button
+          type="button"
+          (click)="selectLocation('Khulna')"
+        >
+          {{
+            selectedLanguage === 'bn'
+              ? 'খুলনা'
+              : 'Khulna'
+          }}
+        </button>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <!-- RIGHT -->
+
+  <!-- =========================
+       RIGHT
+
+       ADMIN REMOVED
+       MY ORDERS REMOVED
+  ========================== -->
 
   <div class="right">
 
-    <a (click)="goHome()">
-      Home
-    </a>
 
-    <a routerLink="/cart">
+    <!-- LANGUAGE SWITCHER -->
 
-      Cart
+    <div class="language-switcher">
 
-      <i class="fa-solid fa-cart-shopping"></i>
+      <button
+        type="button"
+        [class.active]="
+          selectedLanguage === 'en'
+        "
+        (click)="changeLanguage('en')"
+      >
+        English
+      </button>
 
-      <span class="badge">
-        {{cart.count()}}
+
+      <span>
+        |
       </span>
 
-    </a>
 
-    <!-- USER ONLY -->
+      <button
+        type="button"
+        [class.active]="
+          selectedLanguage === 'bn'
+        "
+        (click)="changeLanguage('bn')"
+      >
+        বাংলা
+      </button>
 
-    <a
-      *ngIf="isLoggedIn() && !isAdmin()"
-      routerLink="/orders"
-    >
-      My Orders
-    </a>
+    </div>
+
 
     <!-- LOGIN -->
 
@@ -173,8 +456,13 @@
       *ngIf="!isLoggedIn()"
       routerLink="/login"
     >
-      Login
+      {{
+        selectedLanguage === 'bn'
+          ? 'লগইন'
+          : 'Login'
+      }}
     </a>
+
 
     <!-- LOGOUT -->
 
@@ -182,34 +470,52 @@
       *ngIf="isLoggedIn()"
       (click)="logout()"
     >
-      Logout
-    </a>
-
-    <!-- ADMIN -->
-
-    <a
-      *ngIf="isAdmin()"
-      routerLink="/admin/dashboard"
-    >
-      Admin
+      {{
+        selectedLanguage === 'bn'
+          ? 'লগআউট'
+          : 'Logout'
+      }}
     </a>
 
   </div>
 
 </div>
 
-<!-- FLOATING CART -->
+
+<!-- =========================
+     IMPORTANT
+
+     DESKTOP DRAWER SIDEBAR
+     COMPLETELY REMOVED
+
+     CATEGORY SIDEBAR HOME PAGE-এ
+     ALWAYS OPEN থাকবে
+========================= -->
+
+
+<!-- =========================
+     FLOATING CART
+========================= -->
 
 <div
   class="floating-cart"
-  routerLink="/cart"
+  (click)="openCartDrawer()"
 >
 
   <div class="cart-top">
 
     <div class="cart-count">
-      {{cart.count()}} Items
+
+      {{ cart.count() }}
+
+      {{
+        selectedLanguage === 'bn'
+          ? 'টি পণ্য'
+          : 'Items'
+      }}
+
     </div>
+
 
     <div class="cart-icon">
       <i class="fa-solid fa-cart-shopping"></i>
@@ -217,24 +523,26 @@
 
   </div>
 
+
   <div class="price">
-    ৳ {{cart.getTotal()}}
+    ৳ {{ cart.getTotal() }}
   </div>
 
 </div>
 
-<!-- FLOATING CHAT -->
+
+<!-- =========================
+     FLOATING CHAT
+========================= -->
 
 <div class="chat-wrapper">
 
-  <!-- CHAT OPTIONS -->
 
   <div
     class="chat-options"
     *ngIf="showChat"
   >
 
-    <!-- CALL -->
 
     <a
       href="tel:+8801756442133"
@@ -244,22 +552,22 @@
       <i class="fa-solid fa-phone"></i>
     </a>
 
-    <!-- MESSENGER -->
 
     <a
       href="https://www.facebook.com/share/1C1rQ6txJr/"
       target="_blank"
+      rel="noopener noreferrer"
       class="chat-item messenger"
       title="Messenger"
     >
       <i class="fa-brands fa-facebook-messenger"></i>
     </a>
 
-    <!-- WHATSAPP -->
 
     <a
       href="https://wa.me/8801756442133"
       target="_blank"
+      rel="noopener noreferrer"
       class="chat-item whatsapp"
       title="WhatsApp"
     >
@@ -268,9 +576,9 @@
 
   </div>
 
-  <!-- MAIN CHAT BUTTON -->
 
   <button
+    type="button"
     class="main-chat-btn"
     (click)="toggleChat()"
     title="Chat"
@@ -279,4 +587,3 @@
   </button>
 
 </div>
-

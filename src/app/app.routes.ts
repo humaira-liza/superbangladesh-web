@@ -35,14 +35,17 @@ import { Analytics } from './pages/analytics/analytics';
 import { PurchaseManagement } from './admin/purchase-management/purchase-management';
 import { PurchaseHistory } from './pages/purchase-history/purchase-history';
 
-
+// 🔧 ADMIN EXTRA
 import { AdminCategories } from './pages/admin-categories/admin-categories';
 import { AdminBanners } from './pages/admin-banners/admin-banners';
 import { AdminCustomers } from './pages/admin-customers/admin-customers';
 
 export const routes: Routes = [
 
+  // =========================
   // 🔓 PUBLIC
+  // =========================
+
   {
     path: '',
     component: Home
@@ -58,7 +61,21 @@ export const routes: Routes = [
     component: ProductDetails
   },
 
+  // =========================
+  // 🆕 CATEGORY PAGE
+  // =========================
+
+  {
+    path: 'category/:id',
+    loadComponent: () =>
+      import('./pages/category-page/category-page')
+        .then(m => m.CategoryPage)
+  },
+
+  // =========================
   // 🛒 USER
+  // =========================
+
   {
     path: 'cart',
     component: Cart
@@ -84,7 +101,10 @@ export const routes: Routes = [
     canActivate: [userGuard]
   },
 
+  // =========================
   // 🆕 EXTRA
+  // =========================
+
   {
     path: 'safety',
     component: Safety
@@ -105,7 +125,10 @@ export const routes: Routes = [
     component: Complaint
   },
 
+  // =========================
   // 🔴 ADMIN PANEL
+  // =========================
+
   {
     path: 'admin',
     component: Admin,
@@ -130,19 +153,19 @@ export const routes: Routes = [
       },
 
       {
-  path: 'categories',
-  component: AdminCategories
-},
+        path: 'categories',
+        component: AdminCategories
+      },
 
- {
+      {
         path: 'banners',
         component: AdminBanners
       },
 
       {
-  path: 'customers',
-  component: AdminCustomers
-},
+        path: 'customers',
+        component: AdminCustomers
+      },
 
       {
         path: 'orders',
@@ -184,17 +207,17 @@ export const routes: Routes = [
         component: PurchaseHistory
       },
 
+      // 🚚 SUPPLIERS
       {
-  path:'suppliers',
-  loadComponent:() =>
-    import('./admin/suppliers/suppliers')
-    .then(m => m.Suppliers)
-}
+        path: 'suppliers',
+        loadComponent: () =>
+          import('./admin/suppliers/suppliers')
+            .then(m => m.Suppliers)
+      }
 
     ]
   },
 
-  // 🔁 FALLBACK
   {
     path: '**',
     redirectTo: ''

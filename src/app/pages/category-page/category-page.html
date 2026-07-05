@@ -1,0 +1,247 @@
+<div class="category-page">
+
+  <div class="category-layout">
+
+    <app-sidebar
+      (categoryClick)="onSidebarCategory($event)">
+    </app-sidebar>
+
+
+    <main class="category-content">
+
+
+      <!-- ERROR -->
+
+      <div
+        class="error-message"
+        *ngIf="
+          !categoryLoading &&
+          errorMessage
+        ">
+
+        {{ errorMessage }}
+
+      </div>
+
+
+      <!-- CATEGORY CONTENT -->
+
+      <div
+        *ngIf="
+          !categoryLoading &&
+          category
+        ">
+
+        <h1 class="category-title">
+          {{ category.name }}
+        </h1>
+
+
+        <!-- CHILD CATEGORIES -->
+
+        <div
+          class="category-grid"
+          *ngIf="
+            category.children?.length > 0
+          ">
+
+          <div
+            class="category-card"
+            *ngFor="
+              let c of category.children
+            "
+            (click)="openCategory(c)">
+
+            <div class="image-box">
+
+              <img
+                loading="lazy"
+                decoding="async"
+                [src]="
+                  getCategoryImage(
+                    c.imageUrl ||
+                    c.image_url
+                  )
+                "
+                (error)="
+                  onImgError($event)
+                "
+              />
+
+            </div>
+
+            <h3>
+              {{ c.name }}
+            </h3>
+
+          </div>
+
+        </div>
+
+
+        <!-- PRODUCTS -->
+
+        <div
+          class="product-grid"
+          *ngIf="
+            category.children?.length === 0 &&
+            !productsLoading &&
+            products.length > 0
+          ">
+
+          <article
+            class="product-card"
+            [class.out-product]="
+              p.stock <= 0
+            "
+            *ngFor="
+              let p of products;
+              trackBy: trackByProduct
+            ">
+
+            <!-- IMAGE AREA -->
+
+            <div class="product-image">
+
+              <div
+                class="out-badge"
+                *ngIf="
+                  p.stock <= 0
+                ">
+
+                Out Of Stock
+
+              </div>
+
+              <img
+                loading="lazy"
+                decoding="async"
+                [src]="
+                  getProductImage(
+                    p.imageUrl ||
+                    p.image_url
+                  )
+                "
+                (error)="
+                  onImgError($event)
+                "
+              />
+
+           <!-- ADD TO CART PLUS BUTTON -->
+
+<button
+  type="button"
+  class="add-btn"
+  *ngIf="p.stock > 0"
+  (click)="addToCart(p, $event)">
+
+  +
+
+</button>
+
+            </div>
+
+
+            <!-- INFO -->
+
+            <div class="product-info">
+
+              <div class="price-line">
+
+                <span class="price">
+                  ৳{{ p.price }}
+                </span>
+
+                <span
+                  class="old-price"
+                  *ngIf="p.price">
+
+                  ৳{{ p.price + 20 }}
+
+                </span>
+
+              </div>
+
+
+              <h3>
+                {{ p.name }}
+              </h3>
+
+
+              <p
+                class="unit"
+                *ngIf="
+                  p.quantity &&
+                  p.unit
+                ">
+
+                {{ p.quantity }}
+                {{ p.unit }}
+
+              </p>
+
+
+              <p
+                class="unit"
+                *ngIf="
+                  !p.quantity &&
+                  p.unit
+                ">
+
+                {{ p.unit }}
+
+              </p>
+
+
+              <div class="delivery">
+
+                <span>
+                  ◷ 1 hr
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+
+        <!-- EMPTY -->
+
+        <div
+          class="empty"
+          *ngIf="
+            category.children?.length === 0 &&
+            !productsLoading &&
+            products.length === 0 &&
+            !errorMessage
+          ">
+
+          No products found
+
+        </div>
+
+      </div>
+
+
+      <!-- NOT FOUND -->
+
+      <div
+        class="not-found"
+        *ngIf="
+          !categoryLoading &&
+          !category &&
+          !errorMessage
+        ">
+
+        Category not found
+
+      </div>
+
+    </main>
+
+  </div>
+
+</div>

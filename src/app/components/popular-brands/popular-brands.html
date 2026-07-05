@@ -1,0 +1,24 @@
+<div class="brands-section">
+
+  <h2>Popular Brands</h2>
+
+  <div class="brands">
+
+    <div
+      class="brand-card"
+      *ngFor="let b of brands">
+
+      <img
+        [src]="b.image"
+        [alt]="b.name"
+      >
+
+      <span class="brand-name">
+        {{ b.name }}
+      </span>
+
+    </div>
+
+  </div>
+
+</div>
