@@ -1,0 +1,555 @@
+<div class="footer-admin-page">
+
+  <div class="page-header">
+
+    <p class="eyebrow">
+      HOMEPAGE MANAGEMENT
+    </p>
+
+    <h2>
+      🧾 Footer Management
+    </h2>
+
+    <p>
+      Control footer content from Admin Panel.
+    </p>
+
+  </div>
+
+
+  <div
+    class="loading-box"
+    *ngIf="loading"
+  >
+    Loading footer settings...
+  </div>
+
+
+  <section
+    class="panel"
+    *ngIf="!loading"
+  >
+
+    <h3>
+      Brand Information
+    </h3>
+
+    <div class="form-grid">
+
+      <div class="field">
+
+        <label>
+          Brand Title
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="form.brandTitle"
+        >
+
+      </div>
+
+
+      <div class="field full-field">
+
+        <label>
+          Description
+        </label>
+
+        <textarea
+          rows="4"
+          [(ngModel)]="form.description"
+        ></textarea>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section
+    class="panel"
+    *ngIf="!loading"
+  >
+
+    <h3>
+      Social Links
+    </h3>
+
+    <div class="form-grid">
+
+      <div class="field">
+
+        <label>
+          Facebook URL
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="form.facebookUrl"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          YouTube URL
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="form.youtubeUrl"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Instagram URL
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="form.instagramUrl"
+        >
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section
+    class="panel"
+    *ngIf="!loading"
+  >
+
+    <h3>
+      Customer Service
+    </h3>
+
+    <div class="form-grid">
+
+      <div class="field">
+
+        <label>
+          Section Title
+        </label>
+
+        <input
+          [(ngModel)]="form.customerServiceTitle"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Help Center Text
+        </label>
+
+        <input
+          [(ngModel)]="form.helpCenterText"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Help Center URL
+        </label>
+
+        <input
+          [(ngModel)]="form.helpCenterUrl"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Contact Text
+        </label>
+
+        <input
+          [(ngModel)]="form.contactText"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Contact URL
+        </label>
+
+        <input
+          [(ngModel)]="form.contactUrl"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Report Problem Text
+        </label>
+
+        <input
+          [(ngModel)]="form.reportProblemText"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Report Problem URL
+        </label>
+
+        <input
+          [(ngModel)]="form.reportProblemUrl"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Return Policy Text
+        </label>
+
+        <input
+          [(ngModel)]="form.returnPolicyText"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Return Policy URL
+        </label>
+
+        <input
+          [(ngModel)]="form.returnPolicyUrl"
+        >
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section
+    class="panel"
+    *ngIf="!loading"
+  >
+
+    <h3>
+      About Section
+    </h3>
+
+    <div class="form-grid">
+
+      <div class="field">
+
+        <label>
+          Section Title
+        </label>
+
+        <input
+          [(ngModel)]="form.aboutTitle"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          About Us Text
+        </label>
+
+        <input
+          [(ngModel)]="form.aboutUsText"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          About Us URL
+        </label>
+
+        <input
+          [(ngModel)]="form.aboutUsUrl"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Careers Text
+        </label>
+
+        <input
+          [(ngModel)]="form.careersText"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Careers URL
+        </label>
+
+        <input
+          [(ngModel)]="form.careersUrl"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Terms Text
+        </label>
+
+        <input
+          [(ngModel)]="form.termsText"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Terms URL
+        </label>
+
+        <input
+          [(ngModel)]="form.termsUrl"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Privacy Text
+        </label>
+
+        <input
+          [(ngModel)]="form.privacyText"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Privacy URL
+        </label>
+
+        <input
+          [(ngModel)]="form.privacyUrl"
+        >
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section
+    class="panel"
+    *ngIf="!loading"
+  >
+
+    <h3>
+      Contact Information
+    </h3>
+
+    <div class="form-grid">
+
+      <div class="field">
+
+        <label>
+          Contact Title
+        </label>
+
+        <input
+          [(ngModel)]="form.contactTitle"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Address
+        </label>
+
+        <input
+          [(ngModel)]="form.address"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Phone
+        </label>
+
+        <input
+          [(ngModel)]="form.phone"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Email
+        </label>
+
+        <input
+          [(ngModel)]="form.email"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Opening Hours
+        </label>
+
+        <input
+          [(ngModel)]="form.openingHours"
+        >
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section
+    class="panel"
+    *ngIf="!loading"
+  >
+
+    <h3>
+      Footer Bottom
+    </h3>
+
+    <div class="form-grid">
+
+      <div class="field">
+
+        <label>
+          Copyright Text
+        </label>
+
+        <input
+          [(ngModel)]="form.copyrightText"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Payment Methods
+        </label>
+
+        <input
+          [(ngModel)]="form.paymentMethods"
+          placeholder="VISA,Mastercard,bKash,Nagad"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Status
+        </label>
+
+        <select
+          [(ngModel)]="form.active"
+        >
+
+          <option [ngValue]="true">
+            Active
+          </option>
+
+          <option [ngValue]="false">
+            Inactive
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <div class="save-bar">
+
+    <button
+      type="button"
+      [disabled]="saving"
+      (click)="save()"
+    >
+
+      {{
+        saving
+          ? 'Saving...'
+          : 'Save Footer'
+      }}
+
+    </button>
+
+  </div>
+
+</div>

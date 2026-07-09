@@ -1,4 +1,7 @@
-<footer class="footer">
+<footer
+  class="footer"
+  *ngIf="!loading"
+>
 
   <div class="footer-container">
 
@@ -8,25 +11,50 @@
     <div class="footer-brand">
 
       <h2>
-        Super Bangladesh
+        {{
+          footer?.brandTitle ||
+          'Super Bangladesh'
+        }}
       </h2>
 
+
       <p>
-        {{ t('footerDescription') }}
+        {{
+          footer?.description ||
+          t('footerDescription')
+        }}
       </p>
 
 
       <div class="social-links">
 
-        <a href="#">
+
+        <a
+          *ngIf="footer?.facebookUrl"
+          [href]="footer.facebookUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           f
         </a>
 
-        <a href="#">
+
+        <a
+          *ngIf="footer?.youtubeUrl"
+          [href]="footer.youtubeUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           ▶
         </a>
 
-        <a href="#">
+
+        <a
+          *ngIf="footer?.instagramUrl"
+          [href]="footer.instagramUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           ◎
         </a>
 
@@ -40,23 +68,62 @@
     <div class="footer-column">
 
       <h3>
-        {{ t('customerService') }}
+        {{
+          footer?.customerServiceTitle ||
+          t('customerService')
+        }}
       </h3>
 
-      <a href="#">
-        {{ t('helpCenter') }}
+
+      <a
+        [href]="
+          footer?.helpCenterUrl ||
+          '#'
+        "
+      >
+        {{
+          footer?.helpCenterText ||
+          t('helpCenter')
+        }}
       </a>
 
-      <a href="#">
-        {{ t('contactUs') }}
+
+      <a
+        [href]="
+          footer?.contactUrl ||
+          '#'
+        "
+      >
+        {{
+          footer?.contactText ||
+          t('contactUs')
+        }}
       </a>
 
-      <a href="#">
-        {{ t('reportProblem') }}
+
+      <a
+        [href]="
+          footer?.reportProblemUrl ||
+          '#'
+        "
+      >
+        {{
+          footer?.reportProblemText ||
+          t('reportProblem')
+        }}
       </a>
 
-      <a href="#">
-        {{ t('returnPolicy') }}
+
+      <a
+        [href]="
+          footer?.returnPolicyUrl ||
+          '#'
+        "
+      >
+        {{
+          footer?.returnPolicyText ||
+          t('returnPolicy')
+        }}
       </a>
 
     </div>
@@ -67,23 +134,62 @@
     <div class="footer-column">
 
       <h3>
-        {{ t('aboutSuperBangladesh') }}
+        {{
+          footer?.aboutTitle ||
+          t('aboutSuperBangladesh')
+        }}
       </h3>
 
-      <a href="#">
-        {{ t('aboutUs') }}
+
+      <a
+        [href]="
+          footer?.aboutUsUrl ||
+          '#'
+        "
+      >
+        {{
+          footer?.aboutUsText ||
+          t('aboutUs')
+        }}
       </a>
 
-      <a href="#">
-        {{ t('careers') }}
+
+      <a
+        [href]="
+          footer?.careersUrl ||
+          '#'
+        "
+      >
+        {{
+          footer?.careersText ||
+          t('careers')
+        }}
       </a>
 
-      <a href="#">
-        {{ t('termsConditions') }}
+
+      <a
+        [href]="
+          footer?.termsUrl ||
+          '#'
+        "
+      >
+        {{
+          footer?.termsText ||
+          t('termsConditions')
+        }}
       </a>
 
-      <a href="#">
-        {{ t('privacyPolicy') }}
+
+      <a
+        [href]="
+          footer?.privacyUrl ||
+          '#'
+        "
+      >
+        {{
+          footer?.privacyText ||
+          t('privacyPolicy')
+        }}
       </a>
 
     </div>
@@ -94,23 +200,46 @@
     <div class="footer-column">
 
       <h3>
-        {{ t('contactUs') }}
+        {{
+          footer?.contactTitle ||
+          t('contactUs')
+        }}
       </h3>
 
-      <p>
-        📍 {{ t('dhakaBangladesh') }}
-      </p>
 
       <p>
-        📞 09600-000000
+        📍
+        {{
+          footer?.address ||
+          t('dhakaBangladesh')
+        }}
       </p>
 
-      <p>
-        ✉ support@superbangladesh.com
-      </p>
 
       <p>
-        🕒 {{ t('open247') }}
+        📞
+        {{
+          footer?.phone ||
+          '09600-000000'
+        }}
+      </p>
+
+
+      <p>
+        ✉
+        {{
+          footer?.email ||
+          'support@superbangladesh.com'
+        }}
+      </p>
+
+
+      <p>
+        🕒
+        {{
+          footer?.openingHours ||
+          t('open247')
+        }}
       </p>
 
     </div>
@@ -123,26 +252,22 @@
   <div class="footer-bottom">
 
     <p>
-      {{ t('allRightsReserved') }}
+      {{
+        footer?.copyrightText ||
+        t('allRightsReserved')
+      }}
     </p>
 
 
     <div class="payment-methods">
 
-      <span>
-        VISA
-      </span>
-
-      <span>
-        Mastercard
-      </span>
-
-      <span>
-        bKash
-      </span>
-
-      <span>
-        Nagad
+      <span
+        *ngFor="
+          let payment
+          of getPaymentMethods()
+        "
+      >
+        {{ payment }}
       </span>
 
     </div>

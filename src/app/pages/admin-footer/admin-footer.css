@@ -1,0 +1,208 @@
+*{
+  box-sizing:border-box;
+}
+
+:host{
+  display:block;
+  width:100%;
+}
+
+.footer-admin-page{
+  width:100%;
+  padding:8px;
+  color:#0f172a;
+}
+
+.page-header{
+  margin-bottom:24px;
+}
+
+.eyebrow{
+  margin:0 0 6px;
+  color:#7c3aed;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1.5px;
+}
+
+.page-header h2{
+  margin:4px 0 8px;
+  font-size:34px;
+  font-weight:900;
+}
+
+.page-header p{
+  color:#64748b;
+}
+
+.panel{
+  width:100%;
+  margin-bottom:22px;
+  padding:24px;
+
+  background:#ffffff;
+
+  border:1px solid #e2e8f0;
+
+  border-radius:18px;
+
+  box-shadow:
+    0 8px 24px
+    rgba(15,23,42,.05);
+}
+
+.panel h3{
+  margin:0 0 20px;
+
+  font-size:21px;
+
+  font-weight:900;
+}
+
+.form-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:18px;
+}
+
+.field{
+  min-width:0;
+}
+
+.full-field{
+  grid-column:1 / -1;
+}
+
+.field label{
+  display:block;
+
+  margin-bottom:7px;
+
+  color:#334155;
+
+  font-size:13px;
+
+  font-weight:800;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+
+  padding:11px 13px;
+
+  border:1px solid #cbd5e1;
+
+  border-radius:11px;
+
+  outline:none;
+
+  font:inherit;
+
+  background:#ffffff;
+}
+
+.field input,
+.field select{
+  min-height:46px;
+}
+
+.field textarea{
+  resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+  border-color:#7c3aed;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(124,58,237,.12);
+}
+
+.loading-box{
+  padding:35px;
+
+  text-align:center;
+
+  background:#ffffff;
+
+  border-radius:16px;
+
+  color:#64748b;
+
+  font-weight:800;
+}
+
+.save-bar{
+  position:sticky;
+
+  bottom:15px;
+
+  padding:14px;
+
+  display:flex;
+
+  justify-content:flex-end;
+
+  background:
+    rgba(255,255,255,.92);
+
+  border:1px solid #e2e8f0;
+
+  border-radius:16px;
+
+  backdrop-filter:blur(8px);
+}
+
+.save-bar button{
+  padding:13px 24px;
+
+  border:none;
+
+  border-radius:12px;
+
+  background:#7c3aed;
+
+  color:#ffffff;
+
+  font-size:14px;
+
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+.save-bar button:disabled{
+  opacity:.55;
+
+  cursor:not-allowed;
+}
+
+@media(max-width:768px){
+
+  .footer-admin-page{
+    padding:0;
+  }
+
+  .page-header h2{
+    font-size:26px;
+  }
+
+  .panel{
+    padding:16px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .full-field{
+    grid-column:auto;
+  }
+}
