@@ -1,60 +1,72 @@
-<div class="shop-more">
+<section
+  class="shop-more"
+  *ngIf="
+    !loading &&
+    items.length > 0
+  "
+>
 
-  <h2>Shop & Get More</h2>
+  <h2>
+    Shop & Get More
+  </h2>
+
 
   <div class="shop-grid">
 
-    <div class="shop-card">
+    <article
+      class="shop-card"
+      *ngFor="
+        let item of items
+      "
+    >
 
       <div class="shop-text">
-        <h3>Shop & Earn Points</h3>
 
-        <p>
-          The more you shop, the more reward points you earn.
+        <h3>
+          {{ item.title }}
+        </h3>
+
+
+        <p
+          *ngIf="item.description"
+        >
+          {{ item.description }}
         </p>
+
       </div>
 
-      <div class="shop-visual reward-visual">
-        <span class="visual-icon">🛒</span>
-        <span class="visual-badge">★</span>
+
+      <div class="shop-visual">
+
+        <img
+          *ngIf="item.imageUrl"
+          [src]="item.imageUrl"
+          [alt]="item.title"
+          loading="lazy"
+          decoding="async"
+          (error)="onImageError($event)"
+        >
+
+
+        <span
+          class="fallback-icon"
+          *ngIf="!item.imageUrl"
+        >
+          🛍️
+        </span>
+
+
+        <span
+          class="visual-badge"
+          *ngIf="item.badgeText"
+        >
+          {{ item.badgeText }}
+        </span>
+
       </div>
 
-    </div>
-
-    <div class="shop-card">
-
-      <div class="shop-text">
-        <h3>Deal Of The Day</h3>
-
-        <p>
-          Today's best grocery deals at the lowest prices.
-        </p>
-      </div>
-
-      <div class="shop-visual deal-visual">
-        <span class="visual-icon">🛍️</span>
-        <span class="visual-badge">%</span>
-      </div>
-
-    </div>
-
-    <div class="shop-card">
-
-      <div class="shop-text">
-        <h3>Premium Care</h3>
-
-        <p>
-          Dedicated customer support for premium members.
-        </p>
-      </div>
-
-      <div class="shop-visual premium-visual">
-        <span class="visual-icon">🎧</span>
-        <span class="visual-badge">✓</span>
-      </div>
-
-    </div>
+    </article>
 
   </div>
 
-</div>
+</section>

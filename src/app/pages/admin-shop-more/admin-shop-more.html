@@ -1,0 +1,455 @@
+<div class="shop-more-admin-page">
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <div class="page-header">
+
+    <p class="eyebrow">
+      HOMEPAGE MANAGEMENT
+    </p>
+
+    <h2>
+      🛍️ Shop & Get More
+    </h2>
+
+    <p class="header-text">
+      Add, edit, remove and control homepage
+      Shop & Get More cards.
+    </p>
+
+  </div>
+
+
+  <!-- =========================
+       FORM PANEL
+  ========================== -->
+
+  <section class="panel">
+
+    <div class="panel-heading">
+
+      <div>
+
+        <h3>
+          {{
+            editingId !== null
+              ? 'Edit Card'
+              : 'Add New Card'
+          }}
+        </h3>
+
+        <p>
+          Manage title, description, image,
+          badge and display order.
+        </p>
+
+      </div>
+
+
+      <button
+        *ngIf="editingId !== null"
+        type="button"
+        class="cancel-btn"
+        (click)="reset()"
+      >
+        Cancel Edit
+      </button>
+
+    </div>
+
+
+    <div class="form-grid">
+
+      <!-- TITLE -->
+
+      <div class="field">
+
+        <label>
+          Card Title
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="form.title"
+          placeholder="Example: Shop & Earn Points"
+        >
+
+      </div>
+
+
+      <!-- BADGE -->
+
+      <div class="field">
+
+        <label>
+          Badge Text
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="form.badgeText"
+          placeholder="Example: ★ or % or ✓"
+        >
+
+      </div>
+
+
+      <!-- ORDER -->
+
+      <div class="field">
+
+        <label>
+          Display Order
+        </label>
+
+        <input
+          type="number"
+          min="0"
+          [(ngModel)]="form.displayOrder"
+        >
+
+      </div>
+
+
+      <!-- ACTIVE -->
+
+      <div class="field">
+
+        <label>
+          Status
+        </label>
+
+        <select
+          [(ngModel)]="form.active"
+        >
+
+          <option [ngValue]="true">
+            Active
+          </option>
+
+          <option [ngValue]="false">
+            Inactive
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- IMAGE -->
+
+      <div class="field">
+
+        <label>
+          Card Image
+        </label>
+
+        <input
+          type="file"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+        >
+
+      </div>
+
+
+      <!-- DESCRIPTION -->
+
+      <div class="field full-field">
+
+        <label>
+          Description
+        </label>
+
+        <textarea
+          rows="4"
+          [(ngModel)]="form.description"
+          placeholder="Enter card description"
+        ></textarea>
+
+      </div>
+
+    </div>
+
+
+    <!-- IMAGE PREVIEW -->
+
+    <div
+      class="preview-box"
+      *ngIf="previewImage"
+    >
+
+      <img
+        [src]="previewImage"
+        alt="Preview"
+        (error)="onImageError($event)"
+      >
+
+      <span>
+        Image Preview
+      </span>
+
+    </div>
+
+
+    <!-- ACTION -->
+
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="primary-btn"
+        [disabled]="saving"
+        (click)="save()"
+      >
+
+        {{
+          saving
+            ? 'Saving...'
+            : (
+                editingId !== null
+                  ? 'Update Card'
+                  : 'Add Card'
+              )
+        }}
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       LIST PANEL
+  ========================== -->
+
+  <section class="panel">
+
+    <div class="panel-heading">
+
+      <div>
+
+        <h3>
+          Homepage Cards
+        </h3>
+
+        <p>
+          Control active status and display order.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- LOADING -->
+
+    <div
+      class="loading-box"
+      *ngIf="loading"
+    >
+      Loading Shop More cards...
+    </div>
+
+
+    <!-- EMPTY -->
+
+    <div
+      class="empty-box"
+      *ngIf="
+        !loading &&
+        items.length === 0
+      "
+    >
+
+      No Shop More cards found.
+
+    </div>
+
+
+    <!-- GRID -->
+
+    <div
+      class="admin-grid"
+      *ngIf="
+        !loading &&
+        items.length > 0
+      "
+    >
+
+      <article
+        class="admin-card"
+        *ngFor="let item of items"
+        [class.inactive-card]="!item.active"
+      >
+
+        <!-- IMAGE -->
+
+        <div class="card-image">
+
+          <img
+            *ngIf="item.imageUrl"
+            [src]="item.imageUrl"
+            [alt]="item.title"
+            (error)="onImageError($event)"
+          >
+
+          <span
+            *ngIf="!item.imageUrl"
+            class="fallback-icon"
+          >
+            🛍️
+          </span>
+
+
+          <span
+            class="badge-preview"
+            *ngIf="item.badgeText"
+          >
+            {{ item.badgeText }}
+          </span>
+
+        </div>
+
+
+        <!-- CONTENT -->
+
+        <div class="card-content">
+
+          <h4>
+            {{ item.title }}
+          </h4>
+
+
+          <p
+            *ngIf="item.description"
+          >
+            {{ item.description }}
+          </p>
+
+
+          <span
+            class="status-badge"
+            [class.active]="item.active"
+          >
+
+            {{
+              item.active
+                ? 'Active'
+                : 'Inactive'
+            }}
+
+          </span>
+
+        </div>
+
+
+        <!-- ACTIVE CONTROL -->
+
+        <div class="control-block">
+
+          <span class="control-label">
+            Homepage Status
+          </span>
+
+
+          <label class="switch">
+
+            <input
+              type="checkbox"
+              [checked]="item.active"
+              [disabled]="
+                activeSavingId === item.id
+              "
+              (change)="toggleActive(item)"
+            >
+
+            <span class="slider"></span>
+
+          </label>
+
+        </div>
+
+
+        <!-- ORDER -->
+
+        <div class="order-control">
+
+          <label>
+            Display Order
+          </label>
+
+
+          <div class="order-row">
+
+            <input
+              type="number"
+              min="0"
+              [(ngModel)]="item.displayOrder"
+            >
+
+
+            <button
+              type="button"
+              class="order-btn"
+              [disabled]="
+                orderSavingId === item.id
+              "
+              (click)="saveOrder(item)"
+            >
+
+              {{
+                orderSavingId === item.id
+                  ? 'Saving'
+                  : 'Save'
+              }}
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="card-actions">
+
+          <button
+            type="button"
+            class="edit-btn"
+            (click)="edit(item)"
+          >
+            Edit
+          </button>
+
+
+          <button
+            type="button"
+            class="delete-btn"
+            [disabled]="
+              deletingId === item.id
+            "
+            (click)="delete(item.id)"
+          >
+
+            {{
+              deletingId === item.id
+                ? 'Deleting'
+                : 'Delete'
+            }}
+
+          </button>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+</div>

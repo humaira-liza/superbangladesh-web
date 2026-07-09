@@ -83,6 +83,9 @@ from './pages/admin-customers/admin-customers';
 import { AdminFeatures }
 from './pages/admin-features/admin-features';
 
+import { AdminShopMore }
+from './pages/admin-shop-more/admin-shop-more';
+
 
 // =========================
 // ANALYTICS
@@ -226,12 +229,22 @@ export const routes: Routes = [
           'full'
       },
 
+
+      // =========================
+      // DASHBOARD
+      // =========================
+
       {
         path: 'dashboard',
 
         component:
           Dashboard
       },
+
+
+      // =========================
+      // PRODUCTS
+      // =========================
 
       {
         path: 'products',
@@ -240,12 +253,22 @@ export const routes: Routes = [
           AdminProducts
       },
 
+
+      // =========================
+      // CATEGORIES
+      // =========================
+
       {
         path: 'categories',
 
         component:
           AdminCategories
       },
+
+
+      // =========================
+      // BANNERS
+      // =========================
 
       {
         path: 'banners',
@@ -254,12 +277,34 @@ export const routes: Routes = [
           AdminBanners
       },
 
+
+      // =========================
+      // HOMEPAGE FEATURES
+      // =========================
+
       {
         path: 'features',
 
         component:
           AdminFeatures
       },
+
+
+      // =========================
+      // SHOP & GET MORE
+      // =========================
+
+      {
+        path: 'shop-more',
+
+        component:
+          AdminShopMore
+      },
+
+
+      // =========================
+      // CUSTOMERS
+      // =========================
 
       {
         path: 'customers',
@@ -268,12 +313,22 @@ export const routes: Routes = [
           AdminCustomers
       },
 
+
+      // =========================
+      // ORDERS
+      // =========================
+
       {
         path: 'orders',
 
         component:
           AdminOrders
       },
+
+
+      // =========================
+      // COMPLAINTS
+      // =========================
 
       {
         path: 'complaints',
@@ -282,12 +337,22 @@ export const routes: Routes = [
           AdminComplaints
       },
 
+
+      // =========================
+      // ANALYTICS
+      // =========================
+
       {
         path: 'analytics',
 
         component:
           Analytics
       },
+
+
+      // =========================
+      // FINANCE
+      // =========================
 
       {
         path: 'finance',
@@ -296,12 +361,22 @@ export const routes: Routes = [
           Finance
       },
 
+
+      // =========================
+      // INVENTORY
+      // =========================
+
       {
         path: 'inventory',
 
         component:
           Inventory
       },
+
+
+      // =========================
+      // PURCHASE MANAGEMENT
+      // =========================
 
       {
         path:
@@ -311,6 +386,11 @@ export const routes: Routes = [
           PurchaseManagement
       },
 
+
+      // =========================
+      // PURCHASE HISTORY
+      // =========================
+
       {
         path:
           'purchase-history',
@@ -318,6 +398,11 @@ export const routes: Routes = [
         component:
           PurchaseHistory
       },
+
+
+      // =========================
+      // SUPPLIERS
+      // =========================
 
       {
         path: 'suppliers',
