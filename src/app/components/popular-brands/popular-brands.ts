@@ -1,48 +1,122 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  HttpClient
+} from '@angular/common/http';
+
 
 @Component({
   selector: 'app-popular-brands',
+
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './popular-brands.html',
-  styleUrls: ['./popular-brands.css']
+
+  imports: [
+    CommonModule
+  ],
+
+  templateUrl:
+    './popular-brands.html',
+
+  styleUrls: [
+    './popular-brands.css'
+  ]
 })
-export class PopularBrands {
+export class PopularBrands
+  implements OnInit {
 
-  brands = [
-    {
-      name: 'PRAN',
-      image: '/assets/brands/pran.png'
-    },
-    {
-      name: 'Reckitt',
-      image: '/assets/brands/reckitt.png'
-    },
-    {
-      name: 'Nestlé',
-      image: '/assets/brands/nestle.png'
-    },
-    {
-      name: 'Unilever',
-      image: '/assets/brands/unilever.png'
-    },
-    {
-      name: 'Marico',
-      image: '/assets/brands/marico.png'
-    },
-    {
-      name: 'Godrej',
-      image: '/assets/brands/godrej.png'
-    },
-    {
-      name: 'Coca-Cola',
-      image: '/assets/brands/cocacola.png'
-    },
-    {
-      name: 'MGI',
-      image: '/assets/brands/mgi.png'
+  brands: any[] = [];
+
+  loading = true;
+
+
+  readonly api =
+    'https://superbangladesh-api-1.onrender.com/api/popular-brands/active';
+
+
+  constructor(
+    private http: HttpClient
+  ) {}
+
+
+  ngOnInit(): void {
+
+    this.loadBrands();
+  }
+
+
+  loadBrands(): void {
+
+    this.loading = true;
+
+
+    this.http
+      .get<any[]>(
+        this.api
+      )
+      .subscribe({
+
+        next: (res: any[]) => {
+
+          this.brands =
+            Array.isArray(res)
+              ? res
+              : [];
+
+
+          this.loading = false;
+        },
+
+
+        error: (err: any) => {
+
+          console.error(
+            'Popular Brands load failed',
+            err
+          );
+
+
+          this.brands = [];
+
+          this.loading = false;
+        }
+
+      });
+  }
+
+
+  onImageError(
+    event: Event
+  ): void {
+
+    const img =
+      event.target as HTMLImageElement;
+
+
+    if (!img) {
+      return;
     }
-  ];
 
+
+    img.style.display =
+      'none';
+  }
+
+
+  trackByBrand(
+    index: number,
+    brand: any
+  ): any {
+
+    return (
+      brand?.id ??
+      index
+    );
+  }
 }

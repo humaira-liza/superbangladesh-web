@@ -1,0 +1,293 @@
+<div class="brands-admin-page">
+
+  <div class="page-header">
+
+    <p class="eyebrow">
+      HOMEPAGE MANAGEMENT
+    </p>
+
+    <h2>
+      🏷️ Popular Brands
+    </h2>
+
+    <p>
+      Add, edit and control homepage brands.
+    </p>
+
+  </div>
+
+
+  <section class="panel">
+
+    <h3>
+      {{
+        editingId !== null
+          ? 'Edit Brand'
+          : 'Add New Brand'
+      }}
+    </h3>
+
+
+    <div class="form-grid">
+
+      <div class="field">
+
+        <label>
+          Brand Name
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="form.name"
+          placeholder="Example: PRAN"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Display Order
+        </label>
+
+        <input
+          type="number"
+          min="0"
+          [(ngModel)]="form.displayOrder"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Status
+        </label>
+
+        <select
+          [(ngModel)]="form.active"
+        >
+
+          <option [ngValue]="true">
+            Active
+          </option>
+
+          <option [ngValue]="false">
+            Inactive
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Brand Logo
+        </label>
+
+        <input
+          type="file"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="preview-box"
+      *ngIf="previewImage"
+    >
+
+      <img
+        [src]="previewImage"
+        alt="Preview"
+        (error)="onImageError($event)"
+      >
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        type="button"
+        class="primary-btn"
+        [disabled]="saving"
+        (click)="save()"
+      >
+
+        {{
+          saving
+            ? 'Saving...'
+            : (
+                editingId !== null
+                  ? 'Update Brand'
+                  : 'Add Brand'
+              )
+        }}
+
+      </button>
+
+
+      <button
+        *ngIf="editingId !== null"
+        type="button"
+        class="cancel-btn"
+        (click)="reset()"
+      >
+        Cancel
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <section class="panel">
+
+    <h3>
+      Brand List
+    </h3>
+
+
+    <div
+      class="loading-box"
+      *ngIf="loading"
+    >
+      Loading brands...
+    </div>
+
+
+    <div
+      class="empty-box"
+      *ngIf="
+        !loading &&
+        items.length === 0
+      "
+    >
+      No brands found.
+    </div>
+
+
+    <div
+      class="brand-grid"
+      *ngIf="
+        !loading &&
+        items.length > 0
+      "
+    >
+
+      <article
+        class="brand-card"
+        *ngFor="let item of items"
+        [class.inactive]="!item.active"
+      >
+
+        <div class="logo-box">
+
+          <img
+            *ngIf="item.imageUrl"
+            [src]="item.imageUrl"
+            [alt]="item.name"
+            (error)="onImageError($event)"
+          >
+
+          <span
+            *ngIf="!item.imageUrl"
+          >
+            🏷️
+          </span>
+
+        </div>
+
+
+        <h4>
+          {{ item.name }}
+        </h4>
+
+
+        <div class="control-row">
+
+          <span>
+            Homepage Status
+          </span>
+
+
+          <label class="switch">
+
+            <input
+              type="checkbox"
+              [checked]="item.active"
+              [disabled]="
+                activeSavingId === item.id
+              "
+              (change)="toggleActive(item)"
+            >
+
+            <span class="slider"></span>
+
+          </label>
+
+        </div>
+
+
+        <div class="order-row">
+
+          <input
+            type="number"
+            min="0"
+            [(ngModel)]="item.displayOrder"
+          >
+
+
+          <button
+            type="button"
+            (click)="saveOrder(item)"
+            [disabled]="
+              orderSavingId === item.id
+            "
+          >
+            Save Order
+          </button>
+
+        </div>
+
+
+        <div class="card-actions">
+
+          <button
+            type="button"
+            class="edit-btn"
+            (click)="edit(item)"
+          >
+            Edit
+          </button>
+
+
+          <button
+            type="button"
+            class="delete-btn"
+            [disabled]="
+              deletingId === item.id
+            "
+            (click)="delete(item.id)"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+</div>

@@ -1,24 +1,54 @@
-<div class="brands-section">
+<section
+  class="popular-brands"
+  *ngIf="
+    !loading &&
+    brands.length > 0
+  "
+>
 
-  <h2>Popular Brands</h2>
+  <h2>
+    Popular Brands
+  </h2>
 
-  <div class="brands">
 
-    <div
+  <div class="brands-grid">
+
+    <article
       class="brand-card"
-      *ngFor="let b of brands">
 
-      <img
-        [src]="b.image"
-        [alt]="b.name"
-      >
+      *ngFor="
+        let brand of brands;
+        trackBy: trackByBrand
+      "
+    >
 
-      <span class="brand-name">
-        {{ b.name }}
-      </span>
+      <div class="brand-logo">
 
-    </div>
+        <img
+          *ngIf="brand.imageUrl"
+          [src]="brand.imageUrl"
+          [alt]="brand.name"
+          loading="lazy"
+          decoding="async"
+          (error)="onImageError($event)"
+        >
+
+        <span
+          *ngIf="!brand.imageUrl"
+          class="brand-fallback"
+        >
+          🏷️
+        </span>
+
+      </div>
+
+
+      <p>
+        {{ brand.name }}
+      </p>
+
+    </article>
 
   </div>
 
-</div>
+</section>

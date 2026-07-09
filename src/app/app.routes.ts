@@ -86,6 +86,9 @@ from './pages/admin-features/admin-features';
 import { AdminShopMore }
 from './pages/admin-shop-more/admin-shop-more';
 
+import { AdminPopularBrands }
+from './pages/admin-popular-brands/admin-popular-brands';
+
 
 // =========================
 // ANALYTICS
@@ -299,6 +302,18 @@ export const routes: Routes = [
 
         component:
           AdminShopMore
+      },
+
+
+      // =========================
+      // POPULAR BRANDS
+      // =========================
+
+      {
+        path: 'popular-brands',
+
+        component:
+          AdminPopularBrands
       },
 
 
