@@ -1,34 +1,38 @@
 <div class="sidebar">
 
-  <!-- TOP QUICK LINKS -->
+  <!-- =========================
+       TOP QUICK LINKS
+  ========================== -->
 
   <div class="quick-links">
 
     <a
       class="quick-item"
       routerLink="/offers"
-      (click)="closeSidebar()">
-
-      <span class="quick-icon">🎁</span>
-
-      <span>
-        Offers
+      (click)="closeSidebar()"
+    >
+      <span class="quick-icon">
+        🎁
       </span>
 
+      <span>
+        {{ t('offers') }}
+      </span>
     </a>
 
 
     <a
       class="quick-item"
       routerLink="/rewards"
-      (click)="closeSidebar()">
-
-      <span class="quick-icon">☆</span>
-
-      <span>
-        Rewards
+      (click)="closeSidebar()"
+    >
+      <span class="quick-icon">
+        ☆
       </span>
 
+      <span>
+        {{ t('rewards') }}
+      </span>
     </a>
 
   </div>
@@ -39,111 +43,166 @@
   <div class="divider"></div>
 
 
-  <!-- ===================== -->
-  <!-- MAIN CATEGORIES -->
-  <!-- ===================== -->
+  <!-- =========================
+       MAIN CATEGORIES
+  ========================== -->
 
-  <div
-    *ngFor="let c of categories">
+  <ng-container
+    *ngFor="let c of categories"
+  >
 
-    <!-- MAIN -->
+    <!-- EMPTY CATEGORY HIDE -->
 
-    <div
-      class="item"
-      [class.active]="selectedId === c.id"
-      (click)="handleMain(c, $event)">
+    <ng-container
+      *ngIf="c?.name && c.name.trim()"
+    >
 
-      <span class="item-icon">
-        {{ getCategoryIcon(c.name) }}
-      </span>
-
-      <span class="item-name">
-        {{ c.name }}
-      </span>
-
-      <span
-        *ngIf="c.children?.length"
-        class="arrow"
-        [class.open]="expandedMain === c.id">
-
-        ›
-
-      </span>
-
-    </div>
-
-
-    <!-- ===================== -->
-    <!-- SUB CATEGORIES -->
-    <!-- ===================== -->
-
-    <div
-      *ngIf="expandedMain === c.id"
-      class="sub">
+      <!-- MAIN -->
 
       <div
-        *ngFor="let s of c.children">
+        class="item"
+        [class.active]="
+          selectedId === c.id
+        "
+        (click)="
+          handleMain(c, $event)
+        "
+      >
 
-        <div
-          class="sub-item"
-          [class.active]="selectedId === s.id"
-          (click)="handleSub(s, c, $event)">
-
-          <span class="sub-dot"></span>
-
-          <span class="item-name">
-            {{ s.name }}
-          </span>
-
-          <span
-            *ngIf="s.children?.length"
-            class="arrow"
-            [class.open]="expandedSub === s.id">
-
-            ›
-
-          </span>
-
-        </div>
+        <span class="item-name">
+          {{ categoryName(c) }}
+        </span>
 
 
-        <!-- ===================== -->
-        <!-- CHILD CATEGORIES -->
-        <!-- ===================== -->
-
-        <div
-          *ngIf="
-            expandedSub === s.id &&
-            s.children?.length
+        <span
+          *ngIf="c.children?.length"
+          class="arrow"
+          [class.open]="
+            expandedMain === c.id
           "
-          class="child">
-
-          <div
-            *ngFor="let ch of s.children"
-            class="child-item"
-            [class.active]="selectedId === ch.id"
-            (click)="handleChild(
-              ch,
-              s,
-              c,
-              $event
-            )">
-
-            <span class="child-dot"></span>
-
-            <span class="item-name">
-              {{ ch.name }}
-            </span>
-
-          </div>
-
-        </div>
+        >
+          ›
+        </span>
 
       </div>
 
-    </div>
 
-  </div>
+      <!-- =========================
+           SUB CATEGORIES
+      ========================== -->
+
+      <div
+        *ngIf="
+          expandedMain === c.id &&
+          c.children?.length
+        "
+        class="sub"
+      >
+
+        <ng-container
+          *ngFor="let s of c.children"
+        >
+
+          <!-- EMPTY SUB HIDE -->
+
+          <ng-container
+            *ngIf="s?.name && s.name.trim()"
+          >
+
+            <div
+              class="sub-item"
+              [class.active]="
+                selectedId === s.id
+              "
+              (click)="
+                handleSub(
+                  s,
+                  c,
+                  $event
+                )
+              "
+            >
+
+              <span class="sub-dot"></span>
+
+
+              <span class="item-name">
+                {{ categoryName(s) }}
+              </span>
+
+
+              <span
+                *ngIf="s.children?.length"
+                class="arrow"
+                [class.open]="
+                  expandedSub === s.id
+                "
+              >
+                ›
+              </span>
+
+            </div>
+
+
+            <!-- =========================
+                 CHILD CATEGORIES
+            ========================== -->
+
+            <div
+              *ngIf="
+                expandedSub === s.id &&
+                s.children?.length
+              "
+              class="child"
+            >
+
+              <ng-container
+                *ngFor="let ch of s.children"
+              >
+
+                <!-- EMPTY CHILD HIDE -->
+
+                <div
+                  *ngIf="
+                    ch?.name &&
+                    ch.name.trim()
+                  "
+                  class="child-item"
+                  [class.active]="
+                    selectedId === ch.id
+                  "
+                  (click)="
+                    handleChild(
+                      ch,
+                      s,
+                      c,
+                      $event
+                    )
+                  "
+                >
+
+                  <span class="child-dot"></span>
+
+
+                  <span class="item-name">
+                    {{ categoryName(ch) }}
+                  </span>
+
+                </div>
+
+              </ng-container>
+
+            </div>
+
+          </ng-container>
+
+        </ng-container>
+
+      </div>
+
+    </ng-container>
+
+  </ng-container>
 
 
   <!-- DIVIDER -->
@@ -151,71 +210,69 @@
   <div class="divider"></div>
 
 
-  <!-- EXTRA LINKS -->
+  <!-- =========================
+       EXTRA LINKS
+  ========================== -->
 
   <div class="extra">
 
     <a
       class="link"
       routerLink="/safety"
-      (click)="closeSidebar()">
-
+      (click)="closeSidebar()"
+    >
       <span class="link-icon">
         🛡️
       </span>
 
       <span>
-        Safety Center
+        {{ t('safetyCenter') }}
       </span>
-
     </a>
 
 
     <a
       class="link"
       routerLink="/premium"
-      (click)="closeSidebar()">
-
+      (click)="closeSidebar()"
+    >
       <span class="link-icon">
         🥇
       </span>
 
       <span>
-        Premium Care
+        {{ t('premiumCare') }}
       </span>
-
     </a>
 
 
     <a
       class="link"
       routerLink="/help"
-      (click)="closeSidebar()">
-
+      (click)="closeSidebar()"
+    >
       <span class="link-icon">
         📞
       </span>
 
       <span>
-        Help
+        {{ t('help') }}
       </span>
-
     </a>
 
 
     <a
       class="link"
       routerLink="/complaint"
-      (click)="closeSidebar()">
-
+      (click)="closeSidebar()"
+    >
       <span class="link-icon">
         ⚠️
       </span>
 
       <span>
-        File a Complaint
+        {{ t('fileComplaint') }}
       </span>
-
     </a>
 
 
@@ -223,16 +280,15 @@
       *ngIf="isAdmin"
       class="link"
       routerLink="/admin/suppliers"
-      (click)="closeSidebar()">
-
+      (click)="closeSidebar()"
+    >
       <span class="link-icon">
         🚚
       </span>
 
       <span>
-        Suppliers
+        {{ t('suppliers') }}
       </span>
-
     </a>
 
   </div>

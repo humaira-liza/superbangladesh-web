@@ -1,0 +1,331 @@
+<div class="features-admin-page">
+
+  <div class="page-header">
+
+    <p class="eyebrow">
+      HOMEPAGE CONTROL
+    </p>
+
+    <h2>
+      Homepage Features
+    </h2>
+
+    <p>
+      Manage the feature cards shown
+      below the homepage banner.
+    </p>
+
+  </div>
+
+
+  <!-- FORM -->
+
+  <section class="panel">
+
+    <div class="panel-heading">
+
+      <div>
+
+        <h3>
+          {{
+            editingId !== null
+              ? 'Edit Feature'
+              : 'Add New Feature'
+          }}
+        </h3>
+
+        <p>
+          Add icon, title, description
+          and display order.
+        </p>
+
+      </div>
+
+
+      <button
+        *ngIf="editingId !== null"
+        type="button"
+        class="cancel-btn"
+        (click)="reset()"
+      >
+        Cancel Edit
+      </button>
+
+    </div>
+
+
+    <div class="form-grid">
+
+      <div class="field">
+
+        <label>
+          Icon
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="form.icon"
+          placeholder="Example: 🛍️"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Title
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="form.title"
+          placeholder="Example: 15000+ Products"
+        >
+
+      </div>
+
+
+      <div class="field full-field">
+
+        <label>
+          Description
+        </label>
+
+        <textarea
+          [(ngModel)]="form.description"
+          placeholder="Example: Shop from thousands of items"
+        ></textarea>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Display Order
+        </label>
+
+        <input
+          type="number"
+          min="0"
+          [(ngModel)]="form.displayOrder"
+        >
+
+      </div>
+
+
+      <div class="field checkbox-field">
+
+        <label class="check-label">
+
+          <input
+            type="checkbox"
+            [(ngModel)]="form.active"
+          >
+
+          <span>
+            Show on Homepage
+          </span>
+
+        </label>
+
+      </div>
+
+    </div>
+
+
+    <div class="preview-card">
+
+      <div class="preview-icon">
+        {{ form.icon || '✨' }}
+      </div>
+
+      <div>
+
+        <h3>
+          {{
+            form.title ||
+            'Feature Title'
+          }}
+        </h3>
+
+        <p>
+          {{
+            form.description ||
+            'Feature description'
+          }}
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="primary-btn"
+        [disabled]="saving"
+        (click)="save()"
+      >
+
+        {{
+          saving
+            ? 'Saving...'
+            : (
+                editingId !== null
+                  ? 'Update Feature'
+                  : 'Add Feature'
+              )
+        }}
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- LIST -->
+
+  <section class="panel">
+
+    <div class="panel-heading">
+
+      <div>
+
+        <h3>
+          All Features
+        </h3>
+
+        <p>
+          Control homepage visibility
+          and order.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="loading-box"
+      *ngIf="loading"
+    >
+      Loading features...
+    </div>
+
+
+    <div
+      class="feature-grid"
+      *ngIf="!loading"
+    >
+
+      <article
+        class="feature-card"
+        *ngFor="let feature of features"
+        [class.inactive]="!feature.active"
+      >
+
+        <div class="card-top">
+
+          <div class="feature-icon">
+            {{ feature.icon }}
+          </div>
+
+
+          <span
+            class="status"
+            [class.active]="feature.active"
+          >
+
+            {{
+              feature.active
+                ? 'Visible'
+                : 'Hidden'
+            }}
+
+          </span>
+
+        </div>
+
+
+        <h3>
+          {{ feature.title }}
+        </h3>
+
+
+        <p>
+          {{ feature.description }}
+        </p>
+
+
+        <div class="order-text">
+
+          Display Order:
+          <strong>
+            {{ feature.displayOrder }}
+          </strong>
+
+        </div>
+
+
+        <div class="card-actions">
+
+          <button
+            type="button"
+            class="toggle-btn"
+            [disabled]="
+              togglingId === feature.id
+            "
+            (click)="toggle(feature)"
+          >
+
+            {{
+              feature.active
+                ? 'Hide'
+                : 'Show'
+            }}
+
+          </button>
+
+
+          <button
+            type="button"
+            class="edit-btn"
+            (click)="edit(feature)"
+          >
+            Edit
+          </button>
+
+
+          <button
+            type="button"
+            class="delete-btn"
+            (click)="delete(feature.id)"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <div
+      class="empty-box"
+      *ngIf="
+        !loading &&
+        features.length === 0
+      "
+    >
+      No homepage features added yet.
+    </div>
+
+  </section>
+
+</div>

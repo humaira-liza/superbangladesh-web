@@ -1,178 +1,682 @@
-<h2>📂 Categories</h2>
+<div class="category-admin-page">
 
-<div class="form">
+  <!-- PAGE HEADER -->
 
-  <input
-    [(ngModel)]="form.name"
-    placeholder="Category Name">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">
+        STORE MANAGEMENT
+      </p>
 
-  <input
-    type="file"
-    (change)="onFileSelected($event)">
+      <h2>
+        📂 Category Management
+      </h2>
 
-  <!-- IMAGE PREVIEW -->
-
-  <div *ngIf="previewImage">
-
-    <img
-      [src]="previewImage"
-      width="120"
-      height="120"
-      style="
-        margin:10px 0;
-        border-radius:12px;
-        object-fit:cover;
-        border:1px solid #ddd;">
-
+      <p class="header-text">
+        Manage categories and choose which categories
+        appear in the Popular Categories section.
+      </p>
+    </div>
   </div>
 
-  <!-- TYPE -->
 
-  <select [(ngModel)]="form.type">
+  <!-- CATEGORY FORM -->
 
-    <option value="MAIN">
-      Main Category
-    </option>
+  <section class="panel">
 
-    <option value="SUB">
-      Sub Category
-    </option>
+    <div class="panel-heading">
 
-    <option value="CHILD">
-      Child Category
-    </option>
+      <div>
+        <h3>
+          {{
+            editingId
+              ? 'Edit Category'
+              : 'Add New Category'
+          }}
+        </h3>
 
-  </select>
+        <p>
+          Create main, sub and child categories.
+        </p>
+      </div>
 
-  <!-- SUB -->
-
-  <select
-    *ngIf="form.type === 'SUB'"
-    [(ngModel)]="form.parentId">
-
-    <option [ngValue]="null">
-      Select Main Category
-    </option>
-
-    <option
-      *ngFor="let c of mainCategories"
-      [ngValue]="c.id">
-
-      {{ c.name }}
-
-    </option>
-
-  </select>
-
-  <!-- CHILD -->
-
-  <select
-    *ngIf="form.type === 'CHILD'"
-    [(ngModel)]="form.parentId">
-
-    <option [ngValue]="null">
-      Select Sub Category
-    </option>
-
-    <option
-      *ngFor="let c of subCategories"
-      [ngValue]="c.id">
-
-      {{ c.parent?.name }} → {{ c.name }}
-
-    </option>
-
-  </select>
-
-  <button (click)="save()">
-
-    {{ editingId
-      ? 'Update Category'
-      : 'Add Category' }}
-
-  </button>
-
-</div>
-
-<hr>
-
-<!-- MAIN -->
-
-<div *ngFor="let main of categories">
-
-  <div class="main-row">
-
-    <img
-      *ngIf="main.imageUrl"
-      [src]="imageBase + main.imageUrl"
-      width="60"
-      height="60">
-
-    <span class="main-name">
-      {{ main.name }}
-    </span>
-
-    <button (click)="edit(main)">
-      Edit
-    </button>
-
-    <button (click)="delete(main.id)">
-      Delete
-    </button>
-
-  </div>
-
-  <!-- SUB -->
-
-  <div
-    *ngFor="let sub of main.children"
-    class="sub-row">
-
-    <img
-      *ngIf="sub.imageUrl"
-      [src]="imageBase + sub.imageUrl"
-      width="50"
-      height="50">
-
-    ↳ {{ sub.name }}
-
-    <button (click)="edit(sub)">
-      Edit
-    </button>
-
-    <button (click)="delete(sub.id)">
-      Delete
-    </button>
-
-  </div>
-
-  <!-- CHILD -->
-
-  <div
-    *ngFor="let sub of main.children">
-
-    <div
-      *ngFor="let child of sub.children"
-      class="child-row">
-
-      <img
-        *ngIf="child.imageUrl"
-        [src]="imageBase + child.imageUrl"
-        width="40"
-        height="40">
-
-      ↳↳ {{ child.name }}
-
-      <button (click)="edit(child)">
-        Edit
-      </button>
-
-      <button (click)="delete(child.id)">
-        Delete
+      <button
+        *ngIf="editingId"
+        type="button"
+        class="cancel-btn"
+        (click)="reset()"
+      >
+        Cancel Edit
       </button>
 
     </div>
 
-  </div>
+
+    <div class="form-grid">
+
+      <!-- NAME -->
+
+      <div class="field">
+
+        <label>
+          Category Name
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="form.name"
+          placeholder="Enter category name"
+        >
+
+      </div>
+
+
+      <!-- TYPE -->
+
+      <div class="field">
+
+        <label>
+          Category Type
+        </label>
+
+        <select
+          [(ngModel)]="form.type"
+        >
+
+          <option value="MAIN">
+            Main Category
+          </option>
+
+          <option value="SUB">
+            Sub Category
+          </option>
+
+          <option value="CHILD">
+            Child Category
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- SUB PARENT -->
+
+      <div
+        class="field"
+        *ngIf="form.type === 'SUB'"
+      >
+
+        <label>
+          Parent Main Category
+        </label>
+
+        <select
+          [(ngModel)]="form.parentId"
+        >
+
+          <option [ngValue]="null">
+            Select Main Category
+          </option>
+
+          <option
+            *ngFor="let c of mainCategories"
+            [ngValue]="c.id"
+          >
+            {{ c.name }}
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- CHILD PARENT -->
+
+      <div
+        class="field"
+        *ngIf="form.type === 'CHILD'"
+      >
+
+        <label>
+          Parent Sub Category
+        </label>
+
+        <select
+          [(ngModel)]="form.parentId"
+        >
+
+          <option [ngValue]="null">
+            Select Sub Category
+          </option>
+
+          <option
+            *ngFor="let c of subCategories"
+            [ngValue]="c.id"
+          >
+            {{ c.parent?.name }}
+            →
+            {{ c.name }}
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- IMAGE -->
+
+      <div class="field">
+
+        <label>
+          Category Image
+        </label>
+
+        <input
+          type="file"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+        >
+
+      </div>
+
+    </div>
+
+
+    <!-- IMAGE PREVIEW -->
+
+    <div
+      class="image-preview-box"
+      *ngIf="previewImage"
+    >
+
+      <img
+        [src]="previewImage"
+        alt="Category preview"
+        (error)="onImageError($event)"
+      >
+
+      <span>
+        Image Preview
+      </span>
+
+    </div>
+
+
+    <!-- SAVE BUTTON -->
+
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="primary-btn"
+        [disabled]="saving"
+        (click)="save()"
+      >
+
+        {{
+          saving
+            ? 'Saving...'
+            : (
+                editingId
+                  ? 'Update Category'
+                  : 'Add Category'
+              )
+        }}
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- POPULAR CATEGORY CONTROL -->
+
+  <section class="panel popular-panel">
+
+    <div class="panel-heading">
+
+      <div>
+
+        <p class="eyebrow">
+          HOMEPAGE CONTROL
+        </p>
+
+        <h3>
+          🔥 Popular Categories
+        </h3>
+
+        <p>
+          Turn categories on or off and control
+          their homepage display order.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- LOADING -->
+
+    <div
+      class="loading-box"
+      *ngIf="loading"
+    >
+      Loading categories...
+    </div>
+
+
+    <!-- EMPTY -->
+
+    <div
+      class="loading-box"
+      *ngIf="
+        !loading &&
+        allCategories.length === 0
+      "
+    >
+      No categories found.
+    </div>
+
+
+    <!-- POPULAR GRID -->
+
+    <div
+      class="popular-admin-grid"
+      *ngIf="
+        !loading &&
+        allCategories.length > 0
+      "
+    >
+
+      <article
+        class="popular-admin-card"
+        *ngFor="let c of allCategories"
+        [class.is-popular]="c.popular"
+      >
+
+        <!-- IMAGE -->
+
+        <div class="popular-image">
+
+          <img
+            *ngIf="c.imageUrl"
+            [src]="getImageUrl(c.imageUrl)"
+            [alt]="c.name"
+            loading="lazy"
+            (error)="onImageError($event)"
+          >
+
+          <div
+            class="no-image"
+            *ngIf="!c.imageUrl"
+          >
+            📂
+          </div>
+
+        </div>
+
+
+        <!-- INFO -->
+
+        <div class="popular-info">
+
+          <h4>
+            {{ c.name }}
+          </h4>
+
+          <span
+            class="status-badge"
+            [class.active]="c.popular"
+          >
+
+            {{
+              c.popular
+                ? 'Popular'
+                : 'Not Popular'
+            }}
+
+          </span>
+
+        </div>
+
+
+        <!-- TOGGLE -->
+
+        <label class="switch">
+
+          <input
+            type="checkbox"
+            [checked]="c.popular"
+            [disabled]="
+              popularSavingId === c.id
+            "
+            (change)="togglePopular(c)"
+          >
+
+          <span class="slider"></span>
+
+        </label>
+
+
+        <!-- ORDER -->
+
+        <div
+          class="order-control"
+          *ngIf="c.popular"
+        >
+
+          <label>
+            Display Order
+          </label>
+
+          <div class="order-row">
+
+            <input
+              type="number"
+              min="1"
+              [(ngModel)]="c.popularOrder"
+            >
+
+            <button
+              type="button"
+              [disabled]="
+                popularSavingId === c.id
+              "
+              (click)="savePopularOrder(c)"
+            >
+
+              {{
+                popularSavingId === c.id
+                  ? 'Saving...'
+                  : 'Save'
+              }}
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- ALL CATEGORY TREE -->
+
+  <section class="panel">
+
+    <div class="panel-heading">
+
+      <div>
+
+        <h3>
+          All Categories
+        </h3>
+
+        <p>
+          Manage your complete category structure.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- LOADING -->
+
+    <div
+      class="loading-box"
+      *ngIf="loading"
+    >
+      Loading categories...
+    </div>
+
+
+    <!-- EMPTY -->
+
+    <div
+      class="loading-box"
+      *ngIf="
+        !loading &&
+        categories.length === 0
+      "
+    >
+      No categories found.
+    </div>
+
+
+    <!-- TREE -->
+
+    <div
+      class="category-tree"
+      *ngIf="
+        !loading &&
+        categories.length > 0
+      "
+    >
+
+      <div
+        class="main-category-block"
+        *ngFor="let main of categories"
+      >
+
+        <!-- MAIN CATEGORY -->
+
+        <div class="category-row main-row">
+
+          <div class="category-info">
+
+            <div class="tree-image">
+
+              <img
+                *ngIf="main.imageUrl"
+                [src]="getImageUrl(main.imageUrl)"
+                [alt]="main.name"
+                loading="lazy"
+                (error)="onImageError($event)"
+              >
+
+              <span
+                *ngIf="!main.imageUrl"
+              >
+                📂
+              </span>
+
+            </div>
+
+
+            <div>
+
+              <span class="type-label">
+                MAIN CATEGORY
+              </span>
+
+              <strong>
+                {{ main.name }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="row-actions">
+
+            <button
+              type="button"
+              class="edit-btn"
+              (click)="edit(main)"
+            >
+              Edit
+            </button>
+
+            <button
+              type="button"
+              class="delete-btn"
+              (click)="delete(main.id)"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- SUB CATEGORY -->
+
+        <div
+          class="category-row sub-row"
+          *ngFor="let sub of main.children"
+        >
+
+          <div class="category-info">
+
+            <div class="tree-line">
+              ↳
+            </div>
+
+            <div class="tree-image small">
+
+              <img
+                *ngIf="sub.imageUrl"
+                [src]="getImageUrl(sub.imageUrl)"
+                [alt]="sub.name"
+                loading="lazy"
+                (error)="onImageError($event)"
+              >
+
+              <span
+                *ngIf="!sub.imageUrl"
+              >
+                📁
+              </span>
+
+            </div>
+
+
+            <div>
+
+              <span class="type-label">
+                SUB CATEGORY
+              </span>
+
+              <strong>
+                {{ sub.name }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="row-actions">
+
+            <button
+              type="button"
+              class="edit-btn"
+              (click)="edit(sub)"
+            >
+              Edit
+            </button>
+
+            <button
+              type="button"
+              class="delete-btn"
+              (click)="delete(sub.id)"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- CHILD CATEGORY -->
+
+        <ng-container
+          *ngFor="let sub of main.children"
+        >
+
+          <div
+            class="category-row child-row"
+            *ngFor="let child of sub.children"
+          >
+
+            <div class="category-info">
+
+              <div class="tree-line">
+                ↳↳
+              </div>
+
+              <div class="tree-image tiny">
+
+                <img
+                  *ngIf="child.imageUrl"
+                  [src]="getImageUrl(child.imageUrl)"
+                  [alt]="child.name"
+                  loading="lazy"
+                  (error)="onImageError($event)"
+                >
+
+                <span
+                  *ngIf="!child.imageUrl"
+                >
+                  📄
+                </span>
+
+              </div>
+
+
+              <div>
+
+                <span class="type-label">
+                  CHILD CATEGORY
+                </span>
+
+                <strong>
+                  {{ child.name }}
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <div class="row-actions">
+
+              <button
+                type="button"
+                class="edit-btn"
+                (click)="edit(child)"
+              >
+                Edit
+              </button>
+
+              <button
+                type="button"
+                class="delete-btn"
+                (click)="delete(child.id)"
+              >
+                Delete
+              </button>
+
+            </div>
+
+          </div>
+
+        </ng-container>
+
+      </div>
+
+    </div>
+
+  </section>
 
 </div>

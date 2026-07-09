@@ -123,455 +123,8 @@
 
 
 /* =========================
-   TRENDING SECTION
-========================= */
-
-.trending-section{
-  width:100%;
-
-  margin:
-    22px
-    0
-    30px;
-
-  padding:
-    10px
-    0
-    28px;
-
-  background:#ffffff;
-}
-
-
-/* =========================
-   TRENDING HEADER
-========================= */
-
-.trending-header{
-  width:100%;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  gap:20px;
-
-  margin-bottom:18px;
-}
-
-
-.trending-header h2{
-  margin:0;
-
-  color:#111111;
-
-  font-size:28px;
-
-  line-height:1.2;
-
-  font-weight:800;
-}
-
-
-.see-all-btn{
-  padding:6px 0;
-
-  border:none;
-
-  background:transparent;
-
-  color:#0074b8;
-
-  font-size:18px;
-
-  line-height:1;
-
-  font-weight:800;
-
-  cursor:pointer;
-
-  white-space:nowrap;
-
-  transition:
-    color .2s ease,
-    transform .2s ease;
-}
-
-
-.see-all-btn:hover{
-  color:#f97316;
-
-  transform:translateX(3px);
-}
-
-
-/* =========================
-   TRENDING GRID
-========================= */
-
-.trending-grid{
-  width:100%;
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(
-      5,
-      minmax(0, 1fr)
-    );
-
-  column-gap:28px;
-
-  row-gap:38px;
-}
-
-
-/* =========================
-   TRENDING CARD
-========================= */
-
-.trending-card{
-  position:relative;
-
-  min-width:0;
-
-  padding:
-    0
-    4px
-    8px;
-
-  background:#ffffff;
-
-  border:none;
-
-  border-radius:0;
-
-  box-shadow:none;
-
-  cursor:pointer;
-
-  transition:
-    transform .22s ease;
-}
-
-
-.trending-card:hover{
-  transform:translateY(-4px);
-}
-
-
-/* =========================
-   TRENDING IMAGE
-========================= */
-
-.trending-image-box{
-  position:relative;
-
-  width:100%;
-
-  height:190px;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  margin-bottom:14px;
-
-  background:#ffffff;
-}
-
-
-.trending-image-box img{
-  width:100%;
-
-  height:100%;
-
-  padding:4px;
-
-  object-fit:contain;
-
-  transition:
-    transform .22s ease;
-}
-
-
-.trending-card:hover
-.trending-image-box img{
-  transform:scale(1.035);
-}
-
-
-/* =========================
-   TRENDING ADD BUTTON
-========================= */
-
-.trending-add-btn{
-  position:absolute;
-
-  right:0;
-
-  bottom:4px;
-
-  width:48px;
-
-  height:48px;
-
-  padding:0;
-
-  border:none;
-
-  border-radius:50%;
-
-  background:#ffb000;
-
-  color:#ffffff;
-
-  font-size:31px;
-
-  font-weight:400;
-
-  line-height:1;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  cursor:pointer;
-
-  z-index:10;
-
-  box-shadow:
-    0 4px 12px
-    rgba(255,176,0,.25);
-
-  transition:
-    background .2s ease,
-    transform .2s ease;
-}
-
-
-.trending-add-btn:hover{
-  background:#f59e0b;
-
-  transform:scale(1.08);
-}
-
-
-/* =========================
-   TRENDING QTY CONTROL
-========================= */
-
-.trending-qty-control{
-  position:absolute;
-
-  right:0;
-
-  bottom:4px;
-
-  height:46px;
-
-  display:flex;
-
-  align-items:center;
-
-  overflow:hidden;
-
-  border-radius:999px;
-
-  background:#ffb000;
-
-  z-index:20;
-
-  box-shadow:
-    0 4px 14px
-    rgba(255,176,0,.28);
-}
-
-
-.trending-qty-control button{
-  width:40px;
-
-  height:46px;
-
-  padding:0;
-
-  border:none;
-
-  background:transparent;
-
-  color:#ffffff;
-
-  font-size:23px;
-
-  font-weight:700;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  cursor:pointer;
-}
-
-
-.trending-qty-control button:hover{
-  background:
-    rgba(255,255,255,.18);
-}
-
-
-.trending-qty-control span{
-  min-width:32px;
-
-  height:46px;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  color:#ffffff;
-
-  font-size:15px;
-
-  font-weight:800;
-}
-
-
-/* =========================
-   TRENDING NAME
-========================= */
-
-.trending-card h3{
-  margin:
-    0
-    0
-    6px;
-
-  min-height:44px;
-
-  color:#171717;
-
-  font-size:16px;
-
-  line-height:1.35;
-
-  font-weight:500;
-
-  display:-webkit-box;
-
-  -webkit-line-clamp:2;
-
-  -webkit-box-orient:vertical;
-
-  overflow:hidden;
-}
-
-
-/* =========================
-   TRENDING UNIT
-========================= */
-
-.trending-unit{
-  min-height:18px;
-
-  margin:
-    0
-    0
-    5px;
-
-  color:#8b8b8b;
-
-  font-size:12px;
-
-  font-weight:500;
-}
-
-
-/* =========================
-   TRENDING PRICE
-========================= */
-
-.trending-price-line{
-  display:flex;
-
-  align-items:center;
-
-  gap:7px;
-
-  min-height:25px;
-}
-
-
-.trending-old-price{
-  color:#6f6f6f;
-
-  font-size:14px;
-
-  font-weight:500;
-
-  text-decoration:line-through;
-}
-
-
-.trending-price{
-  color:#111111;
-
-  font-size:18px;
-
-  font-weight:800;
-}
-
-
-/* =========================
    OUT OF STOCK
 ========================= */
-
-.out-badge{
-  position:absolute;
-
-  top:5px;
-
-  left:5px;
-
-  padding:
-    5px
-    9px;
-
-  border-radius:999px;
-
-  background:#ef4444;
-
-  color:#ffffff;
-
-  font-size:10px;
-
-  font-weight:700;
-
-  z-index:5;
-}
-
-
-.out-product{
-  opacity:.65;
-}
-
-
-.out-product
-.trending-add-btn,
-
-.out-product
-.trending-qty-control{
-  display:none;
-}
 
 
 /* =========================
@@ -732,13 +285,7 @@
 }
 
 
-  .trending-grid{
-    grid-template-columns:
-      repeat(
-        4,
-        minmax(0, 1fr)
-      );
-  }
+  
 
 }
 
@@ -774,17 +321,7 @@
   }
 
 
-  .trending-grid{
-    grid-template-columns:
-      repeat(
-        3,
-        minmax(0, 1fr)
-      );
-
-    gap:
-      30px
-      20px;
-  }
+  
 
 }
 
@@ -822,13 +359,7 @@
   }
 
 
-  .trending-grid{
-    grid-template-columns:
-      repeat(
-        2,
-        minmax(0, 1fr)
-      );
-  }
+  
 
 }
 
@@ -864,101 +395,43 @@
   }
 
 
-  .trending-section{
-    margin:
-      14px
-      0
-      22px;
-
-    padding:
-      8px
-      12px
-      22px;
-  }
+  
 
 
-  .trending-header{
-    margin-bottom:14px;
-  }
+  
 
 
-  .trending-header h2{
-    font-size:22px;
-  }
+  
 
 
-  .see-all-btn{
-    font-size:14px;
-  }
+  
 
 
-  .trending-grid{
-    grid-template-columns:
-      repeat(
-        2,
-        minmax(0, 1fr)
-      );
-
-    column-gap:14px;
-
-    row-gap:28px;
-  }
+  
 
 
-  .trending-image-box{
-    height:145px;
-
-    margin-bottom:10px;
-  }
+  
 
 
-  .trending-add-btn{
-    width:42px;
-
-    height:42px;
-
-    font-size:27px;
-  }
+  
 
 
-  .trending-qty-control{
-    height:42px;
-  }
+  
 
 
-  .trending-qty-control button{
-    width:34px;
-
-    height:42px;
-
-    font-size:20px;
-  }
+  
 
 
-  .trending-qty-control span{
-    min-width:27px;
-
-    height:42px;
-
-    font-size:13px;
-  }
+  
 
 
-  .trending-card h3{
-    min-height:38px;
-
-    font-size:13px;
-  }
+  
 
 
-  .trending-old-price{
-    font-size:12px;
-  }
+  
 
 
-  .trending-price{
-    font-size:16px;
-  }
+  
 
 
   .popular-section{
@@ -1008,18 +481,99 @@
 
 }
 
-/* =========================
-   SEARCH MODE
-========================= */
 
-.trending-section{
-  scroll-margin-top:100px;
+@media (min-width: 769px) {
+
+  .layout {
+    width: 100%;
+    padding: 0 105px 0 0;
+  }
+
+  .main-content {
+    width: auto;
+    min-width: 0;
+    margin-left: 274px;
+  }
+
+  
 }
 
-app-footer{
-  display:block;
+@media (min-width: 901px) and (max-width: 1200px) {
+  .layout {
+    padding-right: 90px;
+  }
 
-  margin-left:250px;
+  .main-content {
+    margin-left: 260px;
+  }
 
-  width:calc(100% - 250px);
+  
+}
+
+@media (min-width: 769px) and (max-width: 900px) {
+  .layout {
+    padding-right: 80px;
+  }
+
+  .main-content {
+    margin-left: 236px;
+  }
+
+  
+}
+
+
+
+@media (min-width: 769px) {
+
+}
+
+/* =========================================
+   FINAL FOOTER POSITION
+   left: sidebar clear
+   right: cart/chat clear
+========================================= */
+
+@media (min-width: 1201px) {
+  app-footer {
+    display: block;
+    margin-left: 250px !important;
+    margin-right: 105px !important;
+    width: calc(100% - 355px) !important;
+    max-width: none !important;
+    transform: none !important;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  app-footer {
+    display: block;
+    margin-left: 240px !important;
+    margin-right: 90px !important;
+    width: calc(100% - 330px) !important;
+    max-width: none !important;
+    transform: none !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 900px) {
+  app-footer {
+    display: block;
+    margin-left: 220px !important;
+    margin-right: 80px !important;
+    width: calc(100% - 300px) !important;
+    max-width: none !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  app-footer {
+    display: block;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    transform: none !important;
+  }
 }

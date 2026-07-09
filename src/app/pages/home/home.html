@@ -2,7 +2,6 @@
 
   <div class="layout">
 
-
     <!-- =========================
          DESKTOP SIDEBAR
          ALWAYS OPEN
@@ -23,280 +22,28 @@
     <main class="main-content">
 
 
-   <!-- BANNER -->
+      <!-- =========================
+           BANNER
+      ========================== -->
 
-<app-banner
-  *ngIf="!currentSearch"
->
-</app-banner>
-
-
-<!-- FEATURES -->
-
-<app-features
-  *ngIf="!currentSearch"
->
-</app-features>
+      <app-banner
+        *ngIf="!currentSearch"
+      >
+      </app-banner>
 
 
       <!-- =========================
-           TRENDING / SEARCH PRODUCTS
+           FEATURES
       ========================== -->
 
-      <section
-        #productsSection
-        class="trending-section"
+      <app-features
+        *ngIf="!currentSearch"
       >
-
-        <div class="trending-header">
-
-          <h2>
-            {{
-              currentSearch
-                ? 'Search Results'
-                : 'Trending'
-            }}
-          </h2>
-
-
-          <button
-            *ngIf="!currentSearch && originalProducts.length > 0"
-            type="button"
-            class="see-all-btn"
-            (click)="toggleAllTrending()"
-          >
-
-            {{
-              showAllTrending
-                ? 'Show Less'
-                : 'See All'
-            }}
-
-            ❯❯
-
-          </button>
-
-        </div>
-
-
-        <!-- =========================
-             PRODUCT GRID
-        ========================== -->
-
-        <div
-          class="trending-grid"
-          *ngIf="
-            (
-              currentSearch
-                ? filtered
-                : (
-                    showAllTrending
-                      ? originalProducts
-                      : featuredProducts
-                  )
-            ).length > 0
-          "
-        >
-
-          <article
-            class="trending-card"
-
-            *ngFor="
-              let p of (
-                currentSearch
-                  ? filtered
-                  : (
-                      showAllTrending
-                        ? originalProducts
-                        : featuredProducts
-                    )
-              );
-              trackBy: trackByProduct
-            "
-
-            [class.out-product]="
-              p.stock <= 0
-            "
-          >
-
-
-            <div class="trending-image-box">
-
-
-              <!-- OUT OF STOCK -->
-
-              <div
-                class="out-badge"
-                *ngIf="p.stock <= 0"
-              >
-                Out Of Stock
-              </div>
-
-
-              <!-- PRODUCT IMAGE -->
-
-              <img
-                loading="lazy"
-                decoding="async"
-
-                [src]="
-                  getImage(
-                    p.imageUrl ||
-                    p.image_url
-                  )
-                "
-
-                (error)="
-                  onImgError($event)
-                "
-
-                [alt]="p.name"
-              />
-
-
-              <!-- ADD BUTTON -->
-
-              <button
-                *ngIf="
-                  p.stock > 0 &&
-                  !isInCart(p)
-                "
-
-                type="button"
-
-                class="trending-add-btn"
-
-                (click)="
-                  addToCart(
-                    p,
-                    $event
-                  )
-                "
-              >
-                +
-              </button>
-
-
-              <!-- QUANTITY CONTROL -->
-
-              <div
-                *ngIf="
-                  p.stock > 0 &&
-                  isInCart(p)
-                "
-
-                class="trending-qty-control"
-              >
-
-
-                <button
-                  type="button"
-
-                  (click)="
-                    decreaseQty(
-                      p,
-                      $event
-                    )
-                  "
-                >
-                  −
-                </button>
-
-
-                <span>
-                  {{ getCartQty(p) }}
-                </span>
-
-
-                <button
-                  type="button"
-
-                  (click)="
-                    increaseQty(
-                      p,
-                      $event
-                    )
-                  "
-                >
-                  +
-                </button>
-
-              </div>
-
-            </div>
-
-
-            <!-- PRODUCT NAME -->
-
-            <h3>
-              {{ p.name }}
-            </h3>
-
-
-            <!-- UNIT -->
-
-            <p
-              class="trending-unit"
-
-              *ngIf="
-                p.quantity &&
-                p.unit
-              "
-            >
-              {{ p.quantity }}
-              {{ p.unit }}
-            </p>
-
-
-            <!-- PRICE -->
-
-            <div class="trending-price-line">
-
-              <span class="trending-old-price">
-                ৳{{ p.price + 20 }}
-              </span>
-
-
-              <span class="trending-price">
-                ৳{{ p.price }}
-              </span>
-
-            </div>
-
-          </article>
-
-        </div>
-
-
-        <!-- =========================
-             NO SEARCH RESULT
-        ========================== -->
-
-        <div
-          *ngIf="
-            currentSearch &&
-            filtered.length === 0
-          "
-          class="no-search-result"
-        >
-
-          <h3>
-            No products found
-          </h3>
-
-          <p>
-            No product matched "{{ currentSearch }}"
-          </p>
-
-        </div>
-
-      </section>
+      </app-features>
 
 
       <!-- =========================
            POPULAR CATEGORIES
-
-           SEARCH করলে HIDE
       ========================== -->
 
       <section
@@ -309,7 +56,7 @@
       >
 
         <h2>
-          🔥 Popular Categories
+          🔥 {{ t('popularCategories') }}
         </h2>
 
 
@@ -347,7 +94,7 @@
 
 
               <p>
-                {{ c.name }}
+                {{ categoryName(c) }}
               </p>
 
             </div>
@@ -361,8 +108,6 @@
 
       <!-- =========================
            SHOP MORE
-
-           SEARCH করলে HIDE
       ========================== -->
 
       <app-shop-more
@@ -373,8 +118,6 @@
 
       <!-- =========================
            POPULAR BRANDS
-
-           SEARCH করলে HIDE
       ========================== -->
 
       <app-popular-brands
@@ -404,7 +147,7 @@
         type="button"
         class="order-btn"
       >
-        Place Order
+        {{ t('placeOrder') }}
       </button>
 
     </div>

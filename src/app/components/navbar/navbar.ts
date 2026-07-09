@@ -28,6 +28,11 @@ import {
   ProductStateService
 } from '../../services/product-state.service';
 
+import {
+  AppLanguage,
+  LanguageService
+} from '../../services/language.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -62,19 +67,11 @@ export class Navbar {
   ========================= */
 
   selectedLocation =
-    localStorage.getItem('selectedLocation')
-    || 'Dhaka';
+    localStorage.getItem(
+      'selectedLocation'
+    ) || 'Dhaka';
 
   showLocationMenu = false;
-
-
-  /* =========================
-     LANGUAGE
-  ========================= */
-
-  selectedLanguage =
-    localStorage.getItem('language')
-    || 'en';
 
 
   /* =========================
@@ -105,8 +102,34 @@ export class Navbar {
   constructor(
     public cart: CartService,
     private router: Router,
-    private state: ProductStateService
+    private state: ProductStateService,
+    public languageService: LanguageService
   ) {}
+
+
+  /* =========================
+     CURRENT LANGUAGE
+  ========================= */
+
+  get selectedLanguage():
+    AppLanguage {
+
+    return this.languageService
+      .language();
+  }
+
+
+  /* =========================
+     TRANSLATE
+  ========================= */
+
+  t(
+    key: string
+  ): string {
+
+    return this.languageService
+      .translate(key);
+  }
 
 
   /* =========================
@@ -116,7 +139,9 @@ export class Navbar {
   isLoggedIn(): boolean {
 
     const token =
-      localStorage.getItem('token');
+      localStorage.getItem(
+        'token'
+      );
 
     return !!token;
   }
@@ -125,27 +150,36 @@ export class Navbar {
   isAdmin(): boolean {
 
     const role =
-      localStorage.getItem('role');
+      localStorage.getItem(
+        'role'
+      );
 
     return (
-      role?.toLowerCase() === 'admin'
+      role?.toLowerCase() ===
+      'admin'
     );
   }
 
 
   logout(): void {
 
-    localStorage.removeItem('token');
+    localStorage.removeItem(
+      'token'
+    );
 
     localStorage.removeItem(
       'userEmail'
     );
 
-    localStorage.removeItem('role');
+    localStorage.removeItem(
+      'role'
+    );
 
-    this.desktopMenuOpen = false;
+    this.desktopMenuOpen =
+      false;
 
-    this.sidebarOpen = false;
+    this.sidebarOpen =
+      false;
 
     this.router.navigate([
       '/login'
@@ -158,16 +192,47 @@ export class Navbar {
   ========================= */
 
   changeLanguage(
-    language: 'en' | 'bn'
+    language: AppLanguage
   ): void {
 
-    this.selectedLanguage =
-      language;
+    this.languageService
+      .setLanguage(language);
+  }
 
-    localStorage.setItem(
-      'language',
-      language
-    );
+
+  /* =========================
+     LOCATION DISPLAY
+  ========================= */
+
+  getSelectedLocationLabel():
+    string {
+
+    const keyMap:
+      Record<string, string> = {
+
+      Dhaka: 'dhaka',
+
+      Chattogram:
+        'chattogram',
+
+      Sylhet: 'sylhet',
+
+      Rajshahi:
+        'rajshahi',
+
+      Khulna: 'khulna'
+    };
+
+
+    const key =
+      keyMap[
+        this.selectedLocation
+      ];
+
+
+    return key
+      ? this.t(key)
+      : this.selectedLocation;
   }
 
 
@@ -183,11 +248,14 @@ export class Navbar {
 
     this.state.setCategory(0);
 
-    this.showLocationMenu = false;
+    this.showLocationMenu =
+      false;
 
-    this.desktopMenuOpen = false;
+    this.desktopMenuOpen =
+      false;
 
-    this.sidebarOpen = false;
+    this.sidebarOpen =
+      false;
 
     this.router.navigate([
       '/'
@@ -204,21 +272,13 @@ export class Navbar {
     const value =
       this.searchText.trim();
 
-    /*
-      Search text state-এ পাঠাবে।
-      এখানে category reset করছি না।
-    */
-
-    this.state.setSearch(value);
-
-
-    /*
-      যদি Home page-এ না থাকি,
-      শুধু তখন Home page-এ যাবে।
-    */
+    this.state.setSearch(
+      value
+    );
 
     if (
-      this.router.url.split('?')[0] !== '/'
+      this.router.url
+        .split('?')[0] !== '/'
     ) {
 
       this.router.navigate([
@@ -238,14 +298,9 @@ export class Navbar {
 
     this.state.setSearch('');
 
-
-    /*
-      অন্য page-এ থাকলে
-      Home page-এ যাবে
-    */
-
     if (
-      this.router.url.split('?')[0] !== '/'
+      this.router.url
+        .split('?')[0] !== '/'
     ) {
 
       this.router.navigate([
@@ -267,7 +322,8 @@ export class Navbar {
       event.stopPropagation();
     }
 
-    this.desktopMenuOpen = false;
+    this.desktopMenuOpen =
+      false;
 
     this.showLocationMenu =
       !this.showLocationMenu;
@@ -301,7 +357,8 @@ export class Navbar {
 
     event.stopPropagation();
 
-    this.showLocationMenu = false;
+    this.showLocationMenu =
+      false;
 
     this.desktopMenuOpen =
       !this.desktopMenuOpen;
@@ -310,7 +367,8 @@ export class Navbar {
 
   closeDesktopMenu(): void {
 
-    this.desktopMenuOpen = false;
+    this.desktopMenuOpen =
+      false;
   }
 
 
@@ -323,9 +381,11 @@ export class Navbar {
   )
   closeMenus(): void {
 
-    this.showLocationMenu = false;
+    this.showLocationMenu =
+      false;
 
-    this.desktopMenuOpen = false;
+    this.desktopMenuOpen =
+      false;
   }
 
 
@@ -359,7 +419,8 @@ export class Navbar {
     data: any
   ): void {
 
-    this.sidebarOpen = false;
+    this.sidebarOpen =
+      false;
 
     if (
       data?.level === 'close'
@@ -370,11 +431,6 @@ export class Navbar {
     if (!data) {
       return;
     }
-
-    /*
-      Category click করলে
-      search clear হবে
-    */
 
     this.searchText = '';
 

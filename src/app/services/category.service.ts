@@ -6,11 +6,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CategoryService {
 
- private API = 'https://superbangladesh-api-1.onrender.com/api/categories';
+  private API =
+    'https://superbangladesh-api-1.onrender.com/api/categories';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient
+  ) {}
+
 
   // 🔥 CATEGORY TREE
+
   getTree() {
 
     return this.http.get<any[]>(
@@ -18,7 +23,9 @@ export class CategoryService {
     );
   }
 
+
   // 🔥 MAIN CATEGORY
+
   getMain() {
 
     return this.http.get<any[]>(
@@ -26,11 +33,25 @@ export class CategoryService {
     );
   }
 
+
   // 🔥 CHILD CATEGORY
+
   getChildren(id: number) {
 
     return this.http.get<any[]>(
       `${this.API}/${id}/children`
     );
   }
+
+
+  // 🔥 POPULAR CATEGORIES
+  // ADMIN PANEL থেকে selected category আসবে
+
+  getPopular() {
+
+    return this.http.get<any[]>(
+      `${this.API}/popular`
+    );
+  }
+
 }

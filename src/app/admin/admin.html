@@ -1,9 +1,11 @@
 <div class="admin-layout">
 
-  <!-- SIDEBAR -->
   <div class="sidebar">
 
-    <h2>⚙ Admin Panel</h2>
+    <h2>
+      ⚙ Admin Panel
+    </h2>
+
 
     <a
       routerLink="/admin/dashboard"
@@ -12,6 +14,7 @@
       📊 Dashboard
     </a>
 
+
     <a
       routerLink="/admin/products"
       routerLinkActive="active"
@@ -19,12 +22,30 @@
       🛒 Products
     </a>
 
+
     <a
-  routerLink="/admin/categories"
-  routerLinkActive="active"
->
-  📂 Categories
-</a>
+      routerLink="/admin/categories"
+      routerLinkActive="active"
+    >
+      📂 Categories
+    </a>
+
+
+    <a
+      routerLink="/admin/banners"
+      routerLinkActive="active"
+    >
+      🖼️ Banners
+    </a>
+
+
+    <a
+      routerLink="/admin/features"
+      routerLinkActive="active"
+    >
+      ✨ Homepage Features
+    </a>
+
 
     <a
       routerLink="/admin/orders"
@@ -33,13 +54,15 @@
       📦 Orders
     </a>
 
-    <a
-  routerLink="/admin/customers"
-  routerLinkActive="active">
-  👥 Customers
-</a>
 
-    <!-- 💰 PURCHASE MANAGEMENT -->
+    <a
+      routerLink="/admin/customers"
+      routerLinkActive="active"
+    >
+      👥 Customers
+    </a>
+
+
     <a
       routerLink="/admin/purchase-management"
       routerLinkActive="active"
@@ -47,13 +70,14 @@
       💰 Purchase Management
     </a>
 
-    <!-- 📑 PURCHASE HISTORY -->
+
     <a
       routerLink="/admin/purchase-history"
       routerLinkActive="active"
     >
       📑 Purchase History
     </a>
+
 
     <a
       routerLink="/admin/complaints"
@@ -62,23 +86,20 @@
       ⚠️ Complaints
     </a>
 
-    <a
-  routerLink="/admin/banners"
-  routerLinkActive="active"
->
-  🖼️ Banners
-</a>
 
-    <a routerLink="/">
+    <a
+      routerLink="/"
+    >
       🏠 Back to Shop
     </a>
 
   </div>
 
-  <!-- CONTENT -->
+
   <div class="content">
 
-    <router-outlet></router-outlet>
+    <router-outlet>
+    </router-outlet>
 
   </div>
 

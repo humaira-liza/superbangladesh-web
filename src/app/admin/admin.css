@@ -8,185 +8,300 @@ html,
 body{
   width:100%;
   overflow-x:hidden;
+
   background:#f4f7fb;
-  font-family:'Segoe UI',sans-serif;
+
+  font-family:
+    'Segoe UI',
+    sans-serif;
 }
 
-/* LAYOUT */
+
+/* =========================
+   ADMIN LAYOUT
+========================= */
 
 .admin-layout{
   display:flex;
+
   min-height:100vh;
+
   background:#f4f7fb;
 }
 
-/* SIDEBAR */
+
+/* =========================
+   SIDEBAR
+========================= */
 
 .sidebar{
-
   width:260px;
-
-  background:
-  linear-gradient(
-    180deg,
-    #020617,
-    #0f172a
-  );
-
-  color:white;
-
-  padding:26px 18px;
 
   position:fixed;
 
   top:82px;
-
   left:0;
 
   height:calc(100vh - 82px);
 
+  padding:24px 16px;
+
   overflow-y:auto;
 
-  z-index:1000;
+  background:#ffffff;
 
-  box-shadow:
-  8px 0 30px rgba(0,0,0,0.12);
+  color:#1f2937;
+
+  border-right:1px solid #e5e7eb;
+
+  z-index:1000;
 }
 
-/* LOGO */
+
+/* =========================
+   ADMIN TITLE
+========================= */
 
 .sidebar h2{
+  margin:0 8px 28px;
 
-  font-size:38px;
+  color:#111827;
 
-  font-weight:900;
+  font-size:30px;
+  font-weight:800;
 
-  margin-bottom:40px;
-
-  line-height:1.1;
+  line-height:1.15;
 }
 
-/* LINKS */
+
+/* =========================
+   SIDEBAR LINKS
+========================= */
 
 .sidebar a{
+  width:100%;
+
+  min-height:50px;
 
   display:flex;
 
   align-items:center;
 
-  gap:14px;
+  gap:12px;
 
-  padding:16px 18px;
+  padding:12px 14px;
 
-  margin-bottom:14px;
+  margin-bottom:7px;
 
-  color:#e2e8f0;
+  color:#475569;
 
   text-decoration:none;
 
-  border-radius:18px;
+  border-radius:10px;
 
-  font-size:17px;
+  font-size:16px;
+  font-weight:600;
+
+  transition:
+    background .2s ease,
+    color .2s ease;
+}
+
+
+/* =========================
+   HOVER
+========================= */
+
+.sidebar a:hover{
+  background:#f1f5f9;
+
+  color:#2563eb;
+}
+
+
+/* =========================
+   ACTIVE
+========================= */
+
+.sidebar a.active{
+  background:#eff6ff;
+
+  color:#2563eb;
 
   font-weight:700;
 
-  transition:all .28s ease;
+  border-left:3px solid #2563eb;
 }
 
-/* HOVER */
 
-.sidebar a:hover{
-
-  background:#1e293b;
-
-  transform:translateX(4px);
-}
-
-/* ACTIVE */
-
-.sidebar a.active{
-
-  background:
-  linear-gradient(
-    135deg,
-    #2563eb,
-    #3b82f6
-  );
-
-  color:white;
-
-  box-shadow:
-  0 10px 25px rgba(37,99,235,.35);
-}
-
-/* CONTENT */
+/* =========================
+   CONTENT
+========================= */
 
 .content{
   flex:1;
+
+  min-width:0;
+
   margin-left:260px;
-  padding:24px;
+
   margin-top:82px;
+
+  padding:24px;
+
   overflow-x:auto;
 }
 
-/* SCROLLBAR */
+
+/* =========================
+   SIDEBAR SCROLLBAR
+========================= */
 
 .sidebar::-webkit-scrollbar{
-  width:6px;
+  width:5px;
 }
 
-.sidebar::-webkit-scrollbar-thumb{
 
-  background:#334155;
+.sidebar::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+
+.sidebar::-webkit-scrollbar-thumb{
+  background:#cbd5e1;
 
   border-radius:999px;
 }
 
-/* MOBILE */
 
-@media (max-width: 768px) {
+.sidebar::-webkit-scrollbar-thumb:hover{
+  background:#94a3b8;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media(max-width:1024px){
+
+  .sidebar{
+    width:230px;
+
+    padding:
+      20px
+      12px;
+  }
+
+
+  .sidebar h2{
+    font-size:27px;
+  }
+
+
+  .sidebar a{
+    padding:
+      11px
+      12px;
+
+    font-size:15px;
+  }
+
+
+  .content{
+    margin-left:230px;
+  }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
 
   .admin-layout{
     display:block;
   }
 
+
   .sidebar{
     position:static;
+
     width:100%;
     height:auto;
 
-    padding:8px;
+    padding:10px;
 
     display:flex;
+
     flex-wrap:wrap;
+
     gap:8px;
 
-    background:#fff;
+    background:#ffffff;
 
-    box-shadow:none;
+    border-right:none;
+
+    border-bottom:
+      1px solid #e5e7eb;
+
+    overflow:visible;
   }
+
 
   .sidebar h2{
     display:none;
   }
 
+
   .sidebar a{
+    width:auto;
+
+    min-height:40px;
+
     margin:0;
-    padding:10px 12px;
+
+    padding:
+      9px
+      12px;
+
+    background:#f8fafc;
+
+    color:#475569;
+
+    border:
+      1px solid #e5e7eb;
+
+    border-radius:8px;
 
     font-size:13px;
+    font-weight:600;
+  }
 
-    border-radius:10px;
 
+  .sidebar a:hover{
     background:#f1f5f9;
 
-    color:#111827;
+    color:#2563eb;
   }
+
+
+  .sidebar a.active{
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    border:
+      1px solid #bfdbfe;
+  }
+
 
   .content{
     width:100%;
-    margin:0;
-    padding:10px;
-  }
 
+    margin:0;
+
+    padding:12px;
+  }
 }

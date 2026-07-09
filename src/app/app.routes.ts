@@ -1,49 +1,118 @@
 import { Routes } from '@angular/router';
+
 import { adminGuard } from './admin.guard';
 import { userGuard } from './user.guard';
 
-// 🔓 PUBLIC
-import { Home } from './pages/home/home';
-import { LoginComponent } from './pages/login/login';
-import { ProductDetails } from './pages/product-details/product-details';
 
-// 🛒 USER
-import { Cart } from './pages/cart/cart';
-import { Checkout } from './pages/checkout/checkout';
-import { Success } from './pages/success/success';
-import { Orders } from './pages/orders/orders';
+// =========================
+// PUBLIC
+// =========================
 
-// 🆕 EXTRA PAGES
-import { Safety } from './pages/safety';
-import { Premium } from './pages/premium';
-import { Help } from './pages/help';
-import { Complaint } from './pages/complaint';
+import { Home }
+from './pages/home/home';
 
-// 🔴 ADMIN
-import { Admin } from './admin/admin';
-import { Dashboard } from './pages/dashboard/dashboard';
-import { AdminProducts } from './pages/admin-products/admin-products';
-import { AdminOrders } from './pages/admin-orders/admin-orders';
-import { AdminComplaints } from './pages/admin-complaints/admin-complaints';
+import { LoginComponent }
+from './pages/login/login';
 
-// 🔥 NEW PAGES
-import { Finance } from './pages/finance/finance';
-import { Inventory } from './pages/inventory/inventory';
-import { Analytics } from './pages/analytics/analytics';
+import { ProductDetails }
+from './pages/product-details/product-details';
 
-// 🛒 PURCHASE
-import { PurchaseManagement } from './admin/purchase-management/purchase-management';
-import { PurchaseHistory } from './pages/purchase-history/purchase-history';
 
-// 🔧 ADMIN EXTRA
-import { AdminCategories } from './pages/admin-categories/admin-categories';
-import { AdminBanners } from './pages/admin-banners/admin-banners';
-import { AdminCustomers } from './pages/admin-customers/admin-customers';
+// =========================
+// USER
+// =========================
+
+import { Cart }
+from './pages/cart/cart';
+
+import { Checkout }
+from './pages/checkout/checkout';
+
+import { Success }
+from './pages/success/success';
+
+import { Orders }
+from './pages/orders/orders';
+
+
+// =========================
+// EXTRA PAGES
+// =========================
+
+import { Safety }
+from './pages/safety';
+
+import { Premium }
+from './pages/premium';
+
+import { Help }
+from './pages/help';
+
+import { Complaint }
+from './pages/complaint';
+
+
+// =========================
+// ADMIN
+// =========================
+
+import { Admin }
+from './admin/admin';
+
+import { Dashboard }
+from './pages/dashboard/dashboard';
+
+import { AdminProducts }
+from './pages/admin-products/admin-products';
+
+import { AdminOrders }
+from './pages/admin-orders/admin-orders';
+
+import { AdminComplaints }
+from './pages/admin-complaints/admin-complaints';
+
+import { AdminCategories }
+from './pages/admin-categories/admin-categories';
+
+import { AdminBanners }
+from './pages/admin-banners/admin-banners';
+
+import { AdminCustomers }
+from './pages/admin-customers/admin-customers';
+
+import { AdminFeatures }
+from './pages/admin-features/admin-features';
+
+
+// =========================
+// ANALYTICS
+// =========================
+
+import { Finance }
+from './pages/finance/finance';
+
+import { Inventory }
+from './pages/inventory/inventory';
+
+import { Analytics }
+from './pages/analytics/analytics';
+
+
+// =========================
+// PURCHASE
+// =========================
+
+import { PurchaseManagement }
+from './admin/purchase-management/purchase-management';
+
+import { PurchaseHistory }
+from './pages/purchase-history/purchase-history';
+
 
 export const routes: Routes = [
 
   // =========================
-  // 🔓 PUBLIC
+  // PUBLIC
   // =========================
 
   {
@@ -61,19 +130,26 @@ export const routes: Routes = [
     component: ProductDetails
   },
 
+
   // =========================
-  // 🆕 CATEGORY PAGE
+  // CATEGORY PAGE
   // =========================
 
   {
     path: 'category/:id',
+
     loadComponent: () =>
-      import('./pages/category-page/category-page')
-        .then(m => m.CategoryPage)
+      import(
+        './pages/category-page/category-page'
+      )
+        .then(
+          m => m.CategoryPage
+        )
   },
 
+
   // =========================
-  // 🛒 USER
+  // USER
   // =========================
 
   {
@@ -81,14 +157,12 @@ export const routes: Routes = [
     component: Cart
   },
 
-  // 📦 USER ORDERS
   {
     path: 'orders',
     component: Orders,
     canActivate: [userGuard]
   },
 
-  // 🔐 USER PROTECTED
   {
     path: 'checkout',
     component: Checkout,
@@ -101,8 +175,9 @@ export const routes: Routes = [
     canActivate: [userGuard]
   },
 
+
   // =========================
-  // 🆕 EXTRA
+  // EXTRA
   // =========================
 
   {
@@ -125,101 +200,148 @@ export const routes: Routes = [
     component: Complaint
   },
 
+
   // =========================
-  // 🔴 ADMIN PANEL
+  // ADMIN PANEL
   // =========================
 
   {
     path: 'admin',
+
     component: Admin,
-    canActivate: [adminGuard],
+
+    canActivate: [
+      adminGuard
+    ],
 
     children: [
 
       {
         path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
+
+        redirectTo:
+          'dashboard',
+
+        pathMatch:
+          'full'
       },
 
       {
         path: 'dashboard',
-        component: Dashboard
+
+        component:
+          Dashboard
       },
 
       {
         path: 'products',
-        component: AdminProducts
+
+        component:
+          AdminProducts
       },
 
       {
         path: 'categories',
-        component: AdminCategories
+
+        component:
+          AdminCategories
       },
 
       {
         path: 'banners',
-        component: AdminBanners
+
+        component:
+          AdminBanners
+      },
+
+      {
+        path: 'features',
+
+        component:
+          AdminFeatures
       },
 
       {
         path: 'customers',
-        component: AdminCustomers
+
+        component:
+          AdminCustomers
       },
 
       {
         path: 'orders',
-        component: AdminOrders
+
+        component:
+          AdminOrders
       },
 
       {
         path: 'complaints',
-        component: AdminComplaints
+
+        component:
+          AdminComplaints
       },
 
-      // 🔥 ANALYTICS
       {
         path: 'analytics',
-        component: Analytics
+
+        component:
+          Analytics
       },
 
-      // 🔥 FINANCE
       {
         path: 'finance',
-        component: Finance
+
+        component:
+          Finance
       },
 
-      // 🔥 INVENTORY
       {
         path: 'inventory',
-        component: Inventory
+
+        component:
+          Inventory
       },
 
-      // 🛒 PURCHASE MANAGEMENT
       {
-        path: 'purchase-management',
-        component: PurchaseManagement
+        path:
+          'purchase-management',
+
+        component:
+          PurchaseManagement
       },
 
-      // 📦 PURCHASE HISTORY
       {
-        path: 'purchase-history',
-        component: PurchaseHistory
+        path:
+          'purchase-history',
+
+        component:
+          PurchaseHistory
       },
 
-      // 🚚 SUPPLIERS
       {
         path: 'suppliers',
+
         loadComponent: () =>
-          import('./admin/suppliers/suppliers')
-            .then(m => m.Suppliers)
+          import(
+            './admin/suppliers/suppliers'
+          )
+            .then(
+              m => m.Suppliers
+            )
       }
 
     ]
   },
 
+
+  // =========================
+  // FALLBACK
+  // =========================
+
   {
     path: '**',
+
     redirectTo: ''
   }
 

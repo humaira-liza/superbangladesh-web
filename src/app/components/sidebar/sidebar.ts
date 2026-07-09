@@ -7,8 +7,13 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  HttpClient
+} from '@angular/common/http';
 
 import {
   Router,
@@ -22,8 +27,14 @@ import {
   takeUntil
 } from 'rxjs';
 
+import {
+  LanguageService
+} from '../../services/language.service';
+
+
 @Component({
   selector: 'app-sidebar',
+
   standalone: true,
 
   imports: [
@@ -32,41 +43,86 @@ import {
   ],
 
   templateUrl: './sidebar.html',
-  styleUrls: ['./sidebar.css']
+
+  styleUrls: [
+    './sidebar.css'
+  ]
 })
 export class Sidebar
   implements OnInit, OnDestroy {
+
 
   @Output()
   categoryClick =
     new EventEmitter<any>();
 
+
   categories: any[] = [];
 
-  expandedMain: number | null = null;
 
-  expandedSub: number | null = null;
+  expandedMain:
+    number | null = null;
 
-  selectedId: number | null = null;
+
+  expandedSub:
+    number | null = null;
+
+
+  selectedId:
+    number | null = null;
+
 
   private destroy$ =
     new Subject<void>();
 
+
   isAdmin =
     localStorage
       .getItem('role')
-      ?.toLowerCase() === 'admin';
+      ?.toLowerCase() ===
+    'admin';
+
 
   constructor(
     private http: HttpClient,
     public router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public languageService:
+      LanguageService
   ) {}
 
 
-  // =========================
-  // INIT
-  // =========================
+  /* =========================
+     TRANSLATE FIXED TEXT
+  ========================= */
+
+  t(
+    key: string
+  ): string {
+
+    return this.languageService
+      .translate(key);
+  }
+
+
+  /* =========================
+     TRANSLATE CATEGORY
+  ========================= */
+
+  categoryName(
+    category: any
+  ): string {
+
+    return this.languageService
+      .translateCategory(
+        category?.name
+      );
+  }
+
+
+  /* =========================
+     INIT
+  ========================= */
 
   ngOnInit(): void {
 
@@ -74,11 +130,16 @@ export class Sidebar
 
     this.router.events
       .pipe(
+
         filter(
           event =>
-            event instanceof NavigationEnd
+            event instanceof
+            NavigationEnd
         ),
-        takeUntil(this.destroy$)
+
+        takeUntil(
+          this.destroy$
+        )
       )
       .subscribe(() => {
 
@@ -87,9 +148,9 @@ export class Sidebar
   }
 
 
-  // =========================
-  // LOAD CATEGORY TREE
-  // =========================
+  /* =========================
+     LOAD CATEGORY TREE
+  ========================= */
 
   loadCategories(): void {
 
@@ -98,7 +159,9 @@ export class Sidebar
         'https://superbangladesh-api-1.onrender.com/api/categories/tree'
       )
       .pipe(
-        takeUntil(this.destroy$)
+        takeUntil(
+          this.destroy$
+        )
       )
       .subscribe({
 
@@ -114,6 +177,7 @@ export class Sidebar
             'Beauty & MakeUp'
           ];
 
+
           const normalized =
             this.normalizeCategories(
               Array.isArray(res)
@@ -121,25 +185,41 @@ export class Sidebar
                 : []
             );
 
+
           const sortedCategories =
             normalized.sort(
-              (a: any, b: any) => {
+              (
+                a: any,
+                b: any
+              ) => {
 
                 const ai =
-                  order.indexOf(a.name);
+                  order.indexOf(
+                    a.name
+                  );
 
                 const bi =
-                  order.indexOf(b.name);
+                  order.indexOf(
+                    b.name
+                  );
 
                 return (
-                  (ai === -1 ? 999 : ai) -
-                  (bi === -1 ? 999 : bi)
+                  (
+                    ai === -1
+                      ? 999
+                      : ai
+                  )
+                  -
+                  (
+                    bi === -1
+                      ? 999
+                      : bi
+                  )
                 );
               }
             );
 
-          // IMPORTANT FIX
-          // current Angular check শেষ হওয়ার পরে assign
+
           setTimeout(() => {
 
             this.categories =
@@ -156,6 +236,7 @@ export class Sidebar
 
           }, 0);
         },
+
 
         error: (err) => {
 
@@ -176,9 +257,9 @@ export class Sidebar
   }
 
 
-  // =========================
-  // NORMALIZE CATEGORY TREE
-  // =========================
+  /* =========================
+     NORMALIZE CATEGORY TREE
+  ========================= */
 
   normalizeCategories(
     categories: any[]
@@ -188,7 +269,9 @@ export class Sidebar
       (cat: any) => {
 
         const children =
-          Array.isArray(cat?.children)
+          Array.isArray(
+            cat?.children
+          )
             ? cat.children
             : [];
 
@@ -196,7 +279,8 @@ export class Sidebar
 
           ...cat,
 
-          id: Number(cat.id),
+          id:
+            Number(cat.id),
 
           children:
             this.normalizeCategories(
@@ -208,33 +292,40 @@ export class Sidebar
   }
 
 
-  // =========================
-  // RESTORE FROM URL
-  // =========================
+  /* =========================
+     RESTORE FROM URL
+  ========================= */
 
   restoreSidebarFromUrl(): void {
 
     if (
-      !Array.isArray(this.categories) ||
+      !Array.isArray(
+        this.categories
+      )
+      ||
       this.categories.length === 0
     ) {
       return;
     }
 
+
     const url =
-      this.router.url.split('?')[0];
+      this.router.url
+        .split('?')[0];
+
 
     console.log(
       'SIDEBAR URL =',
       url
     );
 
+
     const match =
       url.match(
         /^\/category\/(\d+)$/
       );
 
-    // Home / non-category page
+
     if (!match) {
 
       this.selectedId = null;
@@ -246,8 +337,10 @@ export class Sidebar
       return;
     }
 
+
     const currentId =
       Number(match[1]);
+
 
     const path =
       this.findCategoryPath(
@@ -255,10 +348,12 @@ export class Sidebar
         currentId
       );
 
+
     console.log(
       'CATEGORY PATH =',
       path
     );
+
 
     if (path.length === 0) {
 
@@ -271,32 +366,46 @@ export class Sidebar
       return;
     }
 
+
     this.selectedId =
       Number(
-        path[path.length - 1].id
+        path[
+          path.length - 1
+        ].id
       );
 
-    this.expandedMain =
-      Number(path[0].id);
 
-    // Main category
-    if (path.length === 1) {
+    this.expandedMain =
+      Number(
+        path[0].id
+      );
+
+
+    if (
+      path.length === 1
+    ) {
 
       this.expandedSub = null;
 
       return;
     }
 
-    // Sub category
-    if (path.length === 2) {
+
+    if (
+      path.length === 2
+    ) {
 
       const sub =
         path[1];
 
+
       const children =
-        Array.isArray(sub?.children)
+        Array.isArray(
+          sub?.children
+        )
           ? sub.children
           : [];
+
 
       this.expandedSub =
         children.length > 0
@@ -306,15 +415,17 @@ export class Sidebar
       return;
     }
 
-    // Child category
+
     this.expandedSub =
-      Number(path[1].id);
+      Number(
+        path[1].id
+      );
   }
 
 
-  // =========================
-  // FIND CATEGORY PATH
-  // =========================
+  /* =========================
+     FIND CATEGORY PATH
+  ========================= */
 
   findCategoryPath(
     categories: any[],
@@ -322,12 +433,15 @@ export class Sidebar
     currentPath: any[] = []
   ): any[] {
 
-    for (const cat of categories) {
+    for (
+      const cat of categories
+    ) {
 
       const newPath = [
         ...currentPath,
         cat
       ];
+
 
       if (
         Number(cat?.id) ===
@@ -336,12 +450,18 @@ export class Sidebar
         return newPath;
       }
 
+
       const children =
-        Array.isArray(cat?.children)
+        Array.isArray(
+          cat?.children
+        )
           ? cat.children
           : [];
 
-      if (children.length > 0) {
+
+      if (
+        children.length > 0
+      ) {
 
         const found =
           this.findCategoryPath(
@@ -350,19 +470,23 @@ export class Sidebar
             newPath
           );
 
-        if (found.length > 0) {
+
+        if (
+          found.length > 0
+        ) {
           return found;
         }
       }
     }
 
+
     return [];
   }
 
 
-  // =========================
-  // MAIN CATEGORY
-  // =========================
+  /* =========================
+     MAIN CATEGORY
+  ========================= */
 
   onMain(
     cat: any
@@ -372,14 +496,22 @@ export class Sidebar
       return;
     }
 
+
     const id =
       Number(cat.id);
 
-    this.selectedId = id;
 
-    this.expandedMain = id;
+    this.selectedId =
+      id;
 
-    this.expandedSub = null;
+
+    this.expandedMain =
+      id;
+
+
+    this.expandedSub =
+      null;
+
 
     this.router.navigate([
       '/category',
@@ -388,9 +520,9 @@ export class Sidebar
   }
 
 
-  // =========================
-  // SUB CATEGORY
-  // =========================
+  /* =========================
+     SUB CATEGORY
+  ========================= */
 
   onSub(
     sub: any,
@@ -404,27 +536,36 @@ export class Sidebar
       return;
     }
 
+
     const subId =
       Number(sub.id);
+
 
     const parentId =
       Number(parent.id);
 
+
     this.selectedId =
       subId;
+
 
     this.expandedMain =
       parentId;
 
+
     const children =
-      Array.isArray(sub?.children)
+      Array.isArray(
+        sub?.children
+      )
         ? sub.children
         : [];
+
 
     this.expandedSub =
       children.length > 0
         ? subId
         : null;
+
 
     this.router.navigate([
       '/category',
@@ -433,9 +574,9 @@ export class Sidebar
   }
 
 
-  // =========================
-  // CHILD CATEGORY
-  // =========================
+  /* =========================
+     CHILD CATEGORY
+  ========================= */
 
   onChild(
     child: any,
@@ -451,17 +592,22 @@ export class Sidebar
       return;
     }
 
+
     const childId =
       Number(child.id);
+
 
     this.selectedId =
       childId;
 
+
     this.expandedMain =
       Number(main.id);
 
+
     this.expandedSub =
       Number(sub.id);
+
 
     this.router.navigate([
       '/category',
@@ -470,9 +616,9 @@ export class Sidebar
   }
 
 
-  // =========================
-  // HANDLE MAIN
-  // =========================
+  /* =========================
+     HANDLE MAIN
+  ========================= */
 
   handleMain(
     cat: any,
@@ -487,9 +633,9 @@ export class Sidebar
   }
 
 
-  // =========================
-  // HANDLE SUB
-  // =========================
+  /* =========================
+     HANDLE SUB
+  ========================= */
 
   handleSub(
     sub: any,
@@ -508,9 +654,9 @@ export class Sidebar
   }
 
 
-  // =========================
-  // HANDLE CHILD
-  // =========================
+  /* =========================
+     HANDLE CHILD
+  ========================= */
 
   handleChild(
     child: any,
@@ -531,9 +677,9 @@ export class Sidebar
   }
 
 
-  // =========================
-  // CLOSE SIDEBAR
-  // =========================
+  /* =========================
+     CLOSE SIDEBAR
+  ========================= */
 
   closeSidebar(): void {
 
@@ -543,9 +689,9 @@ export class Sidebar
   }
 
 
-  // =========================
-  // CATEGORY ICON
-  // =========================
+  /* =========================
+     CATEGORY ICON
+  ========================= */
 
   getCategoryIcon(
     name: string
@@ -554,28 +700,39 @@ export class Sidebar
     const icons:
       Record<string, string> = {
 
-        'Food': '🛍️',
+      'Food':
+        '🛍️',
 
-        'Baby Care': '🧴',
+      'Baby Care':
+        '🧴',
 
-        'Home & Kitchen': '🛋️',
+      'Home & Kitchen':
+        '🛋️',
 
-        'Health & Wellness': '⚕️',
+      'Health & Wellness':
+        '⚕️',
 
-        'Stationery & Office': '📚',
+      'Stationery & Office':
+        '📚',
 
-        'Toys & Sports': '🧸',
+      'Toys & Sports':
+        '🧸',
 
-        'Beauty & MakeUp': '💄'
-      };
+      'Beauty & MakeUp':
+        '💄'
+    };
 
-    return icons[name] || '📦';
+
+    return (
+      icons[name]
+      || '📦'
+    );
   }
 
 
-  // =========================
-  // DESTROY
-  // =========================
+  /* =========================
+     DESTROY
+  ========================= */
 
   ngOnDestroy(): void {
 
@@ -583,4 +740,5 @@ export class Sidebar
 
     this.destroy$.complete();
   }
+
 }

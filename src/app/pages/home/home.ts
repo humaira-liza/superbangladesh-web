@@ -39,12 +39,20 @@ import {
 } from '../../services/product.service';
 
 import {
+  CategoryService
+} from '../../services/category.service';
+
+import {
   CartService
 } from '../../services/cart';
 
 import {
   ProductStateService
 } from '../../services/product-state.service';
+
+import {
+  LanguageService
+} from '../../services/language.service';
 
 
 @Component({
@@ -94,18 +102,10 @@ export class Home implements OnInit {
 
   filtered: any[] = [];
 
-  featuredProducts: any[] = [];
-
-
-  // =========================
-  // TRENDING TOGGLE
-  // =========================
-
-  showAllTrending = false;
-
 
   // =========================
   // POPULAR CATEGORIES
+  // ADMIN CONTROLLED
   // =========================
 
   popularCategories: any[] = [];
@@ -165,6 +165,9 @@ export class Home implements OnInit {
     private productService:
       ProductService,
 
+    private categoryService:
+      CategoryService,
+
     public cart:
       CartService,
 
@@ -172,8 +175,39 @@ export class Home implements OnInit {
       ProductStateService,
 
     private cdr:
-      ChangeDetectorRef
+      ChangeDetectorRef,
+
+    public languageService:
+      LanguageService
   ) {}
+
+
+  /* =========================
+     TRANSLATE
+  ========================= */
+
+  t(
+    key: string
+  ): string {
+
+    return this.languageService
+      .translate(key);
+  }
+
+
+  /* =========================
+     CATEGORY NAME
+  ========================= */
+
+  categoryName(
+    category: any
+  ): string {
+
+    return this.languageService
+      .translateCategory(
+        category?.name
+      );
+  }
 
 
   // =========================
@@ -184,40 +218,43 @@ export class Home implements OnInit {
 
     this.loadAll();
 
+    this.loadPopularCategories();
+
 
     // SEARCH STATE
 
     this.state.search$
-  .subscribe(value => {
+      .subscribe((value: string) => {
 
-    this.currentSearch =
-      value || '';
+        this.currentSearch =
+          value || '';
 
-    this.applySearch();
+        this.applySearch();
 
-    this.cdr.detectChanges();
+        this.cdr.detectChanges();
 
-    if (
-      this.currentSearch.trim()
-    ) {
+        if (
+          this.currentSearch.trim()
+        ) {
 
-      setTimeout(() => {
+          setTimeout(() => {
 
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
 
-      }, 0);
+          }, 0);
 
-    }
+        }
 
-  });
+      });
+
 
     // CATEGORY STATE
 
     this.state.category$
-      .subscribe(id => {
+      .subscribe((id: number) => {
 
         console.log(
           'STATE CATEGORY =',
@@ -237,6 +274,48 @@ export class Home implements OnInit {
         this.loadProducts(
           Number(id)
         );
+      });
+  }
+
+
+  // =========================
+  // LOAD POPULAR CATEGORIES
+  // ADMIN CONTROLLED
+  // =========================
+
+  loadPopularCategories(): void {
+
+    this.categoryService
+      .getPopular()
+      .subscribe({
+
+        next: (res: any[]) => {
+
+          console.log(
+            'POPULAR CATEGORIES =',
+            res
+          );
+
+          this.popularCategories =
+            Array.isArray(res)
+              ? res
+              : [];
+
+          this.cdr.detectChanges();
+        },
+
+        error: (err: any) => {
+
+          console.error(
+            'POPULAR CATEGORY ERROR =',
+            err
+          );
+
+          this.popularCategories = [];
+
+          this.cdr.detectChanges();
+        }
+
       });
   }
 
@@ -273,7 +352,7 @@ export class Home implements OnInit {
       .getProducts()
       .subscribe({
 
-        next: (res) => {
+        next: (res: any[]) => {
 
           console.log(
             'ALL PRODUCTS =',
@@ -295,52 +374,15 @@ export class Home implements OnInit {
             [...this.originalProducts];
 
 
-          // =========================
-          // TRENDING PRODUCTS
-          // FIRST 10 PRODUCTS
-          // =========================
+          /*
+            IMPORTANT:
+            Popular Categories আর
+            product list থেকে তৈরি হবে না।
 
-          this.featuredProducts =
-            this.originalProducts.slice(
-              0,
-              10
-            );
-
-
-          // DEFAULT COLLAPSED
-
-          this.showAllTrending =
-            false;
-
-
-          // =========================
-          // POPULAR CATEGORIES
-          // =========================
-
-          this.popularCategories =
-            this.originalProducts
-
-              .filter(
-                p => p.category
-              )
-
-              .map(
-                p => p.category
-              )
-
-              .filter(
-                (v, i, arr) =>
-                  arr.findIndex(
-                    x =>
-                      Number(x.id) ===
-                      Number(v.id)
-                  ) === i
-              )
-
-              .slice(
-                0,
-                6
-              );
+            এখন admin controlled
+            /api/categories/popular
+            endpoint থেকে আসবে।
+          */
 
 
           this.loading = false;
@@ -353,7 +395,7 @@ export class Home implements OnInit {
         },
 
 
-        error: (err) => {
+        error: (err: any) => {
 
           console.error(
             'LOAD ALL ERROR =',
@@ -370,32 +412,19 @@ export class Home implements OnInit {
 
           this.filtered = [];
 
-          this.featuredProducts = [];
 
-          this.popularCategories = [];
+          /*
+            এখানে popularCategories
+            empty করছি না।
 
-
-          this.showAllTrending =
-            false;
+            কারণ Popular Categories
+            আলাদা API থেকে load হচ্ছে।
+          */
 
 
           this.cdr.detectChanges();
         }
       });
-  }
-
-
-  // =========================
-  // TOGGLE ALL TRENDING
-  // =========================
-
-  toggleAllTrending(): void {
-
-    this.showAllTrending =
-      !this.showAllTrending;
-
-
-    this.cdr.detectChanges();
   }
 
 
@@ -429,7 +458,7 @@ export class Home implements OnInit {
       .getByCategory(id)
       .subscribe({
 
-        next: (res) => {
+        next: (res: any[]) => {
 
           console.log(
             'CATEGORY PRODUCTS =',
@@ -458,7 +487,7 @@ export class Home implements OnInit {
         },
 
 
-        error: (err) => {
+        error: (err: any) => {
 
           console.error(
             'CATEGORY ERROR =',
@@ -504,7 +533,7 @@ export class Home implements OnInit {
     this.filtered =
       this.allProducts.filter(
 
-        p =>
+        (p: any) =>
           p.name
             ?.toLowerCase()
             .includes(text)
@@ -540,8 +569,6 @@ export class Home implements OnInit {
       'products';
 
 
-    // RESTORE ALL PRODUCTS
-
     this.allProducts =
       [...this.originalProducts];
 
@@ -550,17 +577,11 @@ export class Home implements OnInit {
       [...this.originalProducts];
 
 
-    // APPLY SEARCH IF ANY
-
     this.applySearch();
 
 
-    // UPDATE UI
-
     this.cdr.detectChanges();
 
-
-    // SCROLL TO PRODUCTS
 
     this.scrollToCategorySection();
   }
@@ -858,8 +879,6 @@ export class Home implements OnInit {
 
     this.cdr.detectChanges();
 
-
-    // AUTO OPEN CART DRAWER
 
     window.dispatchEvent(
 

@@ -13,8 +13,6 @@
   </button>
 
 
-  <!-- MOBILE BRAND -->
-
   <div
     class="mobile-brand"
     (click)="goHome()"
@@ -60,17 +58,11 @@
       (click)="logout()"
       class="mobile-login"
     >
-      {{
-        selectedLanguage === 'bn'
-          ? 'লগআউট'
-          : 'Logout'
-      }}
+      {{ t('logout') }}
     </a>
 
   </div>
 
-
-  <!-- MOBILE OVERLAY -->
 
   <div
     class="mobile-overlay"
@@ -79,8 +71,6 @@
   >
   </div>
 
-
-  <!-- MOBILE SIDEBAR -->
 
   <div
     class="mobile-sidebar"
@@ -93,33 +83,21 @@
     </app-sidebar>
 
 
-    <!-- USER MY ORDERS -->
-
     <a
       *ngIf="isLoggedIn() && !isAdmin()"
       routerLink="/orders"
       (click)="sidebarOpen = false"
     >
-      {{
-        selectedLanguage === 'bn'
-          ? 'আমার অর্ডার'
-          : 'My Orders'
-      }}
+      {{ t('myOrders') }}
     </a>
 
-
-    <!-- ADMIN DASHBOARD -->
 
     <a
       *ngIf="isAdmin()"
       routerLink="/admin/dashboard"
       (click)="sidebarOpen = false"
     >
-      {{
-        selectedLanguage === 'bn'
-          ? 'অ্যাডমিন ড্যাশবোর্ড'
-          : 'Admin Dashboard'
-      }}
+      {{ t('adminDashboard') }}
     </a>
 
   </div>
@@ -137,12 +115,7 @@
     type="text"
     [(ngModel)]="searchText"
     (input)="search()"
-
-    [placeholder]="
-      selectedLanguage === 'bn'
-        ? 'পণ্য খুঁজুন...'
-        : 'Search products...'
-    "
+    [placeholder]="t('searchProducts')"
   />
 
 </div>
@@ -154,10 +127,6 @@
 
 <div class="navbar">
 
-
-  <!-- =========================
-       DESKTOP 3-DASH WRAPPER
-  ========================== -->
 
   <div
     class="desktop-menu-wrapper"
@@ -174,31 +143,22 @@
     </button>
 
 
-    <!-- 3-DASH DROPDOWN -->
-
     <div
       class="desktop-account-menu"
       *ngIf="desktopMenuOpen"
     >
 
-    <!-- HOME -->
+      <a
+        routerLink="/"
+        (click)="closeDesktopMenu()"
+      >
+        <i class="fa-solid fa-house"></i>
 
-<a
-  routerLink="/"
-  (click)="closeDesktopMenu()"
->
-  <i class="fa-solid fa-house"></i>
+        <span>
+          {{ t('home') }}
+        </span>
+      </a>
 
-  <span>
-    {{
-      selectedLanguage === 'bn'
-        ? 'হোম'
-        : 'Home'
-    }}
-  </span>
-</a>
-
-      <!-- USER ORDER HISTORY -->
 
       <a
         *ngIf="isLoggedIn() && !isAdmin()"
@@ -209,17 +169,11 @@
         <i class="fa-solid fa-clock-rotate-left"></i>
 
         <span>
-          {{
-            selectedLanguage === 'bn'
-              ? 'আমার অর্ডার'
-              : 'My Orders'
-          }}
+          {{ t('myOrders') }}
         </span>
 
       </a>
 
-
-      <!-- ADMIN DASHBOARD -->
 
       <a
         *ngIf="isAdmin()"
@@ -230,29 +184,18 @@
         <i class="fa-solid fa-user-shield"></i>
 
         <span>
-          {{
-            selectedLanguage === 'bn'
-              ? 'অ্যাডমিন ড্যাশবোর্ড'
-              : 'Admin Dashboard'
-          }}
+          {{ t('adminDashboard') }}
         </span>
 
       </a>
-
 
     </div>
 
   </div>
 
 
-  <!-- =========================
-       LEFT
-  ========================== -->
-
   <div class="left">
 
-
-    <!-- BRAND -->
 
     <div
       class="brand"
@@ -273,20 +216,13 @@
     </div>
 
 
-    <!-- SEARCH -->
-
     <div class="search">
 
       <input
         type="text"
         [(ngModel)]="searchText"
         (input)="search()"
-
-        [placeholder]="
-          selectedLanguage === 'bn'
-            ? 'পণ্য খুঁজুন (যেমন: তেল, চাল, ডিম)'
-            : 'Search for products (e.g. oil, rice, eggs)'
-        "
+        [placeholder]="t('searchProductsExample')"
       />
 
 
@@ -311,8 +247,6 @@
     </div>
 
 
-    <!-- LOCATION -->
-
     <div class="location-wrapper">
 
       <button
@@ -324,7 +258,7 @@
         <i class="fa-solid fa-location-dot"></i>
 
         <span>
-          {{ selectedLocation }}
+          {{ getSelectedLocationLabel() }}
         </span>
 
         <i
@@ -345,11 +279,7 @@
           type="button"
           (click)="selectLocation('Dhaka')"
         >
-          {{
-            selectedLanguage === 'bn'
-              ? 'ঢাকা'
-              : 'Dhaka'
-          }}
+          {{ t('dhaka') }}
         </button>
 
 
@@ -357,11 +287,7 @@
           type="button"
           (click)="selectLocation('Chattogram')"
         >
-          {{
-            selectedLanguage === 'bn'
-              ? 'চট্টগ্রাম'
-              : 'Chattogram'
-          }}
+          {{ t('chattogram') }}
         </button>
 
 
@@ -369,11 +295,7 @@
           type="button"
           (click)="selectLocation('Sylhet')"
         >
-          {{
-            selectedLanguage === 'bn'
-              ? 'সিলেট'
-              : 'Sylhet'
-          }}
+          {{ t('sylhet') }}
         </button>
 
 
@@ -381,11 +303,7 @@
           type="button"
           (click)="selectLocation('Rajshahi')"
         >
-          {{
-            selectedLanguage === 'bn'
-              ? 'রাজশাহী'
-              : 'Rajshahi'
-          }}
+          {{ t('rajshahi') }}
         </button>
 
 
@@ -393,11 +311,7 @@
           type="button"
           (click)="selectLocation('Khulna')"
         >
-          {{
-            selectedLanguage === 'bn'
-              ? 'খুলনা'
-              : 'Khulna'
-          }}
+          {{ t('khulna') }}
         </button>
 
       </div>
@@ -407,17 +321,8 @@
   </div>
 
 
-  <!-- =========================
-       RIGHT
-
-       ADMIN REMOVED
-       MY ORDERS REMOVED
-  ========================== -->
-
   <div class="right">
 
-
-    <!-- LANGUAGE SWITCHER -->
 
     <div class="language-switcher">
 
@@ -450,47 +355,24 @@
     </div>
 
 
-    <!-- LOGIN -->
-
     <a
       *ngIf="!isLoggedIn()"
       routerLink="/login"
     >
-      {{
-        selectedLanguage === 'bn'
-          ? 'লগইন'
-          : 'Login'
-      }}
+      {{ t('login') }}
     </a>
 
-
-    <!-- LOGOUT -->
 
     <a
       *ngIf="isLoggedIn()"
       (click)="logout()"
     >
-      {{
-        selectedLanguage === 'bn'
-          ? 'লগআউট'
-          : 'Logout'
-      }}
+      {{ t('logout') }}
     </a>
 
   </div>
 
 </div>
-
-
-<!-- =========================
-     IMPORTANT
-
-     DESKTOP DRAWER SIDEBAR
-     COMPLETELY REMOVED
-
-     CATEGORY SIDEBAR HOME PAGE-এ
-     ALWAYS OPEN থাকবে
-========================= -->
 
 
 <!-- =========================
@@ -508,11 +390,7 @@
 
       {{ cart.count() }}
 
-      {{
-        selectedLanguage === 'bn'
-          ? 'টি পণ্য'
-          : 'Items'
-      }}
+      {{ t('items') }}
 
     </div>
 
@@ -547,7 +425,7 @@
     <a
       href="tel:+8801756442133"
       class="chat-item call"
-      title="Call"
+      [title]="t('call')"
     >
       <i class="fa-solid fa-phone"></i>
     </a>
@@ -558,7 +436,7 @@
       target="_blank"
       rel="noopener noreferrer"
       class="chat-item messenger"
-      title="Messenger"
+      [title]="t('messenger')"
     >
       <i class="fa-brands fa-facebook-messenger"></i>
     </a>
@@ -569,7 +447,7 @@
       target="_blank"
       rel="noopener noreferrer"
       class="chat-item whatsapp"
-      title="WhatsApp"
+      [title]="t('whatsapp')"
     >
       <i class="fa-brands fa-whatsapp"></i>
     </a>
@@ -581,7 +459,7 @@
     type="button"
     class="main-chat-btn"
     (click)="toggleChat()"
-    title="Chat"
+    [title]="t('chat')"
   >
     <i class="fa-solid fa-comments"></i>
   </button>
