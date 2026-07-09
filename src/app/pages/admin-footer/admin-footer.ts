@@ -1,5 +1,7 @@
 import {
+  ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit
 } from '@angular/core';
 
@@ -16,8 +18,9 @@ import {
 } from '@angular/common/http';
 
 import {
-  finalize
-} from 'rxjs/operators';
+  Subject,
+  takeUntil
+} from 'rxjs';
 
 
 @Component({
@@ -37,9 +40,9 @@ import {
   ]
 })
 export class AdminFooter
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
-  loading = false;
+  loading = true;
 
   saving = false;
 
@@ -50,17 +53,31 @@ export class AdminFooter
     'https://superbangladesh-api-1.onrender.com/api/footer-settings';
 
 
-  form = this.getDefaultForm();
+  private destroy$ =
+    new Subject<void>();
+
+
+  form =
+    this.getDefaultForm();
 
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef
   ) {}
 
 
   ngOnInit(): void {
 
     this.load();
+  }
+
+
+  ngOnDestroy(): void {
+
+    this.destroy$.next();
+
+    this.destroy$.complete();
   }
 
 
@@ -169,21 +186,24 @@ export class AdminFooter
 
   load(): void {
 
-    if (this.loading) {
-      return;
-    }
+    /*
+     প্রথম click এ loading panel দেখাবে
+    */
 
     this.loading = true;
+
+    this.cdr.detectChanges();
 
 
     this.http
       .get<any[]>(this.api)
-      .pipe(
-        finalize(() => {
 
-          this.loading = false;
-        })
+      .pipe(
+        takeUntil(
+          this.destroy$
+        )
       )
+
       .subscribe({
 
         next: (res: any[]) => {
@@ -193,31 +213,50 @@ export class AdminFooter
               ? res
               : [];
 
-          if (!items.length) {
 
-            this.footerId = null;
+          if (items.length > 0) {
 
-            return;
+            const item =
+              items[
+                items.length - 1
+              ];
+
+
+            this.footerId =
+              item?.id != null
+                ? Number(item.id)
+                : null;
+
+
+            this.form = {
+
+              ...this.getDefaultForm(),
+
+              ...item,
+
+              active:
+                item?.active !== false
+            };
+
+          } else {
+
+            this.footerId =
+              null;
+
+
+            this.form =
+              this.getDefaultForm();
           }
 
 
-          const item =
-            items[items.length - 1];
+          /*
+           গুরুত্বপূর্ণ:
+           data পাওয়ার পর সরাসরি panel open
+          */
 
+          this.loading = false;
 
-          this.footerId =
-            Number(item.id);
-
-
-          this.form = {
-
-            ...this.getDefaultForm(),
-
-            ...item,
-
-            active:
-              item.active !== false
-          };
+          this.cdr.detectChanges();
         },
 
 
@@ -227,6 +266,24 @@ export class AdminFooter
             'Footer settings load failed',
             err
           );
+
+
+          /*
+           API error হলেও loading screen
+           আটকে থাকবে না
+          */
+
+          this.footerId =
+            null;
+
+
+          this.form =
+            this.getDefaultForm();
+
+
+          this.loading = false;
+
+          this.cdr.detectChanges();
         }
 
       });
@@ -240,11 +297,13 @@ export class AdminFooter
     }
 
 
-    if (
-      !String(
+    const brandTitle =
+      String(
         this.form.brandTitle || ''
-      ).trim()
-    ) {
+      ).trim();
+
+
+    if (!brandTitle) {
 
       alert(
         'Brand title is required'
@@ -256,45 +315,73 @@ export class AdminFooter
 
     this.saving = true;
 
+    this.cdr.detectChanges();
+
+
+    const payload = {
+
+      ...this.form,
+
+      brandTitle
+    };
+
 
     const request$ =
       this.footerId !== null
 
         ? this.http.put<any>(
             `${this.api}/${this.footerId}`,
-            this.form
+            payload
           )
 
         : this.http.post<any>(
             this.api,
-            this.form
+            payload
           );
 
 
     request$
       .pipe(
-        finalize(() => {
-
-          this.saving = false;
-        })
+        takeUntil(
+          this.destroy$
+        )
       )
+
       .subscribe({
 
         next: (saved: any) => {
 
-          if (saved?.id) {
+          if (
+            saved?.id != null
+          ) {
 
             this.footerId =
               Number(saved.id);
           }
 
 
+          if (saved) {
+
+            this.form = {
+
+              ...this.getDefaultForm(),
+
+              ...saved,
+
+              active:
+                saved.active !== false
+            };
+          }
+
+
+          this.saving = false;
+
+          this.cdr.detectChanges();
+
+
           alert(
             'Footer Saved Successfully'
           );
-
-
-          this.load();
         },
 
 
@@ -304,6 +391,11 @@ export class AdminFooter
             'Footer save failed',
             err
           );
+
+
+          this.saving = false;
+
+          this.cdr.detectChanges();
 
 
           alert(

@@ -89,6 +89,9 @@ from './pages/admin-shop-more/admin-shop-more';
 import { AdminPopularBrands }
 from './pages/admin-popular-brands/admin-popular-brands';
 
+import { AdminFooter }
+from './pages/admin-footer/admin-footer';
+
 
 // =========================
 // ANALYTICS
@@ -314,6 +317,18 @@ export const routes: Routes = [
 
         component:
           AdminPopularBrands
+      },
+
+
+      // =========================
+      // FOOTER MANAGEMENT
+      // =========================
+
+      {
+        path: 'footer',
+
+        component:
+          AdminFooter
       },
 
 
