@@ -487,134 +487,83 @@ export class Sidebar
   /* =========================
      MAIN CATEGORY
   ========================= */
+onMain(
+  cat: any
+): void {
 
-  onMain(
-    cat: any
-  ): void {
-
-    if (!cat?.id) {
-      return;
-    }
-
-
-    const id =
-      Number(cat.id);
-
-
-    this.selectedId =
-      id;
-
-
-    this.expandedMain =
-      id;
-
-
-    this.expandedSub =
-      null;
-
-
-    this.router.navigate([
-      '/category',
-      id
-    ]);
+  if (!cat?.id) {
+    return;
   }
 
+  const id = Number(cat.id);
+
+  this.selectedId = id;
+  this.expandedMain = id;
+  this.expandedSub = null;
+
+  this.categoryClick.emit({
+    id: id
+  });
+
+}
 
   /* =========================
      SUB CATEGORY
   ========================= */
 
   onSub(
-    sub: any,
-    parent: any
-  ): void {
+  sub: any,
+  parent: any
+): void {
 
-    if (
-      !sub?.id ||
-      !parent?.id
-    ) {
-      return;
-    }
-
-
-    const subId =
-      Number(sub.id);
-
-
-    const parentId =
-      Number(parent.id);
-
-
-    this.selectedId =
-      subId;
-
-
-    this.expandedMain =
-      parentId;
-
-
-    const children =
-      Array.isArray(
-        sub?.children
-      )
-        ? sub.children
-        : [];
-
-
-    this.expandedSub =
-      children.length > 0
-        ? subId
-        : null;
-
-
-    this.router.navigate([
-      '/category',
-      subId
-    ]);
+  if (!sub?.id || !parent?.id) {
+    return;
   }
 
+  const subId = Number(sub.id);
+
+  this.selectedId = subId;
+  this.expandedMain = Number(parent.id);
+
+  this.expandedSub =
+    sub.children?.length
+      ? subId
+      : null;
+
+  this.categoryClick.emit({
+    id: subId
+  });
+
+}
 
   /* =========================
      CHILD CATEGORY
   ========================= */
+onChild(
+  child: any,
+  sub: any,
+  main: any
+): void {
 
-  onChild(
-    child: any,
-    sub: any,
-    main: any
-  ): void {
-
-    if (
-      !child?.id ||
-      !sub?.id ||
-      !main?.id
-    ) {
-      return;
-    }
-
-
-    const childId =
-      Number(child.id);
-
-
-    this.selectedId =
-      childId;
-
-
-    this.expandedMain =
-      Number(main.id);
-
-
-    this.expandedSub =
-      Number(sub.id);
-
-
-    this.router.navigate([
-      '/category',
-      childId
-    ]);
+  if (
+    !child?.id ||
+    !sub?.id ||
+    !main?.id
+  ) {
+    return;
   }
 
+  const childId = Number(child.id);
+
+  this.selectedId = childId;
+  this.expandedMain = Number(main.id);
+  this.expandedSub = Number(sub.id);
+
+  this.categoryClick.emit({
+    id: childId
+  });
+
+}
 
   /* =========================
      HANDLE MAIN
