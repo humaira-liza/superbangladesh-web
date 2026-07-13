@@ -1313,3 +1313,23 @@
   }
 
 }
+
+/* =========================
+   FINAL MOBILE FIX
+========================= */
+
+@media (max-width:768px){
+
+  .navbar{
+    display:none !important;
+  }
+
+  .mobile-header{
+    display:flex !important;
+  }
+
+  .mobile-search{
+    display:block !important;
+  }
+
+}
