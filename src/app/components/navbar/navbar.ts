@@ -415,35 +415,27 @@ export class Navbar {
      MOBILE CATEGORY
   ========================= */
 
-  onMobileCategory(
-    data: any
-  ): void {
+onMobileCategory(
+  data: any
+): void {
 
-    this.sidebarOpen =
-      false;
-
-    if (
-      data?.level === 'close'
-    ) {
-      return;
-    }
-
-    if (!data) {
-      return;
-    }
-
-    this.searchText = '';
-
-    this.state.setSearch('');
-
-    this.state.setCategory(
-      data.id
-    );
-
-    this.router.navigate([
-      '/'
-    ]);
+  if (!data || !data.id) {
+    this.sidebarOpen = false;
+    return;
   }
+
+  this.searchText = '';
+
+  this.state.setSearch('');
+
+  this.state.setCategory(
+    Number(data.id)
+  );
+
+  this.sidebarOpen = false;
+
+  this.router.navigateByUrl('/');
+}
 
 
   /* =========================

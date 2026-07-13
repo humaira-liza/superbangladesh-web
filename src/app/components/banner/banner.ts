@@ -52,7 +52,7 @@ export class Banner implements OnInit, OnDestroy {
                   (this.current + 1)
                   % this.images.length;
 
-                this.cdr.detectChanges();
+              
 
               }, 3000);
           }
@@ -80,7 +80,7 @@ export class Banner implements OnInit, OnDestroy {
       (this.current - 1 + this.images.length)
       % this.images.length;
 
-    this.cdr.detectChanges();
+    
   }
 
   next() {
@@ -91,6 +91,6 @@ export class Banner implements OnInit, OnDestroy {
       (this.current + 1)
       % this.images.length;
 
-    this.cdr.detectChanges();
+ 
   }
 }

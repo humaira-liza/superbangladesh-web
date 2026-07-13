@@ -501,8 +501,13 @@ onMain(
   this.expandedMain = id;
   this.expandedSub = null;
 
+  this.router.navigate([
+    '/category',
+    id
+  ]);
+
   this.categoryClick.emit({
-    id: id
+    level: 'close'
   });
 
 }
@@ -510,28 +515,32 @@ onMain(
   /* =========================
      SUB CATEGORY
   ========================= */
-
-  onSub(
+onSub(
   sub: any,
   parent: any
 ): void {
 
-  if (!sub?.id || !parent?.id) {
+  if (!sub?.id) {
     return;
   }
 
-  const subId = Number(sub.id);
+  const id = Number(sub.id);
 
-  this.selectedId = subId;
+  this.selectedId = id;
   this.expandedMain = Number(parent.id);
 
   this.expandedSub =
     sub.children?.length
-      ? subId
+      ? id
       : null;
 
+  this.router.navigate([
+    '/category',
+    id
+  ]);
+
   this.categoryClick.emit({
-    id: subId
+    level: 'close'
   });
 
 }
@@ -545,26 +554,26 @@ onChild(
   main: any
 ): void {
 
-  if (
-    !child?.id ||
-    !sub?.id ||
-    !main?.id
-  ) {
+  if (!child?.id) {
     return;
   }
 
-  const childId = Number(child.id);
+  const id = Number(child.id);
 
-  this.selectedId = childId;
+  this.selectedId = id;
   this.expandedMain = Number(main.id);
   this.expandedSub = Number(sub.id);
 
+  this.router.navigate([
+    '/category',
+    id
+  ]);
+
   this.categoryClick.emit({
-    id: childId
+    level: 'close'
   });
 
 }
-
   /* =========================
      HANDLE MAIN
   ========================= */
