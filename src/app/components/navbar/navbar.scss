@@ -579,20 +579,43 @@
     z-index:9998;
   }
 
-  .mobile-sidebar{
-    position:fixed;
-    left:0;
-    top:0;
-    width:82%;
-    max-width:320px;
-    height:100%;
-    background:#fff;
-    z-index:9999;
-    overflow:auto;
-    box-shadow:5px 0 25px rgba(0,0,0,.2);
-    animation:sidebarOpen .25s;
-  }
+.mobile-sidebar{
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
 
+  width:86%;
+  max-width:330px;
+
+  background:#fff;
+
+  z-index:9999;
+
+  overflow-y:auto;
+  overflow-x:hidden;
+
+  -webkit-overflow-scrolling:touch;
+
+  box-shadow:6px 0 24px rgba(0,0,0,.18);
+
+  animation:sidebarOpen .25s ease;
+}
+
+.mobile-sidebar app-sidebar{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+.mobile-sidebar::-webkit-scrollbar{
+  width:4px;
+}
+
+.mobile-sidebar::-webkit-scrollbar-thumb{
+  background:#d1d5db;
+  border-radius:999px;
+}
   .mobile-sidebar a{
     display:block;
     padding:16px 18px;

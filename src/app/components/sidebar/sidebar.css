@@ -487,3 +487,25 @@
     padding-left:12px;
   }
 }
+
+@media (max-width:768px){
+
+  :host{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+
+  .sidebar{
+    height:auto !important;
+    min-height:100%;
+    overflow:visible !important;
+    border-right:none;
+    padding:12px 14px 30px;
+  }
+
+  .sub,
+  .child{
+    overflow:visible;
+  }
+}
