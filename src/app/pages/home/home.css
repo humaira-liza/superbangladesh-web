@@ -368,32 +368,86 @@
    MOBILE
 ========================= */
 
-@media(max-width:768px){
-
-  app-footer{
-  margin-left:0;
-
-  width:100%;
-}
+@media (max-width:768px){
 
   .layout{
     display:block;
-
     padding:0;
   }
-
 
   .desktop-sidebar{
     display:none !important;
   }
 
-
   .main-content{
     width:100%;
+    margin:0;
+    padding:0 0 16px;
+  }
 
+  app-banner{
+    display:block;
+    width:100%;
+    overflow:hidden;
     margin:0;
   }
 
+  app-banner img{
+    width:100%;
+    height:auto;
+    display:block;
+  }
+
+  app-features,
+  app-shop-more,
+  app-popular-brands{
+    display:block;
+    margin:16px 12px;
+  }
+
+  .popular-section{
+    margin:16px 12px;
+    padding:16px;
+    border-radius:16px;
+    background:#fff;
+    box-shadow:0 2px 10px rgba(0,0,0,.06);
+  }
+
+  .popular-section h2{
+    font-size:18px;
+    margin-bottom:14px;
+  }
+
+  .popular-grid{
+    gap:14px;
+    padding-bottom:6px;
+  }
+
+  .popular-card{
+    min-width:82px;
+  }
+
+  .popular-card img{
+    width:62px;
+    height:62px;
+    padding:8px;
+  }
+
+  .popular-card p{
+    font-size:13px;
+  }
+
+  .mobile-order-bar{
+    display:none;
+  }
+
+  app-footer{
+    width:100%;
+    margin:0 !important;
+    padding-bottom:20px;
+  }
+
+}
 
   
 
