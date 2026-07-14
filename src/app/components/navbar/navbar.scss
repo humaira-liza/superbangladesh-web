@@ -37,33 +37,6 @@
 
   backdrop-filter:none;
 }
-/* =========================
-   LEFT
-========================= */
-
-.left{
-  display:flex;
-  align-items:center;
-  gap:22px;
-
-  min-width:0;
-}
-
-
-/* =========================
-   LOGO
-========================= */
-
-.logo{
-  font-size:24px;
-  font-weight:900;
-
-  color:#166534;
-
-  cursor:pointer;
-  white-space:nowrap;
-}
-
 
 /* =========================
    SEARCH
@@ -153,74 +126,6 @@
   background:#f7f2ff;
   color:#7c3aed;
 }
-
-
-/* =========================
-   RIGHT
-========================= */
-
-.right{
-  display:flex;
-  align-items:center;
-
-  gap:8px;
-
-  white-space:nowrap;
-}
-
-
-.right a{
-  text-decoration:none;
-
-  padding:10px 14px;
-
-  border-radius:8px;
-
-  color:#111827;
-
-  font-weight:800;
-
-  cursor:pointer;
-
-  transition:
-    background .2s ease,
-    color .2s ease;
-}
-
-
-.right a:hover{
-  background:#f1eafa;
-  color:#7c3aed;
-
-  transform:none;
-}
-
-
-/* =========================
-   BADGE
-========================= */
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-
-  min-width:20px;
-  height:20px;
-
-  padding:0 6px;
-
-  margin-left:4px;
-
-  border-radius:999px;
-
-  background:#ef4444;
-  color:#ffffff;
-
-  font-size:11px;
-  font-weight:900;
-}
-
 
 /* =========================
    FLOATING CART
@@ -444,16 +349,6 @@
    MOBILE DEFAULTS
 ========================= */
 
-.mobile-nav{
-  display:none;
-}
-
-
-.mobile-item{
-  display:none;
-}
-
-
 .mobile-header{
   display:none;
 }
@@ -671,14 +566,6 @@
   min-width:0;
 }
 
-
-/* LOGO */
-
-.logo{
-  flex-shrink:0;
-}
-
-
 /* =========================================
    LOCATION
 ========================================= */
@@ -811,16 +698,6 @@
   min-width:0;
 }
 
-
-/* RIGHT */
-
-.right{
-  flex-shrink:0;
-
-  margin-left:auto;
-}
-
-
 /* =========================================
    MEDIUM DESKTOP
 ========================================= */
@@ -912,147 +789,6 @@
   white-space:nowrap;
 }
 
-
-/* =========================================
-   FINAL LEFT ORDER
-   BRAND -> SEARCH -> LOCATION
-========================================= */
-
-.left{
-  flex:1;
-
-  min-width:0;
-
-  display:flex;
-  align-items:center;
-
-  gap:18px;
-}
-
-
-/* =========================================
-   LONG SEARCH BOX
-========================================= */
-
-.search{
-  flex:1;
-
-  width:auto;
-
-  min-width:320px;
-  max-width:none;
-
-  height:54px;
-}
-
-
-/* =========================================
-   LOCATION AFTER SEARCH
-========================================= */
-
-.location-wrapper{
-  position:relative;
-
-  flex-shrink:0;
-}
-
-
-.location-dropdown{
-  left:auto;
-  right:0;
-}
-
-
-/* =========================================
-   MOBILE BRAND
-========================================= */
-
-.mobile-brand{
-  flex:1;
-
-  min-width:0;
-
-  display:flex;
-  align-items:center;
-
-  gap:6px;
-
-  margin:0 6px;
-
-  cursor:pointer;
-}
-
-
-.mobile-brand-logo{
-  width:34px;
-  height:34px;
-
-  object-fit:contain;
-
-  flex-shrink:0;
-}
-
-
-.mobile-brand .mobile-logo{
-  flex:1;
-
-  min-width:0;
-
-  margin:0;
-
-  overflow:hidden;
-
-  text-overflow:ellipsis;
-
-  white-space:nowrap;
-}
-
-
-/* =========================================
-   MEDIUM DESKTOP
-========================================= */
-
-@media(
-  max-width:1350px
-) and (
-  min-width:769px
-){
-
-  .navbar{
-    gap:14px;
-
-    padding-left:18px;
-    padding-right:18px;
-  }
-
-  .left{
-    gap:12px;
-  }
-
-  .brand{
-    gap:7px;
-  }
-
-  .brand-logo{
-    width:44px;
-    height:44px;
-  }
-
-  .brand .logo{
-    font-size:20px;
-  }
-
-  .search{
-    min-width:260px;
-  }
-
-  .right a{
-    padding:10px 9px;
-  }
-
-}
-
-
 /* =========================================
    SMALL DESKTOP
 ========================================= */
@@ -1125,35 +861,6 @@
   color: #7c3aed;
 }
 
-
-/* =========================================
-   DESKTOP ONLY
-========================================= */
-
-@media (min-width: 769px) {
-
-  .desktop-menu-btn {
-    display: flex;
-  }
-
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 768px) {
-
-  .desktop-menu-btn {
-    display: none !important;
-  }
-
- 
-
-}
-
-
 /* =========================
    LANGUAGE SWITCHER
 ========================= */
@@ -1200,31 +907,6 @@
 .language-switcher button.active {
   font-weight: 800;
 }
-
-
-/* =========================
-   LAPTOP RESPONSIVE
-========================= */
-
-@media (
-  min-width: 769px
-) and (
-  max-width: 1350px
-) {
-
-  .language-switcher {
-    gap: 4px;
-  }
-
-  .language-switcher button {
-    font-size: 13px;
-
-    padding-left: 1px;
-    padding-right: 1px;
-  }
-
-}
-
 
 /* =========================
    MOBILE
@@ -1337,22 +1019,23 @@
 
 }
 
-/* =========================
-   FINAL MOBILE FIX
-========================= */
+.mobile-order-bar{
+    display: none !important;
+}
 
-@media (max-width:768px){
+.right{
+    display:flex;
+    align-items:center;
+    gap:24px;
+    flex-shrink:0;
+}
 
-  .navbar{
-    display:none !important;
-  }
-
-  .mobile-header{
-    display:flex !important;
-  }
-
-  .mobile-search{
-    display:block !important;
-  }
-
+.right > a{
+    display:flex;
+    align-items:center;
+    height:48px;
+    text-decoration:none;
+    color:#111827;
+    font-size:15px;
+    font-weight:600;
 }

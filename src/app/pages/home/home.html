@@ -120,11 +120,107 @@
            POPULAR BRANDS
       ========================== -->
 
-      <app-popular-brands
-        *ngIf="!currentSearch"
-      >
-      </app-popular-brands>
+     <app-popular-brands
+  *ngIf="!currentSearch"
+>
+</app-popular-brands>
 
+<div *ngIf="currentSearch">
+
+
+  <div class="product-grid">
+
+    <article
+      class="product-card"
+      [class.out-product]="p.stock <= 0"
+      *ngFor="
+        let p of filtered;
+        trackBy: trackByProduct
+      ">
+
+      <div class="product-image">
+
+        <div
+          class="out-badge"
+          *ngIf="p.stock <= 0">
+
+          Out Of Stock
+
+        </div>
+
+        <img
+          loading="lazy"
+          decoding="async"
+          [src]="getImage(p.imageUrl || p.image_url || p.imageUrl1)"
+          (error)="onImgError($event)"
+        />
+
+        <button
+          type="button"
+          class="add-btn"
+          *ngIf="p.stock > 0"
+          (click)="addToCart(p,$event)">
+
+          +
+
+        </button>
+
+      </div>
+
+      <div class="product-info">
+
+        <div class="price-line">
+
+          <span class="price">
+            ৳{{ p.price }}
+          </span>
+
+          <span
+            class="old-price"
+            *ngIf="p.price">
+
+            ৳{{ p.price + 20 }}
+
+          </span>
+
+        </div>
+
+        <h3>
+          {{ p.name }}
+        </h3>
+
+        <p
+          class="unit"
+          *ngIf="p.quantity && p.unit">
+
+          {{ p.quantity }}
+          {{ p.unit }}
+
+        </p>
+
+        <p
+          class="unit"
+          *ngIf="!p.quantity && p.unit">
+
+          {{ p.unit }}
+
+        </p>
+
+        <div class="delivery">
+
+          <span>
+            ◷ 1 hr
+          </span>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</div>
 
     </main>
 

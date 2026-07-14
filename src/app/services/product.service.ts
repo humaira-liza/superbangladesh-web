@@ -29,6 +29,12 @@ private api = 'https://superbangladesh-api-1.onrender.com/api/products';
     return this.http.delete(`${this.api}/${id}`);
   }
 
+  searchProducts(keyword: string): Observable<any[]> {
+  return this.http.get<any[]>(
+    `${this.api}/search?keyword=${encodeURIComponent(keyword)}`
+  );
+}
+
   uploadImage(file: File, folder: string): Observable<string> {
     const formData = new FormData();
     formData.append('file', file);

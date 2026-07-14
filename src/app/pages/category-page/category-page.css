@@ -32,22 +32,35 @@
 }
 
 
-.category-layout > app-sidebar {
-  width: 230px;
-  flex: 0 0 230px;
-  align-self: flex-start;
+.category-layout > app-sidebar{
+  position: fixed;
+  top: 90px;
+  left: 0;
+
+  width:230px;
+  height:calc(100vh - 90px);
+
+  display:block;
+
+  overflow-y:auto;
+  overflow-x:hidden;
+
+  overscroll-behavior:contain;
+
+  background:#fff;
+
+  z-index:1000;
 }
 
 
-.category-content {
-  flex: 1;
-  min-width: 0;
+.category-content{
+  flex:1;
+  min-width:0;
 
-  padding:
-    24px 18px
-    60px;
+  margin-left:230px;
+
+  padding:24px 18px 60px;
 }
-
 
 /* =========================
    TITLE

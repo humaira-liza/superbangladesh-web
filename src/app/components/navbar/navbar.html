@@ -465,3 +465,37 @@
   </button>
 
 </div>
+
+<!-- MOBILE BOTTOM BAR -->
+
+<div class="mobile-order-bar">
+
+  <button
+    type="button"
+    class="mobile-chat-btn"
+    (click)="toggleChat()"
+  >
+    <i class="fa-solid fa-comments"></i>
+  </button>
+
+  <button
+    type="button"
+    class="mobile-order-btn"
+  >
+    {{ t('placeOrder') }}
+  </button>
+
+  <button
+    type="button"
+    class="mobile-cart-btn"
+    (click)="openCartDrawer()"
+  >
+    <i class="fa-solid fa-cart-shopping"></i>
+
+    <span class="mobile-cart-badge">
+      {{ cart.count() }}
+    </span>
+
+  </button>
+
+</div>

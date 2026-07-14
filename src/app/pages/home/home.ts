@@ -513,33 +513,46 @@ export class Home implements OnInit {
   // SEARCH
   // =========================
 
-  applySearch(): void {
+ applySearch(): void {
 
-    const text =
-      this.currentSearch
-        ?.trim()
-        .toLowerCase();
+   console.log('SEARCH =', this.currentSearch);
 
+  const text = this.currentSearch.trim();
 
-    if (!text) {
+  if (!text) {
 
-      this.filtered =
-        [...this.allProducts];
-
-      return;
-    }
-
-
-    this.filtered =
-      this.allProducts.filter(
-
-        (p: any) =>
-          p.name
-            ?.toLowerCase()
-            .includes(text)
-      );
+    this.filtered = [...this.allProducts];
+    return;
   }
 
+  this.loading = true;
+
+  this.productService
+      .searchProducts(text)
+      .subscribe({
+
+        next: (res: any[]) => {
+
+          this.filtered = [...res];
+
+          this.loading = false;
+
+          this.cdr.detectChanges();
+        },
+
+        error: err => {
+
+          console.error(err);
+
+          this.filtered = [];
+
+          this.loading = false;
+
+          this.cdr.detectChanges();
+        }
+
+      });
+}
 
   // =========================
   // SEE ALL PRODUCTS

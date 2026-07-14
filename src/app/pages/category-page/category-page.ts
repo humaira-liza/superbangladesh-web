@@ -19,6 +19,8 @@ import { Sidebar } from '../../components/sidebar/sidebar';
 
 import { CartService } from '../../services/cart';
 
+import { ProductStateService } from '../../services/product-state.service';
+import { ProductService } from '../../services/product.service';
 import {
   Subject,
   of
@@ -60,8 +62,9 @@ export class CategoryPage
   categoryLoading = false;
 
   productsLoading = false;
-
   errorMessage = '';
+
+ currentSearch = '';
 
   private destroy$ =
     new Subject<void>();
@@ -70,14 +73,16 @@ export class CategoryPage
     'https://superbangladesh-api-1.onrender.com';
 
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private http: HttpClient,
-    public cart: CartService,
-    private cdr: ChangeDetectorRef,
-    private zone: NgZone
-  ) {}
+constructor(
+  private route: ActivatedRoute,
+  private router: Router,
+  private http: HttpClient,
+  public cart: CartService,
+  private cdr: ChangeDetectorRef,
+  private zone: NgZone,
+  private state: ProductStateService,
+  private productService: ProductService
+) {}
 
 
   // =========================
@@ -85,6 +90,30 @@ export class CategoryPage
   // =========================
 
   ngOnInit(): void {
+
+    this.state.search$.subscribe(keyword => {
+
+  this.currentSearch = keyword.trim();
+
+  if (!this.currentSearch) {
+    return;
+  }
+
+  this.productsLoading = true;
+
+  this.productService
+    .searchProducts(this.currentSearch)
+    .subscribe(res => {
+
+      this.products = res || [];
+
+      this.productsLoading = false;
+
+      this.cdr.detectChanges();
+
+    });
+
+});
 
     this.route.paramMap
       .pipe(
