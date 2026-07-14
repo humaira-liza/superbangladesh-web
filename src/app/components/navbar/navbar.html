@@ -13,22 +13,13 @@
   </button>
 
 
-  <div
-    class="mobile-brand"
-    (click)="goHome()"
-  >
+<div class="mobile-location">
 
-    <img
-      src="/images/love-logo.png"
-      alt="Super Bangladesh Logo"
-      class="mobile-brand-logo"
-    />
+  <i class="fa-solid fa-location-dot"></i>
 
-    <div class="mobile-logo">
-      Super Bangladesh
-    </div>
+  <span>{{ getSelectedLocationLabel() }}</span>
 
-  </div>
+</div>
 
 
   <div class="mobile-actions">

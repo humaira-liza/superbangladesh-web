@@ -382,19 +382,6 @@
     padding:0 0 16px;
   }
 
-  app-banner{
-    display:block;
-    width:100%;
-    overflow:hidden;
-    margin:0;
-  }
-
-  app-banner img{
-    width:100%;
-    height:auto;
-    display:block;
-  }
-
   app-features,
   app-shop-more,
   app-popular-brands{
@@ -713,3 +700,6 @@ margin:6px 0;
   }
 
 }
+
+
+
