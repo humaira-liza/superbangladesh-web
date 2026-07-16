@@ -27,10 +27,13 @@ export class CartDrawer {
     public cart: CartService,
     private router: Router
   ) {}
+close() {
 
-  close() {
-    this.closeDrawer.emit();
-  }
+  document.body.classList.remove('cart-open');
+
+  this.closeDrawer.emit();
+
+}
 
   getImage(url: string) {
 
@@ -78,7 +81,12 @@ export class CartDrawer {
   }
 
   checkout() {
-    this.close();
-    this.router.navigate(['/checkout']);
-  }
+
+  document.body.classList.remove('cart-open');
+
+  this.closeDrawer.emit();
+
+  this.router.navigate(['/checkout']);
+
+}
 }

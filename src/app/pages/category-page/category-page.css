@@ -54,12 +54,13 @@
 
 
 .category-content{
-  flex:1;
-  min-width:0;
+  width:100%;
+  margin-left:0 !important;
+  margin-right:0 !important;
 
-  margin-left:230px;
+  padding:20px 10px 100px;
 
-  padding:24px 18px 60px;
+  overflow-x:hidden;
 }
 
 /* =========================

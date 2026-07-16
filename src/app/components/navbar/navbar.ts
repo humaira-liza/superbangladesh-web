@@ -442,15 +442,14 @@ onMobileCategory(
      CART DRAWER
   ========================= */
 
-  openCartDrawer(): void {
+openCartDrawer(): void {
 
-    window.dispatchEvent(
+  document.body.classList.add('cart-open');
 
-      new CustomEvent(
-        'open-cart-drawer'
-      )
+  window.dispatchEvent(
+    new CustomEvent('open-cart-drawer')
+  );
 
-    );
-  }
+}
 
 }

@@ -1,5 +1,25 @@
 <div class="checkout-page">
 
+  <div class="mobile-checkout-header">
+
+  <button
+    class="back-btn"
+    routerLink="/">
+
+    <i class="fa-solid fa-arrow-left"></i>
+
+  </button>
+
+  <div class="mobile-title">
+
+    <h3>{{ items.length }} item</h3>
+
+    <span>Shipping Fee : ৳60</span>
+
+  </div>
+
+</div>
+
   <!-- PAGE HEADER -->
 
   <div class="checkout-header">
@@ -338,5 +358,20 @@
     </div>
 
   </div>
+  <div class="mobile-checkout-bar">
+
+  <button
+    class="checkout-fixed-btn"
+    (click)="placeOrder()">
+
+    <span>Checkout</span>
+
+    <strong>
+      ৳ {{ total + 60 }}
+    </strong>
+
+  </button>
+
+</div>
 
 </div>

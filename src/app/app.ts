@@ -84,20 +84,19 @@ export class AppComponent
 
   openCartDrawer(): void {
 
-    this.cartDrawerOpen = true;
+  this.cartDrawerOpen = true;
 
-    document.body.classList.add(
-      'cart-drawer-open'
-    );
-  }
+  document.body.classList.add('cart-open');
 
+}
 
   closeCartDrawer(): void {
 
-    this.cartDrawerOpen = false;
+  this.cartDrawerOpen = false;
 
-    document.body.classList.remove(
-      'cart-drawer-open'
-    );
-  }
+  document.body.classList.remove('cart-open');
+
+  document.body.classList.remove('cart-drawer-open');
+
+}
 }

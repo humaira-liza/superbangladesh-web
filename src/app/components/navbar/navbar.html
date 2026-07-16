@@ -22,37 +22,34 @@
 </div>
 
 
-  <div class="mobile-actions">
+<div class="mobile-actions">
 
-    <a
-      routerLink="/"
-      class="mobile-home"
-    >
-      <i class="fa-solid fa-house"></i>
-    </a>
+  <a
+    routerLink="/"
+    class="mobile-home"
+    aria-label="Home"
+  >
+    <i class="fa-solid fa-house"></i>
+  </a>
 
+  <a
+    *ngIf="!isLoggedIn()"
+    routerLink="/login"
+    class="mobile-login-btn"
+  >
+    {{ t('login') }}
+  </a>
 
-    <a
-      class="mobile-cart"
-      (click)="openCartDrawer()"
-    >
-      <i class="fa-solid fa-cart-shopping"></i>
+ <button
+  *ngIf="isLoggedIn()"
+  type="button"
+  class="mobile-login-btn"
+  (click)="logout()"
+>
+  {{ t('logout') }}
+</button>
 
-      <span class="mobile-badge">
-        {{ cart.count() }}
-      </span>
-    </a>
-
-
-    <a
-      *ngIf="isLoggedIn()"
-      (click)="logout()"
-      class="mobile-login"
-    >
-      {{ t('logout') }}
-    </a>
-
-  </div>
+</div>
 
 
   <div

@@ -70,24 +70,20 @@
 ========================= */
 
 .delivery-message{
-  min-height:28px;
+  flex-shrink:0;
+
+  height:34px;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
-  padding:5px 8px;
-
   background:#d94c63;
   color:#fff;
 
   font-size:11px;
-  line-height:1.2;
   font-weight:600;
-
-  text-align:center;
 }
-
 
 /* =========================
    BODY
@@ -95,7 +91,7 @@
 
 .drawer-body{
   flex:1;
-
+margin-top:0;
   min-height:0;
 
   overflow-y:auto;
@@ -103,7 +99,7 @@
 
   padding:0;
 
-  background:#f7f7f8;
+  background:#fff;
 }
 
 
@@ -579,6 +575,11 @@
   color:#555;
 }
 
+.mobile-cart-header{
+  display:none;
+}
+
+
 
 /* =========================
    MOBILE
@@ -586,24 +587,73 @@
 
 @media(max-width:600px){
 
+  .mobile-cart-header{
+  display:block;
+}
+
+.save-bar{
+  height:30px;
+  background:#666;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  padding:0 12px;
+  font-size:12px;
+  font-weight:600;
+}
+
+.cart-header{
+  height:60px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 14px;
+  background:#fff;
+  border-bottom:1px solid #ececec;
+}
+
+.back-btn{
+  border:none;
+  background:none;
+  font-size:20px;
+  color:#7c3aed;
+}
+
+.cart-title{
+  flex:1;
+  margin-left:12px;
+}
+
+.cart-title h3{
+  margin:0;
+  font-size:18px;
+}
+
+.cart-title span{
+  display:block;
+  font-size:13px;
+  color:#0f9d58;
+}
+
+.bag-icon{
+  font-size:20px;
+  color:#16a34a;
+}
+
   .cart-drawer{
-    width:100%;
-  }
+  width:100%;
+  top:0;
+  height:100dvh;
+  overflow:hidden;
+}
 
-
-  .cart-item{
-    min-height:82px;
-
-    grid-template-columns:
-      46px
-      minmax(0,1fr)
-      96px;
-
-    column-gap:7px;
-
-    padding:8px 7px;
-  }
-
+.cart-item{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  padding:14px 12px;
+  min-height:auto;
+}
 
   .item-image{
     width:43px;
@@ -665,17 +715,22 @@
   }
 
 
-  .drawer-arrow{
-    left:0;
+.drawer-arrow{
+  display:none;
+}
 
-    width:28px;
-    height:64px;
+.delivery-message{
+  display:none;
+}
 
-    border-radius:
-      0 6px 6px 0;
 
-    background:
-      rgba(229,229,229,.95);
-  }
+.mobile-cart-header{
+  flex-shrink:0;
+}
+
+.drawer-body{
+  flex:1;
+  overflow-y:auto;
+}
 
 }
