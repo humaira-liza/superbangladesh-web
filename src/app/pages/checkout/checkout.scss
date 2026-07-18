@@ -626,56 +626,61 @@ textarea{
 @media(max-width:768px){
 
   .checkout-page{
-
-    padding:16px;
+    padding:0px;
   }
 
   .checkout-header{
-
     flex-direction:column;
   }
 
   .top-summary{
-
     width:100%;
-
     flex-direction:column;
   }
 
   .top-box{
-
     width:100%;
   }
 
   .page-title{
-
     font-size:40px;
   }
 
   .section-header h2{
-
     font-size:28px;
   }
 
   .payment-options{
-
     flex-direction:column;
   }
 
   .payment-card{
-
     width:100%;
   }
 
   .summary-top h2{
-
     font-size:30px;
   }
 
   .final-row h3{
-
     font-size:34px;
   }
+
+  .checkout-grid{
+    margin-top:0;
+    gap:0;
+  }
+
+  .checkout-card{
+    margin-top:0;
+    border-radius:24px 24px 0 0;
+    padding-bottom:140px;   /* এটা যোগ করো */
+  }
+
+  .summary-card{
+    margin-bottom:100px;    /* এটা যোগ করো */
+  }
+
 }
 
 /* =========================
@@ -685,112 +690,6 @@ textarea{
 .mobile-checkout-header{
   display:none;
 }
-
-/* =========================
-   MOBILE CHECKOUT BAR
-========================= */
-
 .mobile-checkout-bar{
   display:none;
-}
-
-@media (max-width:768px){
-
-  /* Desktop header hide */
-
-  .checkout-header{
-    display:none;
-  }
-
-  /* Desktop summary hide */
-
-  .summary-card{
-    display:none;
-  }
-
-  /* Mobile header */
-
-  .mobile-checkout-header{
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    position:sticky;
-    top:0;
-    z-index:1000;
-
-    background:#fff;
-
-    padding:12px 16px;
-
-    border-bottom:1px solid #eee;
-  }
-
-  .back-btn{
-    width:40px;
-    height:40px;
-
-    border:none;
-    border-radius:50%;
-
-    background:#f5f5f5;
-
-    font-size:18px;
-  }
-
-  .mobile-title h3{
-    margin:0;
-    font-size:16px;
-  }
-
-  .mobile-title span{
-    font-size:13px;
-    color:#666;
-  }
-
-  /* Bottom checkout */
-
-  .mobile-checkout-bar{
-    display:block;
-
-    position:fixed;
-    left:0;
-    right:0;
-    bottom:0;
-
-    background:#fff;
-
-    padding:10px 14px;
-
-    border-top:1px solid #eee;
-
-    z-index:1000;
-  }
-
-  .checkout-fixed-btn{
-    width:100%;
-    height:48px;
-
-    border:none;
-    border-radius:10px;
-
-    background:#8a3ffc;
-    color:#fff;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:0 18px;
-
-    font-size:16px;
-    font-weight:700;
-  }
-
-  /* যেন নিচের বাটন কনটেন্ট ঢেকে না ফেলে */
-
-  .checkout-card{
-    padding-bottom:90px;
-  }
-
 }

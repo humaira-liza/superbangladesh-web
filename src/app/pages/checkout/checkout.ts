@@ -36,26 +36,26 @@ export class Checkout implements OnInit {
     private router: Router,
     private http: HttpClient
   ) {}
+ngOnInit(): void {
 
-  ngOnInit(): void {
+  const token = localStorage.getItem('token');
 
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-
-      alert('Login required to checkout 🔐');
-
-      this.router.navigate(['/login']);
-
-      return;
-    }
-
-    this.items = this.cart.getItems();
-
-    console.log("🛒 CART ITEMS:", this.items);
-
-    this.total = this.cart.getTotal();
+  if (!token) {
+    alert('Login required to checkout 🔐');
+    this.router.navigate(['/login']);
+    return;
   }
+
+  this.items = this.cart.getItems();
+
+  console.log("🛒 CART ITEMS");
+  console.log(this.items);
+
+  console.log("🛒 FIRST ITEM");
+  console.log(this.items[0]);
+
+  this.total = this.cart.getTotal();
+}
 
   placeOrder(): void {
 

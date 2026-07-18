@@ -68,3 +68,11 @@ body.cart-drawer-open .floating-cart,
 body.cart-drawer-open .chat-wrapper {
   display: none !important;
 }
+
+@media (max-width:768px){
+
+  body{
+    padding-top:130px;
+  }
+
+}
