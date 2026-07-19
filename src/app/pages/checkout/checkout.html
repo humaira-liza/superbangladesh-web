@@ -293,12 +293,14 @@
 
         <div class="summary-left">
 
-          <div class="product-icon">
+        <div class="product-image">
 
-            {{ p.name.charAt(0) }}
+  <img
+    [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl"
+    [alt]="p.name"
+  />
 
-          </div>
-
+</div>
           <div>
 
             <h4>

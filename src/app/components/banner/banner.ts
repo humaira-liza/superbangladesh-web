@@ -7,11 +7,20 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
+import { ProductStateService } from '../../services/product-state.service';
+
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-banner',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+  CommonModule,
+  FormsModule
+],
   templateUrl: './banner.html',
   styleUrls: ['./banner.css']
 })
@@ -21,16 +30,42 @@ export class Banner implements OnInit, OnDestroy {
 
   current = 0;
   intervalId: any;
+  showMobileSearch = false;
+
+searchText = '';
+
+private sub?: Subscription;
+
+applySearch(): void {
+
+  this.state.setSearch(this.searchText);
+
+}
+
+clearSearch(): void {
+
+  this.searchText = '';
+
+  this.state.setSearch('');
+
+}
 
   api =
     'https://superbangladesh-api-1.onrender.com/api/banners';
 
-  constructor(
-    private http: HttpClient,
-    private cdr: ChangeDetectorRef
-  ) {}
-
+ constructor(
+  private http: HttpClient,
+  private cdr: ChangeDetectorRef,
+  private state: ProductStateService
+) {}
   ngOnInit() {
+
+    this.sub = this.state.mobileSearch$
+.subscribe(value => {
+
+  this.showMobileSearch = value;
+
+});
 
     this.http
       .get<any[]>(this.api)
@@ -67,10 +102,12 @@ export class Banner implements OnInit, OnDestroy {
 
   ngOnDestroy() {
 
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
+  if (this.intervalId) {
+    clearInterval(this.intervalId);
   }
+
+  this.sub?.unsubscribe();
+}
 
   prev() {
 

@@ -2,6 +2,20 @@
   class="carousel"
   *ngIf="images.length">
 
+  <div
+  class="banner-search"
+  *ngIf="showMobileSearch"
+>
+
+<input
+  type="text"
+  [(ngModel)]="searchText"
+  (input)="applySearch()"
+  placeholder="Search products..."
+/>
+
+</div>
+
   <button
     class="nav prev"
     (click)="prev()">

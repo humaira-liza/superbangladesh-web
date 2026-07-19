@@ -645,11 +645,7 @@ addToCart(
 
   this.cart.add(product);
 
-  window.dispatchEvent(
-    new CustomEvent(
-      'open-cart-drawer'
-    )
-  );
+
 }
 
   // =========================

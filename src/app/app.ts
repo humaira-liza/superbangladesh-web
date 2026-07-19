@@ -84,6 +84,10 @@ export class AppComponent
 
   openCartDrawer(): void {
 
+  console.log('OPEN CART DRAWER');
+
+  console.trace();
+
   this.cartDrawerOpen = true;
 
   document.body.classList.add('cart-open');

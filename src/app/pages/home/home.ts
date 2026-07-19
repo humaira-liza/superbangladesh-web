@@ -3,9 +3,9 @@ import {
   OnInit,
   ChangeDetectorRef,
   ElementRef,
-  ViewChild
+  ViewChild,
+  HostListener
 } from '@angular/core';
-
 import {
   CommonModule
 } from '@angular/common';
@@ -54,21 +54,24 @@ import {
   LanguageService
 } from '../../services/language.service';
 
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-home',
 
   standalone: true,
 
-  imports: [
-    CommonModule,
-    Sidebar,
-    Banner,
-    Features,
-    ShopMore,
-    PopularBrands,
-    Footer
-  ],
+ imports: [
+  CommonModule,
+  FormsModule,
+  Sidebar,
+  Banner,
+  Features,
+  ShopMore,
+  PopularBrands,
+  Footer
+],
 
   templateUrl: './home.html',
 
@@ -140,7 +143,6 @@ export class Home implements OnInit {
   // =========================
 
   currentSearch = '';
-
 
   // =========================
   // BREADCRUMB
@@ -249,7 +251,6 @@ export class Home implements OnInit {
         }
 
       });
-
 
     // CATEGORY STATE
 
@@ -892,13 +893,6 @@ export class Home implements OnInit {
 
     this.cdr.detectChanges();
 
-
-    window.dispatchEvent(
-
-      new CustomEvent(
-        'open-cart-drawer'
-      )
-    );
   }
 
 

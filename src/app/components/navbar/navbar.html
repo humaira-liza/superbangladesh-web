@@ -2,112 +2,133 @@
      MOBILE HEADER
 ========================= -->
 
+
 <div class="mobile-header">
 
-  <button
-    type="button"
-    class="menu-btn"
-    (click)="toggleSidebar()"
-  >
+  <!-- LEFT -->
+<button
+  type="button"
+  class="menu-btn"
+  (click)="toggleDesktopMenu($event)"
+>
     <i class="fa-solid fa-bars"></i>
   </button>
 
+  <!-- CENTER -->
+  <div
+    class="mobile-brand"
+    (click)="goHome()"
+  >
+    <img
+      src="/images/love-logo.png"
+      class="brand-logo"
+      alt="Super Bangladesh"
+    >
 
-<div class="mobile-location">
+    <span>
+      Super<br>
+      Bangladesh
+    </span>
 
-  <i class="fa-solid fa-location-dot"></i>
-
-  <span>{{ getSelectedLocationLabel() }}</span>
-
-</div>
-
-
-<div class="mobile-actions">
+  </div>
+  <div
+  class="desktop-account-menu"
+  *ngIf="desktopMenuOpen && isMobile"
+>
 
   <a
     routerLink="/"
-    class="mobile-home"
-    aria-label="Home"
+    (click)="closeDesktopMenu()"
   >
     <i class="fa-solid fa-house"></i>
+    <span>{{ t('home') }}</span>
   </a>
 
   <a
-    *ngIf="!isLoggedIn()"
-    routerLink="/login"
-    class="mobile-login-btn"
+    *ngIf="isLoggedIn() && !isAdmin()"
+    routerLink="/orders"
+    (click)="closeDesktopMenu()"
   >
-    {{ t('login') }}
+    <i class="fa-solid fa-clock-rotate-left"></i>
+    <span>{{ t('myOrders') }}</span>
   </a>
 
- <button
-  *ngIf="isLoggedIn()"
-  type="button"
-  class="mobile-login-btn"
-  (click)="logout()"
+  <a
+    *ngIf="isAdmin()"
+    routerLink="/admin/dashboard"
+    (click)="closeDesktopMenu()"
+  >
+    <i class="fa-solid fa-user-shield"></i>
+    <span>{{ t('adminDashboard') }}</span>
+  </a>
+
+</div>
+
+  <!-- RIGHT -->
+  <div class="mobile-actions">
+
+    <button
+      class="mobile-location-btn"
+      (click)="toggleLocationMenu($event)"
+    >
+      <i class="fa-solid fa-location-dot"></i>
+    </button>
+
+    <button
+      *ngIf="isLoggedIn()"
+      type="button"
+      class="mobile-login-btn"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+
+    <a
+      *ngIf="!isLoggedIn()"
+      routerLink="/login"
+      class="mobile-login-btn"
+    >
+      Login
+    </a>
+
+  </div>
+
+</div>
+
+<div
+  class="mobile-overlay"
+  *ngIf="sidebarOpen"
+  (click)="toggleSidebar()"
 >
-  {{ t('logout') }}
-</button>
-
 </div>
 
+<div
+  class="mobile-sidebar"
+  *ngIf="sidebarOpen"
+>
 
-  <div
-    class="mobile-overlay"
-    *ngIf="sidebarOpen"
-    (click)="toggleSidebar()"
+  <app-sidebar
+    (categoryClick)="onMobileCategory($event)"
   >
-  </div>
+  </app-sidebar>
 
-
-  <div
-    class="mobile-sidebar"
-    *ngIf="sidebarOpen"
+  <a
+    *ngIf="isLoggedIn() && !isAdmin()"
+    routerLink="/orders"
+    (click)="sidebarOpen = false"
   >
+    {{ t('myOrders') }}
+  </a>
 
-    <app-sidebar
-      (categoryClick)="onMobileCategory($event)"
-    >
-    </app-sidebar>
-
-
-    <a
-      *ngIf="isLoggedIn() && !isAdmin()"
-      routerLink="/orders"
-      (click)="sidebarOpen = false"
-    >
-      {{ t('myOrders') }}
-    </a>
-
-
-    <a
-      *ngIf="isAdmin()"
-      routerLink="/admin/dashboard"
-      (click)="sidebarOpen = false"
-    >
-      {{ t('adminDashboard') }}
-    </a>
-
-  </div>
+  <a
+    *ngIf="isAdmin()"
+    routerLink="/admin/dashboard"
+    (click)="sidebarOpen = false"
+  >
+    {{ t('adminDashboard') }}
+  </a>
 
 </div>
-
-
-<!-- =========================
-     MOBILE SEARCH
-========================= -->
-
-<div class="mobile-search">
-
-  <input
-    type="text"
-    [(ngModel)]="searchText"
-    (input)="search()"
-    [placeholder]="t('searchProducts')"
-  />
-
-</div>
-
 
 <!-- =========================
      DESKTOP NAVBAR
@@ -130,54 +151,38 @@
       <i class="fa-solid fa-bars"></i>
     </button>
 
-
     <div
-      class="desktop-account-menu"
-      *ngIf="desktopMenuOpen"
-    >
+  class="desktop-account-menu"
+  *ngIf="desktopMenuOpen && !isMobile"
+>
 
-      <a
-        routerLink="/"
-        (click)="closeDesktopMenu()"
-      >
-        <i class="fa-solid fa-house"></i>
+  <a
+    routerLink="/"
+    (click)="closeDesktopMenu()"
+  >
+    <i class="fa-solid fa-house"></i>
+    <span>{{ t('home') }}</span>
+  </a>
 
-        <span>
-          {{ t('home') }}
-        </span>
-      </a>
+  <a
+    *ngIf="isLoggedIn() && !isAdmin()"
+    routerLink="/orders"
+    (click)="closeDesktopMenu()"
+  >
+    <i class="fa-solid fa-clock-rotate-left"></i>
+    <span>{{ t('myOrders') }}</span>
+  </a>
 
+  <a
+    *ngIf="isAdmin()"
+    routerLink="/admin/dashboard"
+    (click)="closeDesktopMenu()"
+  >
+    <i class="fa-solid fa-user-shield"></i>
+    <span>{{ t('adminDashboard') }}</span>
+  </a>
 
-      <a
-        *ngIf="isLoggedIn() && !isAdmin()"
-        routerLink="/orders"
-        (click)="closeDesktopMenu()"
-      >
-
-        <i class="fa-solid fa-clock-rotate-left"></i>
-
-        <span>
-          {{ t('myOrders') }}
-        </span>
-
-      </a>
-
-
-      <a
-        *ngIf="isAdmin()"
-        routerLink="/admin/dashboard"
-        (click)="closeDesktopMenu()"
-      >
-
-        <i class="fa-solid fa-user-shield"></i>
-
-        <span>
-          {{ t('adminDashboard') }}
-        </span>
-
-      </a>
-
-    </div>
+</div>
 
   </div>
 
@@ -204,7 +209,10 @@
     </div>
 
 
-    <div class="search">
+    <div
+  class="search"
+  *ngIf="!isMobile"
+>
 
       <input
         type="text"
@@ -454,36 +462,65 @@
 
 </div>
 
-<!-- MOBILE BOTTOM BAR -->
+<!-- MOBILE BOTTOM NAV -->
 
-<div class="mobile-order-bar">
+<nav class="mobile-bottom-nav">
+
+ <a
+  routerLink="/"
+  (click)="goHome()"
+>
+    <i class="fa-solid fa-house"></i>
+    <span>Home</span>
+  </a>
 
   <button
     type="button"
-    class="mobile-chat-btn"
-    (click)="toggleChat()"
+    (click)="toggleSidebar()"
   >
-    <i class="fa-solid fa-comments"></i>
+    <i class="fa-solid fa-table-cells"></i>
+    <span>Menu</span>
   </button>
 
   <button
     type="button"
-    class="mobile-order-btn"
-  >
-    {{ t('placeOrder') }}
-  </button>
-
-  <button
-    type="button"
-    class="mobile-cart-btn"
     (click)="openCartDrawer()"
+    class="cart-nav"
   >
     <i class="fa-solid fa-cart-shopping"></i>
 
-    <span class="mobile-cart-badge">
+    <span
+      class="nav-badge"
+      *ngIf="cart.count()"
+    >
       {{ cart.count() }}
     </span>
 
+    <span>Cart</span>
   </button>
 
-</div>
+  <button
+  type="button"
+  (click)="toggleMobileSearch()"
+>
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span>Search</span>
+  </button>
+
+  <a
+    *ngIf="isLoggedIn()"
+    routerLink="/orders"
+  >
+    <i class="fa-solid fa-user"></i>
+    <span>Account</span>
+  </a>
+
+  <a
+    *ngIf="!isLoggedIn()"
+    routerLink="/login"
+  >
+    <i class="fa-solid fa-user"></i>
+    <span>Login</span>
+  </a>
+
+</nav>

@@ -53,14 +53,14 @@ import {
   ]
 })
 export class Navbar {
-
+isMobile = window.innerWidth <= 768;
 
   /* =========================
      SEARCH
   ========================= */
 
   searchText = '';
-
+showMobileSearch = false;
 
   /* =========================
      LOCATION
@@ -240,28 +240,28 @@ export class Navbar {
      HOME
   ========================= */
 
-  goHome(): void {
+ goHome(): void {
 
-    this.searchText = '';
+  this.searchText = '';
 
-    this.state.setSearch('');
+  this.state.setSearch('');
 
-    this.state.setCategory(0);
+  this.state.setCategory(0);
 
-    this.showLocationMenu =
-      false;
+  this.showMobileSearch = false;
 
-    this.desktopMenuOpen =
-      false;
+  this.state.setMobileSearch(false);
 
-    this.sidebarOpen =
-      false;
+  this.showLocationMenu = false;
 
-    this.router.navigate([
-      '/'
-    ]);
-  }
+  this.desktopMenuOpen = false;
 
+  this.sidebarOpen = false;
+
+  this.router.navigate([
+    '/'
+  ]);
+}
 
   /* =========================
      SEARCH
@@ -388,7 +388,12 @@ export class Navbar {
       false;
   }
 
+@HostListener('window:resize')
+onResize(): void {
 
+  this.isMobile = window.innerWidth <= 768;
+
+}
   /* =========================
      CHAT
   ========================= */
@@ -410,7 +415,29 @@ export class Navbar {
       !this.sidebarOpen;
   }
 
+toggleMobileSearch(): void {
 
+  this.showMobileSearch =
+    !this.showMobileSearch;
+
+  this.state.setMobileSearch(
+    this.showMobileSearch
+  );
+
+  if (this.showMobileSearch) {
+
+    this.router.navigate(['/']);
+
+  } else {
+
+    this.searchText = '';
+
+    this.state.setSearch('');
+
+  }
+
+}
+  
   /* =========================
      MOBILE CATEGORY
   ========================= */

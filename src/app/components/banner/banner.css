@@ -64,5 +64,33 @@
         height:32px;
         font-size:14px;
     }
+}
+
+.banner-search{
+    position:absolute;
+    left:12px;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:20;
+}
+
+.banner-search input{
+    width:100%;
+    height:46px;
+    border:none;
+    border-radius:14px;
+    padding:0 16px;
+    background:#fff;
+    font-size:15px;
+    outline:none;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+
+@media (min-width:769px){
+
+    .banner-search{
+        display:none;
+    }
 
 }

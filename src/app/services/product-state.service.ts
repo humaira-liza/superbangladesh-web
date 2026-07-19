@@ -10,6 +10,16 @@ export class ProductStateService {
   search$ = this.searchSubject.asObservable();
   category$ = this.categorySubject.asObservable();
 
+  private mobileSearchSubject =
+  new BehaviorSubject<boolean>(false);
+
+mobileSearch$ =
+  this.mobileSearchSubject.asObservable();
+
+setMobileSearch(value: boolean) {
+  this.mobileSearchSubject.next(value);
+}
+
   setSearch(value: string) {
     this.searchSubject.next(value);
   }
