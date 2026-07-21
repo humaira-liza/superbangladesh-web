@@ -37,19 +37,24 @@
 
 </a>
 
-    <!-- Profile -->
-    <div class="card">
+  <!-- My Profile -->
+<div class="card">
 
-      <div class="icon">👤</div>
+  <div class="icon">👤</div>
 
-      <div class="content">
-        <h3>Profile</h3>
-        <p>Coming Soon</p>
-      </div>
+  <div class="content">
+    <h3>{{ fullName || 'My Profile' }}</h3>
 
-      <span class="arrow">›</span>
+    <p>{{ email }}</p>
 
-    </div>
+    <p *ngIf="phone">{{ phone }}</p>
+
+    <p *ngIf="address">{{ address }}</p>
+  </div>
+
+  <span class="arrow">›</span>
+
+</div>
 
     <!-- Logout -->
     <div

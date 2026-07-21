@@ -132,13 +132,13 @@
     <span>{{ t('home') }}</span>
   </a>
 
- <a
+<a
   *ngIf="isLoggedIn() && !isAdmin()"
-  routerLink="/orders"
+  routerLink="/account"
   (click)="closeDesktopMenu()"
 >
-  <i class="fa-solid fa-clock-rotate-left"></i>
-  <span>{{ t('myOrders') }}</span>
+  <i class="fa-solid fa-user"></i>
+  <span>Account</span>
 </a>
 
   <a
