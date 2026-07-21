@@ -6,7 +6,10 @@ import {
 
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import {
+  Router,
+  RouterModule
+} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,9 +38,10 @@ export class Dashboard implements OnInit {
   loading = true;
 
   constructor(
-    private http: HttpClient,
-    private cdr: ChangeDetectorRef
-  ) {}
+  private http: HttpClient,
+  private cdr: ChangeDetectorRef,
+  private router: Router
+) {}
 
   ngOnInit() {
     this.load();
@@ -93,4 +97,15 @@ console.log('URL =', `/api/dashboard?email=${email}`);
 }
     });
   }
+
+  logout(): void {
+
+  localStorage.removeItem('token');
+  localStorage.removeItem('userEmail');
+  localStorage.removeItem('email');
+  localStorage.removeItem('role');
+
+  this.router.navigate(['/login']);
+
+}
 }

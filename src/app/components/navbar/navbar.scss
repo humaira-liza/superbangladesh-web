@@ -135,6 +135,7 @@
   position:fixed;
 
   right:18px;
+  top:50%;
   bottom:90px;
 
   width:64px;
@@ -370,14 +371,12 @@
 ========================= */
 
 @media (max-width:768px){
+  
 
   .navbar{
     display:none;
   }
 
-.floating-cart{
-  display:none !important;
-}
 .mobile-header{
   display:flex;
   align-items:center;
@@ -408,17 +407,17 @@
   }
 
 .mobile-brand{
+
   flex:1;
 
   display:flex;
   align-items:center;
-  justify-content:flex-start;   /* বাম দিকে যাবে */
+  justify-content:center;
 
   gap:0;
 
-  margin-left:-10px;            /* পুরো ব্র্যান্ড একটু বামে */
+  margin:0;
 }
-
 .mobile-brand .brand-logo{
   width:60px;
   height:60px;
@@ -441,8 +440,6 @@
   color:#166534;
 
   text-align:left;
-
-  transform:translateX(-4px);   /* লেখা আরও বামে */
 }
  .mobile-location{
   flex:1;
@@ -467,6 +464,35 @@
   gap:10px;
   flex-shrink:0;
 }
+
+.mobile-language-switch{
+    display:flex;
+    align-items:center;
+    gap:4px;
+}
+
+.mobile-language-switch span{
+    cursor:pointer;
+    font-size:15px;
+    font-weight:700;
+    color:#9ca3af;
+    transition:.2s;
+}
+
+.mobile-language-switch .divider{
+    color:#bdbdbd;
+    cursor:default;
+}
+
+.mobile-language-switch .active{
+    color:#7c3aed;
+}
+
+.mobile-language-btn:hover{
+
+    color:#6d28d9;
+}
+
 
 .mobile-home{
   width:36px;
@@ -606,6 +632,7 @@
   }
 
 .mobile-sidebar{
+
   position:fixed;
   top:0;
   left:0;
@@ -616,12 +643,14 @@
 
   background:#fff;
 
+  display:flex;
+  flex-direction:column;
+
+  height:100vh;
+
+  overflow:hidden;
+
   z-index:9999;
-
-  overflow-y:auto;
-  overflow-x:hidden;
-
-  -webkit-overflow-scrolling:touch;
 
   box-shadow:6px 0 24px rgba(0,0,0,.18);
 
@@ -631,7 +660,10 @@
 .mobile-sidebar app-sidebar{
   display:block;
   width:100%;
-  height:auto;
+
+  flex:1;
+  min-height:0;
+  overflow:hidden;
 }
 
 .mobile-sidebar::-webkit-scrollbar{
@@ -654,6 +686,91 @@
  .chat-wrapper{
   display:none !important;
 }
+.floating-cart{
+
+    display:block !important;
+
+    position:fixed;
+
+    right:12px;
+
+    top:50%;
+   transform:translateY(-50%);
+
+    width:52px;
+    height:74px;
+
+    border-radius:14px;
+
+    overflow:visible;
+
+    z-index:99999;
+  }
+
+  .cart-top{
+
+    height:44px;
+
+    padding:4px 0;
+
+  }
+
+  .cart-count{
+
+    font-size:10px;
+
+    margin-bottom:2px;
+
+  }
+
+  .cart-icon{
+
+    font-size:18px;
+
+  }
+
+  .price{
+
+    height:30px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#6f21b8;
+    color:#fff;
+
+    font-size:13px;
+    font-weight:700;
+
+    line-height:30px;
+
+    border-radius:0 0 14px 14px;
+
+  }
+
+  .chat-wrapper{
+
+    display:flex !important;
+
+    position:fixed;
+
+    right:14px;
+
+    bottom:72px;
+
+    z-index:100000;
+
+  }
+
+  .main-chat-btn{
+
+    width:40px;
+    height:40px;
+
+    font-size:16px;
+
+  }
 }
 
 @keyframes sidebarOpen{
@@ -671,15 +788,8 @@
 
 .navbar{
   width:100%;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  gap:24px;
+gap:24px;
 }
-
-
 /* LEFT */
 
 .left{
@@ -814,17 +924,6 @@ gap:10px;
   min-width:320px;
 
   max-width:760px;
-
-  height:54px;
-}
-
-
-.search input{
-  flex:1;
-
-  width:100%;
-
-  min-width:0;
 }
 
 /* =========================================
@@ -882,40 +981,56 @@ gap:10px;
 /* =========================================
    BRAND WITH LOVE LOGO
 ========================================= */
-
 .brand{
+
   flex-shrink:0;
 
   display:flex;
   align-items:center;
 
-  gap:9px;
+  gap:0;
 
   cursor:pointer;
+
 }
 
-
 .brand-logo{
-  width:52px;
-  height:52px;
+
+  width:48px;
+  height:48px;
 
   object-fit:contain;
 
   display:block;
 
   flex-shrink:0;
+
+  margin-right:-8px;
+
+  position:relative;
+  top:2px;   /* লোগো একটু নিচে নামবে */
+
 }
 
-
 .brand .logo{
+
   flex-shrink:0;
 
-  font-size:24px;
+  font-size:23px;
   font-weight:900;
 
   color:#166534;
 
   white-space:nowrap;
+
+  margin:0;
+  padding:0;
+
+  line-height:1;
+
+  position:relative;
+  top:0px;   /* লেখাও সামান্য নিচে আসবে */
+
 }
 
 /* =========================================
@@ -960,7 +1075,6 @@ gap:10px;
   flex: 0 0 46px;
 
   padding: 0;
-  margin: 0;
 
   border: none;
   outline: none;
@@ -1037,18 +1151,6 @@ gap:10px;
   font-weight: 800;
 }
 
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 768px) {
-
-  .language-switcher {
-    display: none;
-  }
-
-}
-
 /* =========================================
    DESKTOP 3-DASH ACCOUNT MENU
 ========================================= */
@@ -1088,7 +1190,7 @@ gap:10px;
 /* MENU LINK */
 
 .desktop-account-menu a{
-  width:100%;
+
   min-height:46px;
 
   display:flex;
@@ -1137,27 +1239,46 @@ gap:10px;
   color:#7c3aed;
 }
 
-
 /* MOBILE */
-
-
-
 
 .right{
     display:flex;
     align-items:center;
-    gap:24px;
-    flex-shrink:0;
+    gap:24px;  
 }
 
 .right > a{
+
     display:flex;
     align-items:center;
-    height:48px;
+    justify-content:center;
+
+    height:40px;
+
+    padding:0 16px;
+
+    border-radius:10px;
+
     text-decoration:none;
-    color:#111827;
+
+    color:#374151;
+
     font-size:15px;
-    font-weight:600;
+    font-weight:700;
+
+    transition:
+      background .2s ease,
+      color .2s ease;
+
+    cursor:pointer;
+}
+
+.right > a:hover{
+
+    background:#f4edff;
+
+    color:#7c3aed;
+
 }
 
 @media (max-width: 768px) {
@@ -1173,14 +1294,6 @@ gap:10px;
     overflow: hidden !important;
   }
 
-  /* Show only mobile header */
-  .mobile-header {
-    display: flex !important;
-  }
-
-  .mobile-search {
-    display: block !important;
-  }
 }
 
 /* =========================
@@ -1289,88 +1402,52 @@ gap:10px;
 
 }
 
-/* =========================
-   MOBILE LOCATION ICON
-========================= */
-
-@media (max-width:768px){
-
-  .mobile-location-btn{
-
-    width:auto;
-    height:auto;
-
-    padding:0;
-
-    border:none;
-    background:transparent;
-
-    color:#7c3aed;
-
-    font-size:28px;
+.sidebar-account a{
 
     display:flex;
     align-items:center;
-    justify-content:center;
 
-    cursor:pointer;
-  }
+    gap:12px;
 
-  .mobile-location-btn:focus,
-  .mobile-location-btn:active{
+    padding:14px 0;
 
-    outline:none;
-    box-shadow:none;
-  }
+    color:#333;
+
+    text-decoration:none;
+
+    font-weight:600;
 
 }
 
-/* =========================
-   MOBILE FLOATING WIDGETS
-========================= */
+.sidebar-account a i{
 
-@media (max-width:768px){
+    width:22px;
 
-  .floating-cart{
+    color:#7c3aed;
 
-    display:block !important;
+    text-align:center;
 
-    position:fixed;
+}
 
-    right:14px;
+.sidebar-content{
 
-    bottom:138px;
+    flex:1;
 
-    width:62px;
+    overflow-y:auto;
 
-    height:86px;
+    overflow-x:hidden;
 
-    z-index:100000;
+    min-height:0;
+}
 
-  }
 
-  .chat-wrapper{
+.sidebar-account{
 
-    display:flex !important;
+    flex:0 0 auto;
 
-    position:fixed;
+    border-top:1px solid #ececec;
 
-    right:14px;
+    background:#fff;
 
-    bottom:72px;
-
-    z-index:100000;
-
-  }
-
-  .main-chat-btn{
-
-    width:56px;
-
-    height:56px;
-
-    font-size:22px;
-
-  }
-
+    padding:16px;
 }

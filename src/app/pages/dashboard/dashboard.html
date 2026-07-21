@@ -21,20 +21,29 @@
 
     </div>
 
-    <div class="header-actions">
+<div class="header-actions">
 
-      <button routerLink="/admin/products">
-        <i class="fa-solid fa-plus"></i>
-        Add Product
-      </button>
+  <button routerLink="/admin/products">
+    <i class="fa-solid fa-plus"></i>
+    Add Product
+  </button>
 
-      <button routerLink="/admin/orders">
-        <i class="fa-solid fa-box"></i>
-        Orders
-      </button>
+  <button routerLink="/admin/orders">
+    <i class="fa-solid fa-box"></i>
+    Orders
+  </button>
 
-    </div>
+  <button routerLink="/admin/profile">
+    <i class="fa-solid fa-user"></i>
+    Profile
+  </button>
 
+  <button class="logout-btn" (click)="logout()">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    Logout
+  </button>
+
+</div>
   </div>
 
   <!-- TOP STATS -->
@@ -265,9 +274,7 @@
 
       <div class="product-card" *ngFor="let p of bestSales">
 
-      <img
-  [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl"
-/>
+        <img [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl" />
 
         <div class="product-content">
 
@@ -321,9 +328,7 @@
 
       <div class="inventory-item low" *ngFor="let p of lowStock">
 
-      <img
-  [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl"
-/>
+        <img [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl" />
 
         <div>
 
@@ -363,9 +368,7 @@
 
       <div class="inventory-item out" *ngFor="let p of outOfStock">
 
-        <img
-  [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl"
-/>
+        <img [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl" />
 
         <div>
 

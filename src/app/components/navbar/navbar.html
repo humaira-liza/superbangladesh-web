@@ -9,7 +9,7 @@
 <button
   type="button"
   class="menu-btn"
-  (click)="toggleDesktopMenu($event)"
+  (click)="toggleSidebar()"
 >
     <i class="fa-solid fa-bars"></i>
   </button>
@@ -31,67 +31,29 @@
     </span>
 
   </div>
-  <div
-  class="desktop-account-menu"
-  *ngIf="desktopMenuOpen && isMobile"
->
-
-  <a
-    routerLink="/"
-    (click)="closeDesktopMenu()"
-  >
-    <i class="fa-solid fa-house"></i>
-    <span>{{ t('home') }}</span>
-  </a>
-
-  <a
-    *ngIf="isLoggedIn() && !isAdmin()"
-    routerLink="/orders"
-    (click)="closeDesktopMenu()"
-  >
-    <i class="fa-solid fa-clock-rotate-left"></i>
-    <span>{{ t('myOrders') }}</span>
-  </a>
-
-  <a
-    *ngIf="isAdmin()"
-    routerLink="/admin/dashboard"
-    (click)="closeDesktopMenu()"
-  >
-    <i class="fa-solid fa-user-shield"></i>
-    <span>{{ t('adminDashboard') }}</span>
-  </a>
-
-</div>
 
   <!-- RIGHT -->
-  <div class="mobile-actions">
+<div class="mobile-actions">
 
-    <button
-      class="mobile-location-btn"
-      (click)="toggleLocationMenu($event)"
-    >
-      <i class="fa-solid fa-location-dot"></i>
-    </button>
+  <div class="mobile-language-switch">
 
-    <button
-      *ngIf="isLoggedIn()"
-      type="button"
-      class="mobile-login-btn"
-      (click)="logout()"
-    >
-      Logout
-    </button>
+    <span
+      [class.active]="selectedLanguage === 'en'"
+      (click)="changeLanguage('en')">
+      EN
+    </span>
 
-    <a
-      *ngIf="!isLoggedIn()"
-      routerLink="/login"
-      class="mobile-login-btn"
-    >
-      Login
-    </a>
+    <span class="divider">/</span>
+
+    <span
+      [class.active]="selectedLanguage === 'bn'"
+      (click)="changeLanguage('bn')">
+      বাং
+    </span>
 
   </div>
+
+</div>
 
 </div>
 
@@ -107,28 +69,34 @@
   *ngIf="sidebarOpen"
 >
 
-  <app-sidebar
-    (categoryClick)="onMobileCategory($event)"
-  >
-  </app-sidebar>
+  <div class="sidebar-content">
 
-  <a
-    *ngIf="isLoggedIn() && !isAdmin()"
-    routerLink="/orders"
-    (click)="sidebarOpen = false"
-  >
-    {{ t('myOrders') }}
-  </a>
+    <app-sidebar
+      (categoryClick)="onMobileCategory($event)">
+    </app-sidebar>
 
-  <a
-    *ngIf="isAdmin()"
-    routerLink="/admin/dashboard"
-    (click)="sidebarOpen = false"
-  >
-    {{ t('adminDashboard') }}
-  </a>
+  </div>
+
+  <div class="sidebar-account">
+
+    <a
+  *ngIf="isLoggedIn()"
+  (click)="logout(); sidebarOpen=false">
+  <i class="fa-solid fa-right-from-bracket"></i>
+  {{ t('logout') }}
+</a>
+
+<a
+  *ngIf="!isLoggedIn()"
+  routerLink="/login"
+  (click)="sidebarOpen=false">
+  <i class="fa-solid fa-right-to-bracket"></i>
+  {{ t('login') }}
+</a>
+  </div>
 
 </div>
+
 
 <!-- =========================
      DESKTOP NAVBAR
@@ -164,14 +132,14 @@
     <span>{{ t('home') }}</span>
   </a>
 
-  <a
-    *ngIf="isLoggedIn() && !isAdmin()"
-    routerLink="/orders"
-    (click)="closeDesktopMenu()"
-  >
-    <i class="fa-solid fa-clock-rotate-left"></i>
-    <span>{{ t('myOrders') }}</span>
-  </a>
+ <a
+  *ngIf="isLoggedIn() && !isAdmin()"
+  routerLink="/orders"
+  (click)="closeDesktopMenu()"
+>
+  <i class="fa-solid fa-clock-rotate-left"></i>
+  <span>{{ t('myOrders') }}</span>
+</a>
 
   <a
     *ngIf="isAdmin()"
@@ -507,20 +475,29 @@
     <span>Search</span>
   </button>
 
-  <a
-    *ngIf="isLoggedIn()"
-    routerLink="/orders"
-  >
-    <i class="fa-solid fa-user"></i>
-    <span>Account</span>
-  </a>
+<!-- User -->
+<a
+  *ngIf="isLoggedIn() && !isAdmin()"
+  routerLink="/account"
+>
+  <i class="fa-solid fa-user"></i>
+  <span>Account</span>
+</a>
 
-  <a
-    *ngIf="!isLoggedIn()"
-    routerLink="/login"
-  >
-    <i class="fa-solid fa-user"></i>
-    <span>Login</span>
-  </a>
+<!-- Admin -->
+<a
+  *ngIf="isAdmin()"
+  routerLink="/admin/dashboard"
+>
+  <i class="fa-solid fa-user-shield"></i>
+  <span>Admin</span>
+</a>
+<a
+  *ngIf="!isLoggedIn()"
+  routerLink="/login"
+>
+  <i class="fa-solid fa-user"></i>
+  <span>Login</span>
+</a>
 
 </nav>

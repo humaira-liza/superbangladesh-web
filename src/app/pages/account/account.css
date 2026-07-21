@@ -1,0 +1,143 @@
+.account-page{
+  max-width:900px;
+  margin:30px auto;
+  padding:20px;
+}
+
+.header{
+  margin-bottom:25px;
+}
+
+.mini-title{
+  color:#7c3aed;
+  font-weight:700;
+  letter-spacing:1px;
+  font-size:13px;
+  margin-bottom:6px;
+}
+
+.header h1{
+  margin:0;
+  font-size:34px;
+  font-weight:700;
+  color:#222;
+}
+
+.header span{
+  color:#777;
+  font-size:15px;
+}
+
+.account-grid{
+  display:grid;
+  gap:18px;
+}
+
+.card{
+  background:#fff;
+  border-radius:16px;
+  padding:18px 20px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  text-decoration:none;
+  color:#222;
+  cursor:pointer;
+  transition:.25s;
+  border:1px solid #ececec;
+  box-shadow:0 3px 10px rgba(0,0,0,.05);
+}
+
+.card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(0,0,0,.10);
+}
+
+.icon{
+  width:54px;
+  height:54px;
+  border-radius:14px;
+  background:#f3ecff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:24px;
+  flex-shrink:0;
+}
+
+.content{
+  flex:1;
+}
+
+.content h3{
+  margin:0 0 6px;
+  font-size:18px;
+  font-weight:700;
+}
+
+.content p{
+  margin:0;
+  color:#777;
+  font-size:14px;
+}
+
+.arrow{
+  font-size:28px;
+  color:#999;
+}
+
+.language-buttons{
+  margin-top:10px;
+  display:flex;
+  gap:10px;
+}
+
+.language-buttons button{
+  border:none;
+  padding:8px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  background:#ececec;
+  font-weight:600;
+  transition:.2s;
+}
+
+.language-buttons button.active{
+  background:#7c3aed;
+  color:#fff;
+}
+
+.logout{
+  border:1px solid #ffd5d5;
+}
+
+.logout .icon{
+  background:#fff1f1;
+}
+
+.logout:hover{
+  border-color:#ff4d4f;
+}
+
+@media (max-width:768px){
+
+  .account-page{
+    margin:15px auto 90px;
+    padding:15px;
+  }
+
+  .header h1{
+    font-size:28px;
+  }
+
+  .card{
+    padding:16px;
+  }
+
+  .icon{
+    width:48px;
+    height:48px;
+    font-size:22px;
+  }
+
+}

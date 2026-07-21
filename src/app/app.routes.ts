@@ -34,7 +34,8 @@ from './pages/success/success';
 import { Orders }
 from './pages/orders/orders';
 
-
+import { Account }
+from './pages/account/account';
 // =========================
 // EXTRA PAGES
 // =========================
@@ -67,6 +68,8 @@ from './pages/admin-products/admin-products';
 
 import { AdminOrders }
 from './pages/admin-orders/admin-orders';
+
+
 
 import { AdminComplaints }
 from './pages/admin-complaints/admin-complaints';
@@ -171,6 +174,12 @@ export const routes: Routes = [
     component: Orders,
     canActivate: [userGuard]
   },
+
+  {
+  path: 'account',
+  component: Account,
+  canActivate: [userGuard]
+},
 
   {
     path: 'checkout',

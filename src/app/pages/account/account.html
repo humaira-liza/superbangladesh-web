@@ -1,0 +1,73 @@
+<div class="account-page">
+
+  <!-- Header -->
+  <div class="header">
+
+    <p class="mini-title">
+      USER DASHBOARD
+    </p>
+
+    <h1>
+      My Account
+    </h1>
+
+    <span>
+      Manage your profile
+    </span>
+
+  </div>
+
+  <!-- Menu Grid -->
+  <div class="account-grid">
+
+    <!-- My Orders -->
+<a
+  routerLink="/orders"
+  class="card"
+>
+
+  <div class="icon">📦</div>
+
+  <div class="content">
+    <h3>My Orders</h3>
+    <p>Track your orders</p>
+  </div>
+
+  <span class="arrow">›</span>
+
+</a>
+
+    <!-- Profile -->
+    <div class="card">
+
+      <div class="icon">👤</div>
+
+      <div class="content">
+        <h3>Profile</h3>
+        <p>Coming Soon</p>
+      </div>
+
+      <span class="arrow">›</span>
+
+    </div>
+
+    <!-- Logout -->
+    <div
+      class="card logout"
+      (click)="logout()"
+    >
+
+      <div class="icon">🚪</div>
+
+      <div class="content">
+        <h3>Logout</h3>
+        <p>Sign out from your account</p>
+      </div>
+
+      <span class="arrow">›</span>
+
+    </div>
+
+  </div>
+
+</div>
