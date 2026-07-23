@@ -54,10 +54,10 @@ loadProfile(): void {
     Authorization: `Bearer ${token}`
   });
 
-  this.http.get<any>(
-    'http://localhost:8080/api/users/profile',
-    { headers }
-  ).subscribe({
+ this.http.get<any>(
+  'https://superbangladesh-api-1.onrender.com/api/users/profile',
+  { headers }
+).subscribe({
 
   next: (user) => {
 

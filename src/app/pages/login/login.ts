@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+  CommonModule,
+  FormsModule,
+  RouterLink
+],
   templateUrl: './login.html',
   styleUrls: ['./login.scss']
 })
@@ -34,7 +38,10 @@ export class LoginComponent {
       !this.showPassword;
   }
 
-  submit() {
+submit() {
+
+  console.log('SUBMIT CLICKED');
+
 
     if (!this.email || !this.password) {
 
@@ -66,22 +73,38 @@ export class LoginComponent {
 
         ).subscribe({
 
-          next: (res) => {
+       next: (res) => {
 
-  //alert(JSON.stringify(res));
-
-  console.log('LOGIN RESPONSE', res);
+  console.log('LOGIN RESPONSE =', res);
 
   this.loading = false;
 
-            if (!res) {
+  if (!res) {
 
-              alert(
-                'No response from server'
-              );
+    alert('No response from server');
 
-              return;
-            }
+    return;
+  }
+
+  // Backend returned an error
+  if (res.error) {
+
+    if (res.error === 'User not found') {
+
+      alert('No account found. Please register first.');
+
+    } else if (res.error === 'Wrong password') {
+
+      alert('Incorrect password.');
+
+    } else {
+
+      alert(res.error);
+
+    }
+
+    return;
+  }
 
             // ✅ SAVE TOKEN
             localStorage.setItem(
@@ -98,6 +121,10 @@ export class LoginComponent {
               'email',
               res.email || ''
             );
+
+            console.log('TOKEN =', localStorage.getItem('token'));
+console.log('ROLE =', localStorage.getItem('role'));
+console.log('EMAIL =', localStorage.getItem('email'));
 
             // ✅ REDIRECT
             if (res.role === 'ADMIN') {

@@ -55,3 +55,24 @@
   cursor: pointer;
   font-size: 18px;
 }
+
+.register-link {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.register-link span {
+  color: #666;
+}
+
+.register-link a {
+  margin-left: 6px;
+  color: #22c55e;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}

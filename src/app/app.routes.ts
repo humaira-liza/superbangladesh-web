@@ -14,6 +14,9 @@ from './pages/home/home';
 import { LoginComponent }
 from './pages/login/login';
 
+import { Register }
+from './pages/register/register';
+
 import { ProductDetails }
 from './pages/product-details/product-details';
 
@@ -36,6 +39,9 @@ from './pages/orders/orders';
 
 import { Account }
 from './pages/account/account';
+
+import { Profile }
+from './pages/profile/profile';
 // =========================
 // EXTRA PAGES
 // =========================
@@ -138,6 +144,11 @@ export const routes: Routes = [
   },
 
   {
+  path: 'register',
+  component: Register
+},
+
+  {
     path: 'product/:id',
     component: ProductDetails
   },
@@ -178,6 +189,12 @@ export const routes: Routes = [
   {
   path: 'account',
   component: Account,
+  canActivate: [userGuard]
+},
+
+{
+  path: 'profile',
+  component: Profile,
   canActivate: [userGuard]
 },
 
