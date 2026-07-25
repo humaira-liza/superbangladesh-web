@@ -231,181 +231,6 @@
   </section>
 
 
-  <!-- POPULAR CATEGORY CONTROL -->
-
-  <section class="panel popular-panel">
-
-    <div class="panel-heading">
-
-      <div>
-
-        <p class="eyebrow">
-          HOMEPAGE CONTROL
-        </p>
-
-        <h3>
-          🔥 Popular Categories
-        </h3>
-
-        <p>
-          Turn categories on or off and control
-          their homepage display order.
-        </p>
-
-      </div>
-
-    </div>
-
-
-    <!-- LOADING -->
-
-    <div
-      class="loading-box"
-      *ngIf="loading"
-    >
-      Loading categories...
-    </div>
-
-
-    <!-- EMPTY -->
-
-    <div
-      class="loading-box"
-      *ngIf="
-        !loading &&
-        allCategories.length === 0
-      "
-    >
-      No categories found.
-    </div>
-
-
-    <!-- POPULAR GRID -->
-
-    <div
-      class="popular-admin-grid"
-      *ngIf="
-        !loading &&
-        allCategories.length > 0
-      "
-    >
-
-      <article
-        class="popular-admin-card"
-        *ngFor="let c of allCategories"
-        [class.is-popular]="c.popular"
-      >
-
-        <!-- IMAGE -->
-
-        <div class="popular-image">
-
-          <img
-            *ngIf="c.imageUrl"
-            [src]="getImageUrl(c.imageUrl)"
-            [alt]="c.name"
-            loading="lazy"
-            (error)="onImageError($event)"
-          >
-
-          <div
-            class="no-image"
-            *ngIf="!c.imageUrl"
-          >
-            📂
-          </div>
-
-        </div>
-
-
-        <!-- INFO -->
-
-        <div class="popular-info">
-
-          <h4>
-            {{ c.name }}
-          </h4>
-
-          <span
-            class="status-badge"
-            [class.active]="c.popular"
-          >
-
-            {{
-              c.popular
-                ? 'Popular'
-                : 'Not Popular'
-            }}
-
-          </span>
-
-        </div>
-
-
-        <!-- TOGGLE -->
-
-        <label class="switch">
-
-          <input
-            type="checkbox"
-            [checked]="c.popular"
-            [disabled]="
-              popularSavingId === c.id
-            "
-            (change)="togglePopular(c)"
-          >
-
-          <span class="slider"></span>
-
-        </label>
-
-
-        <!-- ORDER -->
-
-        <div
-          class="order-control"
-          *ngIf="c.popular"
-        >
-
-          <label>
-            Display Order
-          </label>
-
-          <div class="order-row">
-
-            <input
-              type="number"
-              min="1"
-              [(ngModel)]="c.popularOrder"
-            >
-
-            <button
-              type="button"
-              [disabled]="
-                popularSavingId === c.id
-              "
-              (click)="savePopularOrder(c)"
-            >
-
-              {{
-                popularSavingId === c.id
-                  ? 'Saving...'
-                  : 'Save'
-              }}
-
-            </button>
-
-          </div>
-
-        </div>
-
-      </article>
-
-    </div>
-
-  </section>
-
-
   <!-- ALL CATEGORY TREE -->
 
   <section class="panel">
@@ -414,14 +239,20 @@
 
       <div>
 
-        <h3>
-          All Categories
-        </h3>
+       <h3>
+  All Categories
+</h3>
 
-        <p>
-          Manage your complete category structure.
-        </p>
+<p>
+  Manage your complete category structure.
+</p>
 
+<input
+  type="text"
+  class="category-search"
+  placeholder="Search category..."
+  [(ngModel)]="categorySearch"
+/>
       </div>
 
     </div>
@@ -462,7 +293,7 @@
 
       <div
         class="main-category-block"
-        *ngFor="let main of categories"
+       *ngFor="let main of filteredCategories"
       >
 
         <!-- MAIN CATEGORY -->
@@ -674,6 +505,188 @@
         </ng-container>
 
       </div>
+
+    </div>
+
+  </section>
+
+  
+  <!-- POPULAR CATEGORY CONTROL -->
+
+  <section class="panel popular-panel">
+
+    <div class="panel-heading">
+
+      <div>
+
+        <p class="eyebrow">
+          HOMEPAGE CONTROL
+        </p>
+
+        <h3>
+  🔥 Popular Categories
+</h3>
+
+<p>
+  Turn categories on or off and control
+  their homepage display order.
+</p>
+
+<input
+  type="text"
+  class="category-search"
+  placeholder="Search popular category..."
+  [(ngModel)]="popularSearch"
+/>
+
+      </div>
+
+    </div>
+
+
+    <!-- LOADING -->
+
+    <div
+      class="loading-box"
+      *ngIf="loading"
+    >
+      Loading categories...
+    </div>
+
+
+    <!-- EMPTY -->
+
+    <div
+      class="loading-box"
+      *ngIf="
+        !loading &&
+        allCategories.length === 0
+      "
+    >
+      No categories found.
+    </div>
+
+
+    <!-- POPULAR GRID -->
+
+    <div
+      class="popular-admin-grid"
+      *ngIf="
+        !loading &&
+        allCategories.length > 0
+      "
+    >
+
+      <article
+        class="popular-admin-card"
+       *ngFor="let c of filteredPopularCategories"
+        [class.is-popular]="c.popular"
+      >
+
+        <!-- IMAGE -->
+
+        <div class="popular-image">
+
+          <img
+            *ngIf="c.imageUrl"
+            [src]="getImageUrl(c.imageUrl)"
+            [alt]="c.name"
+            loading="lazy"
+            (error)="onImageError($event)"
+          >
+
+          <div
+            class="no-image"
+            *ngIf="!c.imageUrl"
+          >
+            📂
+          </div>
+
+        </div>
+
+
+        <!-- INFO -->
+
+        <div class="popular-info">
+
+          <h4>
+            {{ c.name }}
+          </h4>
+
+          <span
+            class="status-badge"
+            [class.active]="c.popular"
+          >
+
+            {{
+              c.popular
+                ? 'Popular'
+                : 'Not Popular'
+            }}
+
+          </span>
+
+        </div>
+
+
+        <!-- TOGGLE -->
+
+        <label class="switch">
+
+          <input
+            type="checkbox"
+            [checked]="c.popular"
+            [disabled]="
+              popularSavingId === c.id
+            "
+            (change)="togglePopular(c)"
+          >
+
+          <span class="slider"></span>
+
+        </label>
+
+
+        <!-- ORDER -->
+
+        <div
+          class="order-control"
+          *ngIf="c.popular"
+        >
+
+          <label>
+            Display Order
+          </label>
+
+          <div class="order-row">
+
+            <input
+              type="number"
+              min="1"
+              [(ngModel)]="c.popularOrder"
+            >
+
+            <button
+              type="button"
+              [disabled]="
+                popularSavingId === c.id
+              "
+              (click)="savePopularOrder(c)"
+            >
+
+              {{
+                popularSavingId === c.id
+                  ? 'Saving...'
+                  : 'Save'
+              }}
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
 
     </div>
 

@@ -40,10 +40,11 @@
         <!-- CHILD CATEGORIES -->
 
         <div
-          class="category-grid"
-          *ngIf="
-            category.children?.length > 0
-          ">
+  class="category-grid"
+  [class.child-grid]="category.children?.length <= 2"
+  *ngIf="
+    category.children?.length > 0
+  ">
 
           <div
             class="category-card"
@@ -101,107 +102,81 @@
 
             <!-- IMAGE AREA -->
 
-            <div class="product-image">
+           <div class="product-image">
 
-              <div
-                class="out-badge"
-                *ngIf="
-                  p.stock <= 0
-                ">
+  <div
+    class="out-badge"
+    *ngIf="p.stock <= 0">
 
-                Out Of Stock
+    Out Of Stock
 
-              </div>
+  </div>
 
-              <img
-                loading="lazy"
-                decoding="async"
-                [src]="
-                  getProductImage(
-                    p.imageUrl ||
-                    p.image_url
-                  )
-                "
-                (error)="
-                  onImgError($event)
-                "
-              />
+  <img
+    loading="lazy"
+    decoding="async"
+    [src]="getProductImage(p.imageUrl || p.image_url)"
+    (error)="onImgError($event)"
+  />
 
-           <!-- ADD TO CART PLUS BUTTON -->
+  <button
+    type="button"
+    class="add-btn"
+    *ngIf="p.stock > 0"
+    (click)="addToCart(p,$event)">
 
-<button
-  type="button"
-  class="add-btn"
-  *ngIf="p.stock > 0"
-  (click)="addToCart(p, $event)">
+    +
 
-  +
+  </button>
 
-</button>
+</div>
 
-            </div>
+<div class="product-info">
 
+    <div class="price-line">
 
-            <!-- INFO -->
+        <span class="price">
+            ৳{{p.price}}
+        </span>
 
-            <div class="product-info">
+        <span
+            class="old-price"
+            *ngIf="p.price">
 
-              <div class="price-line">
+            ৳{{p.price+20}}
 
-                <span class="price">
-                  ৳{{ p.price }}
-                </span>
+        </span>
 
-                <span
-                  class="old-price"
-                  *ngIf="p.price">
+    </div>
 
-                  ৳{{ p.price + 20 }}
+    <h3>{{p.name}}</h3>
 
-                </span>
+   <div class="meta-line">
 
-              </div>
+  <span
+    class="unit"
+    *ngIf="p.quantity && p.unit">
 
+    {{ p.quantity }} {{ p.unit }}
 
-              <h3>
-                {{ p.name }}
-              </h3>
+  </span>
 
+  <span
+    class="unit"
+    *ngIf="!p.quantity && p.unit">
 
-              <p
-                class="unit"
-                *ngIf="
-                  p.quantity &&
-                  p.unit
-                ">
+    {{ p.unit }}
 
-                {{ p.quantity }}
-                {{ p.unit }}
+  </span>
 
-              </p>
+  <span class="delivery">
 
+    ◷ 1 hr
 
-              <p
-                class="unit"
-                *ngIf="
-                  !p.quantity &&
-                  p.unit
-                ">
+  </span>
 
-                {{ p.unit }}
-
-              </p>
-
-
-              <div class="delivery">
-
-                <span>
-                  ◷ 1 hr
-                </span>
-
-              </div>
-
-            </div>
+</div>
+</div>
 
           </article>
 

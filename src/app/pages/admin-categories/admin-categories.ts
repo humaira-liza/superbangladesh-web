@@ -49,7 +49,9 @@ export class AdminCategories
   subCategories: any[] = [];
 
   allCategories: any[] = [];
+categorySearch = '';
 
+popularSearch = '';
 
   // =========================
   // EDIT CONTROL
@@ -1261,6 +1263,50 @@ export class AdminCategories
   // =========================
   // RESET FORM
   // =========================
+
+  get filteredCategories() {
+
+  if (!this.categorySearch.trim()) {
+    return this.categories;
+  }
+
+  const q = this.categorySearch.toLowerCase();
+
+  return this.categories.filter(main =>
+
+    main.name.toLowerCase().includes(q)
+
+    ||
+
+    main.children?.some((sub: any) =>
+
+      sub.name.toLowerCase().includes(q)
+
+      ||
+
+      sub.children?.some((child: any) =>
+        child.name.toLowerCase().includes(q)
+      )
+
+    )
+
+  );
+
+}
+
+get filteredPopularCategories() {
+
+  if (!this.popularSearch.trim()) {
+    return this.allCategories;
+  }
+
+  const q = this.popularSearch.toLowerCase();
+
+  return this.allCategories.filter(c =>
+    c.name.toLowerCase().includes(q)
+  );
+
+}
 
   reset(): void {
 
