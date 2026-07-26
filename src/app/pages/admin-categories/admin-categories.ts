@@ -383,34 +383,33 @@ popularSearch = '';
   // NORMALIZE CATEGORY
   // =========================
 
-  private normalizeCategory(
-    category: any
-  ): void {
+ private normalizeCategory(
+  category: any
+): void {
 
-    if (!category) {
-
-      return;
-    }
-
-
-    category.popular =
-      Boolean(
-        category.popular
-      );
-
-
-    const order =
-      Number(
-        category.popularOrder
-      );
-
-
-    category.popularOrder =
-      Number.isFinite(order)
-        ? order
-        : 0;
+  if (!category) {
+    return;
   }
 
+  category.popular =
+    Boolean(category.popular);
+
+  const order =
+    Number(category.popularOrder);
+
+  category.popularOrder =
+    Number.isFinite(order)
+      ? order
+      : 0;
+
+  const displayOrder =
+    Number(category.displayOrder);
+
+  category.displayOrder =
+    Number.isFinite(displayOrder)
+      ? displayOrder
+      : 0;
+}
 
   // =========================
   // SORT POPULAR FIRST
@@ -1063,6 +1062,57 @@ popularSearch = '';
       order
     );
   }
+
+  saveDisplayOrder(
+  category: any
+): void {
+
+  if (!category) {
+    return;
+  }
+
+  let order =
+    Number(category.displayOrder);
+
+  if (
+    !Number.isFinite(order) ||
+    order < 0
+  ) {
+    order = 0;
+  }
+
+  category.displayOrder =
+    Math.floor(order);
+
+  this.http
+    .put(
+      `${this.api}/${category.id}/display-order?order=${category.displayOrder}`,
+      null
+    )
+    .subscribe({
+
+      next: () => {
+
+        alert('Display Order Updated');
+
+        this.load();
+
+      },
+
+      error: (err) => {
+
+        alert(
+          this.getErrorMessage(
+            err,
+            'Display Order Update Failed'
+          )
+        );
+
+      }
+
+    });
+
+}
 
 
   // =========================

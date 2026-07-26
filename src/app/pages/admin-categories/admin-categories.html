@@ -336,26 +336,40 @@
           </div>
 
 
-          <div class="row-actions">
+         <div class="row-actions">
 
-            <button
-              type="button"
-              class="edit-btn"
-              (click)="edit(main)"
-            >
-              Edit
-            </button>
+  <input
+    type="number"
+    min="0"
+    [(ngModel)]="main.displayOrder"
+    style="width:70px"
+  >
 
-            <button
-              type="button"
-              class="delete-btn"
-              (click)="delete(main.id)"
-            >
-              Delete
-            </button>
+  <button
+    type="button"
+    class="primary-btn"
+    (click)="saveDisplayOrder(main)"
+  >
+    Save
+  </button>
 
-          </div>
+  <button
+    type="button"
+    class="edit-btn"
+    (click)="edit(main)"
+  >
+    Edit
+  </button>
 
+  <button
+    type="button"
+    class="delete-btn"
+    (click)="delete(main.id)"
+  >
+    Delete
+  </button>
+
+</div>
         </div>
 
 

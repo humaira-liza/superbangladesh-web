@@ -167,58 +167,12 @@ export class Sidebar
 
         next: (res) => {
 
-          const order = [
-            'Food',
-            'Baby Care',
-            'Home & Kitchen',
-            'Health & Wellness',
-            'Stationery & Office',
-            'Toys & Sports',
-            'Beauty & MakeUp'
-          ];
-
-
-          const normalized =
-            this.normalizeCategories(
-              Array.isArray(res)
-                ? res
-                : []
-            );
-
-
-          const sortedCategories =
-            normalized.sort(
-              (
-                a: any,
-                b: any
-              ) => {
-
-                const ai =
-                  order.indexOf(
-                    a.name
-                  );
-
-                const bi =
-                  order.indexOf(
-                    b.name
-                  );
-
-                return (
-                  (
-                    ai === -1
-                      ? 999
-                      : ai
-                  )
-                  -
-                  (
-                    bi === -1
-                      ? 999
-                      : bi
-                  )
-                );
-              }
-            );
-
+const sortedCategories =
+  this.normalizeCategories(
+    Array.isArray(res)
+      ? res
+      : []
+  );
 
           setTimeout(() => {
 
