@@ -219,6 +219,17 @@ html{
   background:#1d4ed8;
 }
 
+/* INVOICE */
+
+.invoice-btn{
+  background:#10b981;
+  color:white;
+}
+
+.invoice-btn:hover{
+  background:#059669;
+}
+
 /* DELETE */
 
 .delete-btn{

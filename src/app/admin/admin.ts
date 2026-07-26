@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -9,4 +9,12 @@ import { RouterModule } from '@angular/router';
   templateUrl: './admin.html',
   styleUrls: ['./admin.css']
 })
-export class Admin {}
+export class Admin {
+
+  constructor(public router: Router){}
+
+  get isInvoicePage(): boolean{
+    return this.router.url.includes('/invoice');
+  }
+
+}

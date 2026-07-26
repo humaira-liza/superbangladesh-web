@@ -6,6 +6,8 @@ import {
 } from '@angular/core';
 
 import {
+  Router,
+  NavigationEnd,
   RouterOutlet
 } from '@angular/router';
 
@@ -43,6 +45,8 @@ export class AppComponent
 
   cartDrawerOpen = false;
 
+  isInvoicePage = false;
+
 
   private openCartHandler =
     () => {
@@ -55,9 +59,23 @@ export class AppComponent
     };
 
 
-  constructor(
-    private zone: NgZone
-  ) {}
+constructor(
+  private zone: NgZone,
+  private router: Router
+) {
+
+  this.router.events.subscribe(event => {
+
+    if(event instanceof NavigationEnd){
+
+      this.isInvoicePage =
+        this.router.url.includes('/invoice');
+
+    }
+
+  });
+
+}
 
 
   ngOnInit(): void {

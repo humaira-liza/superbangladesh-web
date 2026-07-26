@@ -1,0 +1,150 @@
+/* PRINT */
+
+@media print{
+
+  @page{
+    size:A4 portrait;
+    margin:8mm;
+  }
+
+  html,
+  body{
+    margin:0 !important;
+    padding:0 !important;
+    width:100% !important;
+    height:auto !important;
+    overflow:visible !important;
+    background:#fff !important;
+  }
+
+  .sidebar,
+  .navbar,
+  header,
+  nav,
+  footer,
+  aside,
+  .top-bar{
+    display:none !important;
+  }
+
+.invoice-page{
+  width:auto !important;
+  min-height:auto !important;
+  margin:0 auto !important;
+  padding:0 !important;
+
+  display:flex !important;
+  justify-content:center !important;
+
+  background:#fff !important;
+}
+ .invoice-card{
+  width:190mm !important;
+  max-width:190mm !important;
+  margin:0 auto !important;
+  padding:8mm !important;
+
+  border:none !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+
+  /* ===== HEADER FIX ===== */
+
+  .invoice-header{
+    display:flex !important;
+    flex-direction:row !important;
+    justify-content:space-between !important;
+    align-items:flex-start !important;
+    flex-wrap:nowrap !important;
+    gap:25px !important;
+  }
+
+  .company{
+    width:58% !important;
+  }
+
+  .invoice-details{
+    width:42% !important;
+    text-align:right !important;
+  }
+
+  .invoice-details table{
+    margin-left:auto !important;
+  }
+
+  .company h1{
+    font-size:22px !important;
+  }
+
+  .invoice-details h2{
+    font-size:22px !important;
+    margin-bottom:8px !important;
+  }
+
+  .company p,
+  .invoice-details td{
+    font-size:12px !important;
+  }
+
+  hr{
+    margin:12px 0 !important;
+  }
+
+  .customer-box h3{
+    font-size:18px !important;
+  }
+
+  .customer-box p{
+    font-size:12px !important;
+  }
+
+  .title{
+    font-size:20px !important;
+    margin:12px 0 8px !important;
+  }
+
+  .invoice-table th,
+  .invoice-table td{
+    padding:6px !important;
+    font-size:12px !important;
+  }
+
+  .summary{
+    width:220px !important;
+    margin-top:10px !important;
+  }
+
+  .summary td{
+    padding:5px !important;
+    font-size:12px !important;
+  }
+
+  .signature-area{
+    margin-top:18px !important;
+    font-size:12px !important;
+  }
+
+  .footer{
+    margin-top:15px !important;
+    padding-top:10px !important;
+  }
+
+  .footer h3{
+    font-size:14px !important;
+  }
+
+  .footer p{
+    font-size:11px !important;
+  }
+
+  .invoice-card,
+  .invoice-table,
+  .summary,
+  .signature-area,
+  .footer{
+    page-break-inside:avoid !important;
+    break-inside:avoid !important;
+  }
+
+}

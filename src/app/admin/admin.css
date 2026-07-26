@@ -305,3 +305,33 @@ body{
     padding:12px;
   }
 }
+
+@media print{
+
+  .sidebar{
+    display:none !important;
+  }
+
+  .admin-layout{
+    display:block !important;
+    min-height:auto !important;
+    height:auto !important;
+  }
+
+  .content{
+    margin:0 !important;
+    padding:0 !important;
+    width:100% !important;
+    min-height:auto !important;
+    height:auto !important;
+    overflow:visible !important;
+  }
+
+  html,
+  body{
+    height:auto !important;
+    min-height:auto !important;
+    overflow:visible !important;
+  }
+
+}

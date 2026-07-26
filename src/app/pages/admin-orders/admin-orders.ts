@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -23,10 +24,11 @@ export class AdminOrders implements OnInit {
   API =
     'https://superbangladesh-api-1.onrender.com/api/orders';
 
-  constructor(
-    private http: HttpClient,
-    private cdr: ChangeDetectorRef
-  ) {}
+ constructor(
+  private http: HttpClient,
+  private cdr: ChangeDetectorRef,
+  private router: Router
+) {}
 
   ngOnInit() {
     this.load();
@@ -109,4 +111,14 @@ export class AdminOrders implements OnInit {
 
     return item.id;
   }
+
+  openInvoice(id: number) {
+
+  this.router.navigate([
+    '/admin/orders',
+    id,
+    'invoice'
+  ]);
+
+}
 }

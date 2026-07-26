@@ -176,27 +176,30 @@
       </div>
 
       <!-- ACTIONS -->
-      <div class="actions">
+     <div class="actions">
 
-        <button
-          class="toggle-btn"
-          (click)="updateStatus(o)"
-        >
+  <button
+    class="toggle-btn"
+    (click)="updateStatus(o)"
+  >
+    Update Status
+  </button>
 
-          Update Status
+  <button
+    class="invoice-btn"
+    (click)="openInvoice(o.id)"
+  >
+    📄 Invoice
+  </button>
 
-        </button>
+  <button
+    class="delete-btn"
+    (click)="delete(o.id)"
+  >
+    Delete
+  </button>
 
-        <button
-          class="delete-btn"
-          (click)="delete(o.id)"
-        >
-
-          Delete
-
-        </button>
-
-      </div>
+</div>
 
     </div>
 

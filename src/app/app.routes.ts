@@ -75,6 +75,8 @@ from './pages/admin-products/admin-products';
 import { AdminOrders }
 from './pages/admin-orders/admin-orders';
 
+import { AdminInvoice }
+from './pages/admin-invoice/admin-invoice';
 
 
 import { AdminComplaints }
@@ -380,6 +382,13 @@ export const routes: Routes = [
         component:
           AdminOrders
       },
+
+      {
+  path: 'orders/:id/invoice',
+
+  component:
+    AdminInvoice
+},
 
 
       // =========================
