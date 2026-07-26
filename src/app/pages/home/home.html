@@ -75,26 +75,29 @@
               "
             >
 
-              <img
-                loading="lazy"
-                decoding="async"
+             <div class="popular-image">
 
-                [src]="
-                  getCategoryImage(
-                    c.imageUrl ||
-                    c.image_url
-                  )
-                "
+  <img
+    loading="lazy"
+    decoding="async"
 
-                (error)="
-                  onImgError($event)
-                "
-              />
+    [src]="
+      getCategoryImage(
+        c.imageUrl ||
+        c.image_url
+      )
+    "
 
+    (error)="
+      onImgError($event)
+    "
+  />
 
-              <p>
-                {{ categoryName(c) }}
-              </p>
+</div>
+
+<p>
+  {{ categoryName(c) }}
+</p>
 
             </div>
 

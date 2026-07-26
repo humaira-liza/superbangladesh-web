@@ -55,7 +55,7 @@ import {
 } from '../../services/language.service';
 
 import { FormsModule } from '@angular/forms';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -180,7 +180,8 @@ export class Home implements OnInit {
       ChangeDetectorRef,
 
     public languageService:
-      LanguageService
+      LanguageService,
+      private router: Router
   ) {}
 
 
@@ -664,6 +665,9 @@ export class Home implements OnInit {
 
     this.mobileMenuOpen =
       false;
+
+      this.router.navigate(['/category', data.id]);
+return;
 
 
     if (!data) {

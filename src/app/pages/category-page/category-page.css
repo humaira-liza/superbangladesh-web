@@ -34,7 +34,7 @@
     top:90px;
     left:0;
 
-    width:240px;
+    width:280px;
     height:calc(100vh - 90px);
 
     overflow-y:auto;
@@ -48,7 +48,7 @@
 .category-content{
     flex:1;
 
-    margin-left:250px;
+    margin-left:280px;
     margin-right:40px;
 
     padding:24px 20px 80px;
