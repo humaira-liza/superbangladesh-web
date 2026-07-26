@@ -182,9 +182,9 @@ overflow:visible;
 
 .popular-card{
 
-    width:185px;
+    width:190px;
     min-width:185px;
-    height:250px;
+    height:220px;
 
     display:flex;
     flex-direction:column;
