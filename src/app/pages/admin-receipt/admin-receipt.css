@@ -1,0 +1,205 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #ececec;
+  font-family: "Courier New", monospace;
+}
+
+.receipt {
+  width: 80mm;
+  margin: 20px auto;
+  background: #fff;
+  color: #000;
+  padding: 12px;
+  border: 1px solid #ddd;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.center p {
+  margin: 2px 0;
+}
+
+hr {
+  border: none;
+  border-top: 1px dashed #000;
+  margin: 10px 0;
+}
+
+.info,
+.summary,
+.items {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.info td {
+  padding: 3px 0;
+  vertical-align: top;
+}
+
+.items th,
+.items td {
+  padding: 5px 2px;
+  border-bottom: 1px dashed #999;
+  text-align: left;
+  word-break: break-word;
+}
+
+.items th:nth-child(1),
+.items td:nth-child(1) {
+  width: 8%;
+}
+
+.items th:nth-child(3),
+.items td:nth-child(3),
+.items th:nth-child(4),
+.items td:nth-child(4),
+.items th:nth-child(5),
+.items td:nth-child(5) {
+  text-align: right;
+}
+
+.summary td {
+  padding: 5px 0;
+}
+
+.summary td:last-child {
+  text-align: right;
+}
+
+.grand {
+  font-size: 16px;
+  font-weight: bold;
+  border-top: 2px dashed #000;
+}
+
+.print-btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  border: none;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.print-btn:hover {
+  opacity: .9;
+}
+
+@media print {
+
+  body {
+    background: #fff;
+  }
+
+  .receipt {
+    width: 80mm;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .print-btn {
+    display: none;
+  }
+
+  @page {
+    size: 80mm auto;
+    margin: 0;
+  }
+}
+
+/* ===========================
+   PRINT ONLY
+=========================== */
+
+@media print {
+
+  app-admin,
+  aside,
+  nav,
+  header,
+  footer,
+  .sidebar,
+  .topbar,
+  .navbar,
+  .admin-sidebar,
+  .admin-header,
+  .floating-cart,
+  .chat-widget,
+  .print-btn {
+    display: none !important;
+  }
+
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  .receipt {
+    width: 80mm !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  @page {
+    size: 80mm auto;
+    margin: 0;
+  }
+}
+
+.download-btn {
+
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+
+  background: #1976d2;
+  color: white;
+
+  border: none;
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+}
+
+.download-btn:hover {
+
+  background: #0d47a1;
+
+}
+
+@media print {
+
+  .download-btn {
+
+    display: none !important;
+
+  }
+
+}

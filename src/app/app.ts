@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  NgZone
+  NgZone,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import {
@@ -61,7 +62,8 @@ export class AppComponent
 
 constructor(
   private zone: NgZone,
-  private router: Router
+  private router: Router,
+  private cdr: ChangeDetectorRef
 ) {
 
   this.router.events.subscribe(event => {
@@ -69,7 +71,9 @@ constructor(
     if(event instanceof NavigationEnd){
 
       this.isInvoicePage =
-        this.router.url.includes('/invoice');
+  this.router.url.includes('/invoice') ||
+  this.router.url.includes('/receipt');
+  this.cdr.detectChanges();
 
     }
 

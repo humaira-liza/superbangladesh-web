@@ -485,6 +485,16 @@ constructor(
               result.products
             );
 
+            console.log(
+  'PRODUCT IMAGE URLS =',
+  result.products.map((p: any) => ({
+    id: p.id,
+    name: p.name,
+    image: p.image,
+    imageUrl: p.imageUrl
+  }))
+);
+
             this.category =
               result.category;
 

@@ -121,4 +121,15 @@ export class AdminOrders implements OnInit {
   ]);
 
 }
+
+openReceipt(id: number) {
+
+  this.router.navigate([
+    '/admin/orders',
+    id,
+    'receipt'
+  ]);
+
+}
+
 }

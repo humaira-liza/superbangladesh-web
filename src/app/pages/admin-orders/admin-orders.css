@@ -317,3 +317,22 @@ html{
     grid-column:span 2;
   }
 }
+
+.receipt-btn {
+
+  background: #2e7d32;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: .3s;
+
+}
+
+.receipt-btn:hover {
+
+  background: #1b5e20;
+
+}

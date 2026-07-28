@@ -78,6 +78,8 @@ from './pages/admin-orders/admin-orders';
 import { AdminInvoice }
 from './pages/admin-invoice/admin-invoice';
 
+import { AdminReceipt }
+from './pages/admin-receipt/admin-receipt';
 
 import { AdminComplaints }
 from './pages/admin-complaints/admin-complaints';
@@ -388,6 +390,13 @@ export const routes: Routes = [
 
   component:
     AdminInvoice
+},
+
+{
+  path: 'orders/:id/receipt',
+
+  component:
+    AdminReceipt
 },
 
 
