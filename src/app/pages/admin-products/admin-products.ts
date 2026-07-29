@@ -38,22 +38,33 @@ get filteredProducts() {
 
   loading = true;
 
-  form: any = {
+ form: any = {
 
-    name: '',
-    price: '',
-    categoryId: null,
+  name: '',
+  price: '',
+  categoryId: null,
 
-    // PRODUCT SIZE
-    unit: '',
-    quantity: '',
+  // PRODUCT SIZE
+  unit: '',
+  quantity: '',
 
-    // STOCK
-    stock: '',
-    stockUnit: '',
+  // STOCK
+  stock: '',
+  stockUnit: '',
 
-    imageUrl: ''
-  };
+  // PRODUCT DETAILS
+  description: '',
+  brand: '',
+  origin: '',
+  sku: '',
+  discount: 0,
+
+  imageUrl: '',
+  imageUrl2: '',
+  imageUrl3: '',
+  imageUrl4: ''
+
+};
 
   editingId: number | null = null;
 
@@ -217,30 +228,45 @@ getCategoryFolder(id: number) {
 
     if (this.editingId !== null) {
 
-      const updateData: any = {
+     const updateData: any = {
 
-        name: this.form.name,
+  name: this.form.name,
 
-        price: Number(this.form.price),
+  price: Number(this.form.price),
 
-        stock: Number(this.form.stock),
+  stock: Number(this.form.stock),
 
-        // PRODUCT SIZE
-        quantity: this.form.quantity
-          ? Number(this.form.quantity)
-          : 0,
+  quantity: this.form.quantity
+    ? Number(this.form.quantity)
+    : 0,
 
-        unit: this.form.unit || '',
+  unit: this.form.unit || '',
 
-        // IMPORTANT
-        stockUnit: this.form.stockUnit,
+  stockUnit: this.form.stockUnit,
 
-        imageUrl: this.form.imageUrl,
+  description: this.form.description,
 
-        category: {
-          id: Number(this.form.categoryId)
-        }
-      };
+  brand: this.form.brand,
+
+  origin: this.form.origin,
+
+  sku: this.form.sku,
+
+  discount: Number(this.form.discount) || 0,
+
+  imageUrl: this.form.imageUrl,
+
+  imageUrl2: this.form.imageUrl2,
+
+  imageUrl3: this.form.imageUrl3,
+
+  imageUrl4: this.form.imageUrl4,
+
+  category: {
+    id: Number(this.form.categoryId)
+  }
+
+};
 
       // IMAGE UPDATE
       if (this.selectedFile) {
@@ -308,30 +334,45 @@ getCategoryFolder(id: number) {
           console.log('UPLOAD RESPONSE TYPE =', typeof imageUrl);
   console.log('UPLOAD RESPONSE VALUE =', JSON.stringify(imageUrl));
 
-          const data = {
+        const data = {
 
-            name: this.form.name,
+  name: this.form.name,
 
-            price: Number(this.form.price),
+  price: Number(this.form.price),
 
-            stock: Number(this.form.stock),
+  stock: Number(this.form.stock),
 
-            quantity: this.form.quantity
-              ? Number(this.form.quantity)
-              : 0,
+  quantity: this.form.quantity
+    ? Number(this.form.quantity)
+    : 0,
 
-            unit: this.form.unit || '',
+  unit: this.form.unit || '',
 
-            // IMPORTANT
-            stockUnit: this.form.stockUnit,
+  stockUnit: this.form.stockUnit,
 
-            imageUrl: imageUrl,
+  description: this.form.description,
 
-            category: {
-              id: Number(this.form.categoryId)
-            }
-          };
+  brand: this.form.brand,
 
+  origin: this.form.origin,
+
+  sku: this.form.sku,
+
+  discount: Number(this.form.discount) || 0,
+
+  imageUrl: imageUrl,
+
+  imageUrl2: this.form.imageUrl2,
+
+  imageUrl3: this.form.imageUrl3,
+
+  imageUrl4: this.form.imageUrl4,
+
+  category: {
+    id: Number(this.form.categoryId)
+  }
+
+};
           this.ps
             .addProduct(data)
             .subscribe({
@@ -402,20 +443,37 @@ getCategoryFolder(id: number) {
   console.log("EDIT PRODUCT =", p);
   console.log("FORM IMAGE =", p.imageUrl);
 
-  this.form = {
+ this.form = {
 
-    name: p.name,
-    price: p.price,
-    categoryId: p.category?.id || null,
+  name: p.name,
+  price: p.price,
+  categoryId: p.category?.id || null,
 
-    unit: p.unit || '',
-    quantity: p.quantity || '',
+  unit: p.unit || '',
+  quantity: p.quantity || '',
 
-    stock: p.stock || '',
-    stockUnit: p.stockUnit || '',
+  stock: p.stock || '',
+  stockUnit: p.stockUnit || '',
 
-    imageUrl: p.imageUrl || ''
-  };
+  description: p.description || '',
+
+  brand: p.brand || '',
+
+  origin: p.origin || '',
+
+  sku: p.sku || '',
+
+  discount: p.discount || 0,
+
+  imageUrl: p.imageUrl || '',
+
+  imageUrl2: p.imageUrl2 || '',
+
+  imageUrl3: p.imageUrl3 || '',
+
+  imageUrl4: p.imageUrl4 || ''
+
+};
 
   this.previewUrl = this.getImage(p.imageUrl);
 
@@ -453,21 +511,38 @@ getCategoryFolder(id: number) {
   // RESET
   reset() {
 
-    this.form = {
+ this.form = {
 
-      name: '',
-      price: '',
+  name: '',
+  price: '',
 
-      categoryId: null,
+  categoryId: null,
 
-      unit: '',
-      quantity: '',
+  unit: '',
+  quantity: '',
 
-      stock: '',
-      stockUnit: '',
+  stock: '',
+  stockUnit: '',
 
-      imageUrl: ''
-    };
+  description: '',
+
+  brand: '',
+
+  origin: '',
+
+  sku: '',
+
+  discount: 0,
+
+  imageUrl: '',
+
+  imageUrl2: '',
+
+  imageUrl3: '',
+
+  imageUrl4: ''
+
+};
 
     this.editingId = null;
 

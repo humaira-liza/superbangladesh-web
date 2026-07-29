@@ -9,12 +9,15 @@ import { CartService } from '../../services/cart';
   selector: 'app-product-details',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './product-details.html'
+  templateUrl: './product-details.html',
+  styleUrls: ['./product-details.css']
 })
 
 export class ProductDetails implements OnInit {
 
   product: any;
+
+  selectedImage = '';
 
   apiUrl =
     'https://superbangladesh-api-1.onrender.com';
@@ -43,7 +46,10 @@ export class ProductDetails implements OnInit {
           res
         );
 
-        this.product = res;
+       this.product = res;
+
+this.selectedImage =
+  res.imageUrl || '';
       },
 
       error: (err) => {

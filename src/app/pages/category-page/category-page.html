@@ -90,15 +90,16 @@
             products.length > 0
           ">
 
-          <article
-            class="product-card"
-            [class.out-product]="
-              p.stock <= 0
-            "
-            *ngFor="
-              let p of products;
-              trackBy: trackByProduct
-            ">
+         <article
+  class="product-card"
+  [class.out-product]="
+    p.stock <= 0
+  "
+  *ngFor="
+    let p of products;
+    trackBy: trackByProduct
+  "
+  (click)="openProduct(p.id)">
 
             <!-- IMAGE AREA -->
 

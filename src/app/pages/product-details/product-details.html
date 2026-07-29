@@ -1,50 +1,118 @@
-<div
-  class="product-details"
-  *ngIf="product"
->
-
-  <!-- LEFT -->
+<div class="product-details" *ngIf="product">
 
   <div class="left">
 
-    <img
-      [src]="apiUrl + '/images/' + product.imageUrl"
-      [alt]="product.name"
-    />
+    <div class="main-image">
+      <img
+        [src]="apiUrl + '/images/' + (selectedImage || product.imageUrl)"
+        [alt]="product.name">
+    </div>
+
+    <div class="thumbs">
+
+      <img
+        *ngIf="product.imageUrl"
+        [src]="apiUrl + '/images/' + product.imageUrl"
+        (click)="selectedImage = product.imageUrl">
+
+      <img
+        *ngIf="product.imageUrl2"
+        [src]="apiUrl + '/images/' + product.imageUrl2"
+        (click)="selectedImage = product.imageUrl2">
+
+      <img
+        *ngIf="product.imageUrl3"
+        [src]="apiUrl + '/images/' + product.imageUrl3"
+        (click)="selectedImage = product.imageUrl3">
+
+      <img
+        *ngIf="product.imageUrl4"
+        [src]="apiUrl + '/images/' + product.imageUrl4"
+        (click)="selectedImage = product.imageUrl4">
+
+    </div>
 
   </div>
 
-  <!-- RIGHT -->
-
   <div class="right">
 
-    <p class="category">
+    <span class="category">
       {{product.categoryName}}
-    </p>
+    </span>
 
-    <h1>
-      {{product.name}}
-    </h1>
+    <h1>{{product.name}}</h1>
 
-    <h2>
-      ৳ {{product.price}}
-    </h2>
+    <div class="price-box">
 
-    <p class="stock">
+      <span class="price">
+        ৳ {{product.price}}
+      </span>
+
+      <span
+        class="old-price"
+        *ngIf="product.discount">
+
+        ৳ {{product.price + product.discount}}
+
+      </span>
+
+    </div>
+
+    <div class="stock">
+
       Stock :
       {{product.stock}}
       {{product.stockUnit}}
-    </p>
 
-    <p class="description">
-      {{product.description}}
-    </p>
+    </div>
 
-    <button
-      (click)="addToCart()"
-    >
-      Add To Cart
-    </button>
+    <div class="info">
+
+      <p *ngIf="product.brand">
+        <b>Brand :</b> {{product.brand}}
+      </p>
+
+      <p *ngIf="product.origin">
+        <b>Origin :</b> {{product.origin}}
+      </p>
+
+      <p *ngIf="product.weight">
+        <b>Weight :</b> {{product.weight}}
+      </p>
+
+      <p *ngIf="product.sku">
+        <b>SKU :</b> {{product.sku}}
+      </p>
+
+    </div>
+
+    <div class="description">
+
+      <h3>Description</h3>
+
+      <p>
+        {{product.description}}
+      </p>
+
+    </div>
+
+    <div class="buttons">
+
+      <button
+        class="cart-btn"
+        (click)="addToCart()">
+
+        Add To Cart
+
+      </button>
+
+      <button class="buy-btn">
+
+        Buy Now
+
+      </button>
+
+    </div>
 
   </div>
 

@@ -942,23 +942,43 @@ addToCart(
   // TRACK PRODUCT
   // =========================
 
-  trackByProduct(
-    index: number,
-    product: any
-  ): any {
+trackByProduct(
+  index: number,
+  product: any
+): any {
 
-    return product?.id ?? index;
+  return product?.id ?? index;
+}
+
+
+// =========================
+// OPEN PRODUCT
+// =========================
+
+openProduct(
+  id: number
+): void {
+
+  if (!id) {
+    return;
   }
 
+  this.router.navigate([
+    '/product',
+    id
+  ]);
 
-  // =========================
-  // DESTROY
-  // =========================
+}
 
-  ngOnDestroy(): void {
 
-    this.destroy$.next();
+// =========================
+// DESTROY
+// =========================
 
-    this.destroy$.complete();
-  }
+ngOnDestroy(): void {
+
+  this.destroy$.next();
+
+  this.destroy$.complete();
+}
 }

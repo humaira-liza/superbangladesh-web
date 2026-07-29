@@ -144,6 +144,48 @@
 
 </select>
 
+<!-- DESCRIPTION -->
+<textarea
+[(ngModel)]="form.description"
+placeholder="Product Description">
+</textarea>
+
+<!-- BRAND -->
+<input
+[(ngModel)]="form.brand"
+placeholder="Brand">
+
+<!-- ORIGIN -->
+<input
+[(ngModel)]="form.origin"
+placeholder="Origin">
+
+<!-- SKU -->
+<input
+[(ngModel)]="form.sku"
+placeholder="SKU">
+
+<!-- DISCOUNT -->
+<input
+type="number"
+[(ngModel)]="form.discount"
+placeholder="Discount">
+
+<!-- IMAGE 2 -->
+<input
+[(ngModel)]="form.imageUrl2"
+placeholder="Image URL 2">
+
+<!-- IMAGE 3 -->
+<input
+[(ngModel)]="form.imageUrl3"
+placeholder="Image URL 3">
+
+<!-- IMAGE 4 -->
+<input
+[(ngModel)]="form.imageUrl4"
+placeholder="Image URL 4">
+
   <!-- BUTTON -->
   <button (click)="save()">
 

@@ -484,3 +484,14 @@
   box-shadow:
   0 0 0 5px rgba(37,99,235,0.12);
 }
+
+textarea{
+    width: 100%;
+    min-height: 120px;
+    padding: 14px;
+    border: 1px solid #dcdfe6;
+    border-radius: 14px;
+    font-size: 15px;
+    resize: vertical;
+    box-sizing: border-box;
+}

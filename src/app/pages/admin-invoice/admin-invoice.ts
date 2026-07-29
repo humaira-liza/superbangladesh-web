@@ -61,6 +61,7 @@ export class AdminInvoice implements OnInit, OnDestroy {
 console.log('ORDER BEFORE =', this.order);
 
 this.order = res;
+console.log('FULL RESPONSE', JSON.stringify(res, null, 2));
 
 console.log('ORDER AFTER =', this.order);
 console.log('ORDER IS NULL =', this.order === null);
