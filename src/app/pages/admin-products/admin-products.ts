@@ -155,45 +155,39 @@ getImage(url: string) {
     }
   }
 
-  // CATEGORY FOLDER
-  getCategoryFolder(id: number) {
+ // CATEGORY FOLDER
+getCategoryFolder(id: number) {
 
-    for (let main of this.categories) {
+  const format = (name: string) =>
+    name
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "");
 
-      // MAIN
-      if (main.id === id) {
+  for (const main of this.categories) {
 
-        return main.name
-          .toLowerCase()
-          .replace(/\s/g, '');
+    if (main.id === id) {
+      return format(main.name);
+    }
+
+    for (const sub of main.children || []) {
+
+      if (sub.id === id) {
+        return format(main.name);
       }
 
-      // SUB
-      for (let sub of main.children || []) {
+      for (const child of sub.children || []) {
 
-        if (sub.id === id) {
-
-          return main.name
-            .toLowerCase()
-            .replace(/\s/g, '');
-        }
-
-        // CHILD
-        for (let child of sub.children || []) {
-
-          if (child.id === id) {
-
-            return main.name
-              .toLowerCase()
-              .replace(/\s/g, '');
-          }
+        if (child.id === id) {
+          return format(main.name);
         }
       }
     }
-
-    return 'general';
   }
 
+  return "general";
+}
   // SAVE PRODUCT
   save() {
 
@@ -259,12 +253,16 @@ getImage(url: string) {
           .uploadImage(this.selectedFile, folder)
           .subscribe({
 
-            next: (imageUrl: any) => {
+          next: (imageUrl: any) => {
 
-              updateData.imageUrl = imageUrl;
+    console.log("TYPE =", typeof imageUrl);
+    console.log("VALUE =", imageUrl);
+    console.log("JSON =", JSON.stringify(imageUrl));
 
-              this.finalUpdate(updateData);
-            },
+    updateData.imageUrl = imageUrl;
+
+    this.finalUpdate(updateData);
+},
 
             error: (err) => {
 
@@ -307,6 +305,8 @@ getImage(url: string) {
       .subscribe({
 
         next: (imageUrl: any) => {
+          console.log('UPLOAD RESPONSE TYPE =', typeof imageUrl);
+  console.log('UPLOAD RESPONSE VALUE =', JSON.stringify(imageUrl));
 
           const data = {
 

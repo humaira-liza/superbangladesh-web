@@ -199,6 +199,7 @@ constructor(
         // =========================
 
         switchMap((result: any) => {
+          console.log('RESULT TYPE =', result.type, result);
 
           const id =
             Number(result.id);
