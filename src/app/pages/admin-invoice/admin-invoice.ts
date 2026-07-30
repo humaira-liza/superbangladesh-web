@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 
@@ -26,6 +26,7 @@ export class AdminInvoice implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private http: HttpClient,
     private cdr: ChangeDetectorRef
   ) {}
@@ -82,6 +83,10 @@ export class AdminInvoice implements OnInit, OnDestroy {
 
       });
 
+  }
+
+  goBack(): void {
+    this.router.navigate(['/admin/orders']);
   }
 
   printInvoice(): void {

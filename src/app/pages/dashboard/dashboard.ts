@@ -98,6 +98,26 @@ console.log('URL =', `/api/dashboard?email=${email}`);
     });
   }
 
+  // IMAGE URL — mirrors admin-products' getImage() so Best Sales,
+  // Low Stock and Out Of Stock thumbnails resolve correctly instead
+  // of pointing at a broken "<api-root>/<filename>" URL.
+  getImage(url: string): string {
+
+    if (!url || url === 'null') {
+      return 'assets/no-image.png';
+    }
+
+    if (url.startsWith('http')) {
+      return url;
+    }
+
+    return `https://superbangladesh-api-1.onrender.com/images/${url}`;
+  }
+
+  onImgError(event: Event): void {
+    (event.target as HTMLImageElement).src = 'assets/no-image.png';
+  }
+
   logout(): void {
 
   localStorage.removeItem('token');

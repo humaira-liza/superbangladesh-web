@@ -159,7 +159,7 @@
       <article class="product-card" *ngFor="let p of bestSales">
 
         <div class="product-photo">
-          <img [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl" [alt]="p.name" />
+          <img [src]="getImage(p.imageUrl)" [alt]="p.name" (error)="onImgError($event)" />
         </div>
 
         <div class="product-body">
@@ -197,7 +197,7 @@
       </div>
 
       <div class="inv-row" *ngFor="let p of lowStock">
-        <img [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl" [alt]="p.name" />
+        <img [src]="getImage(p.imageUrl)" [alt]="p.name" (error)="onImgError($event)" />
         <div>
           <h4>{{ p.name }}</h4>
           <span>Only {{ p.stock }} left</span>
@@ -219,7 +219,7 @@
       </div>
 
       <div class="inv-row" *ngFor="let p of outOfStock">
-        <img [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl" [alt]="p.name" />
+        <img [src]="getImage(p.imageUrl)" [alt]="p.name" (error)="onImgError($event)" />
         <div>
           <h4>{{ p.name }}</h4>
           <span>Refill immediately</span>

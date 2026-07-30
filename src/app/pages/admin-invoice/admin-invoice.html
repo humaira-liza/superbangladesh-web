@@ -19,13 +19,21 @@
 
     <div class="top-bar">
 
-      <button class="tool-btn tool-btn--print" (click)="printInvoice()">
-        <span>🖨</span> Print
+      <button class="tool-btn tool-btn--back" (click)="goBack()">
+        <span>←</span> Back to Orders
       </button>
 
-      <button class="tool-btn tool-btn--pdf" (click)="downloadPdf()">
-        <span>⬇</span> Download PDF
-      </button>
+      <div class="top-bar-right">
+
+        <button class="tool-btn tool-btn--print" (click)="printInvoice()">
+          <span>🖨</span> Print
+        </button>
+
+        <button class="tool-btn tool-btn--pdf" (click)="downloadPdf()">
+          <span>⬇</span> Download PDF
+        </button>
+
+      </div>
 
     </div>
 
