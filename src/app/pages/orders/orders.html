@@ -89,14 +89,7 @@
   <div class="info-box">
     <span>Paid Amount</span>
     <h3 style="color:green">
-      ৳ {{ o.paidAmount || 0 }}
-    </h3>
-  </div>
-
-  <div class="info-box">
-    <span>Due Amount</span>
-    <h3 style="color:#ff6b00">
-      ৳ {{ (o.totalAmount || 0) - (o.paidAmount || 0) }}
+      ৳ {{ o.paidAmount || o.totalAmount || 0 }}
     </h3>
   </div>
 

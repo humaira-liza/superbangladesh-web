@@ -160,14 +160,7 @@
   <div class="amount-box">
     <span>Paid Amount</span>
     <h2 style="color:green">
-      ৳ {{ o.paidAmount || 0 }}
-    </h2>
-  </div>
-
-  <div class="amount-box">
-    <span>Due Amount</span>
-    <h2 style="color:#ff6b00">
-      ৳ {{ (o.totalAmount || 0) - (o.paidAmount || 0) }}
+      ৳ {{ o.paidAmount || o.totalAmount || 0 }}
     </h2>
   </div>
 

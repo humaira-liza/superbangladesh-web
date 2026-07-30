@@ -1,335 +1,324 @@
-<h2 class="title">Admin Products</h2>
+<!-- PAGE HEAD -->
+<div class="page-head">
+  <div>
+    <div class="eyebrow">Catalog Management</div>
+    <h2 class="title">Products</h2>
+  </div>
+
+  <div class="head-stat">
+    <span class="num">{{ products.length }}</span>
+    <span class="lbl">items listed</span>
+  </div>
+</div>
 
 <!-- FORM -->
 
-<div class="form">
+<div class="form-card">
 
-  <!-- NAME -->
-  <input
-    [(ngModel)]="form.name"
-    placeholder="Product Name">
+  <div class="form-card-head">
+    <h3>{{ editingId ? 'Edit Product' : 'Add a New Product' }}</h3>
+    <p>Fill in the details below, then save to publish it to the storefront.</p>
+  </div>
 
-  <!-- PRICE -->
-  <input
-    [(ngModel)]="form.price"
-    type="number"
-    placeholder="Price">
+  <div class="form">
 
-  <!-- CATEGORY -->
-  <select [(ngModel)]="form.categoryId">
+    <!-- BASIC INFO -->
+    <div class="field-section">
+      <div class="section-label">Basic Information</div>
 
-    <option [ngValue]="null" disabled selected>
-      Select Category
-    </option>
+      <div class="field-grid cols-2">
 
-    <!-- MAIN -->
-    <ng-container *ngFor="let main of categories">
+        <div class="field">
+          <label>Product Name</label>
+          <input [(ngModel)]="form.name" placeholder="e.g. Fresh Tomato">
+        </div>
 
-      <!-- MAIN ONLY -->
-      <option
-        *ngIf="!main.children || main.children.length === 0"
-        [ngValue]="main.id">
+        <div class="field">
+          <label>Category</label>
+          <select [(ngModel)]="form.categoryId">
 
-        {{ main.name }}
+            <option [ngValue]="null" disabled selected>Select Category</option>
 
-      </option>
+            <ng-container *ngFor="let main of categories">
 
-      <!-- SUB -->
-      <ng-container *ngFor="let sub of main.children">
+              <option
+                *ngIf="!main.children || main.children.length === 0"
+                [ngValue]="main.id">
+                {{ main.name }}
+              </option>
 
-        <!-- SUB ONLY -->
-        <option
-          *ngIf="!sub.children || sub.children.length === 0"
-          [ngValue]="sub.id">
+              <ng-container *ngFor="let sub of main.children">
 
-          {{ main.name }}
-          →
-          {{ sub.name }}
+                <option
+                  *ngIf="!sub.children || sub.children.length === 0"
+                  [ngValue]="sub.id">
+                  {{ main.name }} → {{ sub.name }}
+                </option>
 
-        </option>
+                <option
+                  *ngFor="let child of sub.children"
+                  [ngValue]="child.id">
+                  {{ main.name }} → {{ sub.name }} → {{ child.name }}
+                </option>
 
-        <!-- CHILD -->
-        <option
-          *ngFor="let child of sub.children"
-          [ngValue]="child.id">
+              </ng-container>
 
-          {{ main.name }}
-          →
-          {{ sub.name }}
-          →
-          {{ child.name }}
+            </ng-container>
 
-        </option>
+          </select>
+        </div>
 
-      </ng-container>
+      </div>
+    </div>
 
-    </ng-container>
+    <!-- PRICING & STOCK -->
+    <div class="field-section">
+      <div class="section-label">Pricing &amp; Stock</div>
 
-  </select>
+      <div class="field-grid cols-4">
 
-  <!-- UNIT -->
-  <!-- UNIT -->
-<select [(ngModel)]="form.unit">
+        <div class="field price-field">
+          <label>Price</label>
+          <span class="prefix">৳</span>
+          <input [(ngModel)]="form.price" type="number" placeholder="0.00">
+        </div>
 
-  <option value="" disabled selected>
-    Select Unit
-  </option>
+        <div class="field">
+          <label>Discount</label>
+          <input type="number" [(ngModel)]="form.discount" placeholder="% off">
+        </div>
 
-  <option value="kg">
-    KG
-  </option>
+        <div class="field">
+          <label>Stock</label>
+          <input [(ngModel)]="form.stock" type="number" placeholder="0">
+        </div>
 
-  <option value="gram">
-    Gram
-  </option>
+        <div class="field">
+          <label>Stock Unit</label>
+          <select [(ngModel)]="form.stockUnit">
+            <option value="" disabled selected>Stock Unit</option>
+            <option value="kg">KG</option>
+            <option value="gram">Gram</option>
+            <option value="liter">Liter</option>
+            <option value="ml">ML</option>
+            <option value="pcs">PCS</option>
+          </select>
+        </div>
 
-  <option value="liter">
-    Liter
-  </option>
+        <div class="field">
+          <label>Pack Size</label>
+          <select [(ngModel)]="form.unit">
+            <option value="" disabled selected>Select Unit</option>
+            <option value="kg">KG</option>
+            <option value="gram">Gram</option>
+            <option value="liter">Liter</option>
+            <option value="ml">ML</option>
+            <option value="pcs">Piece</option>
+          </select>
+        </div>
 
-  <option value="ml">
-    ML
-  </option>
+        <div class="field">
+          <label>Quantity</label>
+          <input [(ngModel)]="form.quantity" type="number" placeholder="e.g. 500">
+        </div>
 
-  <option value="pcs">
-    Piece
-  </option>
+      </div>
+    </div>
 
-</select>
+    <!-- PRODUCT DETAILS -->
+    <div class="field-section">
+      <div class="section-label">Product Details</div>
 
-  <!-- QUANTITY -->
-  <input
-    [(ngModel)]="form.quantity"
-    type="number"
-    placeholder="Quantity">
+      <div class="field-grid cols-2">
 
-  <!-- IMAGE -->
-  <input
-    type="file"
-    (change)="onFileChange($event)">
+        <div class="field">
+          <label>Brand</label>
+          <input [(ngModel)]="form.brand" placeholder="Brand name">
+        </div>
 
-  <!-- STOCK -->
-  <input
-    [(ngModel)]="form.stock"
-    type="number"
-    placeholder="Stock">
+        <div class="field">
+          <label>Origin</label>
+          <input [(ngModel)]="form.origin" placeholder="e.g. Bangladesh">
+        </div>
 
-    <!-- STOCK UNIT -->
+        <div class="field">
+          <label>Product Code (SKU)</label>
+          <input [(ngModel)]="form.sku" placeholder="e.g. SB-TOM-001">
+        </div>
 
-<select [(ngModel)]="form.stockUnit">
+      </div>
 
-  <option value="" disabled selected>
-    Stock Unit
-  </option>
+      <div class="field" style="margin-top:18px;">
+        <label>Description</label>
+        <textarea [(ngModel)]="form.description" placeholder="Short description shown on the product page"></textarea>
+      </div>
+    </div>
 
-  <option value="kg">
-    KG
-  </option>
+    <!-- IMAGES -->
+    <div class="field-section">
+      <div class="section-label">Images</div>
 
-  <option value="gram">
-    Gram
-  </option>
+      <div class="field-grid cols-4">
 
-  <option value="liter">
-    Liter
-  </option>
+        <div class="file-group">
+          <label>Main Image</label>
+          <input type="file" (change)="onFileChange($event)">
+        </div>
 
-  <option value="ml">
-    ML
-  </option>
+        <div class="file-group">
+          <label>Image 2</label>
+          <input type="file" (change)="onFile2Change($event)">
+        </div>
 
-  <option value="pcs">
-    PCS
-  </option>
+        <div class="file-group">
+          <label>Image 3</label>
+          <input type="file" (change)="onFile3Change($event)">
+        </div>
 
-</select>
+        <div class="file-group">
+          <label>Image 4</label>
+          <input type="file" (change)="onFile4Change($event)">
+        </div>
 
-<!-- DESCRIPTION -->
-<textarea
-[(ngModel)]="form.description"
-placeholder="Product Description">
-</textarea>
+      </div>
+    </div>
 
-<!-- BRAND -->
-<input
-[(ngModel)]="form.brand"
-placeholder="Brand">
+    <!-- FOOTER -->
+    <div class="form-footer">
 
-<!-- ORIGIN -->
-<input
-[(ngModel)]="form.origin"
-placeholder="Origin">
+      <div class="preview-chip" *ngIf="previewUrl">
+        <img [src]="previewUrl">
+        <span>Main image preview</span>
+      </div>
 
-<!-- SKU -->
-<input
-[(ngModel)]="form.sku"
-placeholder="SKU">
+      <button class="btn-ghost" *ngIf="editingId" (click)="reset()">Cancel</button>
 
-<!-- DISCOUNT -->
-<input
-type="number"
-[(ngModel)]="form.discount"
-placeholder="Discount">
+      <button class="btn-primary" (click)="save()">
+        {{ editingId ? 'Update Product' : 'Add Product' }}
+      </button>
 
-<!-- IMAGE 2 -->
-<input
-[(ngModel)]="form.imageUrl2"
-placeholder="Image URL 2">
+    </div>
 
-<!-- IMAGE 3 -->
-<input
-[(ngModel)]="form.imageUrl3"
-placeholder="Image URL 3">
-
-<!-- IMAGE 4 -->
-<input
-[(ngModel)]="form.imageUrl4"
-placeholder="Image URL 4">
-
-  <!-- BUTTON -->
-  <button (click)="save()">
-
-    {{ editingId ? 'Update Product' : 'Add Product' }}
-
-  </button>
+  </div>
 
 </div>
 
-<!-- PREVIEW -->
+<!-- TOOLBAR -->
 
-<div
-  class="preview"
-  *ngIf="previewUrl">
+<div class="toolbar">
 
-  <img [src]="previewUrl">
+  <div class="search-box">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="7"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" [(ngModel)]="searchText" placeholder="Search products...">
+  </div>
+
+  <div class="toolbar-count" *ngIf="!loading">
+    Showing {{ filteredProducts.length }} of {{ products.length }}
+  </div>
 
 </div>
 
-<!-- SEARCH -->
+<!-- LOADING STATE -->
 
-<div class="search-box">
+<div class="state-panel" *ngIf="loading">
+  <div class="spinner"></div>
+  <h4>Loading products…</h4>
+  <p>Hang tight while we fetch your catalog.</p>
+</div>
 
-  <input
-    type="text"
-    [(ngModel)]="searchText"
-    placeholder="🔍 Search Product..."
-  >
+<!-- EMPTY STATE -->
 
+<div class="state-panel" *ngIf="!loading && filteredProducts.length === 0">
+  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <path d="M3 7l1.5-3h15L21 7M3 7v13a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7M3 7h18M9 11h6"/>
+  </svg>
+  <h4>{{ searchText ? 'No matching products' : 'No products yet' }}</h4>
+  <p>
+    {{ searchText
+      ? 'Try a different search term.'
+      : 'Add your first product using the form above.' }}
+  </p>
 </div>
 
 <!-- PRODUCTS -->
 
-<div class="products">
+<div class="products" *ngIf="!loading && filteredProducts.length > 0">
 
-  <div
-   *ngFor="let p of filteredProducts"
-    class="card">
+  <div *ngFor="let p of filteredProducts" class="card">
 
     <!-- IMAGE -->
     <div class="image-box">
 
-      <img
-        [src]="getImage(p.imageUrl)"
-        (error)="p.imageUrl=''">
+      <span class="discount-tag" *ngIf="p.discount">-{{ p.discount }}%</span>
 
-      <!-- PLUS BUTTON -->
-      <button class="plus-btn">
-        +
+      <img [src]="getImage(p.imageUrl)" (error)="p.imageUrl=''">
+
+      <button class="edit-fab" (click)="edit(p)" title="Edit product">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 20h9"/>
+          <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+        </svg>
       </button>
 
     </div>
 
     <!-- INFO -->
-
     <div class="info">
 
-      <!-- NAME -->
-      <h3>
-        {{ p.name }}
-      </h3>
+      <h3>{{ p.name }}</h3>
 
-      <!-- CATEGORY -->
+      <!-- CATEGORY BREADCRUMB -->
       <p class="cat">
 
-        <!-- CHILD -->
         <ng-container *ngIf="p.category?.parent?.parent">
-
           {{ p.category.parent.parent.name }}
-          →
+          <span class="sep">›</span>
           {{ p.category.parent.name }}
-          →
+          <span class="sep">›</span>
           {{ p.category.name }}
-
         </ng-container>
 
-        <!-- SUB -->
         <ng-container *ngIf="p.category?.parent && !p.category?.parent?.parent">
-
           {{ p.category.parent.name }}
-          →
+          <span class="sep">›</span>
           {{ p.category.name }}
-
         </ng-container>
 
-        <!-- MAIN -->
         <ng-container *ngIf="!p.category?.parent">
-
           {{ p.category?.name }}
-
         </ng-container>
 
       </p>
 
       <!-- PRICE -->
-      <p class="price">
+      <div class="price-row">
+        <span class="price">৳ {{ getFinalPrice(p) }}</span>
+        <span class="price-old" *ngIf="p.discount">৳ {{ p.price }}</span>
+      </div>
 
-        ৳ {{ p.price }}
+      <!-- QUANTITY + STOCK -->
+      <div class="meta-row">
 
-      </p>
+        <span class="unit" *ngIf="p.quantity && p.unit">
+          {{ p.quantity }} {{ p.unit }}
+        </span>
 
-      <!-- QUANTITY + UNIT -->
-      <p
-        class="unit"
-        *ngIf="p.quantity && p.unit">
+        <span
+          class="stock"
+          [ngClass]="{ 'low': p.stock > 0 && p.stock <= 5, 'out': p.stock == 0 }">
+          {{ p.stock }} {{ p.stockUnit | uppercase }}
+        </span>
 
-        {{ p.quantity }} {{ p.unit }}
+      </div>
 
-      </p>
-
-      <!-- STOCK -->
-<p
-  class="stock"
-  [ngClass]="{
-    'low': p.stock > 0 && p.stock <= 5,
-    'out': p.stock == 0
-  }"
->
-
-  Stock:
-  {{ p.stock }}
-
-  {{ p.stockUnit | uppercase }}
-
-</p>
-
-      <!-- BUTTONS -->
+      <!-- ACTIONS -->
       <div class="actions">
 
-        <button
-          class="edit-btn"
-          (click)="edit(p)">
-
-          Edit
-
-        </button>
-
-        <button
-          class="delete-btn"
-          (click)="delete(p.id)">
-
-          Delete
-
-        </button>
+        <button class="edit-btn" (click)="edit(p)">Edit</button>
+        <button class="delete-btn" (click)="delete(p.id)">Delete</button>
 
       </div>
 

@@ -1,118 +1,116 @@
-<div class="invoice-page" *ngIf="order">
+<div class="invoice-page" *ngIf="loading">
+  <div class="state-card">
+    <div class="spinner"></div>
+    <p>Loading invoice…</p>
+  </div>
+</div>
+
+<div class="invoice-page" *ngIf="!loading && !order">
+  <div class="state-card">
+    <p class="state-icon">⚠</p>
+    <h2>Invoice Not Found</h2>
+    <p class="state-note">This order doesn't exist or may have been removed.</p>
+  </div>
+</div>
+
+<div class="invoice-page" *ngIf="!loading && order">
 
   <div class="invoice-card">
 
     <div class="top-bar">
-      <button class="print-btn" (click)="printInvoice()">
-        🖨 Print
+
+      <button class="tool-btn tool-btn--print" (click)="printInvoice()">
+        <span>🖨</span> Print
       </button>
 
-      <button class="download-btn" (click)="downloadPdf()">
-        📄 PDF
+      <button class="tool-btn tool-btn--pdf" (click)="downloadPdf()">
+        <span>⬇</span> Download PDF
       </button>
+
     </div>
 
-    <div class="company-header">
-      <h1>SUPER BANGLADESH</h1>
-      <p>Building a Sustainable Future</p>
+    <!-- LETTERHEAD -->
+    <div class="letterhead">
+
+      <div class="brand">
+        <div>
+          <h1>SUPER BANGLADESH</h1>
+          <p>Building a Sustainable Future</p>
+          <p class="brand-contact">
+            <span>☎ +880 1756-442133</span>
+            <span>✉ support&#64;superbangladesh.com</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="invoice-meta">
+        <p class="invoice-tag">INVOICE</p>
+        <p class="invoice-no">{{ order.invoiceNumber || ('INV-' + order.id) }}</p>
+        <span class="status-chip" [class.status-chip--done]="order.status === 'DONE'">
+          {{ order.status }}
+        </span>
+      </div>
+
     </div>
 
-    <hr>
+    <div class="divider"></div>
 
-    <table class="info">
+    <!-- BILL TO / DETAILS -->
+    <div class="detail-grid">
 
-      <tr>
-        <td><strong>Invoice No</strong></td>
-        <td>{{ order.invoiceNumber || ('INV-' + order.id) }}</td>
-      </tr>
+      <div class="detail-block">
+        <p class="detail-label">Billed To</p>
+        <p class="detail-strong">{{ order.name }}</p>
+        <p class="detail-line">{{ order.phone }}</p>
+        <p class="detail-line">{{ order.address }}</p>
+      </div>
 
-      <tr>
-        <td><strong>Date</strong></td>
-        <td>{{ order.createdAt | date:'dd MMM yyyy' }}</td>
-      </tr>
+      <div class="detail-block detail-block--right">
+        <p class="detail-label">Invoice Date</p>
+        <p class="detail-strong">{{ order.createdAt | date:'dd MMM yyyy' }}</p>
+        <p class="detail-label" style="margin-top:14px">Payment Method</p>
+        <p class="detail-strong">{{ order.paymentMethod }}</p>
+      </div>
 
-      <tr>
-        <td><strong>Customer</strong></td>
-        <td>{{ order.name }}</td>
-      </tr>
+    </div>
 
-      <tr>
-        <td><strong>Phone</strong></td>
-        <td>{{ order.phone }}</td>
-      </tr>
-
-      <tr>
-        <td><strong>Address</strong></td>
-        <td>{{ order.address }}</td>
-      </tr>
-
-      <tr>
-        <td><strong>Payment</strong></td>
-        <td>{{ order.paymentMethod }}</td>
-      </tr>
-
-      <tr>
-        <td><strong>Status</strong></td>
-        <td>{{ order.status }}</td>
-      </tr>
-
-    </table>
-
-    <br>
-
+    <!-- ITEMS -->
     <table class="items">
 
       <thead>
-
         <tr>
           <th>Product</th>
-          <th>Qty</th>
-          <th>Price</th>
-          <th>Total</th>
+          <th class="align-center">Qty</th>
+          <th class="align-right">Unit Price</th>
+          <th class="align-right">Amount</th>
         </tr>
-
       </thead>
 
       <tbody>
-
         <tr *ngFor="let item of order.items">
-
           <td>{{ item.productName }}</td>
-
-          <td>{{ item.quantity }}</td>
-
-          <td>৳ {{ item.price }}</td>
-
-          <td>৳ {{ item.price * item.quantity }}</td>
-
+          <td class="align-center">{{ item.quantity }}</td>
+          <td class="align-right">৳ {{ item.price | number }}</td>
+          <td class="align-right">৳ {{ item.price * item.quantity | number }}</td>
         </tr>
-
       </tbody>
 
     </table>
 
-    <br>
+    <!-- TOTAL -->
+    <div class="total-block">
+      <div class="total-row total-row--grand">
+        <span>Total Amount</span>
+        <span>৳ {{ order.totalAmount | number }}</span>
+      </div>
+    </div>
 
-    <h2 style="text-align:right">
-      Total : ৳ {{ order.totalAmount }}
-    </h2>
+    <div class="divider"></div>
 
-    <hr>
-
-    <p style="text-align:center">
-
-      Thank you for shopping with
-
-      <strong>SUPER BANGLADESH</strong>
-
+    <p class="thanks">
+      Thank you for shopping with <strong>SUPER BANGLADESH</strong>
     </p>
 
   </div>
-
-</div>
-
-<div *ngIf="!order" style="padding:40px;text-align:center">
-
-  <h2>Loading Invoice...</h2>
 
 </div>

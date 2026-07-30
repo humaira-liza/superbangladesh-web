@@ -1,209 +1,137 @@
-<div id="receipt" class="receipt" *ngIf="order">
-
-  <!-- Company -->
-
-  <div class="center">
-
-    <h2>SUPER BANGLADESH</h2>
-
-    <p>Building a Sustainable Future</p>
-
-    <p>www.superbangladesh.com</p>
-
-    <p>support@superbangladesh.com</p>
-
-    <p>☎ +880 1756-442133</p>
-
-    <p>Dhaka, Bangladesh</p>
-
+<div class="receipt-page" *ngIf="loading">
+  <div class="state-card">
+    <div class="spinner"></div>
+    <p>Loading receipt…</p>
   </div>
+</div>
 
-  <hr>
+<div class="receipt-page" *ngIf="!loading && !order">
+  <div class="state-card">
+    <p class="state-icon">⚠</p>
+    <h2>Receipt Not Found</h2>
+  </div>
+</div>
 
-  <!-- Invoice -->
+<div class="receipt-page" *ngIf="!loading && order">
 
-  <table class="info">
+  <div id="receipt" class="receipt">
 
-    <tr>
+    <!-- Company -->
+    <div class="center brand">
+      <h2>SUPER BANGLADESH</h2>
+      <p>Building a Sustainable Future</p>
+      <p>www.superbangladesh.com</p>
+      <p>support&#64;superbangladesh.com</p>
+      <p>☎ +880 1756-442133</p>
+      <p>Dhaka, Bangladesh</p>
+    </div>
 
-      <td><strong>Invoice</strong></td>
+    <div class="rule"></div>
 
-      <td>
-
-        {{ order.invoiceNumber || ('INV-' + order.id) }}
-
-      </td>
-
-    </tr>
-
-    <tr>
-
-      <td><strong>Order ID</strong></td>
-
-      <td>#{{ order.id }}</td>
-
-    </tr>
-
-    <tr>
-
-      <td><strong>Date</strong></td>
-
-      <td>
-
-        {{ order.createdAt | date:'dd MMM yyyy hh:mm a' }}
-
-      </td>
-
-    </tr>
-
-    <tr>
-
-      <td><strong>Customer</strong></td>
-
-      <td>{{ order.name }}</td>
-
-    </tr>
-
-    <tr>
-
-      <td><strong>Phone</strong></td>
-
-      <td>{{ order.phone }}</td>
-
-    </tr>
-
-    <tr>
-
-      <td><strong>Payment</strong></td>
-
-      <td>{{ order.paymentMethod }}</td>
-
-    </tr>
-
-    <tr>
-
-      <td><strong>Status</strong></td>
-
-      <td>{{ order.status }}</td>
-
-    </tr>
-
-  </table>
-
-  <hr>
-
-  <!-- Products -->
-
-  <table class="items">
-
-    <thead>
+    <!-- Invoice -->
+    <table class="info">
 
       <tr>
-
-        <th>#</th>
-
-        <th>Item</th>
-
-        <th>Qty</th>
-
-        <th>Price</th>
-
-        <th>Total</th>
-
+        <td>Invoice</td>
+        <td class="val">{{ order.invoiceNumber || ('INV-' + order.id) }}</td>
       </tr>
 
-    </thead>
-
-    <tbody>
-
-      <tr *ngFor="let item of (order.items || []); let i = index">
-
-        <td>{{ i + 1 }}</td>
-
-        <td>{{ item.productName }}</td>
-
-        <td>{{ item.quantity }}</td>
-
-        <td>{{ item.price }}</td>
-
-        <td>{{ item.price * item.quantity }}</td>
-
+      <tr>
+        <td>Order ID</td>
+        <td class="val">#{{ order.id }}</td>
       </tr>
 
-    </tbody>
+      <tr>
+        <td>Date</td>
+        <td class="val">{{ order.createdAt | date:'dd MMM yyyy hh:mm a' }}</td>
+      </tr>
 
-  </table>
+      <tr>
+        <td>Customer</td>
+        <td class="val">{{ order.name }}</td>
+      </tr>
 
-  <hr>
+      <tr>
+        <td>Phone</td>
+        <td class="val">{{ order.phone }}</td>
+      </tr>
 
-  <!-- Total -->
+      <tr>
+        <td>Payment</td>
+        <td class="val">{{ order.paymentMethod }}</td>
+      </tr>
 
-  <table class="summary">
+      <tr>
+        <td>Status</td>
+        <td class="val">{{ order.status }}</td>
+      </tr>
 
-    <tr>
+    </table>
 
-      <td>Total Amount</td>
+    <div class="rule"></div>
 
-      <td>
+    <!-- Products -->
+    <table class="items">
 
-        ৳ {{ order.totalAmount }}
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Item</th>
+          <th class="align-right">Qty</th>
+          <th class="align-right">Price</th>
+          <th class="align-right">Total</th>
+        </tr>
+      </thead>
 
-      </td>
+      <tbody>
+        <tr *ngFor="let item of (order.items || []); let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.productName }}</td>
+          <td class="align-right">{{ item.quantity }}</td>
+          <td class="align-right">{{ item.price }}</td>
+          <td class="align-right">{{ item.price * item.quantity }}</td>
+        </tr>
+      </tbody>
 
-    </tr>
+    </table>
 
-    <tr>
+    <div class="rule"></div>
 
-      <td>Paid</td>
+    <!-- Total -->
+    <table class="summary">
 
-      <td>
+      <tr>
+        <td>Total Amount</td>
+        <td class="align-right">৳ {{ order.totalAmount }}</td>
+      </tr>
 
-        ৳ {{ order.paidAmount || 0 }}
+      <tr class="grand">
+        <td>Paid</td>
+        <td class="align-right">৳ {{ order.paidAmount || order.totalAmount }}</td>
+      </tr>
 
-      </td>
+    </table>
 
-    </tr>
+    <div class="rule rule--double"></div>
 
-    <tr>
-
-      <td>Due</td>
-
-      <td>
-
-        ৳ {{ order.totalAmount - (order.paidAmount || 0) }}
-
-      </td>
-
-    </tr>
-
-  </table>
-
-  <hr>
-
-  <div class="center">
-
-    <strong>Thank You</strong>
-
-    <p>Please Visit Again</p>
-
-    <p>Powered by Super Bangladesh</p>
+    <div class="center thanks">
+      <strong>Thank You</strong>
+      <p>Please Visit Again</p>
+      <p class="powered">Powered by Super Bangladesh</p>
+    </div>
 
   </div>
 
-<div class="action-buttons">
+  <div class="action-buttons">
 
-  <button
-    class="print-btn"
-    (click)="printReceipt()">
-    🖨 Print Receipt
-  </button>
+    <button class="print-btn" (click)="printReceipt()">
+      🖨 Print Receipt
+    </button>
 
-  <button
-    class="download-btn"
-    (click)="downloadPdf()">
-    📄 Download PDF
-  </button>
+    <button class="download-btn" (click)="downloadPdf()">
+      ⬇ Download PDF
+    </button>
 
-</div>
+  </div>
 
 </div>

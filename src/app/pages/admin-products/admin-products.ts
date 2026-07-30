@@ -69,6 +69,9 @@ get filteredProducts() {
   editingId: number | null = null;
 
   selectedFile: File | null = null;
+  selectedFile2: File | null = null;
+selectedFile3: File | null = null;
+selectedFile4: File | null = null;
 
   previewUrl: any = null;
 
@@ -148,6 +151,19 @@ getImage(url: string) {
   return `https://superbangladesh-api-1.onrender.com/images/${url}`;
 }
 
+  // DISCOUNTED PRICE (rounded, for card display)
+  getFinalPrice(p: any) {
+
+    const price = Number(p?.price) || 0;
+    const discount = Number(p?.discount) || 0;
+
+    if (!discount) {
+      return price;
+    }
+
+    return Math.round(price - (price * discount / 100));
+  }
+
   // FILE CHANGE
   onFileChange(event: any) {
 
@@ -165,6 +181,18 @@ getImage(url: string) {
       reader.readAsDataURL(this.selectedFile);
     }
   }
+
+  onFile2Change(event: any) {
+  this.selectedFile2 = event.target.files[0];
+}
+
+onFile3Change(event: any) {
+  this.selectedFile3 = event.target.files[0];
+}
+
+onFile4Change(event: any) {
+  this.selectedFile4 = event.target.files[0];
+}
 
  // CATEGORY FOLDER
 getCategoryFolder(id: number) {
@@ -199,8 +227,31 @@ getCategoryFolder(id: number) {
 
   return "general";
 }
+
+upload(file: File | null, folder: string): Promise<string> {
+
+  if (!file) {
+    return Promise.resolve('');
+  }
+
+  return new Promise((resolve, reject) => {
+
+    this.ps.uploadImage(file, folder).subscribe({
+
+      next: (url: string) => resolve(url),
+
+      error: (err) => reject(err)
+
+    });
+
+  });
+
+}
   // SAVE PRODUCT
   save() {
+    const folder = this.getCategoryFolder(
+  Number(this.form.categoryId)
+);
 
     // VALIDATION
     if (
@@ -322,91 +373,89 @@ getCategoryFolder(id: number) {
       return;
     }
 
-    const folder = this.getCategoryFolder(
-      Number(this.form.categoryId)
-    );
+   (async () => {
 
-    this.ps
-      .uploadImage(this.selectedFile, folder)
-      .subscribe({
+  try {
 
-        next: (imageUrl: any) => {
-          console.log('UPLOAD RESPONSE TYPE =', typeof imageUrl);
-  console.log('UPLOAD RESPONSE VALUE =', JSON.stringify(imageUrl));
+    const imageUrl = await this.upload(this.selectedFile, folder);
 
-        const data = {
+    const imageUrl2 = await this.upload(this.selectedFile2, folder);
 
-  name: this.form.name,
+    const imageUrl3 = await this.upload(this.selectedFile3, folder);
 
-  price: Number(this.form.price),
+    const imageUrl4 = await this.upload(this.selectedFile4, folder);
 
-  stock: Number(this.form.stock),
+    const data = {
 
-  quantity: this.form.quantity
-    ? Number(this.form.quantity)
-    : 0,
+      name: this.form.name,
 
-  unit: this.form.unit || '',
+      price: Number(this.form.price),
 
-  stockUnit: this.form.stockUnit,
+      stock: Number(this.form.stock),
 
-  description: this.form.description,
+      quantity: this.form.quantity
+        ? Number(this.form.quantity)
+        : 0,
 
-  brand: this.form.brand,
+      unit: this.form.unit || '',
 
-  origin: this.form.origin,
+      stockUnit: this.form.stockUnit,
 
-  sku: this.form.sku,
+      description: this.form.description,
 
-  discount: Number(this.form.discount) || 0,
+      brand: this.form.brand,
 
-  imageUrl: imageUrl,
+      origin: this.form.origin,
 
-  imageUrl2: this.form.imageUrl2,
+      sku: this.form.sku,
 
-  imageUrl3: this.form.imageUrl3,
+      discount: Number(this.form.discount) || 0,
 
-  imageUrl4: this.form.imageUrl4,
+      imageUrl: imageUrl,
 
-  category: {
-    id: Number(this.form.categoryId)
+      imageUrl2: imageUrl2,
+
+      imageUrl3: imageUrl3,
+
+      imageUrl4: imageUrl4,
+
+      category: {
+        id: Number(this.form.categoryId)
+      }
+
+    };
+
+    this.ps.addProduct(data).subscribe({
+
+      next: () => {
+
+        alert('✅ Product Added');
+
+        this.reset();
+
+        this.load();
+
+      },
+
+      error: (err) => {
+
+        console.log(err);
+
+        alert('❌ Product Add Failed');
+
+      }
+
+    });
+
+  } catch (err) {
+
+    console.log(err);
+
+    alert('❌ Image Upload Failed');
+
   }
 
-};
-          this.ps
-            .addProduct(data)
-            .subscribe({
-
-              next: () => {
-
-                alert('✅ Product Added');
-
-                this.reset();
-
-                this.load();
-              },
-
-              error: (err) => {
-
-  console.log('FULL ERROR = ', err);
-
-  alert(
-    'STATUS = ' + err.status +
-    '\n\nMESSAGE = ' + err.message +
-    '\n\nERROR = ' +
-    JSON.stringify(err.error)
-  );
-}
-            });
-        },
-
-        error: (err) => {
-
-          console.log(err);
-
-          alert('❌ Image upload failed');
-        }
-      });
+})();
   }
 
   // FINAL UPDATE
@@ -477,9 +526,12 @@ getCategoryFolder(id: number) {
 
   this.previewUrl = this.getImage(p.imageUrl);
 
-  this.selectedFile = null;
+this.selectedFile = null;
+this.selectedFile2 = null;
+this.selectedFile3 = null;
+this.selectedFile4 = null;
 
-  this.editingId = p.id;
+this.editingId = p.id;
 }
 
   // DELETE
@@ -544,10 +596,13 @@ getCategoryFolder(id: number) {
 
 };
 
-    this.editingId = null;
+  this.editingId = null;
 
-    this.selectedFile = null;
+this.selectedFile = null;
+this.selectedFile2 = null;
+this.selectedFile3 = null;
+this.selectedFile4 = null;
 
-    this.previewUrl = null;
+this.previewUrl = null;
   }
 }

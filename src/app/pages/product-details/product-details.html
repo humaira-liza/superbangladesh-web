@@ -2,35 +2,32 @@
 
   <div class="left">
 
-    <div class="main-image">
-      <img
-        [src]="apiUrl + '/images/' + (selectedImage || product.imageUrl)"
-        [alt]="product.name">
-    </div>
+<div class="main-image">
 
-    <div class="thumbs">
+  <img
+    [src]="getImage(selectedImage || product.imageUrl)"
+    [alt]="product.name">
 
-      <img
-        *ngIf="product.imageUrl"
-        [src]="apiUrl + '/images/' + product.imageUrl"
-        (click)="selectedImage = product.imageUrl">
+</div>
 
-      <img
-        *ngIf="product.imageUrl2"
-        [src]="apiUrl + '/images/' + product.imageUrl2"
-        (click)="selectedImage = product.imageUrl2">
+  <div class="thumbs">
 
-      <img
-        *ngIf="product.imageUrl3"
-        [src]="apiUrl + '/images/' + product.imageUrl3"
-        (click)="selectedImage = product.imageUrl3">
+  <img
+    *ngIf="product.imageUrl2"
+    [src]="getImage(product.imageUrl2)"
+    (click)="selectedImage = product.imageUrl2">
 
-      <img
-        *ngIf="product.imageUrl4"
-        [src]="apiUrl + '/images/' + product.imageUrl4"
-        (click)="selectedImage = product.imageUrl4">
+  <img
+    *ngIf="product.imageUrl3"
+    [src]="getImage(product.imageUrl3)"
+    (click)="selectedImage = product.imageUrl3">
 
-    </div>
+  <img
+    *ngIf="product.imageUrl4"
+    [src]="getImage(product.imageUrl4)"
+    (click)="selectedImage = product.imageUrl4">
+
+</div>
 
   </div>
 
@@ -58,61 +55,78 @@
 
     </div>
 
-    <div class="stock">
+<div class="product-size"
+     *ngIf="product.quantity && product.unit">
 
-      Stock :
-      {{product.stock}}
-      {{product.stockUnit}}
+  {{ product.quantity }} {{ product.unit }}
 
-    </div>
+</div>
 
-    <div class="info">
+  <div class="product-meta">
 
-      <p *ngIf="product.brand">
-        <b>Brand :</b> {{product.brand}}
-      </p>
+  <div
+    class="stock"
+    [class.out-stock]="product.stock <= 0">
 
-      <p *ngIf="product.origin">
-        <b>Origin :</b> {{product.origin}}
-      </p>
+    {{ product.stock > 0 ? '✓ In Stock' : '✗ Out of Stock' }}
 
-      <p *ngIf="product.weight">
-        <b>Weight :</b> {{product.weight}}
-      </p>
+  </div>
 
-      <p *ngIf="product.sku">
-        <b>SKU :</b> {{product.sku}}
-      </p>
+  <div
+    class="origin-tag"
+    *ngIf="product.origin">
 
-    </div>
+    Product of {{ getOriginName(product.origin) }}
+
+  </div>
+
+</div>
 
     <div class="description">
 
-      <h3>Description</h3>
+  <p>
+    {{ product.description }}
+  </p>
 
-      <p>
-        {{product.description}}
-      </p>
+</div>
+
+    <div class="cart-section">
+
+  <div class="qty-box">
+
+    <button
+      class="qty-btn"
+      (click)="decreaseQty()">
+
+      −
+
+    </button>
+
+    <div class="qty-value">
+
+      <span>{{ quantity }}</span>
+
+      <small>in bag</small>
 
     </div>
 
-    <div class="buttons">
+    <button
+      class="qty-btn"
+      (click)="increaseQty()">
 
-      <button
-        class="cart-btn"
-        (click)="addToCart()">
+      +
 
-        Add To Cart
+    </button>
 
-      </button>
+  </div>
 
-      <button class="buy-btn">
+  <button
+  class="buy-btn"
+  (click)="buyNow()">
+  Buy Now
+</button>
 
-        Buy Now
-
-      </button>
-
-    </div>
+</div>
 
   </div>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -17,6 +17,7 @@ import jsPDF from 'jspdf';
 export class AdminInvoice implements OnInit, OnDestroy {
 
   order: any = null;
+  loading = true;
 
   API = 'https://superbangladesh-api-1.onrender.com/api/orders';
 
@@ -25,7 +26,8 @@ export class AdminInvoice implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +37,9 @@ export class AdminInvoice implements OnInit, OnDestroy {
       const id = params.get('id');
 
       if (!id) {
+        this.loading = false;
         this.order = null;
+        this.cdr.detectChanges();
         return;
       }
 
@@ -47,6 +51,7 @@ export class AdminInvoice implements OnInit, OnDestroy {
 
   loadOrder(id: string): void {
 
+    this.loading = true;
     this.order = null;
 
     this.apiSub?.unsubscribe();
@@ -57,23 +62,21 @@ export class AdminInvoice implements OnInit, OnDestroy {
 
         next: (res) => {
 
-       console.log('INVOICE RESPONSE =', res);
-console.log('ORDER BEFORE =', this.order);
+          this.order = res;
+          this.loading = false;
 
-this.order = res;
-console.log('FULL RESPONSE', JSON.stringify(res, null, 2));
-
-console.log('ORDER AFTER =', this.order);
-console.log('ORDER IS NULL =', this.order === null);
-console.log('ORDER KEYS =', Object.keys(this.order || {}));
+          this.cdr.detectChanges();
 
         },
 
         error: (err) => {
 
-          console.error(err);
+          console.error('Failed to load invoice:', err);
 
+          this.loading = false;
           this.order = null;
+
+          this.cdr.detectChanges();
 
         }
 
@@ -82,33 +85,30 @@ console.log('ORDER KEYS =', Object.keys(this.order || {}));
   }
 
   printInvoice(): void {
-
     window.print();
-
   }
 
   downloadPdf(): void {
 
-    const invoice = document.querySelector('.invoice-card') as HTMLElement;
+    const invoice =
+      document.querySelector('.invoice-card') as HTMLElement;
 
     if (!invoice) {
       return;
     }
 
-    const topBar = document.querySelector('.top-bar') as HTMLElement;
+    const topBar =
+      document.querySelector('.top-bar') as HTMLElement;
 
     if (topBar) {
       topBar.style.display = 'none';
     }
 
-    html2canvas(invoice, {
-      scale: 2
-    }).then(canvas => {
+    html2canvas(invoice, { scale: 2 }).then(canvas => {
 
       const pdf = new jsPDF('p', 'mm', 'a4');
 
       const width = pdf.internal.pageSize.getWidth();
-
       const height = canvas.height * width / canvas.width;
 
       pdf.addImage(
@@ -126,6 +126,7 @@ console.log('ORDER KEYS =', Object.keys(this.order || {}));
 
       if (topBar) {
         topBar.style.display = '';
+
       }
 
     });

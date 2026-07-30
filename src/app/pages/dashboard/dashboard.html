@@ -1,391 +1,235 @@
-<div class="dashboard-container">
+<div class="ledger" [class.is-loading]="loading">
+
+  <!-- slim progress line while first load is in flight -->
+  <div class="load-rail" *ngIf="loading"><span></span></div>
 
   <!-- HEADER -->
+  <header class="ledger-head">
 
-  <div class="dashboard-header">
+    <div class="ledger-head-copy">
 
-    <div>
+      <p class="eyebrow">Business Overview</p>
 
-      <p class="mini-title">
-        BUSINESS OVERVIEW
-      </p>
-
-      <h1 class="dashboard-title">
-        <i class="fa-solid fa-chart-line"></i>
+      <h1 class="ledger-title">
+        <span class="mark">§</span>
         Admin Dashboard
       </h1>
 
-      <span class="sub-title">
-        Monitor sales, inventory, orders & business performance
+      <p class="ledger-sub">
+        Monitor sales, inventory, orders &amp; business performance
+      </p>
+
+    </div>
+
+    <div class="ledger-head-tools">
+
+      <span class="live-stamp">
+        <i class="dot"></i>
+        Live
       </span>
 
-    </div>
+      <div class="tab-actions">
 
-<div class="header-actions">
+        <button class="tab-btn" routerLink="/admin/products">
+          <i class="fa-solid fa-plus"></i>
+          Add Product
+        </button>
 
-  <button routerLink="/admin/products">
-    <i class="fa-solid fa-plus"></i>
-    Add Product
-  </button>
+        <button class="tab-btn" routerLink="/admin/orders">
+          <i class="fa-solid fa-box"></i>
+          Orders
+        </button>
 
-  <button routerLink="/admin/orders">
-    <i class="fa-solid fa-box"></i>
-    Orders
-  </button>
+        <button class="tab-btn" routerLink="/admin/profile">
+          <i class="fa-solid fa-user"></i>
+          Profile
+        </button>
 
-  <button routerLink="/admin/profile">
-    <i class="fa-solid fa-user"></i>
-    Profile
-  </button>
-
-  <button class="logout-btn" (click)="logout()">
-    <i class="fa-solid fa-right-from-bracket"></i>
-    Logout
-  </button>
-
-</div>
-  </div>
-
-  <!-- TOP STATS -->
-
-  <div class="stats-grid">
-
-    <!-- REVENUE -->
-
-    <div class="stat-card revenue" routerLink="/admin/analytics">
-
-      <div class="card-top">
-
-        <div>
-
-          <span>Total Revenue</span>
-
-          <h2>
-            ৳ {{ totalRevenue | number }}
-          </h2>
-
-        </div>
-
-        <div class="icon">
-          💰
-        </div>
+        <button class="tab-btn tab-btn--logout" (click)="logout()">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Logout
+        </button>
 
       </div>
 
-      <p>
-        Total completed sales revenue
-      </p>
-
     </div>
 
-    <!-- PROFIT -->
+  </header>
 
-    <div class="stat-card profit" routerLink="/admin/finance">
+  <!-- LEDGER ENTRIES (STATS) -->
+  <section class="entry-grid">
 
-      <div class="card-top">
-
-        <div>
-
-          <span>Total Profit</span>
-
-          <h2>
-            ৳ {{ totalProfit | number }}
-          </h2>
-
-        </div>
-
-        <div class="icon">
-          📈
-        </div>
-
+    <article class="entry entry--forest" routerLink="/admin/analytics">
+      <div class="entry-row">
+        <span class="entry-icon">💰</span>
+        <span class="entry-label">Total Revenue</span>
       </div>
+      <h2 class="entry-value">৳ {{ totalRevenue | number }}</h2>
+      <p class="entry-desc">Total completed sales revenue</p>
+    </article>
 
-      <p>
-        Net business earnings
-      </p>
-
-    </div>
-
-    <!-- INVEST -->
-
-    <div class="stat-card invest" routerLink="/admin/inventory">
-
-      <div class="card-top">
-
-        <div>
-
-          <span>Total Invest</span>
-
-          <h2>
-            ৳ {{ totalInvest | number }}
-          </h2>
-
-        </div>
-
-        <div class="icon">
-          🏦
-        </div>
-
+    <article class="entry entry--brass" routerLink="/admin/finance">
+      <div class="entry-row">
+        <span class="entry-icon">📈</span>
+        <span class="entry-label">Total Profit</span>
       </div>
+      <h2 class="entry-value">৳ {{ totalProfit | number }}</h2>
+      <p class="entry-desc">Net business earnings</p>
+    </article>
 
-      <p>
-        Current inventory investment
-      </p>
-
-    </div>
-
-    <!-- ORDERS -->
-
-    <div class="stat-card orders" routerLink="/admin/orders">
-
-      <div class="card-top">
-
-        <div>
-
-          <span>Total Orders</span>
-
-          <h2>
-            {{ totalOrders }}
-          </h2>
-
-        </div>
-
-        <div class="icon">
-          📦
-        </div>
-
+    <article class="entry entry--slate" routerLink="/admin/inventory">
+      <div class="entry-row">
+        <span class="entry-icon">🏦</span>
+        <span class="entry-label">Total Invest</span>
       </div>
+      <h2 class="entry-value">৳ {{ totalInvest | number }}</h2>
+      <p class="entry-desc">Current inventory investment</p>
+    </article>
 
-      <p>
-        Customer orders received
-      </p>
-
-    </div>
-
-    <!-- PRODUCTS -->
-
-    <div class="stat-card products" routerLink="/admin/products">
-
-      <div class="card-top">
-
-        <div>
-
-          <span>Total Products</span>
-
-          <h2>
-            {{ totalProducts }}
-          </h2>
-
-        </div>
-
-        <div class="icon">
-          🛒
-        </div>
-
+    <article class="entry entry--ink" routerLink="/admin/orders">
+      <div class="entry-row">
+        <span class="entry-icon">📦</span>
+        <span class="entry-label">Total Orders</span>
       </div>
+      <h2 class="entry-value">{{ totalOrders }}</h2>
+      <p class="entry-desc">Customer orders received</p>
+    </article>
 
-      <p>
-        Products available in store
-      </p>
-
-    </div>
-
-    <!-- COMPLAINTS -->
-
-    <div class="stat-card complaints" routerLink="/admin/complaints">
-
-      <div class="card-top">
-
-        <div>
-
-          <span>Complaints</span>
-
-          <h2>
-            {{ totalComplaints }}
-          </h2>
-
-        </div>
-
-        <div class="icon">
-          ⚠️
-        </div>
-
+    <article class="entry entry--plum" routerLink="/admin/products">
+      <div class="entry-row">
+        <span class="entry-icon">🛒</span>
+        <span class="entry-label">Total Products</span>
       </div>
+      <h2 class="entry-value">{{ totalProducts }}</h2>
+      <p class="entry-desc">Products available in store</p>
+    </article>
 
-      <p>
-        Customer complaints & reports
-      </p>
+    <article class="entry entry--red" routerLink="/admin/complaints">
+      <div class="entry-row">
+        <span class="entry-icon">⚠️</span>
+        <span class="entry-label">Complaints</span>
+      </div>
+      <h2 class="entry-value">{{ totalComplaints }}</h2>
+      <p class="entry-desc">Customer complaints &amp; reports</p>
+    </article>
 
-    </div>
-
-  </div>
+  </section>
 
   <!-- QUICK ACTIONS -->
+  <section class="quick-row">
 
-  <div class="quick-actions">
-
-    <button routerLink="/admin/products">
+    <button class="pill-btn" routerLink="/admin/products">
       <i class="fa-solid fa-plus"></i>
       Add Product
     </button>
 
-    <button routerLink="/admin/purchase-management">
+    <button class="pill-btn" routerLink="/admin/purchase-management">
       <i class="fa-solid fa-cart-plus"></i>
       Purchase Stock
     </button>
 
-    <button routerLink="/admin/orders">
+    <button class="pill-btn" routerLink="/admin/orders">
       <i class="fa-solid fa-box"></i>
       Manage Orders
     </button>
 
-    <button routerLink="/admin/analytics">
+    <button class="pill-btn" routerLink="/admin/analytics">
       <i class="fa-solid fa-chart-simple"></i>
       Analytics
     </button>
 
-  </div>
+  </section>
 
   <!-- BEST SALES -->
+  <section class="ledger-section">
 
-  <div class="section">
-
-    <div class="section-header">
+    <div class="section-head">
 
       <div>
-
-        <p class="section-mini">
-          TOP SELLING
-        </p>
-
-        <h2>
-          🔥 Best Sales
-        </h2>
-
+        <p class="eyebrow eyebrow--pink">Top Selling</p>
+        <h2 class="section-title">Best Sales</h2>
       </div>
 
-      <span>
-        Most sold products
-      </span>
+      <span class="section-note">Most sold products</span>
 
     </div>
 
-    <div class="product-grid">
+    <div class="product-grid" *ngIf="bestSales.length; else emptyBest">
 
-      <div class="product-card" *ngFor="let p of bestSales">
+      <article class="product-card" *ngFor="let p of bestSales">
 
-        <img [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl" />
+        <div class="product-photo">
+          <img [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl" [alt]="p.name" />
+        </div>
 
-        <div class="product-content">
+        <div class="product-body">
 
-          <h3>
-            {{ p.name }}
-          </h3>
+          <h3>{{ p.name }}</h3>
 
-          <div class="meta">
-
-            <div class="badge sold">
-              Sold {{ p.sold }}
-            </div>
-
-            <div class="badge stock">
-              {{ p.stock }} Left
-            </div>
-
+          <div class="tag-row">
+            <span class="tag tag--sold">Sold {{ p.sold }}</span>
+            <span class="tag tag--stock">{{ p.stock }} left</span>
           </div>
 
         </div>
 
-      </div>
+      </article>
 
     </div>
 
-  </div>
+    <ng-template #emptyBest>
+      <p class="empty-note">No sales data yet — figures will appear once orders come in.</p>
+    </ng-template>
 
-  <!-- INVENTORY GRID -->
+  </section>
 
-  <div class="inventory-grid">
+  <!-- INVENTORY -->
+  <section class="inventory-grid">
 
     <!-- LOW STOCK -->
+    <div class="inv-card inv-card--amber">
 
-    <div class="inventory-box">
-
-      <div class="section-header">
-
+      <div class="section-head">
         <div>
-
-          <p class="section-mini">
-            WARNING
-          </p>
-
-          <h2>
-            ⚠️ Low Stock
-          </h2>
-
+          <p class="eyebrow eyebrow--amber">Warning</p>
+          <h2 class="section-title section-title--sm">Low Stock</h2>
         </div>
-
       </div>
 
-      <div class="inventory-item low" *ngFor="let p of lowStock">
-
-        <img [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl" />
-
+      <div class="inv-row" *ngFor="let p of lowStock">
+        <img [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl" [alt]="p.name" />
         <div>
-
-          <h4>
-            {{ p.name }}
-          </h4>
-
-          <span>
-            Only {{ p.stock }} left
-          </span>
-
+          <h4>{{ p.name }}</h4>
+          <span>Only {{ p.stock }} left</span>
         </div>
-
       </div>
+
+      <p class="empty-note" *ngIf="!lowStock.length">Stock levels look healthy right now.</p>
 
     </div>
 
-    <!-- OUT STOCK -->
+    <!-- OUT OF STOCK -->
+    <div class="inv-card inv-card--red">
 
-    <div class="inventory-box">
-
-      <div class="section-header">
-
+      <div class="section-head">
         <div>
-
-          <p class="section-mini">
-            CRITICAL
-          </p>
-
-          <h2>
-            ❌ Out Of Stock
-          </h2>
-
+          <p class="eyebrow eyebrow--red">Critical</p>
+          <h2 class="section-title section-title--sm">Out Of Stock</h2>
         </div>
-
       </div>
 
-      <div class="inventory-item out" *ngFor="let p of outOfStock">
-
-        <img [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl" />
-
+      <div class="inv-row" *ngFor="let p of outOfStock">
+        <img [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl" [alt]="p.name" />
         <div>
-
-          <h4>
-            {{ p.name }}
-          </h4>
-
-          <span>
-            Refill immediately
-          </span>
-
+          <h4>{{ p.name }}</h4>
+          <span>Refill immediately</span>
         </div>
-
       </div>
+
+      <p class="empty-note" *ngIf="!outOfStock.length">Nothing out of stock. Nice work.</p>
 
     </div>
 
-  </div>
+  </section>
 
 </div>
