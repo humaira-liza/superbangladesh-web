@@ -7,6 +7,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   standalone: true,
@@ -27,8 +28,40 @@ export class AdminOrders implements OnInit {
  constructor(
   private http: HttpClient,
   private cdr: ChangeDetectorRef,
-  private router: Router
+  private router: Router,
+  public languageService: LanguageService
 ) {}
+
+  /* =========================
+     TRANSLATE
+  ========================= */
+
+  t(key: string): string {
+
+    return this.languageService.translate(key);
+  }
+
+  statusLabel(status: string): string {
+
+    const map: Record<string, string> = {
+      NEW: 'statusNew',
+      PROCESSING: 'statusProcessing',
+      DONE: 'statusDone'
+    };
+
+    const key = map[(status || '').toUpperCase()];
+
+    return key ? this.t(key) : (status || '');
+  }
+
+  mapLink(order: any): string | null {
+
+    if (!order?.latitude || !order?.longitude) {
+      return null;
+    }
+
+    return `https://www.openstreetmap.org/?mlat=${order.latitude}&mlon=${order.longitude}#map=17/${order.latitude}/${order.longitude}`;
+  }
 
   ngOnInit() {
     this.load();
@@ -44,11 +77,6 @@ export class AdminOrders implements OnInit {
 
         next: (res) => {
 
-          console.log(
-            'ADMIN ORDERS:',
-            res
-          );
-
           this.orders = res || [];
 
           this.totalAmount =
@@ -63,15 +91,7 @@ export class AdminOrders implements OnInit {
           this.cdr.detectChanges();
         },
 
-        error: (err) => {
-
-  console.log('STATUS =', err.status);
-
-  console.log('MESSAGE =', err.message);
-
-  console.log('ERROR =', err.error);
-
-  console.log('FULL =', err);
+        error: () => {
 
   this.loading = false;
 
@@ -93,7 +113,7 @@ export class AdminOrders implements OnInit {
   delete(id: number) {
 
     if (
-      confirm('Delete this order?')
+      confirm(this.t('confirmDeleteOrder'))
     ) {
 
       this.http

@@ -1,11 +1,21 @@
 
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { CartService } from '../../services/cart';
+import { LanguageService } from '../../services/language.service';
+import { MapLoaderService } from '../../services/maploader.service';
+
+declare const L: any;
 
 @Component({
   selector: 'app-checkout',
@@ -14,7 +24,10 @@ import { CartService } from '../../services/cart';
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.scss']
 })
-export class Checkout implements OnInit {
+export class Checkout implements OnInit, AfterViewInit {
+
+  @ViewChild('mapContainer')
+  mapContainer!: ElementRef<HTMLDivElement>;
 
   items: any[] = [];
 
@@ -27,35 +40,216 @@ export class Checkout implements OnInit {
   payment = 'BKASH';
   paidAmount = 0;
 
-  // ✅ BACKEND URL
+  // LOCATION PICKER STATE
+  latitude: number | null = null;
+  longitude: number | null = null;
+  locationLabel = '';
+  locating = false;
+  searchQuery = '';
+  searchResults: Array<{ label: string; lat: number; lng: number }> = [];
+
+  private map: any = null;
+  private marker: any = null;
+
+  // BACKEND URL
   apiUrl =
     'https://superbangladesh-api-1.onrender.com';
 
   constructor(
     private cart: CartService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    public languageService: LanguageService,
+    private mapLoader: MapLoaderService
   ) {}
-ngOnInit(): void {
 
-  const token = localStorage.getItem('token');
 
-  if (!token) {
-    alert('Login required to checkout 🔐');
-    this.router.navigate(['/login']);
-    return;
+  /* =========================
+     TRANSLATE
+  ========================= */
+
+  t(
+    key: string
+  ): string {
+
+    return this.languageService
+      .translate(key);
   }
 
-  this.items = this.cart.getItems();
 
-  console.log("🛒 CART ITEMS");
-  console.log(this.items);
+  ngOnInit(): void {
 
-  console.log("🛒 FIRST ITEM");
-  console.log(this.items[0]);
+    const token = localStorage.getItem('token');
 
-  this.total = this.cart.getTotal();
-}
+    if (!token) {
+      alert(this.t('loginRequiredCheckout'));
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.items = this.cart.getItems();
+
+    this.total = this.cart.getTotal();
+  }
+
+
+  ngAfterViewInit(): void {
+
+    this.initMap();
+  }
+
+
+  /* =========================
+     INIT MAP (DHAKA DEFAULT)
+  ========================= */
+
+  private initMap(): void {
+
+    if (!this.mapContainer) {
+      return;
+    }
+
+    this.mapLoader
+      .load()
+      .then((leaflet: any) => {
+
+        const defaultLat = 23.8103;
+        const defaultLng = 90.4125;
+
+        this.map = leaflet.map(
+          this.mapContainer.nativeElement
+        ).setView([defaultLat, defaultLng], 12);
+
+        leaflet.tileLayer(
+          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+          }
+        ).addTo(this.map);
+
+        this.marker = leaflet.marker(
+          [defaultLat, defaultLng],
+          { draggable: true }
+        ).addTo(this.map);
+
+        this.marker.on('dragend', () => {
+
+          const pos = this.marker.getLatLng();
+
+          this.setLocation(pos.lat, pos.lng);
+        });
+
+        this.map.on('click', (e: any) => {
+
+          this.marker.setLatLng(e.latlng);
+
+          this.setLocation(e.latlng.lat, e.latlng.lng);
+        });
+      })
+      .catch(() => {
+        // map unavailable (e.g. during SSR) — user can still
+        // type the address manually, so we just skip the map
+      });
+  }
+
+
+  /* =========================
+     SET LOCATION + REVERSE GEOCODE
+  ========================= */
+
+  private async setLocation(
+    lat: number,
+    lng: number
+  ): Promise<void> {
+
+    this.latitude = lat;
+    this.longitude = lng;
+
+    const label =
+      await this.mapLoader.reverseGeocode(lat, lng);
+
+    if (label) {
+
+      this.locationLabel = label;
+
+      if (!this.address) {
+        this.address = label;
+      }
+    }
+  }
+
+
+  /* =========================
+     SEARCH LOCATION
+  ========================= */
+
+  async onSearchLocation(): Promise<void> {
+
+    this.searchResults =
+      await this.mapLoader.search(this.searchQuery);
+  }
+
+  selectSearchResult(
+    result: { label: string; lat: number; lng: number }
+  ): void {
+
+    this.searchResults = [];
+    this.searchQuery = result.label;
+
+    if (this.map && this.marker) {
+
+      this.map.setView([result.lat, result.lng], 16);
+      this.marker.setLatLng([result.lat, result.lng]);
+    }
+
+    this.setLocation(result.lat, result.lng);
+  }
+
+
+  /* =========================
+     USE MY CURRENT LOCATION
+  ========================= */
+
+  useMyLocation(): void {
+
+    if (!navigator.geolocation) {
+
+      alert(this.t('geolocationNotSupported'));
+      return;
+    }
+
+    this.locating = true;
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+
+        this.locating = false;
+
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+
+        if (this.map && this.marker) {
+
+          this.map.setView([lat, lng], 16);
+          this.marker.setLatLng([lat, lng]);
+        }
+
+        this.setLocation(lat, lng);
+      },
+      () => {
+
+        this.locating = false;
+
+        alert(this.t('geolocationDenied'));
+      }
+    );
+  }
+
+
+  /* =========================
+     PLACE ORDER
+  ========================= */
 
   placeOrder(): void {
 
@@ -65,18 +259,16 @@ ngOnInit(): void {
       !this.address
     ) {
 
-      alert('Fill all fields ❌');
+      alert(this.t('fillAllFields'));
 
       return;
     }
 
     const token = localStorage.getItem('token');
 
-    console.log("🔐 CHECKOUT TOKEN:", token);
-
     if (!token) {
 
-      alert('Login first ❌');
+      alert(this.t('loginFirst'));
 
       this.router.navigate(['/login']);
 
@@ -91,33 +283,27 @@ ngOnInit(): void {
 
       address: this.address,
 
+      latitude: this.latitude,
+
+      longitude: this.longitude,
+
       totalAmount: this.total + 60,
 
       paymentMethod: this.payment,
 
       paidAmount: this.paidAmount,
 
-    items: this.items.map((i: any) => ({
+      items: this.items.map((i: any) => ({
 
-  productId: i.id,
+        productId: i.id,
 
-  productName: i.name,
+        productName: i.name,
 
-  quantity: i.qty || 1,
+        quantity: i.qty || 1,
 
-  price: i.price
-}))
+        price: i.price
+      }))
     };
-
-    console.log(
-      "📦 ORDER DATA:",
-      orderData
-    );
-
-    console.log(
-      "🛒 FINAL ORDER JSON:",
-      JSON.stringify(orderData)
-    );
 
     const headers = new HttpHeaders({
 
@@ -136,35 +322,20 @@ ngOnInit(): void {
     )
     .subscribe({
 
-      next: (res) => {
-
-        console.log(
-          "✅ ORDER SUCCESS:",
-          res
-        );
+      next: () => {
 
         this.cart.clear();
 
-        alert('Order placed successfully ✅');
+        alert(this.t('orderPlacedSuccess'));
 
         this.router.navigate(['/orders']);
       },
 
       error: (err) => {
 
-        console.log(
-          "❌ ORDER ERROR:",
-          err
-        );
-
-        console.log(
-          "❌ ERROR BODY:",
-          err?.error
-        );
-
         alert(
           err?.error?.message ||
-          'Order failed ❌'
+          this.t('orderFailed')
         );
       }
     });

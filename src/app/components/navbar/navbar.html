@@ -239,44 +239,95 @@
         (click)="$event.stopPropagation()"
       >
 
-        <button
-          type="button"
-          (click)="selectLocation('Dhaka')"
-        >
-          {{ t('dhaka') }}
-        </button>
+        <!-- STEP 1: MAIN -->
+        <ng-container *ngIf="locationMenuStep === 'main'">
+
+          <button
+            type="button"
+            class="location-option"
+            (click)="useCurrentLocationNavbar()"
+            [disabled]="locatingCurrentLocation"
+          >
+
+            <i class="fa-solid fa-location-crosshairs"></i>
+
+            <span *ngIf="!locatingCurrentLocation">
+              {{ t('useMyLocation') }}
+            </span>
+
+            <span *ngIf="locatingCurrentLocation">
+              {{ t('locatingYou') }}
+            </span>
+
+          </button>
+
+          <button
+            type="button"
+            class="location-option"
+            (click)="showCityList()"
+          >
+
+            <i class="fa-solid fa-circle city-dot-icon"></i>
+
+            <span>
+              {{ t('changeCity') }}
+            </span>
+
+          </button>
+
+        </ng-container>
+
+        <!-- STEP 2: CITY LIST -->
+        <ng-container *ngIf="locationMenuStep === 'cities'">
+
+          <button
+            type="button"
+            class="location-back"
+            (click)="backToLocationMain()"
+          >
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+
+          <button
+            type="button"
+            (click)="selectLocation('Dhaka')"
+          >
+            {{ t('dhaka') }}
+          </button>
 
 
-        <button
-          type="button"
-          (click)="selectLocation('Chattogram')"
-        >
-          {{ t('chattogram') }}
-        </button>
+          <button
+            type="button"
+            (click)="selectLocation('Chattogram')"
+          >
+            {{ t('chattogram') }}
+          </button>
 
 
-        <button
-          type="button"
-          (click)="selectLocation('Sylhet')"
-        >
-          {{ t('sylhet') }}
-        </button>
+          <button
+            type="button"
+            (click)="selectLocation('Sylhet')"
+          >
+            {{ t('sylhet') }}
+          </button>
 
 
-        <button
-          type="button"
-          (click)="selectLocation('Rajshahi')"
-        >
-          {{ t('rajshahi') }}
-        </button>
+          <button
+            type="button"
+            (click)="selectLocation('Rajshahi')"
+          >
+            {{ t('rajshahi') }}
+          </button>
 
 
-        <button
-          type="button"
-          (click)="selectLocation('Khulna')"
-        >
-          {{ t('khulna') }}
-        </button>
+          <button
+            type="button"
+            (click)="selectLocation('Khulna')"
+          >
+            {{ t('khulna') }}
+          </button>
+
+        </ng-container>
 
       </div>
 

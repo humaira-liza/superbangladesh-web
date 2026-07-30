@@ -281,6 +281,20 @@ html{
   color:#111827;
 }
 
+.map-link{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  color:#2563eb;
+  font-weight:700;
+  font-size:13px;
+  text-decoration:none;
+}
+
+.map-link:hover{
+  text-decoration:underline;
+}
+
 .amount-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);

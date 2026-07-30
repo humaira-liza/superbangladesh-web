@@ -4,15 +4,15 @@
   <div class="header">
 
     <p class="mini-title">
-      USER DASHBOARD
+      {{ t('userDashboard') }}
     </p>
 
     <h1>
-      My Orders
+      {{ t('myOrdersTitle') }}
     </h1>
 
     <span>
-      Track your recent purchases & delivery status
+      {{ t('trackRecentPurchases') }}
     </span>
 
   </div>
@@ -22,7 +22,17 @@
     class="loading-box"
     *ngIf="loading"
   >
-    Loading orders...
+    {{ t('loadingOrders') }}
+  </div>
+
+  <!-- EMPTY -->
+  <div
+    class="empty-box"
+    *ngIf="!loading && orders.length === 0"
+  >
+    <i class="fa-solid fa-box-open"></i>
+    <h3>{{ t('noOrdersYet') }}</h3>
+    <p>{{ t('startShoppingNow') }}</p>
   </div>
 
   <!-- ORDERS -->
@@ -40,7 +50,7 @@
         <div>
 
           <h2>
-            Order #{{o.id}}
+            {{ t('orderNumber') }} #{{o.id}}
           </h2>
 
           <div class="meta">
@@ -49,7 +59,19 @@
 
             <p>📞 {{o.phone}}</p>
 
-            <p>📍 {{o.address}}</p>
+            <p>📍 {{o.address || t('noAddressSelected')}}</p>
+
+            <p *ngIf="mapLink(o)">
+              <a
+                class="map-link"
+                [href]="mapLink(o)"
+                target="_blank"
+                rel="noopener"
+              >
+                <i class="fa-solid fa-map-location-dot"></i>
+                {{ t('viewOnMap') }}
+              </a>
+            </p>
 
           </div>
 
@@ -62,14 +84,14 @@
             class="status"
             [ngClass]="o.status"
           >
-            {{o.status}}
+            {{ statusLabel(o.status) }}
           </div>
 
           <button
             class="delete-btn"
             (click)="deleteOrder(o.id)"
           >
-            Delete
+            {{ t('delete') }}
           </button>
 
         </div>
@@ -80,21 +102,21 @@
       <div class="info-grid">
 
   <div class="info-box">
-    <span>Total Amount</span>
+    <span>{{ t('totalAmountLabel') }}</span>
     <h3>
       ৳ {{ o.totalAmount }}
     </h3>
   </div>
 
   <div class="info-box">
-    <span>Paid Amount</span>
+    <span>{{ t('paidAmountLabel') }}</span>
     <h3 style="color:green">
       ৳ {{ o.paidAmount || o.totalAmount || 0 }}
     </h3>
   </div>
 
   <div class="info-box">
-    <span>Payment</span>
+    <span>{{ t('paymentLabel') }}</span>
     <h3
       [ngClass]="{
         'bkash': o.paymentMethod === 'BKASH',
@@ -114,7 +136,7 @@
       >
 
         <h4>
-          Ordered Products
+          {{ t('orderedProducts') }}
         </h4>
 
         <div
@@ -144,7 +166,7 @@
 
       <!-- DATE -->
       <div class="date">
-        📅 {{o.createdAt | date:'medium'}}
+        📅 {{ t('placedOn') }}: {{o.createdAt | date:'medium'}}
       </div>
 
     </div>

@@ -33,6 +33,10 @@ import {
   LanguageService
 } from '../../services/language.service';
 
+import {
+  MapLoaderService
+} from '../../services/maploader.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -73,6 +77,13 @@ showMobileSearch = false;
 
   showLocationMenu = false;
 
+  // 'main' -> ছোট মেনু (Use my current location / Change City)
+  // 'cities' -> সিটি লিস্ট
+  locationMenuStep:
+    'main' | 'cities' = 'main';
+
+  locatingCurrentLocation = false;
+
 
   /* =========================
      CHAT
@@ -103,7 +114,8 @@ showMobileSearch = false;
     public cart: CartService,
     private router: Router,
     private state: ProductStateService,
-    public languageService: LanguageService
+    public languageService: LanguageService,
+    private mapLoader: MapLoaderService
   ) {}
 
 
@@ -327,6 +339,22 @@ showMobileSearch = false;
 
     this.showLocationMenu =
       !this.showLocationMenu;
+
+    if (this.showLocationMenu) {
+      this.locationMenuStep = 'main';
+    }
+  }
+
+
+  showCityList(): void {
+
+    this.locationMenuStep = 'cities';
+  }
+
+
+  backToLocationMain(): void {
+
+    this.locationMenuStep = 'main';
   }
 
 
@@ -340,9 +368,66 @@ showMobileSearch = false;
     this.showLocationMenu =
       false;
 
+    this.locationMenuStep = 'main';
+
     localStorage.setItem(
       'selectedLocation',
       location
+    );
+  }
+
+
+  /* =========================
+     USE MY CURRENT LOCATION
+     (নেভবারের জন্য)
+  ========================= */
+
+  useCurrentLocationNavbar(): void {
+
+    if (!navigator.geolocation) {
+
+      alert(
+        this.t('geolocationNotSupported')
+      );
+
+      return;
+    }
+
+    this.locatingCurrentLocation = true;
+
+    navigator.geolocation.getCurrentPosition(
+
+      async (pos) => {
+
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+
+        const label =
+          await this.mapLoader.reverseGeocode(
+            lat,
+            lng
+          );
+
+        this.locatingCurrentLocation = false;
+
+        const knownCities =
+          ['Dhaka', 'Chattogram', 'Sylhet', 'Rajshahi', 'Khulna'];
+
+        const matched = knownCities.find((city) =>
+          label.toLowerCase().includes(city.toLowerCase())
+        );
+
+        this.selectLocation(matched || label || 'Dhaka');
+      },
+
+      () => {
+
+        this.locatingCurrentLocation = false;
+
+        alert(
+          this.t('geolocationDenied')
+        );
+      }
     );
   }
 

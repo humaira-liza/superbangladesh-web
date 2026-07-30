@@ -11,6 +11,7 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   standalone: true,
@@ -28,15 +29,50 @@ export class Orders implements OnInit {
 
   loading = true;
 
-  // ✅ BACKEND URL
+  // BACKEND URL
   apiUrl =
     'https://superbangladesh-api-1.onrender.com';
 
   constructor(
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    public languageService: LanguageService
   ) {}
+
+  /* =========================
+     TRANSLATE
+  ========================= */
+
+  t(key: string): string {
+
+    return this.languageService.translate(key);
+  }
+
+  statusLabel(status: string): string {
+
+    const map: Record<string, string> = {
+      NEW: 'statusNew',
+      PROCESSING: 'statusProcessing',
+      DONE: 'statusDone',
+      SHIPPED: 'statusShipped',
+      DELIVERED: 'statusDelivered',
+      CANCELLED: 'statusCancelled'
+    };
+
+    const key = map[(status || '').toUpperCase()];
+
+    return key ? this.t(key) : (status || '');
+  }
+
+  mapLink(order: any): string | null {
+
+    if (!order?.latitude || !order?.longitude) {
+      return null;
+    }
+
+    return `https://www.openstreetmap.org/?mlat=${order.latitude}&mlon=${order.longitude}#map=17/${order.latitude}/${order.longitude}`;
+  }
 
   ngOnInit() {
 
@@ -45,16 +81,12 @@ export class Orders implements OnInit {
 
   loadOrders() {
 
-    console.log("🚀 LOADING ORDERS...");
-
     const token =
       localStorage.getItem('token');
 
-    console.log("🔐 TOKEN:", token);
-
     if (!token) {
 
-      alert('Login required');
+      alert(this.t('loginFirst'));
 
       this.router.navigate(['/login']);
 
@@ -80,11 +112,6 @@ export class Orders implements OnInit {
 
       next: (res) => {
 
-        console.log(
-          "✅ USER ORDERS RESPONSE:",
-          res
-        );
-
         this.orders = (res || []).sort(
           (a, b) => b.id - a.id
         );
@@ -94,22 +121,7 @@ export class Orders implements OnInit {
         this.cdr.detectChanges();
       },
 
-      error: (err) => {
-
-        console.log(
-          "❌ ORDERS API ERROR:",
-          err
-        );
-
-        console.log(
-          "❌ ERROR BODY:",
-          err?.error
-        );
-
-        console.log(
-          "❌ STATUS:",
-          err?.status
-        );
+      error: () => {
 
         this.loading = false;
 
@@ -142,18 +154,10 @@ export class Orders implements OnInit {
 
       next: () => {
 
-        console.log("✅ ORDER DELETED");
-
         this.loadOrders();
       },
 
-      error: (err) => {
-
-        console.log(
-          "❌ DELETE ERROR:",
-          err
-        );
-      }
+      error: () => {}
     });
   }
 }

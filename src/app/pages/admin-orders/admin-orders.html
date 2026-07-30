@@ -3,10 +3,10 @@
   <!-- HEADER -->
   <div class="header">
 
-    <h1>📦 Order Management</h1>
+    <h1>📦 {{ t('orderManagement') }}</h1>
 
     <p>
-      Manage customer orders and delivery workflow
+      {{ t('manageDeliveryWorkflow') }}
     </p>
 
   </div>
@@ -17,29 +17,29 @@
     <!-- TOTAL -->
     <div class="summary-card total-card">
 
-      <h3>Total Orders</h3>
+      <h3>{{ t('totalOrders') }}</h3>
 
       <h2>{{ orders.length }}</h2>
 
-      <span>All customer orders</span>
+      <span>{{ t('allCustomerOrders') }}</span>
 
     </div>
 
     <!-- REVENUE -->
     <div class="summary-card revenue-card">
 
-      <h3>Total Revenue</h3>
+      <h3>{{ t('totalRevenue') }}</h3>
 
       <h2>৳ {{ totalAmount }}</h2>
 
-      <span>Completed order earnings</span>
+      <span>{{ t('completedOrderEarnings') }}</span>
 
     </div>
 
     <!-- PROCESSING -->
     <div class="summary-card processing-card">
 
-      <h3>Processing</h3>
+      <h3>{{ t('statusProcessing') }}</h3>
 
       <h2>
         {{
@@ -47,14 +47,14 @@
         }}
       </h2>
 
-      <span>Orders in progress</span>
+      <span>{{ t('ordersInProgress') }}</span>
 
     </div>
 
     <!-- DONE -->
     <div class="summary-card done-card">
 
-      <h3>Completed</h3>
+      <h3>{{ t('completed') }}</h3>
 
       <h2>
         {{
@@ -62,7 +62,7 @@
         }}
       </h2>
 
-      <span>Delivered successfully</span>
+      <span>{{ t('deliveredSuccessfully') }}</span>
 
     </div>
 
@@ -74,7 +74,7 @@
     class="empty"
   >
 
-    No orders found
+    {{ t('noOrdersFound') }}
 
   </div>
 
@@ -82,7 +82,7 @@
   <div class="grid">
 
     <div
-      *ngFor="let o of orders"
+      *ngFor="let o of orders; trackBy: trackById"
       class="order-card"
     >
 
@@ -92,11 +92,11 @@
         <div>
 
           <h3>
-            Order #{{ o.id }}
+            {{ t('orderNumber') }} #{{ o.id }}
           </h3>
 
           <p class="customer">
-            Customer Order
+            {{ t('customerOrder') }}
           </p>
 
           <p class="date">
@@ -111,7 +111,7 @@
           class="status-text {{o.status}}"
         >
 
-          {{o.status}}
+          {{ statusLabel(o.status) }}
 
         </span>
 
@@ -124,27 +124,39 @@
 <div class="customer-info">
 
   <p>
-    <strong>Name:</strong>
+    <strong>{{ t('nameLabel') }}:</strong>
     {{ o.name }}
   </p>
 
   <p>
-    <strong>Phone:</strong>
+    <strong>{{ t('phoneLabel') }}:</strong>
     {{ o.phone }}
   </p>
 
   <p>
-    <strong>Address:</strong>
+    <strong>{{ t('addressLabel') }}:</strong>
     {{ o.address }}
   </p>
 
+  <p *ngIf="mapLink(o)">
+    <a
+      class="map-link"
+      [href]="mapLink(o)"
+      target="_blank"
+      rel="noopener"
+    >
+      <i class="fa-solid fa-map-location-dot"></i>
+      {{ t('viewOnMap') }}
+    </a>
+  </p>
+
   <p>
-    <strong>Payment:</strong>
+    <strong>{{ t('paymentLabel') }}:</strong>
     {{ o.paymentMethod }}
   </p>
 
   <p>
-    <strong>Email:</strong>
+    <strong>{{ t('emailLabel') }}:</strong>
     {{ o.userEmail }}
   </p>
 
@@ -153,12 +165,12 @@
     <div class="amount-grid">
 
   <div class="amount-box">
-    <span>Total Amount</span>
+    <span>{{ t('totalAmountLabel') }}</span>
     <h2>৳ {{ o.totalAmount }}</h2>
   </div>
 
   <div class="amount-box">
-    <span>Paid Amount</span>
+    <span>{{ t('paidAmountLabel') }}</span>
     <h2 style="color:green">
       ৳ {{ o.paidAmount || o.totalAmount || 0 }}
     </h2>
@@ -175,28 +187,28 @@
     class="toggle-btn"
     (click)="updateStatus(o)"
   >
-    Update Status
+    {{ t('updateStatus') }}
   </button>
 
   <button
     class="invoice-btn"
     (click)="openInvoice(o.id)"
   >
-    📄 Invoice
+    📄 {{ t('invoice') }}
   </button>
 
   <button
   class="receipt-btn"
   (click)="openReceipt(o.id)"
 >
-  🧾 Receipt
+  🧾 {{ t('receipt') }}
 </button>
 
   <button
     class="delete-btn"
     (click)="delete(o.id)"
   >
-    Delete
+    {{ t('delete') }}
   </button>
 
 </div>

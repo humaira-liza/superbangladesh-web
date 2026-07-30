@@ -912,6 +912,35 @@ gap:10px;
   color:#7c3aed;
 }
 
+.location-option{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.location-option i{
+  width:16px;
+  text-align:center;
+  color:#7c3aed;
+}
+
+.city-dot-icon{
+  color:#7c3aed !important;
+  font-size:8px;
+}
+
+.location-option:disabled{
+  opacity:0.6;
+  cursor:not-allowed;
+}
+
+.location-back{
+  display:flex;
+  align-items:center;
+  color:#64748b !important;
+  margin-bottom:4px;
+}
+
 
 /* =========================================
    LONG SEARCH

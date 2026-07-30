@@ -67,6 +67,75 @@
   0 8px 20px rgba(0,0,0,0.06);
 }
 
+/* EMPTY STATE */
+
+.empty-box{
+
+  background:white;
+
+  padding:60px 30px;
+
+  border-radius:24px;
+
+  text-align:center;
+
+  color:#64748b;
+
+  box-shadow:
+  0 8px 20px rgba(0,0,0,0.06);
+}
+
+.empty-box i{
+
+  font-size:52px;
+
+  color:#c7d2fe;
+
+  margin-bottom:16px;
+}
+
+.empty-box h3{
+
+  color:#0f172a;
+
+  font-size:22px;
+
+  margin:0 0 8px;
+}
+
+.empty-box p{
+
+  margin:0;
+
+  font-size:15px;
+}
+
+/* MAP LINK */
+
+.map-link{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  color:#2563eb;
+
+  font-weight:700;
+
+  font-size:13px;
+
+  text-decoration:none;
+
+  margin-top:4px;
+}
+
+.map-link:hover{
+
+  text-decoration:underline;
+}
+
 /* ORDERS */
 
 .orders{

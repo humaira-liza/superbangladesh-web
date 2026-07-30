@@ -12,9 +12,9 @@
 
   <div class="mobile-title">
 
-    <h3>{{ items.length }} item</h3>
+    <h3>{{ items.length }} {{ t('items') }}</h3>
 
-    <span>Shipping Fee : ৳60</span>
+    <span>{{ t('shippingFee') }} : &#2547;60</span>
 
   </div>
 
@@ -27,19 +27,19 @@
     <div>
 
       <p class="mini-title">
-        SECURE CHECKOUT
+        {{ t('secureCheckout') }}
       </p>
 
       <h1 class="page-title">
 
         <i class="fa-solid fa-bag-shopping"></i>
 
-        Checkout
+        {{ t('checkout') }}
 
       </h1>
 
       <span class="sub-title">
-        Complete your order details & payment
+        {{ t('completeOrderPayment') }}
       </span>
 
     </div>
@@ -50,7 +50,7 @@
 
       <div class="top-box">
 
-        <span>Items</span>
+        <span>{{ t('items') }}</span>
 
         <h3>
           {{ items.length }}
@@ -60,10 +60,10 @@
 
       <div class="top-box">
 
-        <span>Total</span>
+        <span>{{ t('total') }}</span>
 
         <h3>
-          ৳ {{ total + 60 }}
+          &#2547; {{ total + 60 }}
         </h3>
 
       </div>
@@ -87,7 +87,7 @@
         <i class="fa-solid fa-location-dot"></i>
 
         <h2>
-          Shipping Details
+          {{ t('shippingDetails') }}
         </h2>
 
       </div>
@@ -96,11 +96,11 @@
 
       <div class="form-group">
 
-        <label>Full Name</label>
+        <label>{{ t('fullName') }}</label>
 
         <input
           [(ngModel)]="name"
-          placeholder="Enter your full name"
+          [placeholder]="t('enterFullName')"
         />
 
       </div>
@@ -109,11 +109,11 @@
 
       <div class="form-group">
 
-        <label>Phone Number</label>
+        <label>{{ t('phoneNumber') }}</label>
 
         <input
           [(ngModel)]="phone"
-          placeholder="Enter your phone number"
+          [placeholder]="t('enterPhoneNumber')"
         />
 
       </div>
@@ -122,11 +122,11 @@
 
       <div class="form-group">
 
-        <label>Delivery Address</label>
+        <label>{{ t('deliveryAddress') }}</label>
 
         <textarea
           [(ngModel)]="address"
-          placeholder="Write your complete address">
+          [placeholder]="t('writeCompleteAddress')">
         </textarea>
 
       </div>
@@ -135,12 +135,12 @@
 
 <div class="form-group">
 
-  <label>Paid Amount</label>
+  <label>{{ t('paidAmount') }}</label>
 
   <input
     type="number"
     [(ngModel)]="paidAmount"
-    placeholder="Enter paid amount"
+    [placeholder]="t('enterPaidAmount')"
   />
 
 </div>
@@ -154,7 +154,7 @@
           <i class="fa-solid fa-credit-card"></i>
 
           <h2>
-            Payment Method
+            {{ t('paymentMethod') }}
           </h2>
 
         </div>
@@ -217,7 +217,7 @@
               alt="Cash On Delivery"
             >
 
-            <span>Cash On Delivery</span>
+            <span>{{ t('cashOnDelivery') }}</span>
 
           </label>
 
@@ -234,18 +234,72 @@
           <i class="fa-solid fa-map-location-dot"></i>
 
           <h2>
-            Delivery Location
+            {{ t('deliveryLocation') }}
           </h2>
 
         </div>
 
-        <iframe
-          width="100%"
-          height="280"
-          style="border:0;border-radius:22px"
-          loading="lazy"
-          src="https://www.google.com/maps?q=dhaka&output=embed">
-        </iframe>
+        <!-- SEARCH + CURRENT LOCATION -->
+
+        <div class="map-toolbar">
+
+          <div class="map-search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+              type="text"
+              [(ngModel)]="searchQuery"
+              [placeholder]="t('searchLocationPlaceholder')"
+              (input)="onSearchLocation()"
+            />
+
+            <div
+              class="search-results"
+              *ngIf="searchResults.length"
+            >
+
+              <div
+                class="search-result-item"
+                *ngFor="let r of searchResults"
+                (click)="selectSearchResult(r)"
+              >
+                {{ r.label }}
+              </div>
+
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="use-location-btn"
+            (click)="useMyLocation()"
+            [disabled]="locating"
+          >
+
+            <i class="fa-solid fa-location-crosshairs"></i>
+
+            <span *ngIf="!locating">{{ t('useMyLocation') }}</span>
+            <span *ngIf="locating">{{ t('locatingYou') }}</span>
+
+          </button>
+
+        </div>
+
+        <div
+          #mapContainer
+          class="delivery-map"
+        ></div>
+
+        <p class="map-hint" *ngIf="!latitude">
+          {{ t('tapMapToSelect') }}
+        </p>
+
+        <p class="map-hint map-hint-selected" *ngIf="latitude">
+          <i class="fa-solid fa-circle-check"></i>
+          {{ t('locationSelected') }}: {{ locationLabel || (latitude + ', ' + longitude) }}
+        </p>
 
       </div>
 
@@ -258,7 +312,7 @@
 
         <i class="fa-solid fa-check"></i>
 
-        Place Order
+        {{ t('placeOrder') }}
 
       </button>
 
@@ -273,11 +327,11 @@
         <div>
 
           <p class="summary-mini">
-            ORDER DETAILS
+            {{ t('orderDetails') }}
           </p>
 
           <h2>
-            Order Summary
+            {{ t('orderSummary') }}
           </h2>
 
         </div>
@@ -308,7 +362,7 @@
             </h4>
 
             <p>
-              Qty × {{ p.qty }}
+              {{ t('qty') }} &times; {{ p.qty }}
             </p>
 
           </div>
@@ -316,7 +370,7 @@
         </div>
 
         <strong>
-          ৳ {{ p.price * (p.qty || 1) }}
+          &#2547; {{ p.price * (p.qty || 1) }}
         </strong>
 
       </div>
@@ -327,30 +381,30 @@
 
         <div class="price-row">
 
-          <span>Subtotal</span>
+          <span>{{ t('subtotal') }}</span>
 
           <strong>
-            ৳ {{ total }}
+            &#2547; {{ total }}
           </strong>
 
         </div>
 
         <div class="price-row">
 
-          <span>Delivery</span>
+          <span>{{ t('delivery') }}</span>
 
           <strong>
-            ৳ 60
+            &#2547; 60
           </strong>
 
         </div>
 
         <div class="price-row final-row">
 
-          <span>Total</span>
+          <span>{{ t('total') }}</span>
 
           <h3>
-            ৳ {{ total + 60 }}
+            &#2547; {{ total + 60 }}
           </h3>
 
         </div>
@@ -366,10 +420,10 @@
     class="checkout-fixed-btn"
     (click)="placeOrder()">
 
-    <span>Checkout</span>
+    <span>{{ t('checkout') }}</span>
 
     <strong>
-      ৳ {{ total + 60 }}
+      &#2547; {{ total + 60 }}
     </strong>
 
   </button>

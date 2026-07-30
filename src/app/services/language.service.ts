@@ -140,6 +140,11 @@ export class LanguageService {
        LOCATION
     ========================= */
 
+    changeCity: {
+      en: 'Change City',
+      bn: 'শহর পরিবর্তন করুন'
+    },
+
     dhaka: {
       en: 'Dhaka',
       bn: 'ঢাকা'
@@ -308,7 +313,452 @@ export class LanguageService {
     allRightsReserved: {
       en: '© 2026 Super Bangladesh. All Rights Reserved.',
       bn: '© ২০২৬ সুপার বাংলাদেশ। সর্বস্বত্ব সংরক্ষিত।'
-    }
+    },
+
+
+    /* =========================
+       CHECKOUT PAGE
+    ========================= */
+
+    secureCheckout: {
+      en: 'SECURE CHECKOUT',
+      bn: 'নিরাপদ চেকআউট'
+    },
+
+    checkout: {
+      en: 'Checkout',
+      bn: 'চেকআউট'
+    },
+
+    completeOrderPayment: {
+      en: 'Complete your order details & payment',
+      bn: 'আপনার অর্ডারের তথ্য ও পেমেন্ট সম্পূর্ণ করুন'
+    },
+
+    shippingFee: {
+      en: 'Shipping Fee',
+      bn: 'ডেলিভারি চার্জ'
+    },
+
+    shippingDetails: {
+      en: 'Shipping Details',
+      bn: 'ডেলিভারির তথ্য'
+    },
+
+    fullName: {
+      en: 'Full Name',
+      bn: 'পুরো নাম'
+    },
+
+    enterFullName: {
+      en: 'Enter your full name',
+      bn: 'আপনার পুরো নাম লিখুন'
+    },
+
+    phoneNumber: {
+      en: 'Phone Number',
+      bn: 'ফোন নম্বর'
+    },
+
+    enterPhoneNumber: {
+      en: 'Enter your phone number',
+      bn: 'আপনার ফোন নম্বর লিখুন'
+    },
+
+    deliveryAddress: {
+      en: 'Delivery Address',
+      bn: 'ডেলিভারি ঠিকানা'
+    },
+
+    writeCompleteAddress: {
+      en: 'Write your complete address',
+      bn: 'আপনার সম্পূর্ণ ঠিকানা লিখুন'
+    },
+
+    paidAmount: {
+      en: 'Paid Amount',
+      bn: 'পরিশোধিত পরিমাণ'
+    },
+
+    enterPaidAmount: {
+      en: 'Enter paid amount',
+      bn: 'পরিশোধিত পরিমাণ লিখুন'
+    },
+
+    paymentMethod: {
+      en: 'Payment Method',
+      bn: 'পেমেন্ট পদ্ধতি'
+    },
+
+    cashOnDelivery: {
+      en: 'Cash On Delivery',
+      bn: 'ক্যাশ অন ডেলিভারি'
+    },
+
+    deliveryLocation: {
+      en: 'Delivery Location',
+      bn: 'ডেলিভারি লোকেশন'
+    },
+
+    searchLocationPlaceholder: {
+      en: 'Search area, road, landmark...',
+      bn: 'এলাকা, রাস্তা, ল্যান্ডমার্ক খুঁজুন...'
+    },
+
+    useMyLocation: {
+      en: 'Use My Current Location',
+      bn: 'আমার বর্তমান লোকেশন ব্যবহার করুন'
+    },
+
+    tapMapToSelect: {
+      en: 'Tap on the map or search above to select your exact delivery point',
+      bn: 'ম্যাপে ট্যাপ করুন অথবা উপরে সার্চ করে আপনার সঠিক ডেলিভারি পয়েন্ট বেছে নিন'
+    },
+
+    locationSelected: {
+      en: 'Location selected',
+      bn: 'লোকেশন নির্বাচন করা হয়েছে'
+    },
+
+    locatingYou: {
+      en: 'Finding your location...',
+      bn: 'আপনার লোকেশন খোঁজা হচ্ছে...'
+    },
+
+    orderDetails: {
+      en: 'ORDER DETAILS',
+      bn: 'অর্ডারের তথ্য'
+    },
+
+    orderSummary: {
+      en: 'Order Summary',
+      bn: 'অর্ডার সারাংশ'
+    },
+
+    qty: {
+      en: 'Qty',
+      bn: 'পরিমাণ'
+    },
+
+    subtotal: {
+      en: 'Subtotal',
+      bn: 'সাবটোটাল'
+    },
+
+    delivery: {
+      en: 'Delivery',
+      bn: 'ডেলিভারি'
+    },
+
+    total: {
+      en: 'Total',
+      bn: 'সর্বমোট'
+    },
+
+    fillAllFields: {
+      en: 'Fill all fields ❌',
+      bn: 'সব ঘর পূরণ করুন ❌'
+    },
+
+    loginRequiredCheckout: {
+      en: 'Login required to checkout 🔐',
+      bn: 'চেকআউট করতে লগইন করা প্রয়োজন 🔐'
+    },
+
+    loginFirst: {
+      en: 'Login first ❌',
+      bn: 'প্রথমে লগইন করুন ❌'
+    },
+
+    orderPlacedSuccess: {
+      en: 'Order placed successfully ✅',
+      bn: 'অর্ডার সফলভাবে সম্পন্ন হয়েছে ✅'
+    },
+
+    orderFailed: {
+      en: 'Order failed ❌',
+      bn: 'অর্ডার ব্যর্থ হয়েছে ❌'
+    },
+
+    geolocationNotSupported: {
+      en: 'Location detection is not supported on this device',
+      bn: 'এই ডিভাইসে লোকেশন শনাক্তকরণ সমর্থিত নয়'
+    },
+
+    geolocationDenied: {
+      en: 'Could not access your location. Please allow location access or select on the map.',
+      bn: 'আপনার লোকেশন পাওয়া যায়নি। অনুগ্রহ করে লোকেশন অ্যাক্সেস দিন অথবা ম্যাপে সিলেক্ট করুন।'
+    },
+
+
+    /* =========================
+       ORDERS PAGE
+    ========================= */
+
+    myOrdersTitle: {
+      en: 'My Orders',
+      bn: 'আমার অর্ডারসমূহ'
+    },
+
+    userDashboard: {
+      en: 'USER DASHBOARD',
+      bn: 'ইউজার ড্যাশবোর্ড'
+    },
+
+    trackRecentPurchases: {
+      en: 'Track your recent purchases & delivery status',
+      bn: 'আপনার সাম্প্রতিক কেনাকাটা ও ডেলিভারি স্ট্যাটাস দেখুন'
+    },
+
+    loadingOrders: {
+      en: 'Loading orders...',
+      bn: 'অর্ডার লোড হচ্ছে...'
+    },
+
+    totalAmountLabel: {
+      en: 'Total Amount',
+      bn: 'মোট পরিমাণ'
+    },
+
+    paidAmountLabel: {
+      en: 'Paid Amount',
+      bn: 'পরিশোধিত পরিমাণ'
+    },
+
+    paymentLabel: {
+      en: 'Payment',
+      bn: 'পেমেন্ট'
+    },
+
+    orderedProducts: {
+      en: 'Ordered Products',
+      bn: 'অর্ডারকৃত পণ্য'
+    },
+
+    delete: {
+      en: 'Delete',
+      bn: 'মুছুন'
+    },
+
+    noAddressSelected: {
+      en: 'No address provided',
+      bn: 'কোনো ঠিকানা দেওয়া হয়নি'
+    },
+
+    trackYourOrders: {
+      en: 'Track and manage your orders',
+      bn: 'আপনার অর্ডার ট্র্যাক ও পরিচালনা করুন'
+    },
+
+    noOrdersYet: {
+      en: 'No orders yet',
+      bn: 'এখনো কোনো অর্ডার নেই'
+    },
+
+    startShoppingNow: {
+      en: 'Start shopping now to see your orders here',
+      bn: 'এখনই কেনাকাটা শুরু করুন, অর্ডার এখানে দেখা যাবে'
+    },
+
+    orderNumber: {
+      en: 'Order',
+      bn: 'অর্ডার'
+    },
+
+    placedOn: {
+      en: 'Placed on',
+      bn: 'অর্ডারের তারিখ'
+    },
+
+    orderStatus: {
+      en: 'Status',
+      bn: 'স্ট্যাটাস'
+    },
+
+    statusNew: {
+      en: 'New',
+      bn: 'নতুন'
+    },
+
+    statusProcessing: {
+      en: 'Processing',
+      bn: 'প্রক্রিয়াধীন'
+    },
+
+    statusShipped: {
+      en: 'Shipped',
+      bn: 'পাঠানো হয়েছে'
+    },
+
+    statusDelivered: {
+      en: 'Delivered',
+      bn: 'ডেলিভারি সম্পন্ন'
+    },
+
+    statusCancelled: {
+      en: 'Cancelled',
+      bn: 'বাতিল'
+    },
+
+    statusDone: {
+      en: 'Delivered',
+      bn: 'ডেলিভারি সম্পন্ন'
+    },
+
+    viewDetails: {
+      en: 'View Details',
+      bn: 'বিস্তারিত দেখুন'
+    },
+
+    viewOnMap: {
+      en: 'View on Map',
+      bn: 'ম্যাপে দেখুন'
+    },
+
+
+    /* =========================
+       ADMIN ORDERS PAGE
+    ========================= */
+
+    manageOrders: {
+      en: 'Manage Orders',
+      bn: 'অর্ডার পরিচালনা'
+    },
+
+    allOrders: {
+      en: 'All Orders',
+      bn: 'সকল অর্ডার'
+    },
+
+    customer: {
+      en: 'Customer',
+      bn: 'কাস্টমার'
+    },
+
+    contact: {
+      en: 'Contact',
+      bn: 'যোগাযোগ'
+    },
+
+    amount: {
+      en: 'Amount',
+      bn: 'পরিমাণ'
+    },
+
+    date: {
+      en: 'Date',
+      bn: 'তারিখ'
+    },
+
+    action: {
+      en: 'Action',
+      bn: 'পদক্ষেপ'
+    },
+
+    updateStatus: {
+      en: 'Update Status',
+      bn: 'স্ট্যাটাস আপডেট করুন'
+    },
+
+    searchOrders: {
+      en: 'Search by name, phone, order id...',
+      bn: 'নাম, ফোন, অর্ডার আইডি দিয়ে খুঁজুন...'
+    },
+
+    filterByStatus: {
+      en: 'Filter by status',
+      bn: 'স্ট্যাটাস অনুযায়ী ফিল্টার করুন'
+    },
+
+    noOrdersFound: {
+      en: 'No orders found',
+      bn: 'কোনো অর্ডার পাওয়া যায়নি'
+    },
+
+    orderManagement: {
+      en: 'Order Management',
+      bn: 'অর্ডার ব্যবস্থাপনা'
+    },
+
+    manageDeliveryWorkflow: {
+      en: 'Manage customer orders and delivery workflow',
+      bn: 'কাস্টমার অর্ডার ও ডেলিভারি প্রক্রিয়া পরিচালনা করুন'
+    },
+
+    totalOrders: {
+      en: 'Total Orders',
+      bn: 'মোট অর্ডার'
+    },
+
+    allCustomerOrders: {
+      en: 'All customer orders',
+      bn: 'সকল কাস্টমার অর্ডার'
+    },
+
+    totalRevenue: {
+      en: 'Total Revenue',
+      bn: 'মোট আয়'
+    },
+
+    completedOrderEarnings: {
+      en: 'Completed order earnings',
+      bn: 'সম্পন্ন অর্ডারের আয়'
+    },
+
+    ordersInProgress: {
+      en: 'Orders in progress',
+      bn: 'চলমান অর্ডার'
+    },
+
+    completed: {
+      en: 'Completed',
+      bn: 'সম্পন্ন'
+    },
+
+    deliveredSuccessfully: {
+      en: 'Delivered successfully',
+      bn: 'সফলভাবে ডেলিভারি হয়েছে'
+    },
+
+    customerOrder: {
+      en: 'Customer Order',
+      bn: 'কাস্টমার অর্ডার'
+    },
+
+    nameLabel: {
+      en: 'Name',
+      bn: 'নাম'
+    },
+
+    phoneLabel: {
+      en: 'Phone',
+      bn: 'ফোন'
+    },
+
+    addressLabel: {
+      en: 'Address',
+      bn: 'ঠিকানা'
+    },
+
+    emailLabel: {
+      en: 'Email',
+      bn: 'ইমেইল'
+    },
+
+    invoice: {
+      en: 'Invoice',
+      bn: 'ইনভয়েস'
+    },
+
+    receipt: {
+      en: 'Receipt',
+      bn: 'রশিদ'
+    },
+
+    confirmDeleteOrder: {
+      en: 'Delete this order?',
+      bn: 'এই অর্ডারটি মুছে ফেলতে চান?'
+    },
 
   };
 
