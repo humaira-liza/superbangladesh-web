@@ -88,6 +88,7 @@
       <thead>
         <tr>
           <th>Product</th>
+          <th>SKU</th>
           <th class="align-center">Qty</th>
           <th class="align-right">Unit Price</th>
           <th class="align-right">Amount</th>
@@ -97,6 +98,7 @@
       <tbody>
         <tr *ngFor="let item of order.items">
           <td>{{ item.productName }}</td>
+          <td>{{ item.productSku || '—' }}</td>
           <td class="align-center">{{ item.quantity }}</td>
           <td class="align-right">৳ {{ item.price | number }}</td>
           <td class="align-right">৳ {{ item.price * item.quantity | number }}</td>

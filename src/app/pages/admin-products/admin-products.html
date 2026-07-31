@@ -305,6 +305,13 @@
 
       </p>
 
+      <!-- SKU + BRAND -->
+      <p class="cat" *ngIf="p.sku || p.brand">
+        <span *ngIf="p.sku">SKU: {{ p.sku }}</span>
+        <span *ngIf="p.sku && p.brand" class="sep">›</span>
+        <span *ngIf="p.brand">{{ p.brand }}</span>
+      </p>
+
       <!-- PRICE -->
       <div class="price-row">
         <span class="price">৳ {{ getFinalPrice(p) }}</span>

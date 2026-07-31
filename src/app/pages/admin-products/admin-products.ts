@@ -30,9 +30,12 @@ get filteredProducts() {
     return this.products;
   }
 
+  const q = this.searchText.toLowerCase();
+
   return this.products.filter((p: any) =>
-    p.name?.toLowerCase()
-      .includes(this.searchText.toLowerCase())
+    p.name?.toLowerCase().includes(q) ||
+    p.sku?.toLowerCase().includes(q) ||
+    p.brand?.toLowerCase().includes(q)
   );
 }
 
