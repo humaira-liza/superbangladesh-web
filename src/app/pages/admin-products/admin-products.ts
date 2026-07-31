@@ -56,7 +56,6 @@ get filteredProducts() {
   description: '',
   brand: '',
   origin: '',
-  sku: '',
   discount: 0,
 
   imageUrl: '',
@@ -301,9 +300,6 @@ upload(file: File | null, folder: string): Promise<string> {
 
   origin: this.form.origin,
 
-  // sku পাঠানো হচ্ছে না — একবার তৈরি হওয়ার পর SKU immutable,
-  // backend ও এটা ignore করে (updatable=false)
-
   discount: Number(this.form.discount) || 0,
 
   imageUrl: this.form.imageUrl,
@@ -512,8 +508,6 @@ upload(file: File | null, folder: string): Promise<string> {
 
   origin: p.origin || '',
 
-  sku: p.sku || '',
-
   discount: p.discount || 0,
 
   imageUrl: p.imageUrl || '',
@@ -583,8 +577,6 @@ this.editingId = p.id;
   brand: '',
 
   origin: '',
-
-  sku: '',
 
   discount: 0,
 
