@@ -57,6 +57,88 @@
 
 </div>
 
+<!-- =========================
+     MOBILE LOCATION BAR
+========================= -->
+
+<div
+  class="mobile-location-bar"
+  (click)="toggleLocationMenu($event)"
+>
+  <i class="fa-solid fa-location-dot"></i>
+
+  <span>
+    {{ getSelectedLocationLabel() }}
+  </span>
+
+  <i class="fa-solid fa-chevron-down"></i>
+</div>
+
+<div
+  class="mobile-overlay"
+  *ngIf="showLocationMenu"
+  (click)="toggleLocationMenu($event)"
+>
+</div>
+
+<div
+  class="mobile-location-dropdown"
+  *ngIf="showLocationMenu"
+  (click)="$event.stopPropagation()"
+>
+
+  <!-- STEP 1: MAIN -->
+  <ng-container *ngIf="locationMenuStep === 'main'">
+
+    <button
+      type="button"
+      class="location-option"
+      (click)="useCurrentLocationNavbar()"
+      [disabled]="locatingCurrentLocation"
+    >
+      <i class="fa-solid fa-location-crosshairs"></i>
+
+      <span *ngIf="!locatingCurrentLocation">
+        {{ t('useMyLocation') }}
+      </span>
+
+      <span *ngIf="locatingCurrentLocation">
+        {{ t('locatingYou') }}
+      </span>
+    </button>
+
+    <button
+      type="button"
+      class="location-option"
+      (click)="showCityList()"
+    >
+      <i class="fa-solid fa-circle city-dot-icon"></i>
+      <span>{{ t('changeCity') }}</span>
+    </button>
+
+  </ng-container>
+
+  <!-- STEP 2: CITY LIST -->
+  <ng-container *ngIf="locationMenuStep === 'cities'">
+
+    <button
+      type="button"
+      class="location-back"
+      (click)="backToLocationMain()"
+    >
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+
+    <button type="button" (click)="selectLocation('Dhaka')">{{ t('dhaka') }}</button>
+    <button type="button" (click)="selectLocation('Chattogram')">{{ t('chattogram') }}</button>
+    <button type="button" (click)="selectLocation('Sylhet')">{{ t('sylhet') }}</button>
+    <button type="button" (click)="selectLocation('Rajshahi')">{{ t('rajshahi') }}</button>
+    <button type="button" (click)="selectLocation('Khulna')">{{ t('khulna') }}</button>
+
+  </ng-container>
+
+</div>
+
 <div
   class="mobile-overlay"
   *ngIf="sidebarOpen"

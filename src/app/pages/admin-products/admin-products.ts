@@ -301,7 +301,8 @@ upload(file: File | null, folder: string): Promise<string> {
 
   origin: this.form.origin,
 
-  sku: this.form.sku,
+  // sku পাঠানো হচ্ছে না — একবার তৈরি হওয়ার পর SKU immutable,
+  // backend ও এটা ignore করে (updatable=false)
 
   discount: Number(this.form.discount) || 0,
 
@@ -407,7 +408,8 @@ upload(file: File | null, folder: string): Promise<string> {
 
       origin: this.form.origin,
 
-      sku: this.form.sku,
+      // sku পাঠানো হচ্ছে না — Save করলে backend থেকেই
+      // Auto Generate হবে (SB000001, SB000002, ...)
 
       discount: Number(this.form.discount) || 0,
 

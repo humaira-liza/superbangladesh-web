@@ -136,7 +136,7 @@
           <input [(ngModel)]="form.brand" placeholder="Brand name">
         </div>
 
-       <div class="field">
+        <div class="field">
   <label>Origin Country</label>
 
   <input
@@ -145,22 +145,27 @@
     placeholder="Select or type country">
 
   <datalist id="countryList">
-    <option value="Bangladesh">
-    <option value="India">
-    <option value="China">
-    <option value="Pakistan">
-    <option value="Vietnam">
-    <option value="Thailand">
-    <option value="Malaysia">
-    <option value="Indonesia">
-    <option value="Japan">
-    <option value="USA">
+    <option value="Bangladesh"></option>
+    <option value="India"></option>
+    <option value="China"></option>
+    <option value="Pakistan"></option>
+    <option value="Vietnam"></option>
+    <option value="Thailand"></option>
+    <option value="Malaysia"></option>
+    <option value="Indonesia"></option>
+    <option value="Japan"></option>
+    <option value="USA"></option>
   </datalist>
 </div>
 
         <div class="field">
           <label>Product Code (SKU)</label>
-          <input [(ngModel)]="form.sku" placeholder="e.g. SB-TOM-001">
+          <input
+            type="text"
+            [value]="form.sku"
+            readonly
+            [placeholder]="editingId ? '' : 'Save করলে Auto Generate হবে (SB000001...)'"
+          >
         </div>
 
       </div>
