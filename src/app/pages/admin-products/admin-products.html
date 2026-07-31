@@ -136,10 +136,27 @@
           <input [(ngModel)]="form.brand" placeholder="Brand name">
         </div>
 
-        <div class="field">
-          <label>Origin</label>
-          <input [(ngModel)]="form.origin" placeholder="e.g. Bangladesh">
-        </div>
+       <div class="field">
+  <label>Origin Country</label>
+
+  <input
+    list="countryList"
+    [(ngModel)]="form.origin"
+    placeholder="Select or type country">
+
+  <datalist id="countryList">
+    <option value="Bangladesh">
+    <option value="India">
+    <option value="China">
+    <option value="Pakistan">
+    <option value="Vietnam">
+    <option value="Thailand">
+    <option value="Malaysia">
+    <option value="Indonesia">
+    <option value="Japan">
+    <option value="USA">
+  </datalist>
+</div>
 
         <div class="field">
           <label>Product Code (SKU)</label>
