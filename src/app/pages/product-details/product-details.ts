@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 import { CartService } from '../../services/cart';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-product-details',
@@ -27,8 +28,17 @@ export class ProductDetails implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private cart: CartService,
-    private router: Router
+    private router: Router,
+    public languageService: LanguageService
   ) {}
+
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
+
+  categoryName(name: string): string {
+    return this.languageService.translateCategory(name);
+  }
 
   ngOnInit(): void {
 

@@ -2,13 +2,13 @@
 
   <form class="login-card" (ngSubmit)="submit()">
 
-    <h2>Login</h2>
+    <h2>{{ t('login') }}</h2>
 
     <input
       [(ngModel)]="email"
       name="email"
       type="email"
-      placeholder="Email"
+      [placeholder]="t('emailLabel')"
       required>
 
     <!-- 🔐 PASSWORD WITH EYE -->
@@ -18,7 +18,7 @@
         [(ngModel)]="password"
         name="password"
         [type]="showPassword ? 'text' : 'password'"
-        placeholder="Password"
+        [placeholder]="t('password')"
         required>
 
       <span class="eye" (click)="togglePassword()">
@@ -28,12 +28,12 @@
     </div>
 
     <button type="submit" [disabled]="loading">
-      {{ loading ? 'Logging in...' : 'Login' }}
+      {{ loading ? t('loggingIn') : t('login') }}
     </button>
 
     <div class="register-link">
-      <span>Don't have an account?</span>
-      <a routerLink="/register">Create Account</a>
+      <span>{{ t('dontHaveAccount') }}</span>
+      <a routerLink="/register">{{ t('createAccount') }}</a>
     </div>
 
   </form>

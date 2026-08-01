@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { ProductStateService } from '../../services/product-state.service';
+import { LanguageService } from '../../services/language.service';
 
 import { Subscription } from 'rxjs';
 
@@ -56,8 +57,14 @@ clearSearch(): void {
  constructor(
   private http: HttpClient,
   private cdr: ChangeDetectorRef,
-  private state: ProductStateService
+  private state: ProductStateService,
+  public languageService: LanguageService
 ) {}
+
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
+
   ngOnInit() {
 
     this.sub = this.state.mobileSearch$

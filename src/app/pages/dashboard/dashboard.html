@@ -164,7 +164,7 @@
 
         <div class="product-body">
 
-          <h3>{{ p.name }}</h3>
+          <h3>{{ languageService.productName(p) }}</h3>
 
           <div class="tag-row">
             <span class="tag tag--sold">Sold {{ p.sold }}</span>
@@ -199,7 +199,7 @@
       <div class="inv-row" *ngFor="let p of lowStock">
         <img [src]="getImage(p.imageUrl)" [alt]="p.name" (error)="onImgError($event)" />
         <div>
-          <h4>{{ p.name }}</h4>
+          <h4>{{ languageService.productName(p) }}</h4>
           <span>Only {{ p.stock }} left</span>
         </div>
       </div>
@@ -221,7 +221,7 @@
       <div class="inv-row" *ngFor="let p of outOfStock">
         <img [src]="getImage(p.imageUrl)" [alt]="p.name" (error)="onImgError($event)" />
         <div>
-          <h4>{{ p.name }}</h4>
+          <h4>{{ languageService.productName(p) }}</h4>
           <span>Refill immediately</span>
         </div>
       </div>

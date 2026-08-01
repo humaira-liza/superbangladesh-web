@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +23,11 @@ export class Profile implements OnInit {
 
   apiUrl = 'https://superbangladesh-api-1.onrender.com';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public languageService: LanguageService) {}
+
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
 
   ngOnInit(): void {
     this.loadProfile();
@@ -80,14 +85,14 @@ export class Profile implements OnInit {
 
       next: () => {
 
-        alert('Profile updated successfully.');
+        alert(this.t('profileUpdatedSuccess'));
 
       },
 
       error: (err) => {
 
         console.error(err);
-        alert('Profile update failed.');
+        alert(this.t('profileUpdateFailed'));
 
       }
 

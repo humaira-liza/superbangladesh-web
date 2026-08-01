@@ -335,3 +335,34 @@ body{
   }
 
 }
+/* =========================
+   ADMIN LANGUAGE SWITCH
+========================= */
+
+.admin-language-switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 0 16px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  width: fit-content;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.admin-language-switch span {
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 2px 4px;
+}
+
+.admin-language-switch span.active {
+  color: #fff;
+}
+
+.admin-language-switch .divider {
+  color: rgba(255, 255, 255, 0.3);
+  cursor: default;
+}

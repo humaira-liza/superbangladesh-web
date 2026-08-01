@@ -21,6 +21,7 @@ import { CartService } from '../../services/cart';
 
 import { ProductStateService } from '../../services/product-state.service';
 import { ProductService } from '../../services/product.service';
+import { LanguageService } from '../../services/language.service';
 import {
   Subject,
   of
@@ -81,8 +82,17 @@ constructor(
   private cdr: ChangeDetectorRef,
   private zone: NgZone,
   private state: ProductStateService,
-  private productService: ProductService
+  private productService: ProductService,
+  public languageService: LanguageService
 ) {}
+
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
+
+  categoryName(name: string): string {
+    return this.languageService.translateCategory(name);
+  }
 
 
   // =========================
@@ -408,7 +418,7 @@ constructor(
               false;
 
             this.errorMessage =
-              'Could not load category.';
+              this.t('couldNotLoadCategory');
 
             this.cdr.detectChanges();
 
@@ -436,7 +446,7 @@ constructor(
               false;
 
             this.errorMessage =
-              'Category not found';
+              this.t('categoryNotFound');
 
             this.cdr.detectChanges();
 
@@ -541,7 +551,7 @@ constructor(
               false;
 
             this.errorMessage =
-              'Could not load products.';
+              this.t('couldNotLoadProducts');
 
             this.cdr.detectChanges();
 

@@ -6,6 +6,7 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-inventory',
@@ -24,7 +25,8 @@ export class Inventory implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    public languageService: LanguageService
   ) {}
 
   ngOnInit(): void {

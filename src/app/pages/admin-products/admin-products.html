@@ -29,8 +29,13 @@
       <div class="field-grid cols-2">
 
         <div class="field">
-          <label>Product Name</label>
+          <label>Product Name (English)</label>
           <input [(ngModel)]="form.name" placeholder="e.g. Fresh Tomato">
+        </div>
+
+        <div class="field">
+          <label>Product Name (Bangla)</label>
+          <input [(ngModel)]="form.nameBn" placeholder="যেমন: তাজা টমেটো (ঐচ্ছিক)">
         </div>
 
         <div class="field">
@@ -161,8 +166,13 @@
       </div>
 
       <div class="field" style="margin-top:18px;">
-        <label>Description</label>
+        <label>Description (English)</label>
         <textarea [(ngModel)]="form.description" placeholder="Short description shown on the product page"></textarea>
+      </div>
+
+      <div class="field" style="margin-top:18px;">
+        <label>Description (Bangla)</label>
+        <textarea [(ngModel)]="form.descriptionBn" placeholder="পণ্যের সংক্ষিপ্ত বিবরণ (ঐচ্ছিক)"></textarea>
       </div>
     </div>
 
@@ -280,7 +290,7 @@
     <!-- INFO -->
     <div class="info">
 
-      <h3>{{ p.name }}</h3>
+      <h3>{{ languageService.productName(p) }}</h3>
 
       <!-- CATEGORY BREADCRUMB -->
       <p class="cat">

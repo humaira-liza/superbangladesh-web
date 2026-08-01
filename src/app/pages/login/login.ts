@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-login',
@@ -29,8 +30,17 @@ export class LoginComponent {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    public languageService: LanguageService
   ) {}
+
+  /* =========================
+     TRANSLATE
+  ========================= */
+
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
 
   togglePassword() {
 
@@ -45,7 +55,7 @@ submit() {
 
     if (!this.email || !this.password) {
 
-      alert('Enter email & password');
+      alert(this.t('enterEmailPassword'));
 
       return;
     }
@@ -81,7 +91,7 @@ submit() {
 
   if (!res) {
 
-    alert('No response from server');
+    alert(this.t('noResponseFromServer'));
 
     return;
   }
@@ -91,11 +101,11 @@ submit() {
 
     if (res.error === 'User not found') {
 
-      alert('No account found. Please register first.');
+      alert(this.t('noAccountFoundRegisterFirst'));
 
     } else if (res.error === 'Wrong password') {
 
-      alert('Incorrect password.');
+      alert(this.t('incorrectPassword'));
 
     } else {
 
@@ -154,7 +164,7 @@ console.log('EMAIL =', localStorage.getItem('email'));
 
               err?.message ||
 
-              'Login failed ❌'
+              this.t('loginFailed')
             );
           }
         });
@@ -165,7 +175,7 @@ console.log('EMAIL =', localStorage.getItem('email'));
         this.loading = false;
 
         alert(
-          'Server is waking up... try again in 10 seconds ⏳'
+          this.t('serverWakingUp')
         );
       }
     });

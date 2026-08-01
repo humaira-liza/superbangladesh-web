@@ -45,6 +45,56 @@ export class LanguageService {
       bn: 'লগইন'
     },
 
+    loggingIn: {
+      en: 'Logging in...',
+      bn: 'লগইন হচ্ছে...'
+    },
+
+    password: {
+      en: 'Password',
+      bn: 'পাসওয়ার্ড'
+    },
+
+    dontHaveAccount: {
+      en: "Don't have an account?",
+      bn: 'আপনার কোনো অ্যাকাউন্ট নেই?'
+    },
+
+    createAccount: {
+      en: 'Create Account',
+      bn: 'অ্যাকাউন্ট তৈরি করুন'
+    },
+
+    enterEmailPassword: {
+      en: 'Enter email & password',
+      bn: 'ইমেইল ও পাসওয়ার্ড দিন'
+    },
+
+    noAccountFoundRegisterFirst: {
+      en: 'No account found. Please register first.',
+      bn: 'কোনো অ্যাকাউন্ট পাওয়া যায়নি। প্রথমে রেজিস্টার করুন।'
+    },
+
+    incorrectPassword: {
+      en: 'Incorrect password.',
+      bn: 'ভুল পাসওয়ার্ড।'
+    },
+
+    noResponseFromServer: {
+      en: 'No response from server',
+      bn: 'সার্ভার থেকে কোনো সাড়া পাওয়া যায়নি'
+    },
+
+    loginFailed: {
+      en: 'Login failed ❌',
+      bn: 'লগইন ব্যর্থ হয়েছে ❌'
+    },
+
+    serverWakingUp: {
+      en: 'Server is waking up... try again in 10 seconds ⏳',
+      bn: 'সার্ভার চালু হচ্ছে... ১০ সেকেন্ড পর আবার চেষ্টা করুন ⏳'
+    },
+
     logout: {
       en: 'Logout',
       bn: 'লগআউট'
@@ -760,6 +810,183 @@ export class LanguageService {
       bn: 'এই অর্ডারটি মুছে ফেলতে চান?'
     },
 
+
+    /* =========================
+       ADMIN PANEL — COMMON
+       (নতুন admin পেজগুলোতে t('key')
+       দিয়ে ব্যবহার করুন)
+    ========================= */
+
+    dashboard: {
+      en: 'Dashboard',
+      bn: 'ড্যাশবোর্ড'
+    },
+
+    products: {
+      en: 'Products',
+      bn: 'পণ্যসমূহ'
+    },
+
+    categories: {
+      en: 'Categories',
+      bn: 'ক্যাটাগরি'
+    },
+
+    customers: {
+      en: 'Customers',
+      bn: 'কাস্টমার'
+    },
+
+    banners: {
+      en: 'Banners',
+      bn: 'ব্যানার'
+    },
+
+    inventory: {
+      en: 'Inventory',
+      bn: 'ইনভেন্টরি'
+    },
+
+    finance: {
+      en: 'Finance',
+      bn: 'হিসাব-নিকাশ'
+    },
+
+    analytics: {
+      en: 'Analytics',
+      bn: 'অ্যানালিটিক্স'
+    },
+
+    complaints: {
+      en: 'Complaints',
+      bn: 'অভিযোগ'
+    },
+
+    purchase: {
+      en: 'Purchase',
+      bn: 'ক্রয়'
+    },
+
+    settings: {
+      en: 'Settings',
+      bn: 'সেটিংস'
+    },
+
+    save: {
+      en: 'Save',
+      bn: 'সংরক্ষণ করুন'
+    },
+
+    cancel: {
+      en: 'Cancel',
+      bn: 'বাতিল করুন'
+    },
+
+    edit: {
+      en: 'Edit',
+      bn: 'সম্পাদনা করুন'
+    },
+
+    add: {
+      en: 'Add',
+      bn: 'যোগ করুন'
+    },
+
+    addNew: {
+      en: 'Add New',
+      bn: 'নতুন যোগ করুন'
+    },
+
+    search: {
+      en: 'Search',
+      bn: 'খুঁজুন'
+    },
+
+    loading: {
+      en: 'Loading...',
+      bn: 'লোড হচ্ছে...'
+    },
+
+    productNameEn: {
+      en: 'Product Name (English)',
+      bn: 'পণ্যের নাম (ইংরেজি)'
+    },
+
+    productNameBn: {
+      en: 'Product Name (Bangla)',
+      bn: 'পণ্যের নাম (বাংলা)'
+    },
+
+    descriptionEn: {
+      en: 'Description (English)',
+      bn: 'বিবরণ (ইংরেজি)'
+    },
+
+    descriptionBn: {
+      en: 'Description (Bangla)',
+      bn: 'বিবরণ (বাংলা)'
+    },
+
+    categoryNameEn: {
+      en: 'Category Name (English)',
+      bn: 'ক্যাটাগরির নাম (ইংরেজি)'
+    },
+
+    categoryNameBn: {
+      en: 'Category Name (Bangla)',
+      bn: 'ক্যাটাগরির নাম (বাংলা)'
+    },
+
+    optionalLeaveBlank: {
+      en: 'Optional — leave blank to auto-translate common words',
+      bn: '(ঐচ্ছিক — খালি রাখলে সাধারণ শব্দগুলো স্বয়ংক্রিয়ভাবে অনুবাদ হবে)'
+    },
+
+    adminPanel: {
+      en: 'Admin Panel',
+      bn: 'অ্যাডমিন প্যানেল'
+    },
+
+    homepageFeatures: {
+      en: 'Homepage Features',
+      bn: 'হোমপেজ ফিচার'
+    },
+
+    shopGetMore: {
+      en: 'Shop & Get More',
+      bn: 'শপ ও আরও পান'
+    },
+
+    popularBrandsNav: {
+      en: 'Popular Brands',
+      bn: 'জনপ্রিয় ব্র্যান্ড'
+    },
+
+    footerManagement: {
+      en: 'Footer Management',
+      bn: 'ফুটার ব্যবস্থাপনা'
+    },
+
+    ordersNav: {
+      en: 'Orders',
+      bn: 'অর্ডার'
+    },
+
+    purchaseManagement: {
+      en: 'Purchase Management',
+      bn: 'ক্রয় ব্যবস্থাপনা'
+    },
+
+    purchaseHistory: {
+      en: 'Purchase History',
+      bn: 'ক্রয়ের ইতিহাস'
+    },
+
+    backToShop: {
+      en: 'Back to Shop',
+      bn: 'শপে ফিরে যান'
+    },
+
   };
 
 
@@ -1085,7 +1312,8 @@ export class LanguageService {
   ========================= */
 
   translateCategory(
-    name: string | null | undefined
+    name: string | null | undefined,
+    nameBn?: string | null
   ): string {
 
     if (!name) {
@@ -1098,10 +1326,66 @@ export class LanguageService {
       return name;
     }
 
+    // ✅ Admin panel থেকে দেওয়া Bangla নাম সবার আগে ব্যবহার হবে
+    if (nameBn && nameBn.trim()) {
+      return nameBn;
+    }
+
     return (
       this.categoryBangla[name]
       || name
     );
+  }
+
+
+  /* =========================
+     PRODUCT NAME / DESCRIPTION
+     (Admin panel এ যোগ করা future
+     পণ্যগুলোও এভাবে বাংলায় দেখাবে)
+  ========================= */
+
+  productName(
+    product: {
+      name?: string | null;
+      nameBn?: string | null;
+    } | null | undefined
+  ): string {
+
+    if (!product) {
+      return '';
+    }
+
+    if (
+      this.currentLanguage() === 'bn'
+      && product.nameBn
+      && product.nameBn.trim()
+    ) {
+      return product.nameBn;
+    }
+
+    return product.name || '';
+  }
+
+  productDescription(
+    product: {
+      description?: string | null;
+      descriptionBn?: string | null;
+    } | null | undefined
+  ): string {
+
+    if (!product) {
+      return '';
+    }
+
+    if (
+      this.currentLanguage() === 'bn'
+      && product.descriptionBn
+      && product.descriptionBn.trim()
+    ) {
+      return product.descriptionBn;
+    }
+
+    return product.description || '';
   }
 
 }

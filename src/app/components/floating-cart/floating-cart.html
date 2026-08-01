@@ -4,12 +4,12 @@
 🛒
 </div>
 
-<p>{{cart.count()}} items</p>
+<p>{{cart.count()}} {{ t('items') }}</p>
 
 <p>৳ {{cart.getTotal()}}</p>
 
 <a routerLink="/cart">
-View Cart
+{{ t('viewCart') }}
 </a>
 
 </div>

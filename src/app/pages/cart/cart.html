@@ -7,19 +7,19 @@
     <div>
 
       <p class="mini-title">
-        SHOPPING CART
+        {{ t('shoppingCart') }}
       </p>
 
       <h1 class="title">
 
         <i class="fa-solid fa-cart-shopping"></i>
 
-        My Cart
+        {{ t('myCart') }}
 
       </h1>
 
       <span class="sub">
-        Review your selected products before checkout
+        {{ t('reviewCartSubtitle') }}
       </span>
 
     </div>
@@ -30,7 +30,7 @@
 
       <div class="summary-box">
 
-        <span>Items</span>
+        <span>{{ t('items') }}</span>
 
         <h3>
           {{ items.length }}
@@ -40,7 +40,7 @@
 
       <div class="summary-box">
 
-        <span>Total</span>
+        <span>{{ t('total') }}</span>
 
         <h3>
           ৳ {{ getTotal() }}
@@ -62,11 +62,11 @@
     <i class="fa-solid fa-cart-shopping"></i>
 
     <h2>
-      Your cart is empty
+      {{ t('cartEmpty') }}
     </h2>
 
     <p>
-      Add products to continue shopping
+      {{ t('addProductsContinue') }}
     </p>
 
   </div>
@@ -100,7 +100,7 @@
         <div class="info">
 
           <h4>
-            {{ p.name }}
+            {{ languageService.productName(p) }}
           </h4>
 
           <p>
@@ -144,12 +144,12 @@
     <div class="checkout-box">
 
       <h2>
-        Order Summary
+        {{ t('orderSummary') }}
       </h2>
 
       <div class="summary-row">
 
-        <span>Subtotal</span>
+        <span>{{ t('subtotal') }}</span>
 
         <strong>
           ৳ {{ getTotal() }}
@@ -159,7 +159,7 @@
 
       <div class="summary-row">
 
-        <span>Delivery</span>
+        <span>{{ t('delivery') }}</span>
 
         <strong>
           ৳ 60
@@ -169,7 +169,7 @@
 
       <div class="summary-row total-row">
 
-        <span>Total</span>
+        <span>{{ t('total') }}</span>
 
         <strong>
           ৳ {{ getTotal() + 60 }}
@@ -182,7 +182,7 @@
         (click)="goCheckout()"
       >
 
-        Proceed to Checkout
+        {{ t('proceedToCheckout') }}
 
       </button>
 

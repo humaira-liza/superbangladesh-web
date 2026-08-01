@@ -6,7 +6,7 @@
 
   <img
     [src]="getImage(selectedImage || product.imageUrl)"
-    [alt]="product.name">
+    [alt]="languageService.productName(product)">
 
 </div>
 
@@ -34,10 +34,10 @@
   <div class="right">
 
     <span class="category">
-      {{product.categoryName}}
+      {{ categoryName(product.categoryName) }}
     </span>
 
-    <h1>{{product.name}}</h1>
+    <h1>{{ languageService.productName(product) }}</h1>
 
     <div class="price-box">
 
@@ -68,7 +68,7 @@
     class="stock"
     [class.out-stock]="product.stock <= 0">
 
-    {{ product.stock > 0 ? '✓ In Stock' : '✗ Out of Stock' }}
+    {{ product.stock > 0 ? t('inStock') : t('outOfStockMark') }}
 
   </div>
 
@@ -76,7 +76,7 @@
     class="origin-tag"
     *ngIf="product.origin">
 
-    Product of {{ getOriginName(product.origin) }}
+    {{ t('productOf') }} {{ getOriginName(product.origin) }}
 
   </div>
 
@@ -84,7 +84,7 @@
     class="origin-tag"
     *ngIf="product.brand">
 
-    Brand: {{ product.brand }}
+    {{ t('brandLabel') }}: {{ product.brand }}
 
   </div>
 
@@ -93,7 +93,7 @@
     <div class="description">
 
   <p>
-    {{ product.description }}
+    {{ languageService.productDescription(product) }}
   </p>
 
 </div>
@@ -114,7 +114,7 @@
 
       <span>{{ quantity }}</span>
 
-      <small>in bag</small>
+      <small>{{ t('inBag') }}</small>
 
     </div>
 
@@ -131,7 +131,7 @@
   <button
   class="buy-btn"
   (click)="buyNow()">
-  Buy Now
+  {{ t('buyNow') }}
 </button>
 
 </div>

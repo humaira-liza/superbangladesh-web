@@ -10,6 +10,7 @@ import {
   Router,
   RouterModule
 } from '@angular/router';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -40,7 +41,8 @@ export class Dashboard implements OnInit {
   constructor(
   private http: HttpClient,
   private cdr: ChangeDetectorRef,
-  private router: Router
+  private router: Router,
+  public languageService: LanguageService
 ) {}
 
   ngOnInit() {

@@ -73,25 +73,27 @@
     <!-- Products -->
     <table class="items">
 
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Item</th>
-          <th class="align-right">Qty</th>
-          <th class="align-right">Price</th>
-          <th class="align-right">Total</th>
-        </tr>
-      </thead>
+    <thead>
+  <tr>
+    <th>#</th>
+    <th>Item</th>
+    <th>SKU</th>
+    <th class="align-right">Qty</th>
+    <th class="align-right">Price</th>
+    <th class="align-right">Total</th>
+  </tr>
+</thead>
 
       <tbody>
-        <tr *ngFor="let item of (order.items || []); let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ item.productName }}</td>
-          <td class="align-right">{{ item.quantity }}</td>
-          <td class="align-right">{{ item.price }}</td>
-          <td class="align-right">{{ item.price * item.quantity }}</td>
-        </tr>
-      </tbody>
+  <tr *ngFor="let item of (order.items || []); let i = index">
+    <td>{{ i + 1 }}</td>
+    <td>{{ item.productName }}</td>
+    <td>{{ item.productSku || '—' }}</td>
+    <td class="align-right">{{ item.quantity }}</td>
+    <td class="align-right">{{ item.price }}</td>
+    <td class="align-right">{{ item.price * item.quantity }}</td>
+  </tr>
+</tbody>
 
     </table>
 

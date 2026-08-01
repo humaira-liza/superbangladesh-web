@@ -33,7 +33,7 @@
         ">
 
         <h1 class="category-title">
-          {{ category.name }}
+          {{ categoryName(category.name) }}
         </h1>
 
 
@@ -72,7 +72,7 @@
             </div>
 
             <h3>
-              {{ c.name }}
+              {{ categoryName(c.name) }}
             </h3>
 
           </div>
@@ -109,7 +109,7 @@
     class="out-badge"
     *ngIf="p.stock <= 0">
 
-    Out Of Stock
+    {{ t('outOfStock') }}
 
   </div>
 
@@ -150,7 +150,7 @@
 
     </div>
 
-    <h3>{{p.name}}</h3>
+    <h3>{{ languageService.productName(p) }}</h3>
 
    <div class="meta-line">
 
@@ -195,7 +195,7 @@
             !errorMessage
           ">
 
-          No products found
+          {{ t('noProductsFound') }}
 
         </div>
 
@@ -212,7 +212,7 @@
           !errorMessage
         ">
 
-        Category not found
+        {{ t('categoryNotFound') }}
 
       </div>
 

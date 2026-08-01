@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 
 import { ProductService } from '../../services/product.service';
 import { CategoryService } from '../../services/category.service';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-admin-products',
@@ -34,6 +35,7 @@ get filteredProducts() {
 
   return this.products.filter((p: any) =>
     p.name?.toLowerCase().includes(q) ||
+    p.nameBn?.toLowerCase().includes(q) ||
     p.sku?.toLowerCase().includes(q) ||
     p.brand?.toLowerCase().includes(q)
   );
@@ -44,6 +46,7 @@ get filteredProducts() {
  form: any = {
 
   name: '',
+  nameBn: '',
   price: '',
   categoryId: null,
 
@@ -57,6 +60,7 @@ get filteredProducts() {
 
   // PRODUCT DETAILS
   description: '',
+  descriptionBn: '',
   brand: '',
   origin: '',
   discount: 0,
@@ -80,7 +84,8 @@ selectedFile4: File | null = null;
   constructor(
     private ps: ProductService,
     private categoryService: CategoryService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public languageService: LanguageService
   ) {}
 
   ngOnInit() {
@@ -285,6 +290,8 @@ upload(file: File | null, folder: string): Promise<string> {
 
   name: this.form.name,
 
+  nameBn: this.form.nameBn || '',
+
   price: Number(this.form.price),
 
   stock: Number(this.form.stock),
@@ -298,6 +305,8 @@ upload(file: File | null, folder: string): Promise<string> {
   stockUnit: this.form.stockUnit,
 
   description: this.form.description,
+
+  descriptionBn: this.form.descriptionBn || '',
 
   brand: this.form.brand,
 
@@ -389,6 +398,8 @@ upload(file: File | null, folder: string): Promise<string> {
 
       name: this.form.name,
 
+      nameBn: this.form.nameBn || '',
+
       price: Number(this.form.price),
 
       stock: Number(this.form.stock),
@@ -402,6 +413,8 @@ upload(file: File | null, folder: string): Promise<string> {
       stockUnit: this.form.stockUnit,
 
       description: this.form.description,
+
+      descriptionBn: this.form.descriptionBn || '',
 
       brand: this.form.brand,
 
@@ -496,6 +509,7 @@ upload(file: File | null, folder: string): Promise<string> {
  this.form = {
 
   name: p.name,
+  nameBn: p.nameBn || '',
   price: p.price,
   categoryId: p.category?.id || null,
 
@@ -506,6 +520,7 @@ upload(file: File | null, folder: string): Promise<string> {
   stockUnit: p.stockUnit || '',
 
   description: p.description || '',
+  descriptionBn: p.descriptionBn || '',
 
   brand: p.brand || '',
 
@@ -565,6 +580,7 @@ this.editingId = p.id;
  this.form = {
 
   name: '',
+  nameBn: '',
   price: '',
 
   categoryId: null,
@@ -576,6 +592,7 @@ this.editingId = p.id;
   stockUnit: '',
 
   description: '',
+  descriptionBn: '',
 
   brand: '',
 

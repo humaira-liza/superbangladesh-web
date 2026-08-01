@@ -2,57 +2,57 @@
 
   <div class="register-card">
 
-    <h2>Create Account</h2>
+    <h2>{{ t('createAccount') }}</h2>
 
-    <p>Join SuperBangladesh</p>
+    <p>{{ t('joinSuperBangladesh') }}</p>
 
     <div class="form-group">
-      <label>Full Name</label>
+      <label>{{ t('fullNameLabel') }}</label>
       <input
         type="text"
         [(ngModel)]="fullName"
-        placeholder="Enter your full name">
+        [placeholder]="t('enterYourFullName')">
     </div>
 
     <div class="form-group">
-      <label>Email</label>
+      <label>{{ t('emailLabel') }}</label>
       <input
         type="email"
         [(ngModel)]="email"
-        placeholder="Enter your email">
+        [placeholder]="t('enterYourEmail')">
     </div>
 
     <div class="form-group">
-      <label>Phone</label>
+      <label>{{ t('phoneLabelForm') }}</label>
       <input
         type="text"
         [(ngModel)]="phone"
-        placeholder="Enter your phone number">
+        [placeholder]="t('enterYourPhoneNumber')">
     </div>
 
     <div class="form-group">
-      <label>Address</label>
+      <label>{{ t('addressLabelForm') }}</label>
       <textarea
         rows="3"
         [(ngModel)]="address"
-        placeholder="Enter your address">
+        [placeholder]="t('enterYourAddress')">
       </textarea>
     </div>
 
     <div class="form-group">
-      <label>Password</label>
+      <label>{{ t('password') }}</label>
       <input
         type="password"
         [(ngModel)]="password"
-        placeholder="Enter password">
+        [placeholder]="t('enterPassword')">
     </div>
 
     <div class="form-group">
-      <label>Confirm Password</label>
+      <label>{{ t('confirmPasswordLabel') }}</label>
       <input
         type="password"
         [(ngModel)]="confirmPassword"
-        placeholder="Confirm password">
+        [placeholder]="t('confirmPasswordPlaceholder')">
     </div>
 
     <button
@@ -60,16 +60,16 @@
       (click)="register()"
       [disabled]="loading">
 
-      {{ loading ? 'Creating Account...' : 'Create Account' }}
+      {{ loading ? t('creatingAccount') : t('createAccount') }}
 
     </button>
 
     <p class="login-link">
 
-      Already have an account?
+      {{ t('alreadyHaveAccount') }}
 
       <a routerLink="/login">
-        Login
+        {{ t('login') }}
       </a>
 
     </p>

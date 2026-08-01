@@ -1,20 +1,20 @@
 <div class="profile-page">
 
-  <h2>My Profile</h2>
+  <h2>{{ t('myProfile') }}</h2>
 
   <div class="profile-card">
 
     <div class="profile-item">
-      <label>Full Name</label>
+      <label>{{ t('fullNameLabel') }}</label>
 
       <input
         type="text"
         [(ngModel)]="fullName"
-        placeholder="Enter your full name">
+        [placeholder]="t('enterYourFullName')">
     </div>
 
     <div class="profile-item">
-      <label>Email</label>
+      <label>{{ t('emailLabel') }}</label>
 
       <input
         type="email"
@@ -23,28 +23,28 @@
     </div>
 
     <div class="profile-item">
-      <label>Phone</label>
+      <label>{{ t('phoneLabelForm') }}</label>
 
       <input
         type="text"
         [(ngModel)]="phone"
-        placeholder="Enter phone number">
+        [placeholder]="t('enterPhoneNumberForm')">
     </div>
 
     <div class="profile-item">
-      <label>Address</label>
+      <label>{{ t('addressLabelForm') }}</label>
 
       <textarea
         rows="4"
         [(ngModel)]="address"
-        placeholder="Enter your address">
+        [placeholder]="t('enterYourAddress')">
       </textarea>
     </div>
 
     <button
       class="save-btn"
       (click)="saveProfile()">
-      Save Profile
+      {{ t('saveProfile') }}
     </button>
 
   </div>

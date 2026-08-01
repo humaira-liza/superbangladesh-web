@@ -7,6 +7,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-cart-drawer',
@@ -25,8 +26,14 @@ export class CartDrawer {
 
   constructor(
     public cart: CartService,
+    public languageService: LanguageService,
     private router: Router
   ) {}
+
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
+
 close() {
 
   document.body.classList.remove('cart-open');

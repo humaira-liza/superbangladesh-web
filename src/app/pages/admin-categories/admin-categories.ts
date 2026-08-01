@@ -83,6 +83,8 @@ popularSearch = '';
 
     name: '',
 
+    nameBn: '',
+
     type: 'MAIN',
 
     parentId: null as number | null
@@ -678,6 +680,14 @@ popularSearch = '';
     );
 
 
+    fd.append(
+      'nameBn',
+      String(
+        this.form.nameBn || ''
+      ).trim()
+    );
+
+
     if (
       this.form.type !== 'MAIN' &&
       this.form.parentId !== null
@@ -851,6 +861,9 @@ popularSearch = '';
 
       name:
         c.name || '',
+
+      nameBn:
+        c.nameBn || '',
 
       type,
 
@@ -1370,6 +1383,8 @@ get filteredPopularCategories() {
     this.form = {
 
       name: '',
+
+      nameBn: '',
 
       type: 'MAIN',
 

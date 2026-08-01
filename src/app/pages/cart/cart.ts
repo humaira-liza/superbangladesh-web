@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { CartService } from '../../services/cart';
 import { Product } from '../../models/product.model';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-cart',
@@ -18,8 +19,13 @@ export class Cart implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    public languageService: LanguageService
   ) {}
+
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
 
   ngOnInit(): void {
 

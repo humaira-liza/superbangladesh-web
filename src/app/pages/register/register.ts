@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './register.html',
   styleUrls: ['./register.scss']
@@ -31,8 +33,13 @@ export class Register {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    public languageService: LanguageService
   ) {}
+
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
 
   register() {
 
@@ -43,14 +50,14 @@ export class Register {
       !this.password
     ) {
 
-      alert('Please fill all required fields.');
+      alert(this.t('fillAllRequiredFields'));
 
       return;
     }
 
     if (this.password !== this.confirmPassword) {
 
-      alert('Password does not match.');
+      alert(this.t('passwordDoesNotMatch'));
 
       return;
     }
@@ -79,7 +86,7 @@ export class Register {
           return;
         }
 
-        alert('Registration successful.');
+        alert(this.t('registrationSuccessful'));
 
         this.router.navigate(['/login']);
 
@@ -91,7 +98,7 @@ export class Register {
 
         console.log(err);
 
-        alert('Registration failed.');
+        alert(this.t('registrationFailed'));
 
       }
 
