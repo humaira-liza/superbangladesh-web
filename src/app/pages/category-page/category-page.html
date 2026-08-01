@@ -158,7 +158,7 @@
     class="unit"
     *ngIf="p.quantity && p.unit">
 
-    {{ p.quantity }} {{ p.unit }}
+    {{ p.quantity }} {{ languageService.translateUnit(p.unit) }}
 
   </span>
 
@@ -166,7 +166,7 @@
     class="unit"
     *ngIf="!p.quantity && p.unit">
 
-    {{ p.unit }}
+    {{ languageService.translateUnit(p.unit) }}
 
   </span>
 

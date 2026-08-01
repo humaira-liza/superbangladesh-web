@@ -1,13 +1,13 @@
 <!-- PAGE HEAD -->
 <div class="page-head">
   <div>
-    <div class="eyebrow">Catalog Management</div>
-    <h2 class="title">Products</h2>
+    <div class="eyebrow">{{ t('catalogManagement') }}</div>
+    <h2 class="title">{{ t('products') }}</h2>
   </div>
 
   <div class="head-stat">
     <span class="num">{{ products.length }}</span>
-    <span class="lbl">items listed</span>
+    <span class="lbl">{{ t('itemsListed') }}</span>
   </div>
 </div>
 
@@ -16,33 +16,34 @@
 <div class="form-card">
 
   <div class="form-card-head">
-    <h3>{{ editingId ? 'Edit Product' : 'Add a New Product' }}</h3>
-    <p>Fill in the details below, then save to publish it to the storefront.</p>
+    <h3>{{ editingId ? t('editProduct') : t('addNewProduct') }}</h3>
+    <p>{{ t('fillDetailsBelow') }}</p>
   </div>
 
   <div class="form">
 
     <!-- BASIC INFO -->
     <div class="field-section">
-      <div class="section-label">Basic Information</div>
+      <div class="section-label">{{ t('basicInformation') }}</div>
 
       <div class="field-grid cols-2">
 
         <div class="field">
-          <label>Product Name (English)</label>
+          <label>{{ t('productNameEn') }}</label>
           <input [(ngModel)]="form.name" placeholder="e.g. Fresh Tomato">
         </div>
 
         <div class="field">
-          <label>Product Name (Bangla)</label>
-          <input [(ngModel)]="form.nameBn" placeholder="যেমন: তাজা টমেটো (ঐচ্ছিক)">
+          <label>{{ t('productNameBn') }} 🇧🇩</label>
+          <input [(ngModel)]="form.nameBn" placeholder="যেমন: তাজা টমেটো (ঐচ্ছিক — না দিলে স্বয়ংক্রিয় আংশিক অনুবাদ দেখাবে)">
+          <span class="hint">{{ t('optionalLeaveBlank') }}</span>
         </div>
 
         <div class="field">
-          <label>Category</label>
+          <label>{{ t('category') }}</label>
           <select [(ngModel)]="form.categoryId">
 
-            <option [ngValue]="null" disabled selected>Select Category</option>
+            <option [ngValue]="null" disabled selected>{{ t('selectCategory') }}</option>
 
             <ng-container *ngFor="let main of categories">
 
@@ -78,30 +79,30 @@
 
     <!-- PRICING & STOCK -->
     <div class="field-section">
-      <div class="section-label">Pricing &amp; Stock</div>
+      <div class="section-label">{{ t('pricingStock') }}</div>
 
       <div class="field-grid cols-4">
 
         <div class="field price-field">
-          <label>Price</label>
+          <label>{{ t('price') }}</label>
           <span class="prefix">৳</span>
           <input [(ngModel)]="form.price" type="number" placeholder="0.00">
         </div>
 
         <div class="field">
-          <label>Discount</label>
+          <label>{{ t('discount') }}</label>
           <input type="number" [(ngModel)]="form.discount" placeholder="% off">
         </div>
 
         <div class="field">
-          <label>Stock</label>
+          <label>{{ t('stock') }}</label>
           <input [(ngModel)]="form.stock" type="number" placeholder="0">
         </div>
 
         <div class="field">
-          <label>Stock Unit</label>
+          <label>{{ t('stockUnit') }}</label>
           <select [(ngModel)]="form.stockUnit">
-            <option value="" disabled selected>Stock Unit</option>
+            <option value="" disabled selected>{{ t('stockUnit') }}</option>
             <option value="kg">KG</option>
             <option value="gram">Gram</option>
             <option value="liter">Liter</option>
@@ -111,9 +112,9 @@
         </div>
 
         <div class="field">
-          <label>Pack Size</label>
+          <label>{{ t('packSize') }}</label>
           <select [(ngModel)]="form.unit">
-            <option value="" disabled selected>Select Unit</option>
+            <option value="" disabled selected>{{ t('selectUnit') }}</option>
             <option value="kg">KG</option>
             <option value="gram">Gram</option>
             <option value="liter">Liter</option>
@@ -123,7 +124,7 @@
         </div>
 
         <div class="field">
-          <label>Quantity</label>
+          <label>{{ t('quantityLabel') }}</label>
           <input [(ngModel)]="form.quantity" type="number" placeholder="e.g. 500">
         </div>
 
@@ -132,22 +133,22 @@
 
     <!-- PRODUCT DETAILS -->
     <div class="field-section">
-      <div class="section-label">Product Details</div>
+      <div class="section-label">{{ t('productDetails') }}</div>
 
       <div class="field-grid cols-2">
 
         <div class="field">
-          <label>Brand</label>
+          <label>{{ t('brand') }}</label>
           <input [(ngModel)]="form.brand" placeholder="Brand name">
         </div>
 
         <div class="field">
-  <label>Origin Country</label>
+  <label>{{ t('originCountry') }}</label>
 
   <input
     list="countryList"
     [(ngModel)]="form.origin"
-    placeholder="Select or type country">
+    [placeholder]="t('selectOrTypeCountry')">
 
   <datalist id="countryList">
     <option value="Bangladesh"></option>
@@ -166,39 +167,39 @@
       </div>
 
       <div class="field" style="margin-top:18px;">
-        <label>Description (English)</label>
+        <label>{{ t('descriptionEn') }}</label>
         <textarea [(ngModel)]="form.description" placeholder="Short description shown on the product page"></textarea>
       </div>
 
       <div class="field" style="margin-top:18px;">
-        <label>Description (Bangla)</label>
+        <label>{{ t('descriptionBn') }} 🇧🇩</label>
         <textarea [(ngModel)]="form.descriptionBn" placeholder="পণ্যের সংক্ষিপ্ত বিবরণ (ঐচ্ছিক)"></textarea>
       </div>
     </div>
 
     <!-- IMAGES -->
     <div class="field-section">
-      <div class="section-label">Images</div>
+      <div class="section-label">{{ t('images') }}</div>
 
       <div class="field-grid cols-4">
 
         <div class="file-group">
-          <label>Main Image</label>
+          <label>{{ t('mainImage') }}</label>
           <input type="file" (change)="onFileChange($event)">
         </div>
 
         <div class="file-group">
-          <label>Image 2</label>
+          <label>{{ t('image2') }}</label>
           <input type="file" (change)="onFile2Change($event)">
         </div>
 
         <div class="file-group">
-          <label>Image 3</label>
+          <label>{{ t('image3') }}</label>
           <input type="file" (change)="onFile3Change($event)">
         </div>
 
         <div class="file-group">
-          <label>Image 4</label>
+          <label>{{ t('image4') }}</label>
           <input type="file" (change)="onFile4Change($event)">
         </div>
 
@@ -210,13 +211,13 @@
 
       <div class="preview-chip" *ngIf="previewUrl">
         <img [src]="previewUrl">
-        <span>Main image preview</span>
+        <span>{{ t('mainImagePreview') }}</span>
       </div>
 
-      <button class="btn-ghost" *ngIf="editingId" (click)="reset()">Cancel</button>
+      <button class="btn-ghost" *ngIf="editingId" (click)="reset()">{{ t('cancel') }}</button>
 
       <button class="btn-primary" (click)="save()">
-        {{ editingId ? 'Update Product' : 'Add Product' }}
+        {{ editingId ? t('updateProduct') : t('addProduct') }}
       </button>
 
     </div>
@@ -234,11 +235,11 @@
       <circle cx="11" cy="11" r="7"/>
       <line x1="21" y1="21" x2="16.65" y2="16.65"/>
     </svg>
-    <input type="text" [(ngModel)]="searchText" placeholder="Search products...">
+    <input type="text" [(ngModel)]="searchText" [placeholder]="t('searchProducts')">
   </div>
 
   <div class="toolbar-count" *ngIf="!loading">
-    Showing {{ filteredProducts.length }} of {{ products.length }}
+    {{ t('showingLabel') }} {{ filteredProducts.length }} {{ t('ofLabel') }} {{ products.length }}
   </div>
 
 </div>
@@ -247,8 +248,8 @@
 
 <div class="state-panel" *ngIf="loading">
   <div class="spinner"></div>
-  <h4>Loading products…</h4>
-  <p>Hang tight while we fetch your catalog.</p>
+  <h4>{{ t('loadingProducts') }}</h4>
+  <p>{{ t('hangTightCatalog') }}</p>
 </div>
 
 <!-- EMPTY STATE -->
@@ -257,11 +258,11 @@
   <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
     <path d="M3 7l1.5-3h15L21 7M3 7v13a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7M3 7h18M9 11h6"/>
   </svg>
-  <h4>{{ searchText ? 'No matching products' : 'No products yet' }}</h4>
+  <h4>{{ searchText ? t('noMatchingProducts') : t('noProductsYet') }}</h4>
   <p>
     {{ searchText
-      ? 'Try a different search term.'
-      : 'Add your first product using the form above.' }}
+      ? t('tryDifferentSearch')
+      : t('addFirstProduct') }}
   </p>
 </div>
 
@@ -332,7 +333,7 @@
       <div class="meta-row">
 
         <span class="unit" *ngIf="p.quantity && p.unit">
-          {{ p.quantity }} {{ p.unit }}
+          {{ p.quantity }} {{ languageService.translateUnit(p.unit) }}
         </span>
 
         <span
@@ -346,8 +347,8 @@
       <!-- ACTIONS -->
       <div class="actions">
 
-        <button class="edit-btn" (click)="edit(p)">Edit</button>
-        <button class="delete-btn" (click)="delete(p.id)">Delete</button>
+        <button class="edit-btn" (click)="edit(p)">{{ t('edit') }}</button>
+        <button class="delete-btn" (click)="delete(p.id)">{{ t('delete') }}</button>
 
       </div>
 

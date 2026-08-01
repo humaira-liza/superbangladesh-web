@@ -907,6 +907,191 @@ export class LanguageService {
       bn: 'লোড হচ্ছে...'
     },
 
+
+    /* =========================
+       ADMIN — PRODUCTS PAGE
+    ========================= */
+
+    catalogManagement: {
+      en: 'Catalog Management',
+      bn: 'পণ্য তালিকা ব্যবস্থাপনা'
+    },
+
+    itemsListed: {
+      en: 'items listed',
+      bn: 'টি পণ্য তালিকাভুক্ত'
+    },
+
+    editProduct: {
+      en: 'Edit Product',
+      bn: 'পণ্য সম্পাদনা করুন'
+    },
+
+    addNewProduct: {
+      en: 'Add a New Product',
+      bn: 'নতুন পণ্য যোগ করুন'
+    },
+
+    fillDetailsBelow: {
+      en: 'Fill in the details below, then save to publish it to the storefront.',
+      bn: 'নিচের তথ্যগুলো পূরণ করুন, তারপর সংরক্ষণ করলে এটি দোকানে প্রকাশিত হবে।'
+    },
+
+    basicInformation: {
+      en: 'Basic Information',
+      bn: 'মৌলিক তথ্য'
+    },
+
+    category: {
+      en: 'Category',
+      bn: 'ক্যাটাগরি'
+    },
+
+    selectCategory: {
+      en: 'Select Category',
+      bn: 'ক্যাটাগরি নির্বাচন করুন'
+    },
+
+    pricingStock: {
+      en: 'Pricing & Stock',
+      bn: 'মূল্য ও স্টক'
+    },
+
+    price: {
+      en: 'Price',
+      bn: 'মূল্য'
+    },
+
+    discount: {
+      en: 'Discount',
+      bn: 'ডিসকাউন্ট'
+    },
+
+    stock: {
+      en: 'Stock',
+      bn: 'স্টক'
+    },
+
+    stockUnit: {
+      en: 'Stock Unit',
+      bn: 'স্টক একক'
+    },
+
+    packSize: {
+      en: 'Pack Size',
+      bn: 'প্যাক সাইজ'
+    },
+
+    selectUnit: {
+      en: 'Select Unit',
+      bn: 'একক নির্বাচন করুন'
+    },
+
+    quantityLabel: {
+      en: 'Quantity',
+      bn: 'পরিমাণ'
+    },
+
+    productDetails: {
+      en: 'Product Details',
+      bn: 'পণ্যের বিস্তারিত'
+    },
+
+    brand: {
+      en: 'Brand',
+      bn: 'ব্র্যান্ড'
+    },
+
+    originCountry: {
+      en: 'Origin Country',
+      bn: 'উৎপত্তি দেশ'
+    },
+
+    selectOrTypeCountry: {
+      en: 'Select or type country',
+      bn: 'দেশ নির্বাচন করুন বা লিখুন'
+    },
+
+    images: {
+      en: 'Images',
+      bn: 'ছবি'
+    },
+
+    mainImage: {
+      en: 'Main Image',
+      bn: 'প্রধান ছবি'
+    },
+
+    image2: {
+      en: 'Image 2',
+      bn: 'ছবি ২'
+    },
+
+    image3: {
+      en: 'Image 3',
+      bn: 'ছবি ৩'
+    },
+
+    image4: {
+      en: 'Image 4',
+      bn: 'ছবি ৪'
+    },
+
+    mainImagePreview: {
+      en: 'Main image preview',
+      bn: 'প্রধান ছবির প্রিভিউ'
+    },
+
+    updateProduct: {
+      en: 'Update Product',
+      bn: 'পণ্য আপডেট করুন'
+    },
+
+    addProduct: {
+      en: 'Add Product',
+      bn: 'পণ্য যোগ করুন'
+    },
+
+    showingLabel: {
+      en: 'Showing',
+      bn: 'দেখানো হচ্ছে'
+    },
+
+    ofLabel: {
+      en: 'of',
+      bn: 'এর মধ্যে'
+    },
+
+    loadingProducts: {
+      en: 'Loading products…',
+      bn: 'পণ্য লোড হচ্ছে…'
+    },
+
+    hangTightCatalog: {
+      en: 'Hang tight while we fetch your catalog.',
+      bn: 'একটু অপেক্ষা করুন, আমরা আপনার পণ্যতালিকা আনছি।'
+    },
+
+    noMatchingProducts: {
+      en: 'No matching products',
+      bn: 'কোনো মিলে যাওয়া পণ্য নেই'
+    },
+
+    noProductsYet: {
+      en: 'No products yet',
+      bn: 'এখনও কোনো পণ্য নেই'
+    },
+
+    tryDifferentSearch: {
+      en: 'Try a different search term.',
+      bn: 'ভিন্ন কিছু দিয়ে খুঁজে দেখুন।'
+    },
+
+    addFirstProduct: {
+      en: 'Add your first product using the form above.',
+      bn: 'উপরের ফর্ম ব্যবহার করে আপনার প্রথম পণ্য যোগ করুন।'
+    },
+
     productNameEn: {
       en: 'Product Name (English)',
       bn: 'পণ্যের নাম (ইংরেজি)'
@@ -1005,6 +1190,9 @@ export class LanguageService {
     'Food':
       'খাদ্যপণ্য',
 
+    'Food & Grocery':
+      'খাদ্য ও মুদি',
+
     'Baby Care':
       'শিশুর যত্ন',
 
@@ -1014,8 +1202,47 @@ export class LanguageService {
     'Health & Wellness':
       'স্বাস্থ্য ও সুস্থতা',
 
+    'Pharmacy Health & Wellness':
+      'ফার্মেসি, স্বাস্থ্য ও সুস্থতা',
+
+    'Land, Property & Construction':
+      'জমি, সম্পত্তি ও নির্মাণ',
+
+    'Fashion & Lifestyle':
+      'ফ্যাশন ও লাইফস্টাইল',
+
+    'Education & Skills':
+      'শিক্ষা ও দক্ষতা',
+
+    'Service Hub':
+      'সার্ভিস হাব',
+
+    'Mother, Baby & kids':
+      'মা, শিশু ও বাচ্চাদের পণ্য',
+
+    'Mother,Baby & kids':
+      'মা, শিশু ও বাচ্চাদের পণ্য',
+
+    'Mother, Baby & Kids':
+      'মা, শিশু ও বাচ্চাদের পণ্য',
+
+    'Beauty & Personal Care':
+      'সৌন্দর্য ও ব্যক্তিগত যত্ন',
+
     'Stationery & Office':
       'স্টেশনারি ও অফিস',
+
+    'Animal & Pet Care':
+      'প্রাণী ও পোষা প্রাণীর যত্ন',
+
+    'Smart Electrical & Electronics':
+      'স্মার্ট ইলেকট্রিক্যাল ও ইলেকট্রনিক্স',
+
+    'Corporate 360 Solution':
+      'কর্পোরেট ৩৬০ সমাধান',
+
+    'All Kinds of Design Services':
+      'সকল ধরনের ডিজাইন সেবা',
 
     'Toys & Sports':
       'খেলনা ও খেলাধুলা',
@@ -1339,9 +1566,254 @@ export class LanguageService {
 
 
   /* =========================
+     WORD-BY-WORD AUTO TRANSLATE
+     ডিকশনারি (পুরোনো প্রোডাক্ট যাদের
+     nameBn এখনও দেওয়া হয়নি, তাদের
+     নাম আংশিকভাবে বাংলায় দেখানোর জন্য।
+
+     এটা কোনো নিখুঁত অনুবাদ না — শুধু
+     পরিচিত শব্দগুলো বাংলায় বদলে দেয়,
+     ব্র্যান্ড/অপরিচিত শব্দ ইংরেজিতেই
+     থেকে যায়। Admin panel থেকে
+     "Product Name (Bangla)" ফিল্ড
+     পূরণ করলে সবসময় সেটাই আগে দেখানো
+     হবে (এই ডিকশনারি তখন ব্যবহার হয় না)।
+  ========================= */
+
+  private readonly wordBangla:
+    Record<string, string> = {
+
+    // adjectives / descriptors
+    'fresh': 'তাজা',
+    'frozen': 'হিমায়িত',
+    'organic': 'জৈব',
+    'local': 'দেশি',
+    'deshi': 'দেশি',
+    'imported': 'আমদানি করা',
+    'pure': 'খাঁটি',
+    'premium': 'প্রিমিয়াম',
+    'standard': 'স্ট্যান্ডার্ড',
+    'big': 'বড়',
+    'small': 'ছোট',
+    'large': 'বড়',
+    'medium': 'মাঝারি',
+    'mini': 'মিনি',
+    'jumbo': 'জাম্বো',
+    'whole': 'গোটা',
+    'half': 'অর্ধেক',
+    'sliced': 'কাটা',
+    'cut': 'কাটা',
+    'cutting': 'কাটা',
+    'after': 'পরে',
+    'before': 'আগে',
+    'with': 'সহ',
+    'without': 'ছাড়া',
+    'skin': 'চামড়া',
+    'boneless': 'হাড়বিহীন',
+    'bone': 'হাড়',
+    'net': 'নিট',
+    'weight': 'ওজন',
+
+    // colors
+    'red': 'লাল',
+    'green': 'সবুজ',
+    'yellow': 'হলুদ',
+    'white': 'সাদা',
+    'black': 'কালো',
+    'blue': 'নীল',
+
+    // meat / fish / eggs / dairy
+    'duck': 'হাঁস',
+    'chicken': 'মুরগি',
+    'beef': 'গরুর মাংস',
+    'mutton': 'খাসির মাংস',
+    'fish': 'মাছ',
+    'egg': 'ডিম',
+    'eggs': 'ডিম',
+    'milk': 'দুধ',
+    'butter': 'মাখন',
+    'cheese': 'চিজ',
+    'yogurt': 'দই',
+
+    // staples
+    'rice': 'চাল',
+    'oil': 'তেল',
+    'sugar': 'চিনি',
+    'salt': 'লবণ',
+    'flour': 'আটা',
+    'honey': 'মধু',
+    'bread': 'পাউরুটি',
+    'noodles': 'নুডলস',
+    'pasta': 'পাস্তা',
+
+    // produce
+    'vegetable': 'সবজি',
+    'vegetables': 'সবজি',
+    'fruit': 'ফল',
+    'fruits': 'ফল',
+    'tomato': 'টমেটো',
+    'potato': 'আলু',
+    'onion': 'পেঁয়াজ',
+    'garlic': 'রসুন',
+    'ginger': 'আদা',
+    'banana': 'কলা',
+    'apple': 'আপেল',
+    'mango': 'আম',
+    'orange': 'কমলা',
+    'greens': 'শাক',
+    'amaranth': 'নটে শাক',
+    'microgreen': 'মাইক্রোগ্রিন',
+    'stem': 'ডাঁটা',
+
+    // packaged / snacks
+    'salad': 'সালাদ',
+    'sauce': 'সস',
+    'tuna': 'টুনা',
+    'biscuit': 'বিস্কুট',
+    'biscuits': 'বিস্কুট',
+    'chocolate': 'চকলেট',
+    'candy': 'ক্যান্ডি',
+    'snacks': 'স্ন্যাকস',
+    'spice': 'মসলা',
+    'spices': 'মসলা',
+    'tea': 'চা',
+    'coffee': 'কফি',
+    'water': 'পানি',
+    'juice': 'জুস',
+
+    // household / personal care
+    'towel': 'তোয়ালে',
+    'soap': 'সাবান',
+    'shampoo': 'শ্যাম্পু',
+    'toothpaste': 'টুথপেস্ট',
+    'detergent': 'ডিটারজেন্ট',
+    'powder': 'গুঁড়া',
+    'liquid': 'তরল',
+    'plastic': 'প্লাস্টিক',
+    'steel': 'স্টিল',
+    'glass': 'কাচ',
+
+    // packaging words
+    'bottle': 'বোতল',
+    'pack': 'প্যাক',
+    'packet': 'প্যাকেট',
+    'box': 'বাক্স',
+    'piece': 'পিস',
+    'pieces': 'পিস',
+    'bag': 'ব্যাগ',
+    'bags': 'ব্যাগ',
+
+    // baby / stationery / toys
+    'baby': 'শিশু',
+    'diaper': 'ডায়াপার',
+    'diapers': 'ডায়াপার',
+    'toy': 'খেলনা',
+    'toys': 'খেলনা',
+    'book': 'বই',
+    'books': 'বই',
+    'pen': 'কলম',
+    'pencil': 'পেন্সিল',
+    'notebook': 'নোটবুক',
+
+    // misc connecting words
+    'and': 'ও',
+    'in': 'এ',
+    'kitchen': 'রান্নাঘর',
+    'cooking': 'রান্নার'
+  };
+
+
+  /* =========================
+     UNIT TRANSLATE
+     (kg, gram, pcs ইত্যাদি বাংলায়)
+  ========================= */
+
+  private readonly unitBangla:
+    Record<string, string> = {
+
+    'kg': 'কেজি',
+    'kgs': 'কেজি',
+    'gram': 'গ্রাম',
+    'grams': 'গ্রাম',
+    'gm': 'গ্রাম',
+    'g': 'গ্রাম',
+    'litre': 'লিটার',
+    'liter': 'লিটার',
+    'litres': 'লিটার',
+    'liters': 'লিটার',
+    'l': 'লিটার',
+    'ml': 'মিলি',
+    'pcs': 'পিস',
+    'pc': 'পিস',
+    'piece': 'পিস',
+    'pieces': 'পিস',
+    'dozen': 'ডজন',
+    'pack': 'প্যাক',
+    'packet': 'প্যাকেট',
+    'box': 'বাক্স',
+    'bottle': 'বোতল'
+  };
+
+  translateUnit(
+    unit: string | null | undefined
+  ): string {
+
+    if (!unit) {
+      return '';
+    }
+
+    if (this.currentLanguage() === 'en') {
+      return unit;
+    }
+
+    const key =
+      unit.trim().toLowerCase();
+
+    return (
+      this.unitBangla[key] || unit
+    );
+  }
+
+
+  /* =========================
+     AUTO TRANSLATE (WORD BY WORD)
+     পরিচিত শব্দগুলো বাংলায় বদলায়,
+     বাকি (ব্র্যান্ড নাম ইত্যাদি)
+     অপরিবর্তিত থাকে।
+  ========================= */
+
+  private autoTranslateWords(
+    text: string
+  ): string {
+
+    if (!text) {
+      return text;
+    }
+
+    return text.replace(
+      /[A-Za-z]+/g,
+      (match) => {
+
+        const key =
+          match.toLowerCase();
+
+        const bn =
+          this.wordBangla[key];
+
+        return bn || match;
+      }
+    );
+  }
+
+
+  /* =========================
      PRODUCT NAME / DESCRIPTION
      (Admin panel এ যোগ করা future
-     পণ্যগুলোও এভাবে বাংলায় দেখাবে)
+     পণ্যগুলোও এভাবে বাংলায় দেখাবে।
+     যেসব পুরোনো প্রোডাক্টে এখনও nameBn
+     দেওয়া হয়নি, তাদের নাম পরিচিত
+     শব্দ অনুযায়ী auto-translate হয়ে
+     আংশিক বাংলায় দেখানো হবে।)
   ========================= */
 
   productName(
@@ -1355,15 +1827,22 @@ export class LanguageService {
       return '';
     }
 
+    if (this.currentLanguage() !== 'bn') {
+      return product.name || '';
+    }
+
+    // ১) Admin panel থেকে দেওয়া বাংলা নাম সবার আগে
     if (
-      this.currentLanguage() === 'bn'
-      && product.nameBn
+      product.nameBn
       && product.nameBn.trim()
     ) {
       return product.nameBn;
     }
 
-    return product.name || '';
+    // ২) না দেওয়া থাকলে পরিচিত শব্দগুলো auto-translate
+    return this.autoTranslateWords(
+      product.name || ''
+    );
   }
 
   productDescription(

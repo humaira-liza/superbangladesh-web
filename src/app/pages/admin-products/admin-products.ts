@@ -95,6 +95,11 @@ selectedFile4: File | null = null;
     this.loadCategories();
   }
 
+  // TRANSLATE HELPER (admin panel লেবেলের জন্য)
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
+
   // LOAD PRODUCTS
   load() {
 

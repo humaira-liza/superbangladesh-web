@@ -58,7 +58,7 @@
 <div class="product-size"
      *ngIf="product.quantity && product.unit">
 
-  {{ product.quantity }} {{ product.unit }}
+  {{ product.quantity }} {{ languageService.translateUnit(product.unit) }}
 
 </div>
 

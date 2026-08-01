@@ -200,7 +200,7 @@
           *ngIf="p.quantity && p.unit">
 
           {{ p.quantity }}
-          {{ p.unit }}
+          {{ languageService.translateUnit(p.unit) }}
 
         </p>
 
@@ -208,7 +208,7 @@
           class="unit"
           *ngIf="!p.quantity && p.unit">
 
-          {{ p.unit }}
+          {{ languageService.translateUnit(p.unit) }}
 
         </p>
 
