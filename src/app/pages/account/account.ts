@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -20,11 +20,16 @@ import {
 })
 export class Account implements OnInit {
 
+  private readonly isBrowser: boolean;
+
   constructor(
   private router: Router,
   private http: HttpClient,
-  public languageService: LanguageService
-) {}
+  public languageService: LanguageService,
+  @Inject(PLATFORM_ID) platformId: Object
+) {
+  this.isBrowser = isPlatformBrowser(platformId);
+}
 
   get selectedLanguage(): AppLanguage {
     return this.languageService.language();
@@ -34,12 +39,18 @@ export class Account implements OnInit {
     this.languageService.setLanguage(language);
   }
 
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
+
   fullName = '';
 phone = '';
 email = '';
 address = '';
 ngOnInit(): void {
-  this.loadProfile();
+  if (this.isBrowser) {
+    this.loadProfile();
+  }
 }
 
 loadProfile(): void {

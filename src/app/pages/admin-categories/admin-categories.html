@@ -65,6 +65,7 @@
         <input
           type="text"
           [(ngModel)]="form.name"
+          (blur)="autoFillCategoryNameBn()"
           placeholder="Enter category name"
         >
 
@@ -82,11 +83,16 @@
         <input
           type="text"
           [(ngModel)]="form.nameBn"
-          placeholder="যেমন: তাজা ফল (ঐচ্ছিক)"
+          (blur)="autoFillCategoryNameEn()"
+          placeholder="ইংরেজি নাম লিখে বাইরে ক্লিক করলে অটো বাংলা বসে যাবে"
         >
 
-        <small class="hint">
-          এখানে বাংলা নাম লিখলে ওয়েবসাইট "বাংলা" মোডে থাকলে এটাই দেখাবে। খালি রাখলে সাধারণ ক্যাটাগরিগুলোর জন্য স্বয়ংক্রিয় বাংলা অনুবাদ দেখানো হবে।
+        <small class="hint" *ngIf="translatingCategoryName">
+          ⏳ {{ t('loading') }}
+        </small>
+
+        <small class="hint" *ngIf="!translatingCategoryName">
+          এখানে বাংলা নাম লিখলে ওয়েবসাইট "বাংলা" মোডে থাকলে এটাই দেখাবে। ইংরেজি লিখে অন্য ফিল্ডে ক্লিক করলেই অটোমেটিক বাংলা বসে যাবে (চাইলে নিজে এডিটও করতে পারবেন)।
         </small>
 
       </div>

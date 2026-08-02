@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import { CategoryService } from '../../services/category.service';
 import { LanguageService } from '../../services/language.service';
+import { AutoTranslateService } from '../../services/auto-translate.service';
 
 @Component({
   selector: 'app-admin-products',
@@ -85,8 +86,93 @@ selectedFile4: File | null = null;
     private ps: ProductService,
     private categoryService: CategoryService,
     private cdr: ChangeDetectorRef,
-    public languageService: LanguageService
+    public languageService: LanguageService,
+    private autoTranslate: AutoTranslateService
   ) {}
+
+  translatingName = false;
+
+  // ✅ ইংরেজি নাম লেখার পর বাংলা ফাঁকা থাকলে অটো ট্রান্সলেট করে
+  autoFillNameBn(): void {
+
+    if (!this.form.name?.trim()) return;
+    if (this.form.nameBn?.trim()) return;
+
+    this.translatingName = true;
+
+    this.autoTranslate
+      .translate(this.form.name, 'bn')
+      .subscribe(bn => {
+
+        this.translatingName = false;
+
+        if (bn) {
+          this.form.nameBn = bn;
+        }
+      });
+  }
+
+  // ✅ বাংলা নাম লেখার পর ইংরেজি ফাঁকা থাকলে অটো ট্রান্সলেট করে
+  autoFillNameEn(): void {
+
+    if (!this.form.nameBn?.trim()) return;
+    if (this.form.name?.trim()) return;
+
+    this.translatingName = true;
+
+    this.autoTranslate
+      .translate(this.form.nameBn, 'en')
+      .subscribe(en => {
+
+        this.translatingName = false;
+
+        if (en) {
+          this.form.name = en;
+        }
+      });
+  }
+
+  translatingDescription = false;
+
+  // ✅ ইংরেজি description লেখার পর বাংলা ফাঁকা থাকলে অটো ট্রান্সলেট করে
+  autoFillDescriptionBn(): void {
+
+    if (!this.form.description?.trim()) return;
+    if (this.form.descriptionBn?.trim()) return;
+
+    this.translatingDescription = true;
+
+    this.autoTranslate
+      .translate(this.form.description, 'bn')
+      .subscribe(bn => {
+
+        this.translatingDescription = false;
+
+        if (bn) {
+          this.form.descriptionBn = bn;
+        }
+      });
+  }
+
+  // ✅ বাংলা description লেখার পর ইংরেজি ফাঁকা থাকলে অটো ট্রান্সলেট করে
+  autoFillDescriptionEn(): void {
+
+    if (!this.form.descriptionBn?.trim()) return;
+    if (this.form.description?.trim()) return;
+
+    this.translatingDescription = true;
+
+    this.autoTranslate
+      .translate(this.form.descriptionBn, 'en')
+      .subscribe(en => {
+
+        this.translatingDescription = false;
+
+        if (en) {
+          this.form.description = en;
+        }
+      });
+  }
 
   ngOnInit() {
 

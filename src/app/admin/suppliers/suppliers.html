@@ -1,32 +1,32 @@
 <div class="page">
 
-  <h1>🏭 Supplier Management</h1>
+  <h1>🏭 {{ t('supplierManagement') }}</h1>
 
   <div class="form">
 
     <input
       [(ngModel)]="name"
-      placeholder="Supplier Name"
+      [placeholder]="t('supplierName')"
     >
 
     <input
       [(ngModel)]="phone"
-      placeholder="Phone"
+      [placeholder]="t('phone')"
     >
 
     <input
       [(ngModel)]="address"
-      placeholder="Address"
+      [placeholder]="t('address')"
     >
 
     <button (click)="saveSupplier()">
-  {{ editingId ? 'Update Supplier' : 'Save Supplier' }}
+  {{ editingId ? t('updateSupplier') : t('saveSupplier') }}
 </button>
 
   </div>
 
   <div class="list">
-    <p>Total Suppliers: {{ suppliers.length }}</p>
+    <p>{{ t('totalSuppliers') }}: {{ suppliers.length }}</p>
 
     <div
       class="supplier"
@@ -40,17 +40,17 @@
       <p>{{ s.address }}</p>
 
       <p class="due">
-  Due: ৳ {{ s.due || 0 }}
+  {{ t('due') }}: ৳ {{ s.due || 0 }}
 </p>
 
       <button
   (click)="editSupplier(s)">
-  Edit
+  {{ t('edit') }}
 </button>
 
 <button
   (click)="deleteSupplier(s.id)">
-  Delete
+  {{ t('delete') }}
 </button>
 
     </div>

@@ -4,15 +4,15 @@
   <div class="header">
 
     <p class="mini-title">
-      USER DASHBOARD
+      {{ t('userDashboard') }}
     </p>
 
     <h1>
-      My Account
+      {{ t('myAccount') }}
     </h1>
 
     <span>
-      Manage your profile
+      {{ t('manageYourProfile') }}
     </span>
 
   </div>
@@ -29,8 +29,8 @@
   <div class="icon">📦</div>
 
   <div class="content">
-    <h3>My Orders</h3>
-    <p>Track your orders</p>
+    <h3>{{ t('myOrdersTitle') }}</h3>
+    <p>{{ t('trackYourOrdersShort') }}</p>
   </div>
 
   <span class="arrow">›</span>
@@ -45,7 +45,7 @@
   <div class="icon">👤</div>
 
   <div class="content">
-    <h3>{{ fullName || 'My Profile' }}</h3>
+    <h3>{{ fullName || t('myProfile') }}</h3>
 
     <p>{{ email }}</p>
 
@@ -67,8 +67,8 @@
       <div class="icon">🚪</div>
 
       <div class="content">
-        <h3>Logout</h3>
-        <p>Sign out from your account</p>
+        <h3>{{ t('logout') }}</h3>
+        <p>{{ t('signOutFromAccount') }}</p>
       </div>
 
       <span class="arrow">›</span>

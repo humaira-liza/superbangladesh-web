@@ -20,6 +20,14 @@ import {
   finalize
 } from 'rxjs/operators';
 
+import {
+  LanguageService
+} from '../../services/language.service';
+
+import {
+  AutoTranslateService
+} from '../../services/auto-translate.service';
+
 
 @Component({
   selector: 'app-admin-categories',
@@ -108,8 +116,56 @@ popularSearch = '';
 
   constructor(
     private http: HttpClient,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public languageService: LanguageService,
+    private autoTranslate: AutoTranslateService
   ) {}
+
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
+
+  translatingCategoryName = false;
+
+  // ✅ ইংরেজি লেখার পর বাংলা ফাঁকা থাকলে অটো ট্রান্সলেট
+  autoFillCategoryNameBn(): void {
+
+    if (!this.form.name?.trim()) return;
+    if (this.form.nameBn?.trim()) return;
+
+    this.translatingCategoryName = true;
+
+    this.autoTranslate
+      .translate(this.form.name, 'bn')
+      .subscribe(bn => {
+
+        this.translatingCategoryName = false;
+
+        if (bn) {
+          this.form.nameBn = bn;
+        }
+      });
+  }
+
+  // ✅ বাংলা লেখার পর ইংরেজি ফাঁকা থাকলে অটো ট্রান্সলেট
+  autoFillCategoryNameEn(): void {
+
+    if (!this.form.nameBn?.trim()) return;
+    if (this.form.name?.trim()) return;
+
+    this.translatingCategoryName = true;
+
+    this.autoTranslate
+      .translate(this.form.nameBn, 'en')
+      .subscribe(en => {
+
+        this.translatingCategoryName = false;
+
+        if (en) {
+          this.form.name = en;
+        }
+      });
+  }
 
 
   // =========================

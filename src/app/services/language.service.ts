@@ -1,7 +1,13 @@
 import {
+  Inject,
   Injectable,
+  PLATFORM_ID,
   signal
 } from '@angular/core';
+
+import {
+  isPlatformBrowser
+} from '@angular/common';
 
 
 export type AppLanguage =
@@ -14,14 +20,33 @@ export type AppLanguage =
 export class LanguageService {
 
 
+  private readonly isBrowser: boolean;
+
+
   private readonly currentLanguage =
-    signal<AppLanguage>(
-      this.getSavedLanguage()
-    );
+    signal<AppLanguage>('en');
 
 
   readonly language =
     this.currentLanguage.asReadonly();
+
+
+  constructor(
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
+
+    this.isBrowser =
+      isPlatformBrowser(platformId);
+
+    // ✅ localStorage শুধু browser-এ পড়া হচ্ছে,
+    // SSR/prerender-এ এটা না করলে পুরো অ্যাপ ভেঙে যেতে পারে
+    if (this.isBrowser) {
+
+      this.currentLanguage.set(
+        this.getSavedLanguage()
+      );
+    }
+  }
 
 
   private readonly translations:
@@ -110,6 +135,57 @@ export class LanguageService {
       bn: 'অ্যাডমিন ড্যাশবোর্ড'
     },
 
+    account: {
+      en: 'Account',
+      bn: 'অ্যাকাউন্ট'
+    },
+
+    menu: {
+      en: 'Menu',
+      bn: 'মেনু'
+    },
+
+    cartLabel: {
+      en: 'Cart',
+      bn: 'কার্ট'
+    },
+
+    admin: {
+      en: 'Admin',
+      bn: 'অ্যাডমিন'
+    },
+
+
+    unitKg: {
+      en: 'KG',
+      bn: 'কেজি'
+    },
+
+    unitGram: {
+      en: 'Gram',
+      bn: 'গ্রাম'
+    },
+
+    unitLiter: {
+      en: 'Liter',
+      bn: 'লিটার'
+    },
+
+    unitMl: {
+      en: 'ML',
+      bn: 'মিলি'
+    },
+
+    unitPcs: {
+      en: 'PCS',
+      bn: 'পিস'
+    },
+
+    unitPiece: {
+      en: 'Piece',
+      bn: 'পিস'
+    },
+
 
     /* =========================
        SEARCH
@@ -163,6 +239,11 @@ export class LanguageService {
     outOfStock: {
       en: 'Out Of Stock',
       bn: 'স্টক শেষ'
+    },
+
+    deliveryOneHour: {
+      en: '1 hr',
+      bn: '১ ঘণ্টা'
     },
 
     popularCategories: {
@@ -555,6 +636,31 @@ export class LanguageService {
       bn: 'ইউজার ড্যাশবোর্ড'
     },
 
+    myAccount: {
+      en: 'My Account',
+      bn: 'আমার অ্যাকাউন্ট'
+    },
+
+    manageYourProfile: {
+      en: 'Manage your profile',
+      bn: 'আপনার প্রোফাইল পরিচালনা করুন'
+    },
+
+    trackYourOrdersShort: {
+      en: 'Track your orders',
+      bn: 'আপনার অর্ডার ট্র্যাক করুন'
+    },
+
+    myProfile: {
+      en: 'My Profile',
+      bn: 'আমার প্রোফাইল'
+    },
+
+    signOutFromAccount: {
+      en: 'Sign out from your account',
+      bn: 'আপনার অ্যাকাউন্ট থেকে সাইন আউট করুন'
+    },
+
     trackRecentPurchases: {
       en: 'Track your recent purchases & delivery status',
       bn: 'আপনার সাম্প্রতিক কেনাকাটা ও ডেলিভারি স্ট্যাটাস দেখুন'
@@ -588,6 +694,261 @@ export class LanguageService {
     delete: {
       en: 'Delete',
       bn: 'মুছুন'
+    },
+
+    bannerCarousel: {
+      en: 'Banner Carousel',
+      bn: 'ব্যানার ক্যারোসেল'
+    },
+
+    uploadBanner: {
+      en: 'Upload Banner',
+      bn: 'ব্যানার আপলোড করুন'
+    },
+
+    bannerAdded: {
+      en: 'Banner Added',
+      bn: 'ব্যানার যোগ করা হয়েছে'
+    },
+
+    confirmDeleteQuestion: {
+      en: 'Delete?',
+      bn: 'মুছে ফেলবেন?'
+    },
+
+    supplierManagement: {
+      en: 'Supplier Management',
+      bn: 'সরবরাহকারী ব্যবস্থাপনা'
+    },
+
+    supplierName: {
+      en: 'Supplier Name',
+      bn: 'সরবরাহকারীর নাম'
+    },
+
+    phone: {
+      en: 'Phone',
+      bn: 'ফোন'
+    },
+
+    address: {
+      en: 'Address',
+      bn: 'ঠিকানা'
+    },
+
+    updateSupplier: {
+      en: 'Update Supplier',
+      bn: 'সরবরাহকারী আপডেট করুন'
+    },
+
+    saveSupplier: {
+      en: 'Save Supplier',
+      bn: 'সরবরাহকারী সংরক্ষণ করুন'
+    },
+
+    totalSuppliers: {
+      en: 'Total Suppliers',
+      bn: 'মোট সরবরাহকারী'
+    },
+
+    due: {
+      en: 'Due',
+      bn: 'বকেয়া'
+    },
+
+    customerManagement: {
+      en: 'Customer Management',
+      bn: 'গ্রাহক ব্যবস্থাপনা'
+    },
+
+    customerId: {
+      en: 'ID',
+      bn: 'আইডি'
+    },
+
+    roleLabel: {
+      en: 'Role',
+      bn: 'ভূমিকা'
+    },
+
+    statusLabel: {
+      en: 'Status',
+      bn: 'অবস্থা'
+    },
+
+    blocked: {
+      en: 'Blocked',
+      bn: 'ব্লক করা হয়েছে'
+    },
+
+    active: {
+      en: 'Active',
+      bn: 'সক্রিয়'
+    },
+
+    unblock: {
+      en: 'Unblock',
+      bn: 'আনব্লক করুন'
+    },
+
+    block: {
+      en: 'Block',
+      bn: 'ব্লক করুন'
+    },
+
+    confirmDeleteCustomer: {
+      en: 'Delete this customer?',
+      bn: 'এই গ্রাহককে মুছে ফেলবেন?'
+    },
+
+    customerDeletedSuccess: {
+      en: 'Customer deleted successfully',
+      bn: 'গ্রাহক সফলভাবে মুছে ফেলা হয়েছে'
+    },
+
+    deleteFailed: {
+      en: 'Delete failed',
+      bn: 'মুছতে ব্যর্থ হয়েছে'
+    },
+
+    blockUnblockFailed: {
+      en: 'Block/Unblock failed',
+      bn: 'ব্লক/আনব্লক ব্যর্থ হয়েছে'
+    },
+
+    notes: {
+      en: 'Notes',
+      bn: 'নোট'
+    },
+
+    addItem: {
+      en: '+ Add Item',
+      bn: '+ আইটেম যোগ করুন'
+    },
+
+    productId: {
+      en: 'Product ID',
+      bn: 'পণ্যের আইডি'
+    },
+
+    priceLabel: {
+      en: 'Price',
+      bn: 'দাম'
+    },
+
+    submitPurchase: {
+      en: 'Submit Purchase',
+      bn: 'ক্রয় জমা দিন'
+    },
+
+    noPurchaseFound: {
+      en: 'No Purchase Found ❌',
+      bn: 'কোনো ক্রয় পাওয়া যায়নি ❌'
+    },
+
+    orderHash: {
+      en: 'Order',
+      bn: 'অর্ডার'
+    },
+
+    supplier: {
+      en: 'Supplier',
+      bn: 'সরবরাহকারী'
+    },
+
+    purchaseDone: {
+      en: 'Purchase Done ✅',
+      bn: 'ক্রয় সম্পন্ন হয়েছে ✅'
+    },
+
+    confirmDeletePurchase: {
+      en: 'Delete this purchase?',
+      bn: 'এই ক্রয়টি মুছে ফেলবেন?'
+    },
+
+    purchaseSaved: {
+      en: '✅ Purchase Saved',
+      bn: '✅ ক্রয় সংরক্ষণ হয়েছে'
+    },
+
+    saveFailedShort: {
+      en: '❌ Save Failed',
+      bn: '❌ সংরক্ষণ ব্যর্থ হয়েছে'
+    },
+
+    inventoryControl: {
+      en: 'INVENTORY CONTROL',
+      bn: 'ইনভেন্টরি নিয়ন্ত্রণ'
+    },
+
+    manageSupplierPurchases: {
+      en: 'Manage supplier purchases, stock updates and pricing',
+      bn: 'সরবরাহকারীর ক্রয়, স্টক আপডেট ও মূল্য পরিচালনা করুন'
+    },
+
+    savePurchase: {
+      en: '💾 Save Purchase',
+      bn: '💾 ক্রয় সংরক্ষণ করুন'
+    },
+
+    supplierInformation: {
+      en: 'Supplier Information',
+      bn: 'সরবরাহকারীর তথ্য'
+    },
+
+    selectSupplier: {
+      en: 'Select Supplier',
+      bn: 'সরবরাহকারী নির্বাচন করুন'
+    },
+
+    contactNumber: {
+      en: 'Contact Number',
+      bn: 'যোগাযোগ নম্বর'
+    },
+
+    productItem: {
+      en: 'Product Item',
+      bn: 'পণ্য আইটেম'
+    },
+
+    searchProduct: {
+      en: 'Search Product',
+      bn: 'পণ্য খুঁজুন'
+    },
+
+    buyPrice: {
+      en: 'Buy Price',
+      bn: 'ক্রয় মূল্য'
+    },
+
+    sellPrice: {
+      en: 'Sell Price',
+      bn: 'বিক্রয় মূল্য'
+    },
+
+    addNewProductItem: {
+      en: '+ Add New Product',
+      bn: '+ নতুন পণ্য যোগ করুন'
+    },
+
+    totalPurchase: {
+      en: 'Total Purchase',
+      bn: 'মোট ক্রয়'
+    },
+
+    expectedProfit: {
+      en: 'Expected Profit',
+      bn: 'প্রত্যাশিত লাভ'
+    },
+
+    supplierDue: {
+      en: 'Supplier Due',
+      bn: 'সরবরাহকারীর বকেয়া'
+    },
+
+    editComingSoon: {
+      en: 'Edit coming soon 😎',
+      bn: 'সম্পাদনা শীঘ্রই আসছে 😎'
     },
 
     noAddressSelected: {
@@ -1483,10 +1844,13 @@ export class LanguageService {
       language
     );
 
-    localStorage.setItem(
-      'language',
-      language
-    );
+    if (this.isBrowser) {
+
+      localStorage.setItem(
+        'language',
+        language
+      );
+    }
   }
 
 

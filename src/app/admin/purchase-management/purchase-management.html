@@ -6,21 +6,21 @@
     <div>
 
       <div class="mini-title">
-        INVENTORY CONTROL
+        {{ t('inventoryControl') }}
       </div>
 
       <h1>
-        Purchase Management
+        {{ t('purchaseManagement') }}
       </h1>
 
       <p>
-        Manage supplier purchases, stock updates and pricing
+        {{ t('manageSupplierPurchases') }}
       </p>
 
     </div>
 
     <button class="top-save-btn" (click)="savePurchase()">
-      💾 Save Purchase
+      💾 {{ t('savePurchase') }}
     </button>
 
   </div>
@@ -29,7 +29,7 @@
   <div class="section-card">
 
     <div class="section-title">
-      Supplier Information
+      {{ t('supplierInformation') }}
     </div>
 
     <div class="supplier-grid">
@@ -38,7 +38,7 @@
       <div class="field">
 
         <label>
-          Supplier Name
+          {{ t('supplierName') }}
         </label>
 
 <select
@@ -46,7 +46,7 @@
   (change)="onSupplierChange()">
 
   <option [ngValue]="null">
-    Select Supplier
+    {{ t('selectSupplier') }}
   </option>
 
   <option
@@ -66,7 +66,7 @@
       <div class="field">
 
         <label>
-          Contact Number
+          {{ t('contactNumber') }}
         </label>
 
         <input type="text" [(ngModel)]="purchase.supplierContact" placeholder="Enter contact number" />
@@ -76,7 +76,7 @@
       <div class="field">
 
   <label>
-    Paid Amount
+    {{ t('paidAmount') }}
   </label>
 
   <input
@@ -96,7 +96,7 @@
     <div class="item-header">
 
       <h3>
-        Product Item
+        {{ t('productItem') }}
       </h3>
 
       <button class="remove-btn" (click)="removeItem(i)">
@@ -111,13 +111,13 @@
       <div class="field">
 
         <label>
-          Category
+          {{ t('category') }}
         </label>
 
         <select [(ngModel)]="item.category">
 
           <option value="">
-            Select Category
+            {{ t('selectCategory') }}
           </option>
 
           <option *ngFor="let c of categories" [value]="c">
@@ -132,7 +132,7 @@
       <div class="field product-field">
 
         <label>
-          Search Product
+          {{ t('searchProduct') }}
         </label>
 
         <input type="text" placeholder="Search product..." [(ngModel)]="item.search" />
@@ -172,7 +172,7 @@
 
                 <div class="stock">
 
-                  Stock:
+                  {{ t('stock') }}:
                   {{ p.stock }}
 
                   {{ p.unit }}
@@ -193,7 +193,7 @@
       <div class="field">
 
         <label>
-          Quantity
+          {{ t('quantityLabel') }}
         </label>
 
         <div class="qty-wrapper">
@@ -205,7 +205,7 @@
             {{
             getSelectedProduct(
             item.productId
-            )?.unit || 'Piece'
+            )?.unit || t('unitPiece')
             }}
 
           </div>
@@ -218,7 +218,7 @@
       <div class="field">
 
         <label>
-          Buy Price
+          {{ t('buyPrice') }}
         </label>
 
         <input type="number" [(ngModel)]="item.unitPrice" />
@@ -229,7 +229,7 @@
       <div class="field">
 
         <label>
-          Sell Price
+          {{ t('sellPrice') }}
         </label>
 
         <input type="number" [(ngModel)]="item.sellPrice" />
@@ -242,7 +242,7 @@
 
   <!-- ACTION -->
   <button class="add-btn" (click)="addItem()">
-    + Add New Product
+    {{ t('addNewProductItem') }}
   </button>
 
 <!-- SUMMARY -->
@@ -252,7 +252,7 @@
   <div class="summary-card blue">
 
     <div class="summary-label">
-      Total Purchase
+      {{ t('totalPurchase') }}
     </div>
 
     <div class="summary-value">
@@ -265,7 +265,7 @@
   <div class="summary-card green">
 
     <div class="summary-label">
-      Expected Profit
+      {{ t('expectedProfit') }}
     </div>
 
     <div class="summary-value">
@@ -278,7 +278,7 @@
   <div class="summary-card orange">
 
     <div class="summary-label">
-      Supplier Due
+      {{ t('supplierDue') }}
     </div>
 
     <div class="summary-value">

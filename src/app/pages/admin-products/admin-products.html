@@ -30,13 +30,20 @@
 
         <div class="field">
           <label>{{ t('productNameEn') }}</label>
-          <input [(ngModel)]="form.name" placeholder="e.g. Fresh Tomato">
+          <input
+            [(ngModel)]="form.name"
+            (blur)="autoFillNameBn()"
+            placeholder="e.g. Fresh Tomato">
         </div>
 
         <div class="field">
           <label>{{ t('productNameBn') }} 🇧🇩</label>
-          <input [(ngModel)]="form.nameBn" placeholder="যেমন: তাজা টমেটো (ঐচ্ছিক — না দিলে স্বয়ংক্রিয় আংশিক অনুবাদ দেখাবে)">
-          <span class="hint">{{ t('optionalLeaveBlank') }}</span>
+          <input
+            [(ngModel)]="form.nameBn"
+            (blur)="autoFillNameEn()"
+            placeholder="যেমন: তাজা টমেটো (ইংরেজি লিখে বাইরে ক্লিক করলে অটো বাংলা বসে যাবে)">
+          <span class="hint" *ngIf="translatingName">⏳ {{ t('loading') }}</span>
+          <span class="hint" *ngIf="!translatingName">{{ t('optionalLeaveBlank') }}</span>
         </div>
 
         <div class="field">
@@ -90,6 +97,23 @@
         </div>
 
         <div class="field">
+          <label>{{ t('packSize') }}</label>
+          <select [(ngModel)]="form.unit">
+            <option value="" disabled selected>{{ t('selectUnit') }}</option>
+            <option value="kg">{{ t('unitKg') }}</option>
+            <option value="gram">{{ t('unitGram') }}</option>
+            <option value="liter">{{ t('unitLiter') }}</option>
+            <option value="ml">{{ t('unitMl') }}</option>
+            <option value="pcs">{{ t('unitPiece') }}</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>{{ t('quantityLabel') }}</label>
+          <input [(ngModel)]="form.quantity" type="number" placeholder="e.g. 500">
+        </div>
+
+        <div class="field">
           <label>{{ t('discount') }}</label>
           <input type="number" [(ngModel)]="form.discount" placeholder="% off">
         </div>
@@ -103,29 +127,12 @@
           <label>{{ t('stockUnit') }}</label>
           <select [(ngModel)]="form.stockUnit">
             <option value="" disabled selected>{{ t('stockUnit') }}</option>
-            <option value="kg">KG</option>
-            <option value="gram">Gram</option>
-            <option value="liter">Liter</option>
-            <option value="ml">ML</option>
-            <option value="pcs">PCS</option>
+            <option value="kg">{{ t('unitKg') }}</option>
+            <option value="gram">{{ t('unitGram') }}</option>
+            <option value="liter">{{ t('unitLiter') }}</option>
+            <option value="ml">{{ t('unitMl') }}</option>
+            <option value="pcs">{{ t('unitPcs') }}</option>
           </select>
-        </div>
-
-        <div class="field">
-          <label>{{ t('packSize') }}</label>
-          <select [(ngModel)]="form.unit">
-            <option value="" disabled selected>{{ t('selectUnit') }}</option>
-            <option value="kg">KG</option>
-            <option value="gram">Gram</option>
-            <option value="liter">Liter</option>
-            <option value="ml">ML</option>
-            <option value="pcs">Piece</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>{{ t('quantityLabel') }}</label>
-          <input [(ngModel)]="form.quantity" type="number" placeholder="e.g. 500">
         </div>
 
       </div>
@@ -168,12 +175,19 @@
 
       <div class="field" style="margin-top:18px;">
         <label>{{ t('descriptionEn') }}</label>
-        <textarea [(ngModel)]="form.description" placeholder="Short description shown on the product page"></textarea>
+        <textarea
+          [(ngModel)]="form.description"
+          (blur)="autoFillDescriptionBn()"
+          placeholder="Short description shown on the product page"></textarea>
       </div>
 
       <div class="field" style="margin-top:18px;">
         <label>{{ t('descriptionBn') }} 🇧🇩</label>
-        <textarea [(ngModel)]="form.descriptionBn" placeholder="পণ্যের সংক্ষিপ্ত বিবরণ (ঐচ্ছিক)"></textarea>
+        <textarea
+          [(ngModel)]="form.descriptionBn"
+          (blur)="autoFillDescriptionEn()"
+          placeholder="ইংরেজি লিখে বাইরে ক্লিক করলে অটো বাংলা বসে যাবে"></textarea>
+        <span class="hint" *ngIf="translatingDescription">⏳ {{ t('loading') }}</span>
       </div>
     </div>
 

@@ -5,6 +5,7 @@ import {
   HttpClient,
   HttpClientModule
 } from '@angular/common/http';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-purchase-management',
@@ -49,8 +50,13 @@ export class PurchaseManagement implements OnInit {
 };
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    public languageService: LanguageService
   ) {}
+
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
 
  ngOnInit(): void {
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PurchaseService } from '../../services/purchase.service';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   standalone: true,
@@ -19,7 +20,14 @@ export class AdminPurchase implements OnInit {
   // 🔥 IMPORTANT (error fix)
   orders: any[] = [];
 
-  constructor(private ps: PurchaseService) {}
+  constructor(
+    private ps: PurchaseService,
+    public languageService: LanguageService
+  ) {}
+
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
 
   ngOnInit() {
     this.loadOrders();
@@ -51,7 +59,7 @@ export class AdminPurchase implements OnInit {
     };
 
     this.ps.create(data).subscribe(() => {
-      alert('Purchase Done ✅');
+      alert(this.t('purchaseDone'));
       this.items = [];
       this.loadOrders();
     });
@@ -59,7 +67,7 @@ export class AdminPurchase implements OnInit {
 
   // DELETE PURCHASE
   delete(id: number) {
-    if (confirm("Delete this purchase?")) {
+    if (confirm(this.t('confirmDeletePurchase'))) {
       this.ps.delete(id).subscribe(() => {
         this.loadOrders();
       });
@@ -68,6 +76,6 @@ export class AdminPurchase implements OnInit {
 
   // EDIT (temporary)
   editOrder(o: any) {
-    alert("Edit coming soon 😎");
+    alert(this.t('editComingSoon'));
   }
 }

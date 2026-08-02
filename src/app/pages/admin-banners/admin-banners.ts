@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
+import {
+  LanguageService
+} from '../../services/language.service';
+
 @Component({
   selector: 'app-admin-banners',
   standalone: true,
@@ -18,8 +22,13 @@ implements OnInit {
     'https://superbangladesh-api-1.onrender.com/api/banners';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    public languageService: LanguageService
   ) {}
+
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
 
   ngOnInit() {
     this.load();
@@ -56,7 +65,7 @@ implements OnInit {
       fd
     ).subscribe(() => {
 
-      alert('Banner Added');
+      alert(this.t('bannerAdded'));
 
       this.load();
     });
@@ -64,7 +73,7 @@ implements OnInit {
 
   delete(id: number) {
 
-    if (!confirm('Delete?')) return;
+    if (!confirm(this.t('confirmDeleteQuestion'))) return;
 
     this.http.delete(
       `${this.api}/${id}`

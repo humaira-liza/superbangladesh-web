@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomerService } from '../../services/customer';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-admin-customers',
@@ -12,6 +13,11 @@ import { CustomerService } from '../../services/customer';
 export class AdminCustomers implements OnInit {
 
   private customerService = inject(CustomerService);
+  public languageService = inject(LanguageService);
+
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
 
   customers: any[] = [];
 
@@ -42,7 +48,7 @@ export class AdminCustomers implements OnInit {
 
   deleteCustomer(id: number) {
 
-    if (!confirm('Delete this customer?')) {
+    if (!confirm(this.t('confirmDeleteCustomer'))) {
       return;
     }
 
@@ -58,7 +64,7 @@ export class AdminCustomers implements OnInit {
             );
 
           alert(
-            'Customer deleted successfully'
+            this.t('customerDeletedSuccess')
           );
         },
 
@@ -66,7 +72,7 @@ export class AdminCustomers implements OnInit {
 
           console.error(err);
 
-          alert('Delete failed');
+          alert(this.t('deleteFailed'));
         }
 
       });
@@ -90,7 +96,7 @@ export class AdminCustomers implements OnInit {
           console.error(err);
 
           alert(
-            'Block/Unblock failed'
+            this.t('blockUnblockFailed')
           );
         }
 

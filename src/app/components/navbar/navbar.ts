@@ -1,6 +1,8 @@
 import {
   Component,
-  HostListener
+  HostListener,
+  Inject,
+  PLATFORM_ID
 } from '@angular/core';
 
 import {
@@ -13,7 +15,8 @@ import {
 } from '@angular/forms';
 
 import {
-  CommonModule
+  CommonModule,
+  isPlatformBrowser
 } from '@angular/common';
 
 import {
@@ -57,7 +60,10 @@ import {
   ]
 })
 export class Navbar {
-isMobile = window.innerWidth <= 768;
+
+  private readonly isBrowser: boolean;
+
+isMobile = false;
 
   /* =========================
      SEARCH
@@ -70,10 +76,7 @@ showMobileSearch = false;
      LOCATION
   ========================= */
 
-  selectedLocation =
-    localStorage.getItem(
-      'selectedLocation'
-    ) || 'Dhaka';
+  selectedLocation = 'Dhaka';
 
   showLocationMenu = false;
 
@@ -115,8 +118,27 @@ showMobileSearch = false;
     private router: Router,
     private state: ProductStateService,
     public languageService: LanguageService,
-    private mapLoader: MapLoaderService
-  ) {}
+    private mapLoader: MapLoaderService,
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
+
+    this.isBrowser =
+      isPlatformBrowser(platformId);
+
+    // ✅ window/localStorage শুধু browser-এ পড়া হচ্ছে,
+    // যাতে SSR/prerender এর সময় এই কম্পোনেন্ট ভেঙে না যায়
+    // (এটাই মোবাইল লোকেশন বার মাঝে মাঝে না দেখানোর কারণ ছিল)
+    if (this.isBrowser) {
+
+      this.isMobile =
+        window.innerWidth <= 768;
+
+      this.selectedLocation =
+        localStorage.getItem(
+          'selectedLocation'
+        ) || 'Dhaka';
+    }
+  }
 
 
   /* =========================

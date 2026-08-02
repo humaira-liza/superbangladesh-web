@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+import {
+  LanguageService
+} from '../../services/language.service';
+
 
 @Component({
   selector: 'app-suppliers',
@@ -23,8 +27,13 @@ export class Suppliers implements OnInit {
 
  constructor(
   private http: HttpClient,
-  private cdr: ChangeDetectorRef
+  private cdr: ChangeDetectorRef,
+  public languageService: LanguageService
 ) {}
+
+t(key: string): string {
+  return this.languageService.translate(key);
+}
 
 ngOnInit() {
 

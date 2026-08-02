@@ -220,7 +220,7 @@
   (click)="closeDesktopMenu()"
 >
   <i class="fa-solid fa-user"></i>
-  <span>Account</span>
+  <span>{{ t('account') }}</span>
 </a>
 
   <a
@@ -572,7 +572,7 @@
   (click)="goHome()"
 >
     <i class="fa-solid fa-house"></i>
-    <span>Home</span>
+    <span>{{ t('home') }}</span>
   </a>
 
   <button
@@ -580,7 +580,7 @@
     (click)="toggleSidebar()"
   >
     <i class="fa-solid fa-table-cells"></i>
-    <span>Menu</span>
+    <span>{{ t('menu') }}</span>
   </button>
 
   <button
@@ -597,7 +597,7 @@
       {{ cart.count() }}
     </span>
 
-    <span>Cart</span>
+    <span>{{ t('cartLabel') }}</span>
   </button>
 
   <button
@@ -605,7 +605,7 @@
   (click)="toggleMobileSearch()"
 >
     <i class="fa-solid fa-magnifying-glass"></i>
-    <span>Search</span>
+    <span>{{ t('search') }}</span>
   </button>
 
 <!-- User -->
@@ -614,7 +614,7 @@
   routerLink="/account"
 >
   <i class="fa-solid fa-user"></i>
-  <span>Account</span>
+  <span>{{ t('account') }}</span>
 </a>
 
 <!-- Admin -->
@@ -623,14 +623,14 @@
   routerLink="/admin/dashboard"
 >
   <i class="fa-solid fa-user-shield"></i>
-  <span>Admin</span>
+  <span>{{ t('admin') }}</span>
 </a>
 <a
   *ngIf="!isLoggedIn()"
   routerLink="/login"
 >
   <i class="fa-solid fa-user"></i>
-  <span>Login</span>
+  <span>{{ t('login') }}</span>
 </a>
 
 </nav>

@@ -1,6 +1,6 @@
 <div class="customers-page">
 
-  <h1>👥 Customer Management</h1>
+  <h1>👥 {{ t('customerManagement') }}</h1>
 
   <div
     class="customer-card"
@@ -8,14 +8,14 @@
 
     <h2>{{ c.email }}</h2>
 
-    <p><b>ID:</b> {{ c.id }}</p>
+    <p><b>{{ t('customerId') }}:</b> {{ c.id }}</p>
 
-    <p><b>Email:</b> {{ c.email }}</p>
+    <p><b>{{ t('emailLabel') }}:</b> {{ c.email }}</p>
 
-    <p><b>Role:</b> {{ c.role }}</p>
+    <p><b>{{ t('roleLabel') }}:</b> {{ c.role }}</p>
 
     <p>
-      <b>Status:</b>
+      <b>{{ t('statusLabel') }}:</b>
 
       <span
         [style.color]="
@@ -25,8 +25,8 @@
         ">
 
         {{ c.blocked
-            ? 'Blocked'
-            : 'Active' }}
+            ? t('blocked')
+            : t('active') }}
 
       </span>
 
@@ -39,8 +39,8 @@
         (click)="toggleBlock(c)">
 
         {{ c.blocked
-            ? 'Unblock'
-            : 'Block' }}
+            ? t('unblock')
+            : t('block') }}
 
       </button>
 
@@ -48,7 +48,7 @@
         class="delete-btn"
         (click)="deleteCustomer(c.id)">
 
-        Delete
+        {{ t('delete') }}
 
       </button>
 

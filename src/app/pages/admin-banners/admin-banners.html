@@ -1,11 +1,11 @@
-<h2>Banner Carousel</h2>
+<h2>{{ t('bannerCarousel') }}</h2>
 
 <input
   type="file"
   (change)="select($event)">
 
 <button (click)="save()">
-  Upload Banner
+  {{ t('uploadBanner') }}
 </button>
 
 <hr>
@@ -23,7 +23,7 @@
   <button
     (click)="delete(b.id)">
 
-    Delete
+    {{ t('delete') }}
 
   </button>
 
