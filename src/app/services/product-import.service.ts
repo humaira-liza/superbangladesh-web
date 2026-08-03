@@ -15,6 +15,9 @@ export interface ImportBatchStatus {
   importedByName: string | null;
   startedAt: string;
   completedAt: string | null;
+  deleted: boolean;
+  deletedAt: string | null;
+  deletedByName: string | null;
 }
 
 export interface ImportRowErrorItem {
@@ -99,5 +102,31 @@ export class ProductImportService {
   // ==========================
   downloadTemplate(): Observable<Blob> {
     return this.http.get(`${this.api}/template`, { responseType: 'blob' });
+  }
+
+  // ==========================
+  // 🗑️ DELETE / RECOVERY (trash bin)
+  // ==========================
+
+  // Move a history row to Trash (recoverable)
+  deleteBatch(batchId: number): Observable<ApiResponse<ImportBatchStatus>> {
+    return this.http.delete<ApiResponse<ImportBatchStatus>>(`${this.api}/${batchId}`);
+  }
+
+  // Bring a Trash row back into the main history list
+  restoreBatch(batchId: number): Observable<ApiResponse<ImportBatchStatus>> {
+    return this.http.post<ApiResponse<ImportBatchStatus>>(`${this.api}/${batchId}/restore`, {});
+  }
+
+  // Trash list (soft-deleted rows)
+  getTrash(page: number = 0, size: number = 20): Observable<ApiResponse<PageResult<ImportBatchStatus>>> {
+    return this.http.get<ApiResponse<PageResult<ImportBatchStatus>>>(
+      `${this.api}/trash?page=${page}&size=${size}`
+    );
+  }
+
+  // Permanently remove a Trash row (cannot be undone)
+  permanentlyDeleteBatch(batchId: number): Observable<ApiResponse<void>> {
+    return this.http.delete<ApiResponse<void>>(`${this.api}/${batchId}/permanent`);
   }
 }

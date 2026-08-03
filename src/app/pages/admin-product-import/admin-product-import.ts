@@ -53,6 +53,17 @@ export class AdminProductImport implements OnDestroy {
   historyTotalPages = 0;
   loadingHistory = false;
 
+  // ==========================
+  // 🗑️ TRASH (deleted history rows)
+  // ==========================
+  activeTab: 'history' | 'trash' = 'history';
+  trash: ImportBatchStatus[] = [];
+  trashPage = 0;
+  trashTotalPages = 0;
+  loadingTrash = false;
+  trashLoadedOnce = false;
+  actionError = '';
+
   constructor(
     private importService: ProductImportService,
     public languageService: LanguageService,
@@ -257,6 +268,105 @@ export class AdminProductImport implements OnDestroy {
       },
       error: () => {
         this.loadingHistory = false;
+      }
+    });
+  }
+
+  // ==========================
+  // 🗑️ DELETE / RECOVERY (trash bin)
+  // ==========================
+
+  switchTab(tab: 'history' | 'trash') {
+    this.activeTab = tab;
+    this.actionError = '';
+
+    if (tab === 'trash' && !this.trashLoadedOnce) {
+      this.loadTrash(0);
+    }
+  }
+
+  loadTrash(page: number) {
+    this.loadingTrash = true;
+
+    this.importService.getTrash(page, 10).subscribe({
+      next: (res) => {
+        this.trash = res.data.content;
+        this.trashPage = res.data.number;
+        this.trashTotalPages = res.data.totalPages;
+        this.loadingTrash = false;
+        this.trashLoadedOnce = true;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.loadingTrash = false;
+      }
+    });
+  }
+
+  // Move a history row to Trash
+  deleteBatch(batch: ImportBatchStatus, event: Event) {
+    event.stopPropagation();
+    this.actionError = '';
+
+    const msg = this.bn()
+      ? `"${batch.fileName}" ইমপোর্ট হিস্টোরি ট্র্যাশে সরাতে চান?`
+      : `Move "${batch.fileName}" to Trash?`;
+
+    if (!confirm(msg)) return;
+
+    this.importService.deleteBatch(batch.id).subscribe({
+      next: () => {
+        this.history = this.history.filter(h => h.id !== batch.id);
+        this.trashLoadedOnce = false; // force a fresh trash list next time it's opened
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.actionError = err?.error?.message
+          || (this.bn() ? 'ডিলিট করা যায়নি।' : 'Could not delete this item.');
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  // Bring a Trash row back into the main history list
+  restoreBatch(batch: ImportBatchStatus, event: Event) {
+    event.stopPropagation();
+    this.actionError = '';
+
+    this.importService.restoreBatch(batch.id).subscribe({
+      next: () => {
+        this.trash = this.trash.filter(t => t.id !== batch.id);
+        this.loadHistory(0);
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.actionError = err?.error?.message
+          || (this.bn() ? 'পুনরুদ্ধার করা যায়নি।' : 'Could not restore this item.');
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  // Permanently remove a Trash row (cannot be undone)
+  permanentlyDeleteBatch(batch: ImportBatchStatus, event: Event) {
+    event.stopPropagation();
+    this.actionError = '';
+
+    const msg = this.bn()
+      ? `"${batch.fileName}" স্থায়ীভাবে ডিলিট হয়ে যাবে — এটি আর ফিরিয়ে আনা যাবে না। নিশ্চিত?`
+      : `Permanently delete "${batch.fileName}"? This cannot be undone.`;
+
+    if (!confirm(msg)) return;
+
+    this.importService.permanentlyDeleteBatch(batch.id).subscribe({
+      next: () => {
+        this.trash = this.trash.filter(t => t.id !== batch.id);
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.actionError = err?.error?.message
+          || (this.bn() ? 'স্থায়ীভাবে ডিলিট করা যায়নি।' : 'Could not permanently delete this item.');
+        this.cdr.detectChanges();
       }
     });
   }

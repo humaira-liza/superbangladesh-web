@@ -136,6 +136,82 @@
   font-size:12.5px;
 }
 
+.btn.danger{
+  background:var(--danger-tint);
+  color:var(--danger);
+  border-color:transparent;
+}
+
+.btn.danger:not(:disabled):hover{
+  background:var(--danger);
+  color:#fff;
+}
+
+/* ============ TABS (History / Trash) ============ */
+
+.tabs-head{
+  margin-bottom:16px;
+}
+
+.tabs{
+  display:inline-flex;
+  gap:4px;
+  background:var(--canvas);
+  padding:4px;
+  border-radius:var(--radius-sm);
+}
+
+.tab{
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:13.5px;
+  border:none;
+  background:transparent;
+  color:var(--ink-soft);
+  padding:8px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:background .12s ease, color .12s ease;
+}
+
+.tab.active{
+  background:var(--surface);
+  color:var(--ink);
+  box-shadow:var(--shadow-sm);
+}
+
+.tab-count{
+  display:inline-block;
+  margin-left:6px;
+  font-size:11px;
+  font-weight:700;
+  background:var(--danger-tint);
+  color:var(--danger);
+  padding:1px 7px;
+  border-radius:999px;
+}
+
+.trash-note{
+  color:var(--ink-mute);
+  font-size:13px;
+  margin-bottom:14px;
+}
+
+.action-error{
+  color:var(--danger);
+  font-size:13px;
+  background:var(--danger-tint);
+  padding:10px 12px;
+  border-radius:var(--radius-sm);
+  margin-bottom:14px;
+}
+
+.row-btns{
+  display:flex;
+  gap:6px;
+  white-space:nowrap;
+}
+
 /* ============ DROPZONE ============ */
 
 .dropzone{

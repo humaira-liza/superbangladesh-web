@@ -169,66 +169,161 @@
     </div>
   </div>
 
-  <!-- ================= HISTORY ================= -->
+  <!-- ================= HISTORY / TRASH ================= -->
   <div class="card">
-    <h3 class="card-title">{{ bn() ? 'ইমপোর্ট হিস্টোরি' : 'Import History' }}</h3>
 
-    <div class="table-scroll" *ngIf="history.length > 0; else noHistory">
-      <table>
-        <thead>
-          <tr>
-            <th>{{ bn() ? 'ফাইল' : 'File' }}</th>
-            <th>{{ bn() ? 'আপলোডকারী' : 'By' }}</th>
-            <th>{{ bn() ? 'তারিখ' : 'Date' }}</th>
-            <th>{{ bn() ? 'মোট' : 'Total' }}</th>
-            <th>{{ bn() ? 'সফল' : 'Success' }}</th>
-            <th>{{ bn() ? 'ডুপ্লিকেট' : 'Dup.' }}</th>
-            <th>{{ bn() ? 'ব্যর্থ' : 'Failed' }}</th>
-            <th>{{ bn() ? 'অবস্থা' : 'Status' }}</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let h of history">
-            <td class="ellipsis">{{ h.fileName }}</td>
-            <td>{{ h.importedByName || '—' }}</td>
-            <td>{{ h.startedAt | date:'d MMM y, h:mm a' }}</td>
-            <td>{{ h.totalRows }}</td>
-            <td>{{ h.successCount }}</td>
-            <td>{{ h.duplicateCount }}</td>
-            <td>{{ h.failedCount }}</td>
-            <td>
-              <span
-                class="badge sm"
-                [ngClass]="{
-                  'badge-processing': h.status === 'PROCESSING',
-                  'badge-ok': h.status === 'COMPLETED',
-                  'badge-warn': h.status === 'COMPLETED_WITH_ERRORS',
-                  'badge-fail': h.status === 'FAILED'
-                }"
-              >
-                {{ statusLabel(h.status) }}
-              </span>
-            </td>
-            <td>
-              <button class="btn tiny ghost" (click)="viewBatch(h)">
-                {{ bn() ? 'দেখুন' : 'View' }}
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="tabs-head">
+      <div class="tabs">
+        <button
+          class="tab"
+          [class.active]="activeTab === 'history'"
+          (click)="switchTab('history')"
+        >
+          {{ bn() ? 'ইমপোর্ট হিস্টোরি' : 'Import History' }}
+        </button>
+        <button
+          class="tab"
+          [class.active]="activeTab === 'trash'"
+          (click)="switchTab('trash')"
+        >
+          🗑️ {{ bn() ? 'ট্র্যাশ' : 'Trash' }}
+          <span class="tab-count" *ngIf="trash.length > 0">{{ trash.length }}</span>
+        </button>
+      </div>
     </div>
 
-    <ng-template #noHistory>
-      <p class="empty">{{ bn() ? 'এখনো কোনো ইমপোর্ট হয়নি।' : 'No imports yet.' }}</p>
-    </ng-template>
+    <p class="action-error" *ngIf="actionError">⚠️ {{ actionError }}</p>
 
-    <div class="pager" *ngIf="historyTotalPages > 1">
-      <button class="btn tiny ghost" [disabled]="historyPage === 0" (click)="loadHistory(historyPage - 1)">‹</button>
-      <span>{{ historyPage + 1 }} / {{ historyTotalPages }}</span>
-      <button class="btn tiny ghost" [disabled]="historyPage >= historyTotalPages - 1" (click)="loadHistory(historyPage + 1)">›</button>
-    </div>
+    <!-- -------- HISTORY TAB -------- -->
+    <ng-container *ngIf="activeTab === 'history'">
+
+      <div class="table-scroll" *ngIf="history.length > 0; else noHistory">
+        <table>
+          <thead>
+            <tr>
+              <th>{{ bn() ? 'ফাইল' : 'File' }}</th>
+              <th>{{ bn() ? 'আপলোডকারী' : 'By' }}</th>
+              <th>{{ bn() ? 'তারিখ' : 'Date' }}</th>
+              <th>{{ bn() ? 'মোট' : 'Total' }}</th>
+              <th>{{ bn() ? 'সফল' : 'Success' }}</th>
+              <th>{{ bn() ? 'ডুপ্লিকেট' : 'Dup.' }}</th>
+              <th>{{ bn() ? 'ব্যর্থ' : 'Failed' }}</th>
+              <th>{{ bn() ? 'অবস্থা' : 'Status' }}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let h of history">
+              <td class="ellipsis">{{ h.fileName }}</td>
+              <td>{{ h.importedByName || '—' }}</td>
+              <td>{{ h.startedAt | date:'d MMM y, h:mm a' }}</td>
+              <td>{{ h.totalRows }}</td>
+              <td>{{ h.successCount }}</td>
+              <td>{{ h.duplicateCount }}</td>
+              <td>{{ h.failedCount }}</td>
+              <td>
+                <span
+                  class="badge sm"
+                  [ngClass]="{
+                    'badge-processing': h.status === 'PROCESSING',
+                    'badge-ok': h.status === 'COMPLETED',
+                    'badge-warn': h.status === 'COMPLETED_WITH_ERRORS',
+                    'badge-fail': h.status === 'FAILED'
+                  }"
+                >
+                  {{ statusLabel(h.status) }}
+                </span>
+              </td>
+              <td class="row-btns">
+                <button class="btn tiny ghost" (click)="viewBatch(h)">
+                  {{ bn() ? 'দেখুন' : 'View' }}
+                </button>
+                <button class="btn tiny danger" (click)="deleteBatch(h, $event)">
+                  🗑️ {{ bn() ? 'ডিলিট' : 'Delete' }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #noHistory>
+        <p class="empty">{{ bn() ? 'এখনো কোনো ইমপোর্ট হয়নি।' : 'No imports yet.' }}</p>
+      </ng-template>
+
+      <div class="pager" *ngIf="historyTotalPages > 1">
+        <button class="btn tiny ghost" [disabled]="historyPage === 0" (click)="loadHistory(historyPage - 1)">‹</button>
+        <span>{{ historyPage + 1 }} / {{ historyTotalPages }}</span>
+        <button class="btn tiny ghost" [disabled]="historyPage >= historyTotalPages - 1" (click)="loadHistory(historyPage + 1)">›</button>
+      </div>
+    </ng-container>
+
+    <!-- -------- TRASH TAB -------- -->
+    <ng-container *ngIf="activeTab === 'trash'">
+
+      <p class="trash-note">
+        {{ bn()
+          ? 'ডিলিট করা হিস্টোরি এখানে থাকে — যেকোনো সময় ফিরিয়ে আনতে পারবেন, অথবা স্থায়ীভাবে মুছে দিতে পারবেন।'
+          : 'Deleted history stays here — restore it anytime, or remove it permanently.' }}
+      </p>
+
+      <p class="empty" *ngIf="loadingTrash">{{ bn() ? 'লোড হচ্ছে…' : 'Loading…' }}</p>
+
+      <div class="table-scroll" *ngIf="!loadingTrash && trash.length > 0; else noTrash">
+        <table>
+          <thead>
+            <tr>
+              <th>{{ bn() ? 'ফাইল' : 'File' }}</th>
+              <th>{{ bn() ? 'আপলোডকারী' : 'By' }}</th>
+              <th>{{ bn() ? 'তারিখ' : 'Date' }}</th>
+              <th>{{ bn() ? 'ডিলিট হয়েছে' : 'Deleted' }}</th>
+              <th>{{ bn() ? 'অবস্থা' : 'Status' }}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let t of trash">
+              <td class="ellipsis">{{ t.fileName }}</td>
+              <td>{{ t.importedByName || '—' }}</td>
+              <td>{{ t.startedAt | date:'d MMM y, h:mm a' }}</td>
+              <td>{{ (t.deletedAt | date:'d MMM y, h:mm a') || '—' }}</td>
+              <td>
+                <span
+                  class="badge sm"
+                  [ngClass]="{
+                    'badge-processing': t.status === 'PROCESSING',
+                    'badge-ok': t.status === 'COMPLETED',
+                    'badge-warn': t.status === 'COMPLETED_WITH_ERRORS',
+                    'badge-fail': t.status === 'FAILED'
+                  }"
+                >
+                  {{ statusLabel(t.status) }}
+                </span>
+              </td>
+              <td class="row-btns">
+                <button class="btn tiny primary" (click)="restoreBatch(t, $event)">
+                  ↩️ {{ bn() ? 'পুনরুদ্ধার' : 'Restore' }}
+                </button>
+                <button class="btn tiny danger" (click)="permanentlyDeleteBatch(t, $event)">
+                  ✕ {{ bn() ? 'স্থায়ী ডিলিট' : 'Delete Forever' }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #noTrash>
+        <p class="empty" *ngIf="!loadingTrash">{{ bn() ? 'ট্র্যাশ খালি।' : 'Trash is empty.' }}</p>
+      </ng-template>
+
+      <div class="pager" *ngIf="trashTotalPages > 1">
+        <button class="btn tiny ghost" [disabled]="trashPage === 0" (click)="loadTrash(trashPage - 1)">‹</button>
+        <span>{{ trashPage + 1 }} / {{ trashTotalPages }}</span>
+        <button class="btn tiny ghost" [disabled]="trashPage >= trashTotalPages - 1" (click)="loadTrash(trashPage + 1)">›</button>
+      </div>
+    </ng-container>
+
   </div>
 
 </div>
