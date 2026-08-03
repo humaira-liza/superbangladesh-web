@@ -1188,6 +1188,11 @@ export class LanguageService {
       bn: 'পণ্যসমূহ'
     },
 
+    bulkImportProducts: {
+      en: 'Bulk Import',
+      bn: 'বাল্ক ইমপোর্ট'
+    },
+
     categories: {
       en: 'Categories',
       bn: 'ক্যাটাগরি'

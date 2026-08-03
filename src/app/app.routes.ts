@@ -291,6 +291,23 @@ export const routes: Routes = [
 
 
       // =========================
+      // BULK PRODUCT IMPORT
+      // =========================
+
+      {
+        path: 'products/import',
+
+        loadComponent: () =>
+          import(
+            './pages/admin-product-import/admin-product-import'
+          )
+            .then(
+              m => m.AdminProductImport
+            )
+      },
+
+
+      // =========================
       // CATEGORIES
       // =========================
 
