@@ -238,6 +238,21 @@
                 <button class="btn tiny ghost" (click)="viewBatch(h)">
                   {{ bn() ? 'দেখুন' : 'View' }}
                 </button>
+
+                <ng-container *ngIf="h.status !== 'PROCESSING'">
+                  <button
+                    *ngIf="!h.productsRemoved && h.successCount > 0"
+                    class="btn tiny danger"
+                    title="{{ bn() ? 'এই ইমপোর্ট থেকে তৈরি হওয়া সবগুলো প্রোডাক্ট মুছে ফেলুন (আগের প্রোডাক্ট অক্ষত থাকবে)' : 'Delete every product this import created (your older products stay untouched)' }}"
+                    (click)="undoImport(h, $event)"
+                  >
+                    ↩️ {{ bn() ? 'ইমপোর্ট বাতিল' : 'Undo Import' }}
+                  </button>
+                  <span *ngIf="h.productsRemoved" class="badge sm badge-warn">
+                    {{ bn() ? h.removedProductCount + ' টি প্রোডাক্ট মোছা হয়েছে' : h.removedProductCount + ' product(s) removed' }}
+                  </span>
+                </ng-container>
+
                 <button class="btn tiny danger" (click)="deleteBatch(h, $event)">
                   🗑️ {{ bn() ? 'ডিলিট' : 'Delete' }}
                 </button>

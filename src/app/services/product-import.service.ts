@@ -18,6 +18,10 @@ export interface ImportBatchStatus {
   deleted: boolean;
   deletedAt: string | null;
   deletedByName: string | null;
+  productsRemoved: boolean;
+  productsRemovedAt: string | null;
+  productsRemovedByName: string | null;
+  removedProductCount: number;
 }
 
 export interface ImportRowErrorItem {
@@ -128,5 +132,13 @@ export class ProductImportService {
   // Permanently remove a Trash row (cannot be undone)
   permanentlyDeleteBatch(batchId: number): Observable<ApiResponse<void>> {
     return this.http.delete<ApiResponse<void>>(`${this.api}/${batchId}/permanent`);
+  }
+
+  // ==========================
+  // ↩️ UNDO IMPORT — deletes only the products THIS batch created.
+  // Manually-added products, and products from any other import, are untouched.
+  // ==========================
+  undoImport(batchId: number): Observable<ApiResponse<ImportBatchStatus>> {
+    return this.http.post<ApiResponse<ImportBatchStatus>>(`${this.api}/${batchId}/undo`, {});
   }
 }

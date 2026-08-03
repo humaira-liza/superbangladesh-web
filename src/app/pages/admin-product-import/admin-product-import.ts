@@ -371,6 +371,34 @@ export class AdminProductImport implements OnDestroy {
     });
   }
 
+  // ↩️ Undo Import — deletes only the products THIS batch created.
+  // Manually-added products, and products from any other import, are untouched.
+  undoImport(batch: ImportBatchStatus, event: Event) {
+    event.stopPropagation();
+    this.actionError = '';
+
+    const msg = this.bn()
+      ? `"${batch.fileName}" থেকে তৈরি হওয়া প্রোডাক্টগুলো মুছে ফেলতে চান? আপনার আগের প্রোডাক্ট অক্ষত থাকবে। এটি পূর্বাবস্থায় ফেরানো যাবে না।`
+      : `Delete every product created by "${batch.fileName}"? Products you added before this import will stay untouched. This cannot be undone.`;
+
+    if (!confirm(msg)) return;
+
+    this.importService.undoImport(batch.id).subscribe({
+      next: (res) => {
+        const updated = res.data;
+        const idx = this.history.findIndex(h => h.id === batch.id);
+        if (idx > -1) this.history[idx] = updated;
+        if (this.currentBatch?.id === batch.id) this.currentBatch = updated;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.actionError = err?.error?.message
+          || (this.bn() ? 'প্রোডাক্টগুলো মুছে ফেলা যায়নি।' : 'Could not remove these products.');
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
   viewBatch(batch: ImportBatchStatus) {
     this.currentBatch = batch;
     this.errors = [];
