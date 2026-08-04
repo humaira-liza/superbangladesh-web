@@ -45,6 +45,11 @@ get filteredProducts() {
 
   loading = true;
 
+  // 🗑️ PRODUCT TRASH
+  showTrash = false;
+  trashProducts: any[] = [];
+  trashLoading = false;
+
  form: any = {
 
   name: '',
@@ -640,10 +645,10 @@ this.selectedFile4 = null;
 this.editingId = p.id;
 }
 
-  // DELETE
+  // DELETE — এটা এখন Product Trash-এ পাঠায়, স্থায়ীভাবে মুছে না
   delete(id: number) {
 
-    if (!confirm('Delete product?')) {
+    if (!confirm('এই প্রোডাক্টটি Trash-এ পাঠানো হবে। পরে চাইলে Trash থেকে ফিরিয়ে আনা যাবে। Delete করতে চান?')) {
 
       return;
     }
@@ -664,6 +669,76 @@ this.editingId = p.id;
           alert('❌ Delete failed');
         }
       });
+  }
+
+  // ==========================
+  // 🗑️ PRODUCT TRASH
+  // ==========================
+
+  toggleTrash() {
+
+    this.showTrash = !this.showTrash;
+
+    if (this.showTrash) {
+      this.loadTrash();
+    }
+  }
+
+  loadTrash() {
+
+    this.trashLoading = true;
+
+    this.ps.getTrash().subscribe({
+
+      next: (res: any) => {
+
+        this.trashProducts = res?.data || [];
+        this.trashLoading = false;
+        this.cdr.detectChanges();
+      },
+
+      error: () => {
+
+        this.trashLoading = false;
+      }
+    });
+  }
+
+  restoreProduct(id: number) {
+
+    this.ps.restoreProduct(id).subscribe({
+
+      next: () => {
+
+        this.loadTrash();
+        this.load();
+      },
+
+      error: () => {
+
+        alert('❌ Restore failed');
+      }
+    });
+  }
+
+  permanentDelete(id: number) {
+
+    if (!confirm('⚠️ এটা স্থায়ীভাবে মুছে ফেলা হবে — এরপর আর ফিরিয়ে আনা যাবে না। নিশ্চিত?')) {
+      return;
+    }
+
+    this.ps.permanentlyDeleteProduct(id).subscribe({
+
+      next: () => {
+
+        this.loadTrash();
+      },
+
+      error: () => {
+
+        alert('❌ Permanent delete failed');
+      }
+    });
   }
 
   // RESET

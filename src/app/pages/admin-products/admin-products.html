@@ -256,15 +256,65 @@
     <input type="text" [(ngModel)]="searchText" [placeholder]="t('searchProducts')">
   </div>
 
-  <div class="toolbar-count" *ngIf="!loading">
+  <div class="toolbar-count" *ngIf="!loading && !showTrash">
     {{ t('showingLabel') }} {{ filteredProducts.length }} {{ t('ofLabel') }} {{ products.length }}
+  </div>
+
+  <button type="button" class="delete-btn" style="margin-left:auto;" (click)="toggleTrash()">
+    {{ showTrash ? '⬅️ ফিরে যান (Products)' : '🗑️ Trash' }}
+  </button>
+
+</div>
+
+<!-- ========================= -->
+<!-- 🗑️ PRODUCT TRASH PANEL -->
+<!-- ========================= -->
+<div *ngIf="showTrash">
+
+  <div class="state-panel" *ngIf="trashLoading">
+    <div class="spinner"></div>
+    <h4>লোড হচ্ছে...</h4>
+  </div>
+
+  <div class="state-panel" *ngIf="!trashLoading && trashProducts.length === 0">
+    <h4>Trash খালি</h4>
+    <p>এখানে যেসব প্রোডাক্ট ডিলিট করা হয়েছে সেগুলো দেখা যাবে — ফিরিয়ে আনা বা স্থায়ীভাবে মুছে ফেলা যাবে।</p>
+  </div>
+
+  <div class="products" *ngIf="!trashLoading && trashProducts.length > 0">
+
+    <div *ngFor="let p of trashProducts" class="card">
+
+      <div class="image-box">
+        <img [src]="getImage(p.imageUrl)" (error)="p.imageUrl=''">
+      </div>
+
+      <div class="card-body">
+        <h4>{{ p.name }}</h4>
+        <p style="font-size:12px;color:#888;">
+          SKU: {{ p.sku }} · ডিলিট করেছেন: {{ p.deletedByName || '—' }}<br>
+          ডিলিটের সময়: {{ p.deletedAt | date:'medium' }}
+        </p>
+      </div>
+
+      <div class="card-actions">
+        <button class="edit-fab" style="position:static;" (click)="restoreProduct(p.id)" title="ফিরিয়ে আনুন">
+          ♻️ Restore
+        </button>
+        <button class="delete-btn" (click)="permanentDelete(p.id)">
+          স্থায়ীভাবে মুছুন
+        </button>
+      </div>
+
+    </div>
+
   </div>
 
 </div>
 
 <!-- LOADING STATE -->
 
-<div class="state-panel" *ngIf="loading">
+<div class="state-panel" *ngIf="loading && !showTrash">
   <div class="spinner"></div>
   <h4>{{ t('loadingProducts') }}</h4>
   <p>{{ t('hangTightCatalog') }}</p>
@@ -272,7 +322,7 @@
 
 <!-- EMPTY STATE -->
 
-<div class="state-panel" *ngIf="!loading && filteredProducts.length === 0">
+<div class="state-panel" *ngIf="!loading && !showTrash && filteredProducts.length === 0">
   <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
     <path d="M3 7l1.5-3h15L21 7M3 7v13a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7M3 7h18M9 11h6"/>
   </svg>
@@ -286,7 +336,7 @@
 
 <!-- PRODUCTS -->
 
-<div class="products" *ngIf="!loading && filteredProducts.length > 0">
+<div class="products" *ngIf="!loading && !showTrash && filteredProducts.length > 0">
 
   <div *ngFor="let p of filteredProducts" class="card">
 

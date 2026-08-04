@@ -86,6 +86,21 @@ export class ProductService {
   }
 
   // ==========================
+  // 🗑️ PRODUCT TRASH (delete করলে এখন এখানে যায়, recoverable)
+  // ==========================
+  getTrash(): Observable<any> {
+    return this.http.get<any>(`${this.api}/admin-trash`);
+  }
+
+  restoreProduct(id: number): Observable<any> {
+    return this.http.post<any>(`${this.api}/${id}/restore`, {});
+  }
+
+  permanentlyDeleteProduct(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.api}/${id}/permanent`);
+  }
+
+  // ==========================
   // IMAGE UPLOAD
   // ==========================
   uploadImage(

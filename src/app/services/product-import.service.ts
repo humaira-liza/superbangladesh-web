@@ -141,4 +141,13 @@ export class ProductImportService {
   undoImport(batchId: number): Observable<ApiResponse<ImportBatchStatus>> {
     return this.http.post<ApiResponse<ImportBatchStatus>>(`${this.api}/${batchId}/undo`, {});
   }
+
+  // ==========================
+  // ↩️↩️ RESTORE PRODUCTS — undo-এর undo। এই batch-এর soft-deleted
+  // প্রোডাক্টগুলো আবার ফিরিয়ে আনে (যদি এখনও Product Trash থেকে
+  // স্থায়ীভাবে মুছে ফেলা না হয়ে থাকে)
+  // ==========================
+  restoreRemovedProducts(batchId: number): Observable<ApiResponse<ImportBatchStatus>> {
+    return this.http.post<ApiResponse<ImportBatchStatus>>(`${this.api}/${batchId}/restore-products`, {});
+  }
 }

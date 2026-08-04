@@ -243,14 +243,22 @@
                   <button
                     *ngIf="!h.productsRemoved && h.successCount > 0"
                     class="btn tiny danger"
-                    title="{{ bn() ? 'এই ইমপোর্ট থেকে তৈরি হওয়া সবগুলো প্রোডাক্ট মুছে ফেলুন (আগের প্রোডাক্ট অক্ষত থাকবে)' : 'Delete every product this import created (your older products stay untouched)' }}"
+                    title="{{ bn() ? 'এই ইমপোর্ট থেকে তৈরি হওয়া সবগুলো প্রোডাক্ট ট্র্যাশে পাঠান (আগের প্রোডাক্ট অক্ষত থাকবে, পরে চাইলে ফিরিয়ে আনা যাবে)' : 'Send every product this import created to trash (your older products stay untouched, and you can restore later)' }}"
                     (click)="undoImport(h, $event)"
                   >
                     ↩️ {{ bn() ? 'ইমপোর্ট বাতিল' : 'Undo Import' }}
                   </button>
                   <span *ngIf="h.productsRemoved" class="badge sm badge-warn">
-                    {{ bn() ? h.removedProductCount + ' টি প্রোডাক্ট মোছা হয়েছে' : h.removedProductCount + ' product(s) removed' }}
+                    {{ bn() ? h.removedProductCount + ' টি প্রোডাক্ট ট্র্যাশে পাঠানো হয়েছে' : h.removedProductCount + ' product(s) sent to trash' }}
                   </span>
+                  <button
+                    *ngIf="h.productsRemoved"
+                    class="btn tiny ghost"
+                    title="{{ bn() ? 'এই batch-এর ট্র্যাশে যাওয়া প্রোডাক্টগুলো আবার ফিরিয়ে আনুন' : 'Bring back this batch\'s trashed products' }}"
+                    (click)="restoreProducts(h, $event)"
+                  >
+                    ♻️ {{ bn() ? 'প্রোডাক্ট ফিরিয়ে আনুন' : 'Restore Products' }}
+                  </button>
                 </ng-container>
 
                 <button class="btn tiny danger" (click)="deleteBatch(h, $event)">

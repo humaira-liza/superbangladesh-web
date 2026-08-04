@@ -378,8 +378,8 @@ export class AdminProductImport implements OnDestroy {
     this.actionError = '';
 
     const msg = this.bn()
-      ? `"${batch.fileName}" থেকে তৈরি হওয়া প্রোডাক্টগুলো মুছে ফেলতে চান? আপনার আগের প্রোডাক্ট অক্ষত থাকবে। এটি পূর্বাবস্থায় ফেরানো যাবে না।`
-      : `Delete every product created by "${batch.fileName}"? Products you added before this import will stay untouched. This cannot be undone.`;
+      ? `"${batch.fileName}" থেকে তৈরি হওয়া প্রোডাক্টগুলো Trash-এ পাঠাতে চান? আপনার আগের প্রোডাক্ট অক্ষত থাকবে। পরে চাইলে এগুলো আবার ফিরিয়ে আনা যাবে (Restore Products অথবা Product Trash থেকে)।`
+      : `Move every product created by "${batch.fileName}" to trash? Products you added before this import will stay untouched. You can restore them later.`;
 
     if (!confirm(msg)) return;
 
@@ -394,6 +394,27 @@ export class AdminProductImport implements OnDestroy {
       error: (err) => {
         this.actionError = err?.error?.message
           || (this.bn() ? 'প্রোডাক্টগুলো মুছে ফেলা যায়নি।' : 'Could not remove these products.');
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  // ↩️↩️ Restore Products — undo-এর undo, এই batch-এর ট্র্যাশে যাওয়া প্রোডাক্টগুলো ফিরিয়ে আনে
+  restoreProducts(batch: ImportBatchStatus, event: Event) {
+    event.stopPropagation();
+    this.actionError = '';
+
+    this.importService.restoreRemovedProducts(batch.id).subscribe({
+      next: (res) => {
+        const updated = res.data;
+        const idx = this.history.findIndex(h => h.id === batch.id);
+        if (idx > -1) this.history[idx] = updated;
+        if (this.currentBatch?.id === batch.id) this.currentBatch = updated;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.actionError = err?.error?.message
+          || (this.bn() ? 'প্রোডাক্টগুলো ফিরিয়ে আনা যায়নি।' : 'Could not restore these products.');
         this.cdr.detectChanges();
       }
     });
