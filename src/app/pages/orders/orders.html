@@ -104,14 +104,14 @@
   <div class="info-box">
     <span>{{ t('totalAmountLabel') }}</span>
     <h3>
-      ৳ {{ o.totalAmount }}
+      {{ o.totalAmount | bnNumber:'৳ ' }}
     </h3>
   </div>
 
   <div class="info-box">
     <span>{{ t('paidAmountLabel') }}</span>
     <h3 style="color:green">
-      ৳ {{ o.paidAmount || o.totalAmount || 0 }}
+      {{ (o.paidAmount || o.totalAmount || 0) | bnNumber:'৳ ' }}
     </h3>
   </div>
 
@@ -151,13 +151,13 @@
             </p>
 
             <span class="product-price">
-              ৳ {{item.price}}
+              {{ item.price | bnNumber:'৳ ' }}
             </span>
 
           </div>
 
           <span class="qty">
-            x{{item.quantity}}
+            x{{ item.quantity | bnNumber }}
           </span>
 
         </div>

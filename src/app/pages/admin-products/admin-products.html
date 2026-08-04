@@ -343,7 +343,7 @@
     <!-- IMAGE -->
     <div class="image-box">
 
-      <span class="discount-tag" *ngIf="p.discount">-{{ p.discount }}%</span>
+      <span class="discount-tag" *ngIf="p.discount">-{{ p.discount | bnNumber }}%</span>
 
       <img [src]="getImage(p.imageUrl)" (error)="p.imageUrl=''">
 
@@ -393,21 +393,21 @@
 
       <!-- PRICE -->
       <div class="price-row">
-        <span class="price">৳ {{ getFinalPrice(p) }}</span>
-        <span class="price-old" *ngIf="p.discount">৳ {{ p.price }}</span>
+        <span class="price">{{ getFinalPrice(p) | bnNumber:'৳ ' }}</span>
+        <span class="price-old" *ngIf="p.discount">{{ p.price | bnNumber:'৳ ' }}</span>
       </div>
 
       <!-- QUANTITY + STOCK -->
       <div class="meta-row">
 
         <span class="unit" *ngIf="p.quantity && p.unit">
-          {{ p.quantity }} {{ languageService.translateUnit(p.unit) }}
+          {{ p.quantity | bnNumber }} {{ languageService.translateUnit(p.unit) }}
         </span>
 
         <span
           class="stock"
           [ngClass]="{ 'low': p.stock > 0 && p.stock <= 5, 'out': p.stock == 0 }">
-          {{ p.stock }} {{ p.stockUnit | uppercase }}
+          {{ p.stock | bnNumber }} {{ p.stockUnit | uppercase }}
         </span>
 
       </div>

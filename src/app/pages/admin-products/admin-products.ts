@@ -12,11 +12,12 @@ import { ProductService } from '../../services/product.service';
 import { CategoryService } from '../../services/category.service';
 import { LanguageService } from '../../services/language.service';
 import { AutoTranslateService } from '../../services/auto-translate.service';
+import { BnNumberPipe } from '../../pipes/bn-number.pipe';
 
 @Component({
   selector: 'app-admin-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, BnNumberPipe],
   templateUrl: './admin-products.html',
   styleUrls: ['./admin-products.css']
 })

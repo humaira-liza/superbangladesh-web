@@ -8,11 +8,12 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart';
 import { LanguageService } from '../../services/language.service';
+import { BnNumberPipe } from '../../pipes/bn-number.pipe';
 
 @Component({
   selector: 'app-cart-drawer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BnNumberPipe],
   templateUrl: './cart-drawer.html',
   styleUrl: './cart-drawer.css'
 })

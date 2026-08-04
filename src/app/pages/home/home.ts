@@ -56,6 +56,7 @@ import {
 
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BnNumberPipe } from '../../pipes/bn-number.pipe';
 
 @Component({
   selector: 'app-home',
@@ -70,7 +71,8 @@ import { Router } from '@angular/router';
   Features,
   ShopMore,
   PopularBrands,
-  Footer
+  Footer,
+  BnNumberPipe
 ],
 
   templateUrl: './home.html',

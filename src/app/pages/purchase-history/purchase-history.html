@@ -38,30 +38,30 @@
 
   <div class="summary-card purchase">
 
-    <p>Total Purchase</p>
+    <p>{{ t('totalPurchase') }}</p>
 
     <h2>
-      ৳ {{ totalPurchase | number }}
+      {{ totalPurchase | number | bnNumber:'৳ ' }}
     </h2>
 
   </div>
 
   <div class="summary-card profit">
 
-    <p>Expected Profit</p>
+    <p>{{ t('expectedProfit') }}</p>
 
     <h2>
-      ৳ {{ totalProfit | number }}
+      {{ totalProfit | number | bnNumber:'৳ ' }}
     </h2>
 
   </div>
 
   <div class="summary-card due">
 
-    <p>Supplier Due</p>
+    <p>{{ t('supplierDue') }}</p>
 
     <h2>
-      ৳ {{ totalDue | number }}
+      {{ totalDue | number | bnNumber:'৳ ' }}
     </h2>
 
   </div>
@@ -145,29 +145,28 @@
             </td>
 
             <td>
-              {{ item.quantity }}
+              {{ item.quantity | bnNumber }}
             </td>
 
             <td>
-              ৳ {{ item.unitPrice }}
+              {{ item.unitPrice | bnNumber:'৳ ' }}
             </td>
 
             <td>
-              ৳ {{ item.sellPrice }}
+              {{ item.sellPrice | bnNumber:'৳ ' }}
             </td>
 
             <td class="profit-text">
 
-              ৳
               {{
-                (item.sellPrice - item.unitPrice)
-                * item.quantity
+                ((item.sellPrice - item.unitPrice) * item.quantity)
+                | bnNumber:'৳ '
               }}
 
             </td>
 
             <td>
-              {{ item.stock }}
+              {{ item.stock | bnNumber }}
             </td>
 
           </tr>
@@ -182,31 +181,34 @@
 <div class="footer">
 
   <div class="invoice">
-    Invoice Total
+    {{ t('total') }}
   </div>
 
   <div class="amount">
-    ৳ {{ p.totalAmount | number }}
+    {{ p.totalAmount | number | bnNumber:'৳ ' }}
   </div>
 
   <div class="invoice due-label">
-    Paid
+    {{ t('paidAmountLabel') }}
   </div>
 
   <div class="amount paid-amount">
-    ৳ {{ p.paidAmount || 0 | number }}
+    {{ (p.paidAmount || 0) | number | bnNumber:'৳ ' }}
   </div>
 
   <div class="invoice due-label">
-    Due
+    {{ t('due') }}
   </div>
 
   <div class="amount due-amount">
-    ৳ {{
-      (p.totalAmount || 0)
-      -
-      (p.paidAmount || 0)
+    {{
+      (
+        (p.totalAmount || 0)
+        -
+        (p.paidAmount || 0)
+      )
       | number
+      | bnNumber:'৳ '
     }}
   </div>
 

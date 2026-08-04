@@ -178,14 +178,14 @@
         <div class="price-line">
 
           <span class="price">
-            ৳{{ p.price }}
+            {{ p.price | bnNumber:'৳' }}
           </span>
 
           <span
             class="old-price"
             *ngIf="p.price">
 
-            ৳{{ p.price + 20 }}
+            {{ (p.price + 20) | bnNumber:'৳' }}
 
           </span>
 
@@ -199,7 +199,7 @@
           class="unit"
           *ngIf="p.quantity && p.unit">
 
-          {{ p.quantity }}
+          {{ p.quantity | bnNumber }}
           {{ languageService.translateUnit(p.unit) }}
 
         </p>

@@ -22,6 +22,7 @@ import { CartService } from '../../services/cart';
 import { ProductStateService } from '../../services/product-state.service';
 import { ProductService } from '../../services/product.service';
 import { LanguageService } from '../../services/language.service';
+import { BnNumberPipe } from '../../pipes/bn-number.pipe';
 import {
   Subject,
   of
@@ -44,7 +45,8 @@ import {
 
   imports: [
     CommonModule,
-    Sidebar
+    Sidebar,
+    BnNumberPipe
   ],
 
   templateUrl: './category-page.html',

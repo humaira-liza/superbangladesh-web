@@ -64,7 +64,7 @@
         <span class="entry-icon">💰</span>
         <span class="entry-label">Total Revenue</span>
       </div>
-      <h2 class="entry-value">৳ {{ totalRevenue | number }}</h2>
+      <h2 class="entry-value">{{ totalRevenue | number | bnNumber:'৳ ' }}</h2>
       <p class="entry-desc">Total completed sales revenue</p>
     </article>
 
@@ -73,7 +73,7 @@
         <span class="entry-icon">📈</span>
         <span class="entry-label">Total Profit</span>
       </div>
-      <h2 class="entry-value">৳ {{ totalProfit | number }}</h2>
+      <h2 class="entry-value">{{ totalProfit | number | bnNumber:'৳ ' }}</h2>
       <p class="entry-desc">Net business earnings</p>
     </article>
 
@@ -82,7 +82,7 @@
         <span class="entry-icon">🏦</span>
         <span class="entry-label">Total Invest</span>
       </div>
-      <h2 class="entry-value">৳ {{ totalInvest | number }}</h2>
+      <h2 class="entry-value">{{ totalInvest | number | bnNumber:'৳ ' }}</h2>
       <p class="entry-desc">Current inventory investment</p>
     </article>
 
@@ -168,7 +168,7 @@
 
           <div class="tag-row">
             <span class="tag tag--sold">Sold {{ p.sold }}</span>
-            <span class="tag tag--stock">{{ p.stock }} left</span>
+            <span class="tag tag--stock">{{ p.stock | bnNumber }} left</span>
           </div>
 
         </div>
@@ -200,7 +200,7 @@
         <img [src]="getImage(p.imageUrl)" [alt]="p.name" (error)="onImgError($event)" />
         <div>
           <h4>{{ languageService.productName(p) }}</h4>
-          <span>Only {{ p.stock }} left</span>
+          <span>Only {{ p.stock | bnNumber }} left</span>
         </div>
       </div>
 

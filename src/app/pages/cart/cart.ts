@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { CartService } from '../../services/cart';
 import { Product } from '../../models/product.model';
 import { LanguageService } from '../../services/language.service';
+import { BnNumberPipe } from '../../pipes/bn-number.pipe';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BnNumberPipe],
   templateUrl: './cart.html',
   styleUrls: ['./cart.scss']
 })

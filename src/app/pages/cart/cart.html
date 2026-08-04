@@ -43,7 +43,7 @@
         <span>{{ t('total') }}</span>
 
         <h3>
-          ৳ {{ getTotal() }}
+          {{ getTotal() | bnNumber:'৳ ' }}
         </h3>
 
       </div>
@@ -104,7 +104,7 @@
           </h4>
 
           <p>
-            ৳ {{ p.price }}
+            {{ p.price | bnNumber:'৳ ' }}
           </p>
 
         </div>
@@ -118,7 +118,7 @@
           </button>
 
           <span>
-            {{ p.qty }}
+            {{ p.qty | bnNumber }}
           </span>
 
           <button (click)="inc(p)">
@@ -131,7 +131,7 @@
 
         <div class="total">
 
-          ৳ {{ p.price * (p.qty || 1) }}
+          {{ (p.price * (p.qty || 1)) | bnNumber:'৳ ' }}
 
         </div>
 
@@ -162,7 +162,7 @@
         <span>{{ t('delivery') }}</span>
 
         <strong>
-          ৳ 60
+          {{ 60 | bnNumber:'৳ ' }}
         </strong>
 
       </div>
@@ -172,7 +172,7 @@
         <span>{{ t('total') }}</span>
 
         <strong>
-          ৳ {{ getTotal() + 60 }}
+          {{ (getTotal() + 60) | bnNumber:'৳ ' }}
         </strong>
 
       </div>

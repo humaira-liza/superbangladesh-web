@@ -14,13 +14,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CartService } from '../../services/cart';
 import { LanguageService } from '../../services/language.service';
 import { MapLoaderService } from '../../services/maploader.service';
+import { BnNumberPipe } from '../../pipes/bn-number.pipe';
 
 declare const L: any;
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, BnNumberPipe],
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.scss']
 })

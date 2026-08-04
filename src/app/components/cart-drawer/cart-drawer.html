@@ -39,7 +39,7 @@
 
       <h3>{{ cart.count() }} {{ t('itemSingular') }}</h3>
 
-      <span>{{ t('shippingFeeColon') }} ৳59</span>
+      <span>{{ t('shippingFeeColon') }} {{ 59 | bnNumber:'৳' }}</span>
 
     </div>
 
@@ -124,7 +124,7 @@
               item.unit
             ">
 
-            {{ item.quantity }}
+            {{ item.quantity | bnNumber }}
             {{ languageService.translateUnit(item.unit) }}
 
           </p>
@@ -151,7 +151,7 @@
 
 
             <span>
-              {{ item.qty }}
+              {{ item.qty | bnNumber }}
             </span>
 
 
@@ -175,7 +175,7 @@
 
             <div class="item-price">
 
-              ৳{{ item.price * item.qty }}
+              {{ (item.price * item.qty) | bnNumber:'৳' }}
 
             </div>
 
@@ -221,7 +221,7 @@
 
 
       <span>
-        ৳{{ cart.getTotal() }}
+        {{ cart.getTotal() | bnNumber:'৳' }}
       </span>
 
 

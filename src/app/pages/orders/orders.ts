@@ -12,12 +12,13 @@ import {
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
+import { BnNumberPipe } from '../../pipes/bn-number.pipe';
 
 @Component({
   standalone: true,
   selector: 'app-orders',
 
-  imports: [CommonModule],
+  imports: [CommonModule, BnNumberPipe],
 
   templateUrl: './orders.html',
 

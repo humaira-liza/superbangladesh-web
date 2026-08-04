@@ -173,7 +173,7 @@
                 <div class="stock">
 
                   {{ t('stock') }}:
-                  {{ p.stock }}
+                  {{ p.stock | bnNumber }}
 
                   {{ p.unit }}
 
@@ -256,7 +256,7 @@
     </div>
 
     <div class="summary-value">
-      ৳ {{ getTotal() }}
+      {{ getTotal() | bnNumber:'৳ ' }}
     </div>
 
   </div>
@@ -269,7 +269,7 @@
     </div>
 
     <div class="summary-value">
-      ৳ {{ getProfit() }}
+      {{ getProfit() | bnNumber:'৳ ' }}
     </div>
 
   </div>
@@ -282,7 +282,7 @@
     </div>
 
     <div class="summary-value">
-      ৳ {{ getDue() }}
+      {{ getDue() | bnNumber:'৳ ' }}
     </div>
 
   </div>

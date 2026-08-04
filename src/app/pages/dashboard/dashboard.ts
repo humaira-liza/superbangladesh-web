@@ -11,13 +11,15 @@ import {
   RouterModule
 } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
+import { BnNumberPipe } from '../../pipes/bn-number.pipe';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    BnNumberPipe
   ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css']

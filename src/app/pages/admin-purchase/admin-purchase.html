@@ -33,14 +33,14 @@
     <h3>{{ t('orderHash') }} #{{o.id}}</h3>
 
     <p><b>{{ t('supplier') }}:</b> {{o.supplierName}}</p>
-    <p><b>{{ t('total') }}:</b> ৳ {{o.totalAmount}}</p>
+    <p><b>{{ t('total') }}:</b> {{ o.totalAmount | bnNumber:'৳ ' }}</p>
     <p><b>{{ t('date') }}:</b> {{o.createdAt}}</p>
 
     <div *ngFor="let item of o.items">
       <p>
         🛒 {{item.productName}} |
-        {{ t('qty') }}: {{item.quantity}} |
-        {{ t('stock') }}: {{item.stock}}
+        {{ t('qty') }}: {{ item.quantity | bnNumber }} |
+        {{ t('stock') }}: {{ item.stock | bnNumber }}
       </p>
     </div>
 

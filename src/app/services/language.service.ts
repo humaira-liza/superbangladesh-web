@@ -1538,6 +1538,162 @@ export class LanguageService {
       bn: 'শপে ফিরে যান'
     },
 
+
+    /* =========================
+       ADMIN — CATEGORY TYPE
+       (Main / Sub / Child category)
+    ========================= */
+
+    categoryType: {
+      en: 'Category Type',
+      bn: 'ক্যাটাগরির ধরন'
+    },
+
+    mainCategory: {
+      en: 'Main Category',
+      bn: 'মূল ক্যাটাগরি'
+    },
+
+    subCategory: {
+      en: 'Sub Category',
+      bn: 'সাব ক্যাটাগরি'
+    },
+
+    childCategory: {
+      en: 'Child Category',
+      bn: 'চাইল্ড ক্যাটাগরি'
+    },
+
+    parentMainCategory: {
+      en: 'Parent Main Category',
+      bn: 'মূল ক্যাটাগরি নির্বাচন করুন'
+    },
+
+    parentSubCategory: {
+      en: 'Parent Sub Category',
+      bn: 'সাব ক্যাটাগরি নির্বাচন করুন'
+    },
+
+    selectMainCategory: {
+      en: 'Select Main Category',
+      bn: 'মূল ক্যাটাগরি বেছে নিন'
+    },
+
+    selectSubCategory: {
+      en: 'Select Sub Category',
+      bn: 'সাব ক্যাটাগরি বেছে নিন'
+    },
+
+    storeManagement: {
+      en: 'Store Management',
+      bn: 'স্টোর ব্যবস্থাপনা'
+    },
+
+    categoryManagementDesc: {
+      en: 'Manage categories and choose which categories appear in the Popular Categories section.',
+      bn: 'ক্যাটাগরি পরিচালনা করুন এবং কোন ক্যাটাগরি জনপ্রিয় ক্যাটাগরি সেকশনে দেখাবে তা বেছে নিন।'
+    },
+
+    editCategory: {
+      en: 'Edit Category',
+      bn: 'ক্যাটাগরি সম্পাদনা করুন'
+    },
+
+    addNewCategoryTitle: {
+      en: 'Add New Category',
+      bn: 'নতুন ক্যাটাগরি যোগ করুন'
+    },
+
+    createCategoriesDesc: {
+      en: 'Create main, sub and child categories.',
+      bn: 'মূল, সাব ও চাইল্ড ক্যাটাগরি তৈরি করুন।'
+    },
+
+    cancelEdit: {
+      en: 'Cancel Edit',
+      bn: 'সম্পাদনা বাতিল করুন'
+    },
+
+    categoryNameEnglishLabel: {
+      en: 'Category Name (English)',
+      bn: 'ক্যাটাগরির নাম (ইংরেজি)'
+    },
+
+    categoryImage: {
+      en: 'Category Image',
+      bn: 'ক্যাটাগরির ছবি'
+    },
+
+    imagePreview: {
+      en: 'Image Preview',
+      bn: 'ছবির প্রিভিউ'
+    },
+
+    savingEllipsis: {
+      en: 'Saving...',
+      bn: 'সংরক্ষণ হচ্ছে...'
+    },
+
+    updateCategory: {
+      en: 'Update Category',
+      bn: 'ক্যাটাগরি আপডেট করুন'
+    },
+
+    addCategory: {
+      en: 'Add Category',
+      bn: 'ক্যাটাগরি যোগ করুন'
+    },
+
+    allCategories: {
+      en: 'All Categories',
+      bn: 'সকল ক্যাটাগরি'
+    },
+
+    manageCategoryStructure: {
+      en: 'Manage your complete category structure.',
+      bn: 'আপনার সম্পূর্ণ ক্যাটাগরি কাঠামো পরিচালনা করুন।'
+    },
+
+    searchCategoryPlaceholder: {
+      en: 'Search category...',
+      bn: 'ক্যাটাগরি খুঁজুন...'
+    },
+
+    loadingCategories: {
+      en: 'Loading categories...',
+      bn: 'ক্যাটাগরি লোড হচ্ছে...'
+    },
+
+    noCategoriesFound: {
+      en: 'No categories found.',
+      bn: 'কোনো ক্যাটাগরি পাওয়া যায়নি।'
+    },
+
+    homepageControl: {
+      en: 'Homepage Control',
+      bn: 'হোমপেজ নিয়ন্ত্রণ'
+    },
+
+    homepageControlDesc: {
+      en: 'Turn categories on or off and control their homepage display order.',
+      bn: 'ক্যাটাগরি চালু/বন্ধ করুন এবং হোমপেজে প্রদর্শনের ক্রম নিয়ন্ত্রণ করুন।'
+    },
+
+    displayOrderLabel: {
+      en: 'Display Order',
+      bn: 'প্রদর্শনের ক্রম'
+    },
+
+    searchPopularCategoryPlaceholder: {
+      en: 'Search popular category...',
+      bn: 'জনপ্রিয় ক্যাটাগরি খুঁজুন...'
+    },
+
+    categoryManagementTitle: {
+      en: 'Category Management',
+      bn: 'ক্যাটাগরি ব্যবস্থাপনা'
+    },
+
   };
 
 

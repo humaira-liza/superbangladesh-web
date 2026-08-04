@@ -89,9 +89,9 @@
     <td>{{ i + 1 }}</td>
     <td>{{ item.productName }}</td>
     <td>{{ item.productSku || '—' }}</td>
-    <td class="align-right">{{ item.quantity }}</td>
-    <td class="align-right">{{ item.price }}</td>
-    <td class="align-right">{{ item.price * item.quantity }}</td>
+    <td class="align-right">{{ item.quantity | bnNumber }}</td>
+    <td class="align-right">{{ item.price | bnNumber }}</td>
+    <td class="align-right">{{ (item.price * item.quantity) | bnNumber }}</td>
   </tr>
 </tbody>
 
@@ -104,12 +104,12 @@
 
       <tr>
         <td>Total Amount</td>
-        <td class="align-right">৳ {{ order.totalAmount }}</td>
+        <td class="align-right">{{ order.totalAmount | bnNumber:'৳ ' }}</td>
       </tr>
 
       <tr class="grand">
         <td>Paid</td>
-        <td class="align-right">৳ {{ order.paidAmount || order.totalAmount }}</td>
+        <td class="align-right">{{ (order.paidAmount || order.totalAmount) | bnNumber:'৳ ' }}</td>
       </tr>
 
     </table>

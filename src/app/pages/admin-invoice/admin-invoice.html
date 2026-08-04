@@ -99,9 +99,9 @@
         <tr *ngFor="let item of order.items">
           <td>{{ item.productName }}</td>
           <td>{{ item.productSku || '—' }}</td>
-          <td class="align-center">{{ item.quantity }}</td>
-          <td class="align-right">৳ {{ item.price | number }}</td>
-          <td class="align-right">৳ {{ item.price * item.quantity | number }}</td>
+          <td class="align-center">{{ item.quantity | bnNumber }}</td>
+          <td class="align-right">{{ item.price | number | bnNumber:'৳ ' }}</td>
+          <td class="align-right">{{ (item.price * item.quantity) | number | bnNumber:'৳ ' }}</td>
         </tr>
       </tbody>
 
@@ -111,7 +111,7 @@
     <div class="total-block">
       <div class="total-row total-row--grand">
         <span>Total Amount</span>
-        <span>৳ {{ order.totalAmount | number }}</span>
+        <span>{{ order.totalAmount | number | bnNumber:'৳ ' }}</span>
       </div>
     </div>
 

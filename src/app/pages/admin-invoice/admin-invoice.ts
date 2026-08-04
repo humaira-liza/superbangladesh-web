@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { BnNumberPipe } from '../../pipes/bn-number.pipe';
 
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -10,7 +11,7 @@ import jsPDF from 'jspdf';
 @Component({
   selector: 'app-admin-invoice',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BnNumberPipe],
   templateUrl: './admin-invoice.html',
   styleUrls: ['./admin-invoice.css']
 })

@@ -7,11 +7,12 @@ import {
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { LanguageService } from '../../services/language.service';
+import { BnNumberPipe } from '../../pipes/bn-number.pipe';
 
 @Component({
   selector: 'app-inventory',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BnNumberPipe],
   templateUrl: './inventory.html',
   styleUrls: ['./inventory.css']
 })

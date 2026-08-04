@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { BnNumberPipe } from '../../pipes/bn-number.pipe';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-admin-receipt',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BnNumberPipe],
   templateUrl: './admin-receipt.html',
   styleUrls: ['./admin-receipt.css']
 })

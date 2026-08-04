@@ -14,7 +14,7 @@
 
     <h3>{{ items.length }} {{ t('items') }}</h3>
 
-    <span>{{ t('shippingFee') }} : &#2547;60</span>
+    <span>{{ t('shippingFee') }} : {{ 60 | bnNumber:'৳' }}</span>
 
   </div>
 
@@ -63,7 +63,7 @@
         <span>{{ t('total') }}</span>
 
         <h3>
-          &#2547; {{ total + 60 }}
+          {{ (total + 60) | bnNumber:'৳ ' }}
         </h3>
 
       </div>
@@ -362,7 +362,7 @@
             </h4>
 
             <p>
-              {{ t('qty') }} &times; {{ p.qty }}
+              {{ t('qty') }} &times; {{ p.qty | bnNumber }}
             </p>
 
           </div>
@@ -370,7 +370,7 @@
         </div>
 
         <strong>
-          &#2547; {{ p.price * (p.qty || 1) }}
+          {{ (p.price * (p.qty || 1)) | bnNumber:'৳ ' }}
         </strong>
 
       </div>
@@ -384,7 +384,7 @@
           <span>{{ t('subtotal') }}</span>
 
           <strong>
-            &#2547; {{ total }}
+            {{ total | bnNumber:'৳ ' }}
           </strong>
 
         </div>
@@ -394,7 +394,7 @@
           <span>{{ t('delivery') }}</span>
 
           <strong>
-            &#2547; 60
+            {{ 60 | bnNumber:'৳ ' }}
           </strong>
 
         </div>

@@ -6,6 +6,7 @@ import {
   HttpClientModule
 } from '@angular/common/http';
 import { LanguageService } from '../../services/language.service';
+import { BnNumberPipe } from '../../pipes/bn-number.pipe';
 
 @Component({
   selector: 'app-purchase-management',
@@ -13,7 +14,8 @@ import { LanguageService } from '../../services/language.service';
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BnNumberPipe
   ],
   templateUrl: './purchase-management.html',
   styleUrls: ['./purchase-management.css']

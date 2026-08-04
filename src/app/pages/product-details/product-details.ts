@@ -5,11 +5,12 @@ import { HttpClient } from '@angular/common/http';
 
 import { CartService } from '../../services/cart';
 import { LanguageService } from '../../services/language.service';
+import { BnNumberPipe } from '../../pipes/bn-number.pipe';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BnNumberPipe],
   templateUrl: './product-details.html',
   styleUrls: ['./product-details.css']
 })

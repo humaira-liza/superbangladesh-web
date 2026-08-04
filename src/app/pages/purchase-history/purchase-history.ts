@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { LanguageService } from '../../services/language.service';
+import { BnNumberPipe } from '../../pipes/bn-number.pipe';
 
 @Component({
   selector: 'app-purchase-history',
@@ -9,7 +11,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BnNumberPipe
   ],
   templateUrl: './purchase-history.html',
   styleUrls: ['./purchase-history.css']
@@ -33,8 +36,13 @@ export class PurchaseHistory implements OnInit {
   searchText = '';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    public languageService: LanguageService
   ) {}
+
+  t(key: string): string {
+    return this.languageService.translate(key);
+  }
 
   ngOnInit(): void {
 

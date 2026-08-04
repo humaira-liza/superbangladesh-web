@@ -95,7 +95,7 @@
         </h3>
 
         <p class="meta">
-          {{ p.quantity }}
+          {{ p.quantity | bnNumber }}
           {{ p.unit }}
         </p>
 
@@ -139,14 +139,14 @@
         </h3>
 
         <p class="meta">
-          {{ p.quantity }}
+          {{ p.quantity | bnNumber }}
           {{ p.unit }}
         </p>
 
         <div class="badge warning">
 
           Stock Left:
-          {{ p.stock }}
+          {{ p.stock | bnNumber }}
 
         </div>
 

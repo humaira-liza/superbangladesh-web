@@ -5,16 +5,15 @@
   <div class="page-header">
     <div>
       <p class="eyebrow">
-        STORE MANAGEMENT
+        {{ t('storeManagement') }}
       </p>
 
       <h2>
-        📂 Category Management
+        📂 {{ t('categoryManagementTitle') }}
       </h2>
 
       <p class="header-text">
-        Manage categories and choose which categories
-        appear in the Popular Categories section.
+        {{ t('categoryManagementDesc') }}
       </p>
     </div>
   </div>
@@ -30,13 +29,13 @@
         <h3>
           {{
             editingId
-              ? 'Edit Category'
-              : 'Add New Category'
+              ? t('editCategory')
+              : t('addNewCategoryTitle')
           }}
         </h3>
 
         <p>
-          Create main, sub and child categories.
+          {{ t('createCategoriesDesc') }}
         </p>
       </div>
 
@@ -46,7 +45,7 @@
         class="cancel-btn"
         (click)="reset()"
       >
-        Cancel Edit
+        {{ t('cancelEdit') }}
       </button>
 
     </div>
@@ -59,7 +58,7 @@
       <div class="field">
 
         <label>
-          Category Name (English)
+          {{ t('categoryNameEnglishLabel') }}
         </label>
 
         <input
@@ -103,7 +102,7 @@
       <div class="field">
 
         <label>
-          Category Type
+          {{ t('categoryType') }}
         </label>
 
         <select
@@ -111,15 +110,15 @@
         >
 
           <option value="MAIN">
-            Main Category
+            {{ t('mainCategory') }}
           </option>
 
           <option value="SUB">
-            Sub Category
+            {{ t('subCategory') }}
           </option>
 
           <option value="CHILD">
-            Child Category
+            {{ t('childCategory') }}
           </option>
 
         </select>
@@ -135,7 +134,7 @@
       >
 
         <label>
-          Parent Main Category
+          {{ t('parentMainCategory') }}
         </label>
 
         <select
@@ -143,14 +142,14 @@
         >
 
           <option [ngValue]="null">
-            Select Main Category
+            {{ t('selectMainCategory') }}
           </option>
 
           <option
             *ngFor="let c of mainCategories"
             [ngValue]="c.id"
           >
-            {{ c.name }}
+            {{ languageService.translateCategory(c.name, c.nameBn) }}
           </option>
 
         </select>
@@ -166,7 +165,7 @@
       >
 
         <label>
-          Parent Sub Category
+          {{ t('parentSubCategory') }}
         </label>
 
         <select
@@ -174,16 +173,16 @@
         >
 
           <option [ngValue]="null">
-            Select Sub Category
+            {{ t('selectSubCategory') }}
           </option>
 
           <option
             *ngFor="let c of subCategories"
             [ngValue]="c.id"
           >
-            {{ c.parent?.name }}
+            {{ languageService.translateCategory(c.parent?.name, c.parent?.nameBn) }}
             →
-            {{ c.name }}
+            {{ languageService.translateCategory(c.name, c.nameBn) }}
           </option>
 
         </select>
@@ -196,7 +195,7 @@
       <div class="field">
 
         <label>
-          Category Image
+          {{ t('categoryImage') }}
         </label>
 
         <input
@@ -224,7 +223,7 @@
       >
 
       <span>
-        Image Preview
+        {{ t('imagePreview') }}
       </span>
 
     </div>
@@ -243,11 +242,11 @@
 
         {{
           saving
-            ? 'Saving...'
+            ? t('savingEllipsis')
             : (
                 editingId
-                  ? 'Update Category'
-                  : 'Add Category'
+                  ? t('updateCategory')
+                  : t('addCategory')
               )
         }}
 
@@ -267,17 +266,17 @@
       <div>
 
        <h3>
-  All Categories
+  {{ t('allCategories') }}
 </h3>
 
 <p>
-  Manage your complete category structure.
+  {{ t('manageCategoryStructure') }}
 </p>
 
 <input
   type="text"
   class="category-search"
-  placeholder="Search category..."
+  [placeholder]="t('searchCategoryPlaceholder')"
   [(ngModel)]="categorySearch"
 />
       </div>
@@ -291,7 +290,7 @@
       class="loading-box"
       *ngIf="loading"
     >
-      Loading categories...
+      {{ t('loadingCategories') }}
     </div>
 
 
@@ -304,7 +303,7 @@
         categories.length === 0
       "
     >
-      No categories found.
+      {{ t('noCategoriesFound') }}
     </div>
 
 
@@ -351,11 +350,11 @@
             <div>
 
               <span class="type-label">
-                MAIN CATEGORY
+                {{ t('mainCategory') }}
               </span>
 
               <strong>
-                {{ main.name }}
+                {{ languageService.translateCategory(main.name, main.nameBn) }}
               </strong>
 
             </div>
@@ -377,7 +376,7 @@
     class="primary-btn"
     (click)="saveDisplayOrder(main)"
   >
-    Save
+    {{ t('save') }}
   </button>
 
   <button
@@ -385,7 +384,7 @@
     class="edit-btn"
     (click)="edit(main)"
   >
-    Edit
+    {{ t('edit') }}
   </button>
 
   <button
@@ -393,7 +392,7 @@
     class="delete-btn"
     (click)="delete(main.id)"
   >
-    Delete
+    {{ t('delete') }}
   </button>
 
 </div>
@@ -435,11 +434,11 @@
             <div>
 
               <span class="type-label">
-                SUB CATEGORY
+                {{ t('subCategory') }}
               </span>
 
               <strong>
-                {{ sub.name }}
+                {{ languageService.translateCategory(sub.name, sub.nameBn) }}
               </strong>
 
             </div>
@@ -454,7 +453,7 @@
               class="edit-btn"
               (click)="edit(sub)"
             >
-              Edit
+              {{ t('edit') }}
             </button>
 
             <button
@@ -462,7 +461,7 @@
               class="delete-btn"
               (click)="delete(sub.id)"
             >
-              Delete
+              {{ t('delete') }}
             </button>
 
           </div>
@@ -509,11 +508,11 @@
               <div>
 
                 <span class="type-label">
-                  CHILD CATEGORY
+                  {{ t('childCategory') }}
                 </span>
 
                 <strong>
-                  {{ child.name }}
+                  {{ languageService.translateCategory(child.name, child.nameBn) }}
                 </strong>
 
               </div>
@@ -528,7 +527,7 @@
                 class="edit-btn"
                 (click)="edit(child)"
               >
-                Edit
+                {{ t('edit') }}
               </button>
 
               <button
@@ -536,7 +535,7 @@
                 class="delete-btn"
                 (click)="delete(child.id)"
               >
-                Delete
+                {{ t('delete') }}
               </button>
 
             </div>
@@ -561,22 +560,21 @@
       <div>
 
         <p class="eyebrow">
-          HOMEPAGE CONTROL
+          {{ t('homepageControl') }}
         </p>
 
         <h3>
-  🔥 Popular Categories
+  🔥 {{ t('popularCategories') }}
 </h3>
 
 <p>
-  Turn categories on or off and control
-  their homepage display order.
+  {{ t('homepageControlDesc') }}
 </p>
 
 <input
   type="text"
   class="category-search"
-  placeholder="Search popular category..."
+  [placeholder]="t('searchPopularCategoryPlaceholder')"
   [(ngModel)]="popularSearch"
 />
 
@@ -591,7 +589,7 @@
       class="loading-box"
       *ngIf="loading"
     >
-      Loading categories...
+      {{ t('loadingCategories') }}
     </div>
 
 
@@ -604,7 +602,7 @@
         allCategories.length === 0
       "
     >
-      No categories found.
+      {{ t('noCategoriesFound') }}
     </div>
 
 
@@ -651,7 +649,7 @@
         <div class="popular-info">
 
           <h4>
-            {{ c.name }}
+            {{ languageService.translateCategory(c.name, c.nameBn) }}
           </h4>
 
           <span
@@ -696,7 +694,7 @@
         >
 
           <label>
-            Display Order
+            {{ t('displayOrderLabel') }}
           </label>
 
           <div class="order-row">

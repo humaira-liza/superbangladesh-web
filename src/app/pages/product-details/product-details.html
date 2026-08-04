@@ -42,14 +42,14 @@
     <div class="price-box">
 
       <span class="price">
-        ৳ {{product.price}}
+        {{ product.price | bnNumber:'৳ ' }}
       </span>
 
       <span
         class="old-price"
         *ngIf="product.discount">
 
-        ৳ {{product.price + product.discount}}
+        {{ (product.price + product.discount) | bnNumber:'৳ ' }}
 
       </span>
 
@@ -58,7 +58,7 @@
 <div class="product-size"
      *ngIf="product.quantity && product.unit">
 
-  {{ product.quantity }} {{ languageService.translateUnit(product.unit) }}
+  {{ product.quantity | bnNumber }} {{ languageService.translateUnit(product.unit) }}
 
 </div>
 
@@ -112,7 +112,7 @@
 
     <div class="qty-value">
 
-      <span>{{ quantity }}</span>
+      <span>{{ quantity | bnNumber }}</span>
 
       <small>{{ t('inBag') }}</small>
 
