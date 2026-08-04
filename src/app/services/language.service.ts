@@ -1694,6 +1694,36 @@ export class LanguageService {
       bn: 'ক্যাটাগরি ব্যবস্থাপনা'
     },
 
+
+    /* =========================
+       PRODUCT DETAILS PAGE
+    ========================= */
+
+    inStock: {
+      en: 'In Stock',
+      bn: 'স্টকে আছে'
+    },
+
+    outOfStockMark: {
+      en: 'Out of Stock',
+      bn: 'স্টকে নেই'
+    },
+
+    productOf: {
+      en: 'Product of',
+      bn: 'পণ্যের উৎস'
+    },
+
+    inBag: {
+      en: 'in Bag',
+      bn: 'ব্যাগে আছে'
+    },
+
+    buyNow: {
+      en: 'Buy Now',
+      bn: 'এখনই কিনুন'
+    },
+
   };
 
 
@@ -1872,6 +1902,30 @@ export class LanguageService {
 
     'Honey':
       'মধু',
+
+    'Cooking':
+      'রান্না',
+
+    'Dairy & Eggs':
+      'দুগ্ধজাত পণ্য ও ডিম',
+
+    'Sauces & Pickles':
+      'সস ও আচার',
+
+    'Candy & Chocolate':
+      'ক্যান্ডি ও চকলেট',
+
+    'Baking':
+      'বেকিং',
+
+    'Ice Cream':
+      'আইসক্রিম',
+
+    'Frozen & Canned':
+      'হিমায়িত ও ক্যানজাত খাবার',
+
+    'Diabetic Food':
+      'ডায়াবেটিক খাবার',
 
 
     /* =========================
@@ -2086,6 +2140,61 @@ export class LanguageService {
     return (
       this.categoryBangla[name]
       || name
+    );
+  }
+
+
+  /* =========================
+     ORIGIN / COUNTRY TRANSLATE
+  ========================= */
+
+  private readonly countryBangla:
+    Record<string, string> = {
+    'Bangladesh': 'বাংলাদেশ',
+    'India': 'ভারত',
+    'China': 'চীন',
+    'Thailand': 'থাইল্যান্ড',
+    'Malaysia': 'মালয়েশিয়া',
+    'Pakistan': 'পাকিস্তান',
+    'USA': 'যুক্তরাষ্ট্র',
+    'United States': 'যুক্তরাষ্ট্র',
+    'UK': 'যুক্তরাজ্য',
+    'United Kingdom': 'যুক্তরাজ্য',
+    'Vietnam': 'ভিয়েতনাম',
+    'Indonesia': 'ইন্দোনেশিয়া',
+    'Sri Lanka': 'শ্রীলঙ্কা',
+    'Nepal': 'নেপাল',
+    'Singapore': 'সিঙ্গাপুর',
+    'UAE': 'সংযুক্ত আরব আমিরাত',
+    'Saudi Arabia': 'সৌদি আরব',
+    'Turkey': 'তুরস্ক',
+    'Australia': 'অস্ট্রেলিয়া',
+    'Japan': 'জাপান',
+    'South Korea': 'দক্ষিণ কোরিয়া',
+  };
+
+  translateOrigin(
+    origin: string | null | undefined
+  ): string {
+
+    if (!origin) {
+      return '';
+    }
+
+    const clean =
+      origin
+        .replace(/^product\s+of\s+/i, '')
+        .trim();
+
+    if (
+      this.currentLanguage() === 'en'
+    ) {
+      return clean;
+    }
+
+    return (
+      this.countryBangla[clean]
+      || clean
     );
   }
 

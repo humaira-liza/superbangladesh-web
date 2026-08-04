@@ -76,7 +76,7 @@
     class="origin-tag"
     *ngIf="product.origin">
 
-    {{ t('productOf') }} {{ getOriginName(product.origin) }}
+    {{ t('productOf') }} {{ languageService.translateOrigin(product.origin) }}
 
   </div>
 
