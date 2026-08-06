@@ -1503,6 +1503,11 @@ export class LanguageService {
       bn: 'হোমপেজ ফিচার'
     },
 
+    sidebarLinksAdmin: {
+      en: 'Sidebar Menu Links',
+      bn: 'সাইডবার মেনু লিংক'
+    },
+
     shopGetMore: {
       en: 'Shop & Get More',
       bn: 'শপ ও আরও পান'

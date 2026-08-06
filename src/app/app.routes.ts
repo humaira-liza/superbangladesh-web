@@ -96,6 +96,9 @@ from './pages/admin-customers/admin-customers';
 import { AdminFeatures }
 from './pages/admin-features/admin-features';
 
+import { AdminSidebarLinks }
+from './pages/admin-sidebar-links/admin-sidebar-links';
+
 import { AdminShopMore }
 from './pages/admin-shop-more/admin-shop-more';
 
@@ -340,6 +343,18 @@ export const routes: Routes = [
 
         component:
           AdminFeatures
+      },
+
+
+      // =========================
+      // SIDEBAR MENU LINKS
+      // =========================
+
+      {
+        path: 'sidebar-links',
+
+        component:
+          AdminSidebarLinks
       },
 
 

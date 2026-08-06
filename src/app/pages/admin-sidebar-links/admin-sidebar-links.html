@@ -1,0 +1,244 @@
+<div class="links-admin-page">
+
+  <div class="page-header">
+
+    <p class="eyebrow">
+      SIDEBAR CONTROL
+    </p>
+
+    <h2>
+      Sidebar Menu Links
+    </h2>
+
+    <p>
+      Manage Offers, Rewards, Safety Center, Premium Care,
+      Help, File a Complaint, Suppliers — icon, text (English
+      &amp; Bangla), link, order and show/hide, all from here.
+    </p>
+
+  </div>
+
+
+  <!-- FORM -->
+
+  <section class="panel">
+
+    <div class="panel-heading">
+
+      <div>
+
+        <h3>
+          {{ editingId !== null ? 'Edit Link' : 'Add New Link' }}
+        </h3>
+
+        <p>
+          Pick an icon, set the text and where it should link to.
+        </p>
+
+      </div>
+
+      <button
+        *ngIf="editingId !== null"
+        type="button"
+        class="cancel-btn"
+        (click)="reset()"
+      >
+        Cancel Edit
+      </button>
+
+    </div>
+
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label>Section</label>
+        <select [(ngModel)]="form.section">
+          <option value="QUICK">Quick Links (top, big icons)</option>
+          <option value="EXTRA">Extra Links (bottom list)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Icon</label>
+        <select [(ngModel)]="form.iconKey">
+          <option
+            *ngFor="let opt of iconOptions"
+            [value]="opt.key"
+          >
+            {{ opt.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Label (English)</label>
+        <input
+          type="text"
+          [(ngModel)]="form.labelEn"
+          placeholder="Example: Offers"
+        >
+      </div>
+
+      <div class="field">
+        <label>Label (Bangla)</label>
+        <input
+          type="text"
+          [(ngModel)]="form.labelBn"
+          placeholder="উদাহরণ: অফার"
+        >
+      </div>
+
+      <div class="field">
+        <label>Link (route)</label>
+        <input
+          type="text"
+          [(ngModel)]="form.route"
+          placeholder="Example: /offers"
+        >
+      </div>
+
+      <div class="field">
+        <label>Display Order</label>
+        <input
+          type="number"
+          min="0"
+          [(ngModel)]="form.displayOrder"
+        >
+      </div>
+
+      <div class="field checkbox-field">
+        <label class="check-label">
+          <input type="checkbox" [(ngModel)]="form.active">
+          <span>Show in Sidebar</span>
+        </label>
+      </div>
+
+      <div class="field checkbox-field">
+        <label class="check-label">
+          <input type="checkbox" [(ngModel)]="form.adminOnly">
+          <span>Admin Only (e.g. Suppliers)</span>
+        </label>
+      </div>
+
+    </div>
+
+
+    <div class="preview-card">
+
+      <div class="preview-icon" [innerHTML]="getIcon(form.iconKey)"></div>
+
+      <div>
+        <h3>{{ form.labelEn || 'Link Label' }}</h3>
+        <p>{{ form.route || '/route' }}</p>
+      </div>
+
+    </div>
+
+
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="primary-btn"
+        [disabled]="saving"
+        (click)="save()"
+      >
+        {{
+          saving
+            ? 'Saving...'
+            : (editingId !== null ? 'Update Link' : 'Add Link')
+        }}
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- LIST -->
+
+  <section class="panel">
+
+    <div class="panel-heading">
+      <div>
+        <h3>All Sidebar Links</h3>
+        <p>Control visibility and order.</p>
+      </div>
+    </div>
+
+    <div class="loading-box" *ngIf="loading">
+      Loading links...
+    </div>
+
+    <div class="link-grid" *ngIf="!loading">
+
+      <article
+        class="link-card"
+        *ngFor="let link of links"
+        [class.inactive]="!link.active"
+      >
+
+        <div class="card-top">
+
+          <div class="link-icon-preview" [innerHTML]="getIcon(link.iconKey)"></div>
+
+          <span class="status" [class.active]="link.active">
+            {{ link.active ? 'Visible' : 'Hidden' }}
+          </span>
+
+        </div>
+
+        <h3>{{ link.labelEn }}</h3>
+        <p class="bn-label">{{ link.labelBn }}</p>
+        <p class="route-text">{{ link.route }}</p>
+
+        <div class="meta-row">
+          <span>Section: <strong>{{ link.section }}</strong></span>
+          <span>Order: <strong>{{ link.displayOrder }}</strong></span>
+        </div>
+
+        <div class="meta-row" *ngIf="link.adminOnly">
+          <span class="admin-badge">Admin Only</span>
+        </div>
+
+        <div class="card-actions">
+
+          <button
+            type="button"
+            class="toggle-btn"
+            [disabled]="togglingId === link.id"
+            (click)="toggle(link)"
+          >
+            {{ link.active ? 'Hide' : 'Show' }}
+          </button>
+
+          <button
+            type="button"
+            class="edit-btn"
+            (click)="edit(link)"
+          >
+            Edit
+          </button>
+
+          <button
+            type="button"
+            class="delete-btn"
+            (click)="delete(link.id)"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </article>
+
+    </div>
+
+    <div class="empty-box" *ngIf="!loading && links.length === 0">
+      No sidebar links added yet.
+    </div>
+
+  </section>
+
+</div>

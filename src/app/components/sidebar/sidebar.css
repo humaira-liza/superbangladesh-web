@@ -79,14 +79,18 @@
 
 .quick-icon{
   width:24px;
+  height:24px;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
-  font-size:21px;
-
   flex-shrink:0;
+}
+
+.quick-icon svg{
+  width:20px;
+  height:20px;
 }
 
 
@@ -415,14 +419,18 @@
 
 .link-icon{
   width:24px;
+  height:24px;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
   flex-shrink:0;
+}
 
-  font-size:17px;
+.link-icon svg{
+  width:18px;
+  height:18px;
 }
 
 

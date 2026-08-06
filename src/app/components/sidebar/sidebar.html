@@ -8,30 +8,17 @@
 
     <a
       class="quick-item"
-      routerLink="/offers"
+      *ngFor="let link of quickLinks"
+      [routerLink]="link.route"
       (click)="closeSidebar()"
     >
-      <span class="quick-icon">
-        🎁
-      </span>
+      <span
+        class="quick-icon"
+        [innerHTML]="getIcon(link.iconKey)"
+      ></span>
 
       <span>
-        {{ t('offers') }}
-      </span>
-    </a>
-
-
-    <a
-      class="quick-item"
-      routerLink="/rewards"
-      (click)="closeSidebar()"
-    >
-      <span class="quick-icon">
-        ☆
-      </span>
-
-      <span>
-        {{ t('rewards') }}
+        {{ linkLabel(link) }}
       </span>
     </a>
 
@@ -218,76 +205,17 @@
 
     <a
       class="link"
-      routerLink="/safety"
+      *ngFor="let link of extraLinks"
+      [routerLink]="link.route"
       (click)="closeSidebar()"
     >
-      <span class="link-icon">
-        🛡️
-      </span>
+      <span
+        class="link-icon"
+        [innerHTML]="getIcon(link.iconKey)"
+      ></span>
 
       <span>
-        {{ t('safetyCenter') }}
-      </span>
-    </a>
-
-
-    <a
-      class="link"
-      routerLink="/premium"
-      (click)="closeSidebar()"
-    >
-      <span class="link-icon">
-        🥇
-      </span>
-
-      <span>
-        {{ t('premiumCare') }}
-      </span>
-    </a>
-
-
-    <a
-      class="link"
-      routerLink="/help"
-      (click)="closeSidebar()"
-    >
-      <span class="link-icon">
-        📞
-      </span>
-
-      <span>
-        {{ t('help') }}
-      </span>
-    </a>
-
-
-    <a
-      class="link"
-      routerLink="/complaint"
-      (click)="closeSidebar()"
-    >
-      <span class="link-icon">
-        ⚠️
-      </span>
-
-      <span>
-        {{ t('fileComplaint') }}
-      </span>
-    </a>
-
-
-    <a
-      *ngIf="isAdmin"
-      class="link"
-      routerLink="/admin/suppliers"
-      (click)="closeSidebar()"
-    >
-      <span class="link-icon">
-        🚚
-      </span>
-
-      <span>
-        {{ t('suppliers') }}
+        {{ linkLabel(link) }}
       </span>
     </a>
 
