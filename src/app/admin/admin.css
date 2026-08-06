@@ -345,7 +345,7 @@ body{
   gap: 6px;
   margin: 4px 0 16px;
   padding: 6px 10px;
-  background: rgba(255, 255, 255, 0.08);
+  background: #f1f5f9;
   border-radius: 8px;
   width: fit-content;
   font-size: 13px;
@@ -354,15 +354,15 @@ body{
 
 .admin-language-switch span {
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.6);
+  color: #64748b;
   padding: 2px 4px;
 }
 
 .admin-language-switch span.active {
-  color: #fff;
+  color: #2563eb;
 }
 
 .admin-language-switch .divider {
-  color: rgba(255, 255, 255, 0.3);
+  color: #cbd5e1;
   cursor: default;
 }
