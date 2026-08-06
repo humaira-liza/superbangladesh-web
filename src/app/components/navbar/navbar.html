@@ -520,7 +520,7 @@
 
 
     <a
-      href="tel:+8801756442133"
+      [href]="'tel:' + chatContact.phone"
       class="chat-item call"
       [title]="t('call')"
     >
@@ -529,7 +529,7 @@
 
 
     <a
-      href="https://www.facebook.com/share/1C1rQ6txJr/"
+      [href]="chatContact.messengerUrl"
       target="_blank"
       rel="noopener noreferrer"
       class="chat-item messenger"
@@ -540,13 +540,25 @@
 
 
     <a
-      href="https://wa.me/8801756442133"
+      [href]="'https://wa.me/' + chatContact.whatsappNumber"
       target="_blank"
       rel="noopener noreferrer"
       class="chat-item whatsapp"
       [title]="t('whatsapp')"
     >
       <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+
+    <a
+      *ngIf="chatContact.instagramUrl"
+      [href]="chatContact.instagramUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="chat-item instagram"
+      [title]="t('instagram')"
+    >
+      <i class="fa-brands fa-instagram"></i>
     </a>
 
   </div>

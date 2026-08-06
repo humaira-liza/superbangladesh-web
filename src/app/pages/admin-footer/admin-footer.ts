@@ -100,6 +100,12 @@ export class AdminFooter
       instagramUrl:
         '',
 
+      messengerUrl:
+        '',
+
+      whatsappNumber:
+        '',
+
 
       customerServiceTitle:
         'Customer Service',

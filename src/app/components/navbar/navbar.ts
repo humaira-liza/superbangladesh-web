@@ -2,8 +2,13 @@ import {
   Component,
   HostListener,
   Inject,
+  OnInit,
   PLATFORM_ID
 } from '@angular/core';
+
+import {
+  HttpClient
+} from '@angular/common/http';
 
 import {
   Router,
@@ -59,7 +64,7 @@ import {
     './navbar.scss'
   ]
 })
-export class Navbar {
+export class Navbar implements OnInit {
 
   private readonly isBrowser: boolean;
 
@@ -90,9 +95,21 @@ showMobileSearch = false;
 
   /* =========================
      CHAT
+     (Admin panel > Footer Management থেকে
+     এই লিংক/নাম্বারগুলো বদলানো যায়)
   ========================= */
 
   showChat = false;
+
+  readonly footerApi =
+    'https://superbangladesh-api-1.onrender.com/api/footer-settings/active';
+
+  chatContact = {
+    phone: '+8801756442133',
+    messengerUrl: 'https://www.facebook.com/share/1C1rQ6txJr/',
+    whatsappNumber: '8801756442133',
+    instagramUrl: ''
+  };
 
 
   /* =========================
@@ -119,6 +136,7 @@ showMobileSearch = false;
     private state: ProductStateService,
     public languageService: LanguageService,
     private mapLoader: MapLoaderService,
+    private http: HttpClient,
     @Inject(PLATFORM_ID) platformId: Object
   ) {
 
@@ -138,6 +156,42 @@ showMobileSearch = false;
           'selectedLocation'
         ) || 'Dhaka';
     }
+  }
+
+
+  ngOnInit(): void {
+
+    // Admin panel এ Footer Management থেকে বসানো
+    // Messenger/WhatsApp/Instagram লিংক এখানে লোড হয়
+    this.http
+      .get<any>(this.footerApi)
+      .subscribe({
+        next: (res) => {
+
+          if (!res) {
+            return;
+          }
+
+          if (res.phone) {
+            this.chatContact.phone = res.phone;
+          }
+
+          if (res.messengerUrl) {
+            this.chatContact.messengerUrl = res.messengerUrl;
+          }
+
+          if (res.whatsappNumber) {
+            this.chatContact.whatsappNumber = res.whatsappNumber;
+          }
+
+          if (res.instagramUrl) {
+            this.chatContact.instagramUrl = res.instagramUrl;
+          }
+        },
+        error: () => {
+          // API না পেলেও আগের ডিফল্ট নাম্বার/লিংক দিয়ে চ্যাট বাটন কাজ করবে
+        }
+      });
   }
 
 

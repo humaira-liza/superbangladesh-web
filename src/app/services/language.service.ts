@@ -331,6 +331,11 @@ export class LanguageService {
       bn: 'হোয়াটসঅ্যাপ'
     },
 
+    instagram: {
+      en: 'Instagram',
+      bn: 'ইনস্টাগ্রাম'
+    },
+
 
     /* =========================
        SIDEBAR FIXED TEXT

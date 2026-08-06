@@ -120,6 +120,36 @@
 
       </div>
 
+
+      <div class="field">
+
+        <label>
+          Messenger Link (m.me/yourpage বা full facebook.com/yourpage)
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="form.messengerUrl"
+          placeholder="https://m.me/yourpageusername"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          WhatsApp Number (country code সহ, যেমন 8801XXXXXXXXX)
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="form.whatsappNumber"
+          placeholder="8801XXXXXXXXX"
+        >
+
+      </div>
+
     </div>
 
   </section>

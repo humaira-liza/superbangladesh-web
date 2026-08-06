@@ -11,6 +11,10 @@ import {
 } from '@angular/common';
 
 import {
+  HttpClient
+} from '@angular/common/http';
+
+import {
   Sidebar
 } from '../../components/sidebar/sidebar';
 
@@ -160,6 +164,10 @@ export class Home implements OnInit {
   apiUrl =
     'https://superbangladesh-api-1.onrender.com';
 
+  // MOBILE ORDER BAR - CHAT BUTTON
+  // Admin panel > Footer Management > WhatsApp Number থেকে বদলানো যায়
+  whatsappNumber = '8801756442133';
+
 
   // =========================
   // CONSTRUCTOR
@@ -183,7 +191,8 @@ export class Home implements OnInit {
 
     public languageService:
       LanguageService,
-      private router: Router
+      private router: Router,
+      private http: HttpClient
   ) {}
 
 
@@ -224,6 +233,20 @@ export class Home implements OnInit {
     this.loadAll();
 
     this.loadPopularCategories();
+
+
+    // MOBILE ORDER BAR চ্যাট বাটনের জন্য WhatsApp নম্বর লোড হচ্ছে
+    this.http
+      .get<any>(`${this.apiUrl}/api/footer-settings/active`)
+      .subscribe({
+        next: (res) => {
+
+          if (res?.whatsappNumber) {
+            this.whatsappNumber = res.whatsappNumber;
+          }
+        },
+        error: () => {}
+      });
 
 
     // SEARCH STATE
