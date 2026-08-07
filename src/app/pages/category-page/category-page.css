@@ -26,16 +26,16 @@
     display:flex;
     align-items:flex-start;
     width:100%;
-    min-height:calc(100vh - 90px);
+    min-height:calc(100vh - 100px);
 }
 
 .category-layout > app-sidebar{
     position:fixed;
-    top:90px;
+    top:100px;
     left:0;
 
-    width:280px;
-    height:calc(100vh - 90px);
+    width:250px;
+    height:calc(100vh - 100px);
 
     overflow-y:auto;
     overflow-x:hidden;
@@ -48,21 +48,76 @@
 .category-content{
     flex:1;
 
-    margin-left:280px;
-    margin-right:40px;
+    margin-left:274px;
+    margin-right:105px;
 
     padding:24px 20px 80px;
 
     overflow:hidden;
 }
 
-.category-title{
-    margin:0 0 24px;
+/* =========================
+   SAME BREAKPOINTS AS HOME PAGE
+   keeps sidebar/content edges lined up
+   with the rest of the site
+========================= */
 
+@media (min-width:901px) and (max-width:1200px){
+
+    .category-layout > app-sidebar{
+        width:240px;
+    }
+
+    .category-content{
+        margin-left:260px;
+        margin-right:90px;
+    }
+}
+
+@media (min-width:769px) and (max-width:900px){
+
+    .category-layout > app-sidebar{
+        width:220px;
+    }
+
+    .category-content{
+        margin-left:236px;
+        margin-right:80px;
+    }
+}
+
+.breadcrumb{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    row-gap:4px;
+
+    margin:0 0 24px;
+}
+
+.crumb-link{
     font-size:22px;
     font-weight:700;
+    color:#9ca3af;
 
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.crumb-link:hover{
+    color:#7c3aed;
+}
+
+.crumb-current{
+    font-size:22px;
+    font-weight:700;
     color:#1f2937;
+}
+
+.crumb-sep{
+    margin:0 8px;
+    font-size:18px;
+    color:#c4c4c4;
 }
 
 /* =========================
@@ -116,15 +171,15 @@
     display:grid;
     grid-template-columns:repeat(auto-fill,170px);
     justify-content:flex-start;
-    column-gap:12px;
-    row-gap:32px;
+    column-gap:20px;
+    row-gap:24px;
 }
 
 .child-grid{
     grid-template-columns:repeat(2,190px);
     justify-content:flex-start;
     column-gap:24px;
-    row-gap:28px;
+    row-gap:24px;
 }
 
 /* =========================
@@ -173,10 +228,9 @@
 
 .product-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill,170px);
-    justify-content:flex-start;
-    column-gap:22px;
-    row-gap:42px;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    column-gap:24px;
+    row-gap:28px;
 }
 
 
@@ -185,7 +239,7 @@
 ========================= */
 
 .product-card{
-    width:170px;
+    width:100%;
     position:relative;
     display:flex;
     flex-direction:column;
@@ -205,7 +259,7 @@
 
 .product-image{
     position:relative;
-    width:170px;
+    width:100%;
     height:150px;
 
     display:flex;
@@ -495,12 +549,12 @@
 
   .category-grid:not(.child-grid){
       grid-template-columns:repeat(auto-fill,180px);
-      gap:32px 26px;
+      gap:24px 24px;
   }
 
 
   .product-grid{
-      grid-template-columns:repeat(auto-fill,170px);
+      grid-template-columns:repeat(7,minmax(0,1fr));
       gap:24px;
   }
 
@@ -524,9 +578,9 @@
 
     grid-template-columns:repeat(5,170px);
 
-    column-gap:42px;
+    column-gap:24px;
 
-    row-gap:42px;
+    row-gap:24px;
 }
 
 
@@ -536,7 +590,7 @@
 
 
 .product-grid{
-    grid-template-columns:repeat(auto-fill,minmax(170px,170px));
+    grid-template-columns:repeat(5,minmax(0,1fr));
     gap:20px;
 }
 
@@ -568,9 +622,18 @@
         overflow-x:hidden;
     }
 
-    .category-title{
-        font-size:22px;
+    .breadcrumb{
         margin:0 0 18px;
+    }
+
+    .crumb-link,
+    .crumb-current{
+        font-size:16px;
+    }
+
+    .crumb-sep{
+        margin:0 5px;
+        font-size:14px;
     }
 
     /* ---------- CHILD CATEGORY ---------- */
