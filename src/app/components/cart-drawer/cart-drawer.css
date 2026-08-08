@@ -27,13 +27,13 @@
 .cart-drawer{
   position:fixed;
 
-  top:90px;
+  top:100px;
   right:0;
 
   width:345px;
   max-width:100%;
 
-  height:calc(100dvh - 90px);
+  height:calc(100dvh - 100px);
 
   background:#f7f7f8;
 

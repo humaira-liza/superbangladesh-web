@@ -60,6 +60,10 @@ export class CategoryPage
 
   category: any = null;
 
+  categoryTree: any[] = [];
+
+  breadcrumb: any[] = [];
+
   products: any[] = [];
 
   categoryLoading = false;
@@ -251,6 +255,8 @@ constructor(
             result.tree
           );
 
+          // ব্রেডক্রাম্বের জন্য পুরো tree রেখে দিচ্ছি
+          this.categoryTree = result.tree;
 
           const found =
             this.findCategory(
@@ -315,6 +321,12 @@ constructor(
 
             this.category =
               found;
+
+            this.breadcrumb =
+              this.findCategoryPath(
+                this.categoryTree,
+                id
+              ) || [];
 
             this.categoryLoading =
               false;
@@ -413,6 +425,8 @@ constructor(
 
             this.products = [];
 
+            this.breadcrumb = [];
+
             this.categoryLoading =
               false;
 
@@ -441,6 +455,8 @@ constructor(
 
             this.products = [];
 
+            this.breadcrumb = [];
+
             this.categoryLoading =
               false;
 
@@ -467,6 +483,12 @@ constructor(
 
             this.category =
               result.category;
+
+            this.breadcrumb =
+              this.findCategoryPath(
+                this.categoryTree,
+                Number(result.category?.id)
+              ) || [];
 
             this.products = [];
 
@@ -511,6 +533,12 @@ constructor(
             this.category =
               result.category;
 
+            this.breadcrumb =
+              this.findCategoryPath(
+                this.categoryTree,
+                Number(result.category?.id)
+              ) || [];
+
             this.products =
               Array.isArray(
                 result.products
@@ -543,6 +571,12 @@ constructor(
 
             this.category =
               result.category;
+
+            this.breadcrumb =
+              this.findCategoryPath(
+                this.categoryTree,
+                Number(result.category?.id)
+              ) || [];
 
             this.products = [];
 
@@ -610,6 +644,67 @@ constructor(
           this.findCategory(
             children,
             id
+          );
+
+        if (found) {
+
+          return found;
+        }
+      }
+    }
+
+    return null;
+  }
+
+
+  // =========================
+  // FIND CATEGORY PATH (ব্রেডক্রাম্বের জন্য)
+  // =========================
+
+  findCategoryPath(
+    categories: any[],
+    id: number,
+    path: any[] = []
+  ): any[] | null {
+
+    if (
+      !Array.isArray(categories)
+    ) {
+
+      return null;
+    }
+
+    for (
+      const cat of categories
+    ) {
+
+      const nextPath =
+        [...path, cat];
+
+      if (
+        Number(cat?.id) ===
+        Number(id)
+      ) {
+
+        return nextPath;
+      }
+
+      const children =
+        Array.isArray(
+          cat?.children
+        )
+          ? cat.children
+          : [];
+
+      if (
+        children.length > 0
+      ) {
+
+        const found =
+          this.findCategoryPath(
+            children,
+            id,
+            nextPath
           );
 
         if (found) {

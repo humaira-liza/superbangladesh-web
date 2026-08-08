@@ -53,12 +53,12 @@
   display:block;
 
   position:fixed;
-  top:90px;
+  top:100px;
   left:0;
 
   width:250px;
 
-  height:calc(100vh - 90px);
+  height:calc(100vh - 100px);
 
   overflow-y:auto;
   overflow-x:hidden;
@@ -888,8 +888,3 @@ margin:6px 0;
   }
 
 }
-
-/* NOTE: mobile .popular-card img sizing now lives in a single
-   consolidated block above — see "MOBILE" section — so it no
-   longer fights with a second, later @media(max-width:768px)
-   override that set different width/height/radius values. */

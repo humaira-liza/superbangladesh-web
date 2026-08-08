@@ -32,9 +32,41 @@
           category
         ">
 
-        <h1 class="category-title">
-          {{ categoryName(category.name) }}
-        </h1>
+        <!-- BREADCRUMB — চালডালের মতো: Food › Fruits & Vegetables › Fresh Vegetables -->
+
+        <nav
+          class="breadcrumb"
+          *ngIf="breadcrumb?.length">
+
+          <ng-container
+            *ngFor="
+              let b of breadcrumb;
+              let last = last;
+              let i = index
+            ">
+
+            <span
+              *ngIf="i > 0"
+              class="crumb-sep">
+              ›
+            </span>
+
+            <a
+              *ngIf="!last"
+              class="crumb-link"
+              (click)="openCategory(b)">
+              {{ categoryName(b.name) }}
+            </a>
+
+            <span
+              *ngIf="last"
+              class="crumb-current">
+              {{ categoryName(b.name) }}
+            </span>
+
+          </ng-container>
+
+        </nav>
 
 
         <!-- CHILD CATEGORIES -->
