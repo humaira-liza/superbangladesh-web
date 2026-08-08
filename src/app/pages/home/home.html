@@ -142,7 +142,8 @@
       *ngFor="
         let p of filtered;
         trackBy: trackByProduct
-      ">
+      "
+      (click)="openProduct(p.id)">
 
       <div class="product-image">
 

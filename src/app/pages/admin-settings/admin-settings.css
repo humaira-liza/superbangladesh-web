@@ -246,6 +246,10 @@
 
   .settings-admin-page{
     padding:0;
+
+    /* leaves room so content isn't hidden behind the fixed
+       bottom nav bar (64px tall) */
+    padding-bottom:76px;
   }
 
   .page-header h2{
@@ -254,5 +258,17 @@
 
   .panel{
     padding:16px;
+  }
+
+  /*
+    on mobile the sticky save-bar was landing at bottom:15px,
+    which sits *behind* the fixed .mobile-bottom-nav (64px tall,
+    z-index 99999) — the button was there, just hidden under the
+    nav bar. Push it up above the nav bar and raise its z-index
+    so it's clickable/visible.
+  */
+  .save-bar{
+    bottom:76px;
+    z-index:100000;
   }
 }

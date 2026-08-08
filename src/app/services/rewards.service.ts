@@ -28,7 +28,7 @@ export interface RewardsSummary {
 })
 export class RewardsService {
 
-  baseUrl = '/api/rewards';
+  baseUrl = 'https://superbangladesh-api-1.onrender.com/api/rewards';
 
   constructor(private http: HttpClient) {}
 

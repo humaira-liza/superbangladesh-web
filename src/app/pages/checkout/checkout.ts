@@ -66,6 +66,24 @@ export class Checkout implements OnInit, AfterViewInit {
 
 
   /* =========================
+     IMAGE SUPPORT
+  ========================= */
+  getImage(url: string): string {
+
+    if (!url) {
+      return 'assets/no-image.png';
+    }
+
+    // Cloudinary / full URL
+    if (url.startsWith('http')) {
+      return url;
+    }
+
+    // Old Upload Folder
+    return `${this.apiUrl}/uploads/${url}`;
+  }
+
+  /* =========================
      TRANSLATE
   ========================= */
 
@@ -238,11 +256,31 @@ export class Checkout implements OnInit, AfterViewInit {
 
         this.setLocation(lat, lng);
       },
-      () => {
+      (err) => {
 
         this.locating = false;
 
-        alert(this.t('geolocationDenied'));
+        // TIMEOUT (3) আগে হ্যান্ডল হতো না — কোনো timeout option
+        // দেওয়া ছিল না, ফলে মোবাইলে GPS slow/off থাকলে বা
+        // permission prompt silently আটকে গেলে callback-ই কখনো
+        // fire হতো না, আর "locating..." spinner চিরকাল আটকে থাকত
+        // (দেখতে মনে হতো কিছুই হচ্ছে না)।
+        if (err && err.code === err.TIMEOUT) {
+
+          alert(
+            this.t('geolocationTimeout') ||
+            this.t('geolocationDenied')
+          );
+
+        } else {
+
+          alert(this.t('geolocationDenied'));
+        }
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
       }
     );
   }

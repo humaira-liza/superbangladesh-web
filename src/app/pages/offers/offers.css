@@ -55,9 +55,18 @@
     cursor:pointer;
 }
 
-.product-card:hover{
+/*
+  touchscreen-এ প্রথম ট্যাপে শুধু hover trigger হয়ে
+  product খুলতে ডাবল-ট্যাপ লাগত — এখন শুধু mouse
+  device-এই (desktop) এই hover effect চলবে।
+*/
+@media (hover:hover) and (pointer:fine){
+
+  .product-card:hover{
     transform:none;
     box-shadow:none;
+  }
+
 }
 
 /* =========================
@@ -80,8 +89,12 @@
     object-fit:contain;
 }
 
-.product-card:hover .product-image img{
+@media (hover:hover) and (pointer:fine){
+
+  .product-card:hover .product-image img{
     transform:scale(1.04);
+  }
+
 }
 
 /* =========================

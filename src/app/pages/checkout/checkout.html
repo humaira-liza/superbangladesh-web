@@ -350,8 +350,9 @@
         <div class="product-image">
 
   <img
-    [src]="'https://superbangladesh-api-1.onrender.com/' + p.imageUrl"
+    [src]="getImage(p.imageUrl)"
     [alt]="p.name"
+    onerror="this.src='assets/no-image.png'"
   />
 
 </div>

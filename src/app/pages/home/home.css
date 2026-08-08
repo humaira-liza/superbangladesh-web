@@ -676,9 +676,18 @@ padding:16px;
   transition:.25s;
 }
 
-.product-card:hover{
-  box-shadow:0 8px 20px rgba(0,0,0,.08);
-  transform:translateY(-3px);
+/*
+  touchscreen-এ প্রথম ট্যাপে শুধু hover trigger হয়ে
+  product খুলতে ডাবল-ট্যাপ লাগত — এখন শুধু mouse
+  device-এই (desktop) এই hover effect চলবে।
+*/
+@media (hover:hover) and (pointer:fine){
+
+  .product-card:hover{
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transform:translateY(-3px);
+  }
+
 }
 
 .product-image{

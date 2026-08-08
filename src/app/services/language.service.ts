@@ -626,6 +626,11 @@ export class LanguageService {
       bn: 'আপনার লোকেশন পাওয়া যায়নি। অনুগ্রহ করে লোকেশন অ্যাক্সেস দিন অথবা ম্যাপে সিলেক্ট করুন।'
     },
 
+    geolocationTimeout: {
+      en: 'Finding your location is taking too long. Please check your GPS/network connection and try again, or select your city manually.',
+      bn: 'লোকেশন খুঁজে পেতে বেশি সময় লাগছে। GPS/নেটওয়ার্ক কানেকশন চেক করে আবার চেষ্টা করুন, অথবা শহর ম্যানুয়ালি সিলেক্ট করুন।'
+    },
+
 
     /* =========================
        ORDERS PAGE

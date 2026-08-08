@@ -945,6 +945,28 @@ return;
 
 
   // =========================
+  // OPEN PRODUCT
+  // (search-results grid had no click handler at all —
+  // clicking a card here never navigated anywhere)
+  // =========================
+
+  openProduct(
+    id: number
+  ): void {
+
+    if (!id) {
+      return;
+    }
+
+    this.router.navigate([
+      '/product',
+      id
+    ]);
+
+  }
+
+
+  // =========================
   // INCREASE QTY
   // =========================
 

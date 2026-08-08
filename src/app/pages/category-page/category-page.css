@@ -275,9 +275,20 @@
     padding:0;
 }
 
-.product-card:hover{
+/*
+  আগে এই :hover style গুলো সবসময় active ছিল, যার ফলে
+  touchscreen (মোবাইল)-এ প্রথম ট্যাপ শুধু hover state
+  trigger করত, click event না — user কে product খুলতে
+  ২ বার ট্যাপ করতে হতো। এখন শুধু mouse/pointer আছে এমন
+  ডিভাইসেই (desktop) hover effect চলবে।
+*/
+@media (hover:hover) and (pointer:fine){
+
+  .product-card:hover{
     transform:none;
     box-shadow:none;
+  }
+
 }
 /* =========================
    PRODUCT IMAGE
@@ -299,8 +310,12 @@
     object-fit:contain;
 }
 
-.product-card:hover .product-image img{
+@media (hover:hover) and (pointer:fine){
+
+  .product-card:hover .product-image img{
     transform:scale(1.04);
+  }
+
 }
 
 

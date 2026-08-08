@@ -526,13 +526,33 @@ showMobileSearch = false;
         this.selectLocation(matched || label || 'Dhaka');
       },
 
-      () => {
+      (err) => {
 
         this.locatingCurrentLocation = false;
 
-        alert(
-          this.t('geolocationDenied')
-        );
+        // TIMEOUT (3) shows a clearer message than the generic
+        // "denied" one — mobile GPS/network location can take a
+        // while or fail silently, which previously just left the
+        // button stuck on "Locating..." forever with no feedback.
+        if (err && err.code === err.TIMEOUT) {
+
+          alert(
+            this.t('geolocationTimeout') ||
+            this.t('geolocationDenied')
+          );
+
+        } else {
+
+          alert(
+            this.t('geolocationDenied')
+          );
+        }
+      },
+
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
       }
     );
   }
