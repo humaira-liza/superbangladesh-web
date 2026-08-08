@@ -96,8 +96,11 @@ constructor(
     return this.languageService.translate(key);
   }
 
-  categoryName(name: string): string {
-    return this.languageService.translateCategory(name);
+  categoryName(cat: { name?: string; nameBn?: string } | string): string {
+    if (typeof cat === 'string') {
+      return this.languageService.translateCategory(cat);
+    }
+    return this.languageService.translateCategory(cat?.name, cat?.nameBn);
   }
 
 

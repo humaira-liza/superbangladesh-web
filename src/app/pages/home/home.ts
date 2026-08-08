@@ -219,7 +219,8 @@ export class Home implements OnInit {
 
     return this.languageService
       .translateCategory(
-        category?.name
+        category?.name,
+        category?.nameBn
       );
   }
 

@@ -55,13 +55,13 @@
               *ngIf="!last"
               class="crumb-link"
               (click)="openCategory(b)">
-              {{ categoryName(b.name) }}
+              {{ categoryName(b) }}
             </a>
 
             <span
               *ngIf="last"
               class="crumb-current">
-              {{ categoryName(b.name) }}
+              {{ categoryName(b) }}
             </span>
 
           </ng-container>
@@ -104,7 +104,7 @@
             </div>
 
             <h3>
-              {{ categoryName(c.name) }}
+              {{ categoryName(c) }}
             </h3>
 
           </div>

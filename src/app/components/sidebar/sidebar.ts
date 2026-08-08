@@ -281,7 +281,8 @@ export class Sidebar
 
     return this.languageService
       .translateCategory(
-        category?.name
+        category?.name,
+        category?.nameBn
       );
   }
 
