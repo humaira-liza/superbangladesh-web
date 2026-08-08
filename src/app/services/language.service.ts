@@ -1183,6 +1183,73 @@ export class LanguageService {
        দিয়ে ব্যবহার করুন)
     ========================= */
 
+    /* ---- SITE SETTINGS (LOGO) ---- */
+
+    siteSettingsEyebrow: {
+      en: 'SITE SETTINGS',
+      bn: 'সাইট সেটিংস'
+    },
+
+    siteLogoTitle: {
+      en: 'Site Logo',
+      bn: 'সাইট লোগো'
+    },
+
+    siteLogoDescription: {
+      en: 'Change your website logo from here. The change will be visible across the whole site (including the navbar) immediately.',
+      bn: 'এখান থেকে আপনার ওয়েবসাইটের লোগো পরিবর্তন করতে পারবেন। পরিবর্তনটি সাথে সাথে পুরো সাইটে (নেভবার সহ) দেখা যাবে।'
+    },
+
+    currentLogo: {
+      en: 'Current Logo',
+      bn: 'বর্তমান লোগো'
+    },
+
+    noLogoSet: {
+      en: 'No logo has been set',
+      bn: 'কোনো লোগো সেট করা নেই'
+    },
+
+    chooseImage: {
+      en: 'Choose Image',
+      bn: 'ছবি নির্বাচন করুন'
+    },
+
+    squareImageHint: {
+      en: 'A square image looks best. PNG/JPG/WEBP — any format works.',
+      bn: 'বর্গাকার (square) ছবি সবচেয়ে ভালো দেখাবে। PNG/JPG/WEBP — যেকোনো ফরম্যাট চলবে।'
+    },
+
+    saveLogo: {
+      en: 'Save Logo',
+      bn: 'লোগো সেভ করুন'
+    },
+
+    uploading: {
+      en: 'Uploading...',
+      bn: 'আপলোড হচ্ছে...'
+    },
+
+    pleaseSelectAnImage: {
+      en: 'Please select an image',
+      bn: 'একটি ছবি নির্বাচন করুন'
+    },
+
+    logoChangedSuccessfully: {
+      en: 'Logo changed successfully',
+      bn: 'লোগো সফলভাবে পরিবর্তন হয়েছে'
+    },
+
+    logoUploadFailedTryAgain: {
+      en: 'Logo upload failed, please try again',
+      bn: 'লোগো আপলোড ব্যর্থ হয়েছে, আবার চেষ্টা করুন'
+    },
+
+    siteSettingsNav: {
+      en: 'Site Settings',
+      bn: 'সাইট সেটিংস'
+    },
+
     dashboard: {
       en: 'Dashboard',
       bn: 'ড্যাশবোর্ড'

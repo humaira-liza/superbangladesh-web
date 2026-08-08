@@ -76,7 +76,7 @@ export class AdminSettings implements OnInit {
   save(): void {
 
     if (!this.selectedFile) {
-      this.errorMessage = 'একটি ছবি নির্বাচন করুন';
+      this.errorMessage = this.t('pleaseSelectAnImage');
       return;
     }
 
@@ -93,13 +93,13 @@ export class AdminSettings implements OnInit {
           this.previewUrl = null;
           this.saving = false;
 
-          alert('লোগো সফলভাবে পরিবর্তন হয়েছে');
+          alert(this.t('logoChangedSuccessfully'));
         },
 
         error: () => {
 
           this.saving = false;
-          this.errorMessage = 'লোগো আপলোড ব্যর্থ হয়েছে, আবার চেষ্টা করুন';
+          this.errorMessage = this.t('logoUploadFailedTryAgain');
         }
       });
   }

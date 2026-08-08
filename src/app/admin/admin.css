@@ -39,10 +39,10 @@ body{
 
   position:fixed;
 
-  top:82px;
+  top:100px;
   left:0;
 
-  height:calc(100vh - 82px);
+  height:calc(100vh - 100px);
 
   padding:24px 16px;
 
@@ -144,8 +144,6 @@ body{
   min-width:0;
 
   margin-left:260px;
-
-  margin-top:82px;
 
   padding:24px;
 

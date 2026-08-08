@@ -2,13 +2,12 @@
 
   <div class="page-header">
 
-    <p class="eyebrow">SITE SETTINGS</p>
+    <p class="eyebrow">{{ t('siteSettingsEyebrow') }}</p>
 
-    <h2>সাইট লোগো</h2>
+    <h2>{{ t('siteLogoTitle') }}</h2>
 
     <p>
-      এখান থেকে আপনার ওয়েবসাইটের লোগো পরিবর্তন করতে পারবেন।
-      পরিবর্তনটি সাথে সাথে পুরো সাইটে (নেভবার সহ) দেখা যাবে।
+      {{ t('siteLogoDescription') }}
     </p>
 
   </div>
@@ -17,7 +16,7 @@
   <section class="panel">
 
     <div class="panel-heading">
-      <h3>বর্তমান লোগো</h3>
+      <h3>{{ t('currentLogo') }}</h3>
     </div>
 
     <div class="logo-preview-row">
@@ -30,7 +29,7 @@
           alt="Current Logo">
 
         <span *ngIf="!settings.logoUrl && !previewUrl">
-          কোনো লোগো সেট করা নেই
+          {{ t('noLogoSet') }}
         </span>
 
         <img
@@ -43,7 +42,7 @@
       <div class="upload-controls">
 
         <label class="file-btn">
-          ছবি নির্বাচন করুন
+          {{ t('chooseImage') }}
           <input
             type="file"
             accept="image/*"
@@ -51,7 +50,7 @@
         </label>
 
         <p class="hint">
-          বর্গাকার (square) ছবি সবচেয়ে ভালো দেখাবে। PNG/JPG/WEBP — যেকোনো ফরম্যাট চলবে।
+          {{ t('squareImageHint') }}
         </p>
 
         <p class="error" *ngIf="errorMessage">
@@ -64,7 +63,7 @@
           [disabled]="saving || !selectedFile"
           (click)="save()">
 
-          {{ saving ? 'আপলোড হচ্ছে...' : 'লোগো সেভ করুন' }}
+          {{ saving ? t('uploading') : t('saveLogo') }}
 
         </button>
 
