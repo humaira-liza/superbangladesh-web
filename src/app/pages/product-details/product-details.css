@@ -98,14 +98,14 @@
 
 .price{
     color:#00b207;
-    font-size:34px;
+    font-size:26px;
     font-weight:700;
 }
 
 .old-price{
     color:#999;
     text-decoration:line-through;
-    font-size:22px;
+    font-size:16px;
 }
 
 /* ===========================

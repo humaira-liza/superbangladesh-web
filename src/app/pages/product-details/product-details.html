@@ -42,14 +42,14 @@
     <div class="price-box">
 
       <span class="price">
-        {{ product.price | bnNumber:'৳ ' }}
+        {{ getFinalPrice(product) | bnNumber:'৳ ' }}
       </span>
 
       <span
         class="old-price"
         *ngIf="product.discount">
 
-        {{ (product.price + product.discount) | bnNumber:'৳ ' }}
+        {{ product.price | bnNumber:'৳ ' }}
 
       </span>
 

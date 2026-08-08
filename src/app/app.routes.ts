@@ -55,6 +55,12 @@ from './pages/premium';
 import { Help }
 from './pages/help';
 
+import { Offers }
+from './pages/offers/offers';
+
+import { Rewards }
+from './pages/rewards/rewards';
+
 import { Complaint }
 from './pages/complaint';
 
@@ -107,6 +113,9 @@ from './pages/admin-popular-brands/admin-popular-brands';
 
 import { AdminFooter }
 from './pages/admin-footer/admin-footer';
+
+import { AdminSettings }
+from './pages/admin-settings/admin-settings';
 
 
 // =========================
@@ -235,6 +244,16 @@ export const routes: Routes = [
   {
     path: 'help',
     component: Help
+  },
+
+  {
+    path: 'offers',
+    component: Offers
+  },
+
+  {
+    path: 'rewards',
+    component: Rewards
   },
 
   {
@@ -391,6 +410,18 @@ export const routes: Routes = [
 
         component:
           AdminFooter
+      },
+
+
+      // =========================
+      // SITE SETTINGS (LOGO)
+      // =========================
+
+      {
+        path: 'settings',
+
+        component:
+          AdminSettings
       },
 
 

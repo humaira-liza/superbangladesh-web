@@ -719,6 +719,23 @@ constructor(
 
 
   // =========================
+  // DISCOUNTED PRICE (rounded, for card display)
+  // =========================
+
+  getFinalPrice(p: any): number {
+
+    const price = Number(p?.price) || 0;
+    const discount = Number(p?.discount) || 0;
+
+    if (!discount) {
+      return price;
+    }
+
+    return Math.round(price - (price * discount / 100));
+  }
+
+
+  // =========================
   // GET CART QTY
   // =========================
 
@@ -761,7 +778,10 @@ addToCart(
     return;
   }
 
-  this.cart.add(product);
+  this.cart.add({
+    ...product,
+    price: this.getFinalPrice(product)
+  });
 
 
 }
@@ -789,7 +809,10 @@ addToCart(
 
     if (!found) {
 
-      this.cart.add(product);
+      this.cart.add({
+        ...product,
+        price: this.getFinalPrice(product)
+      });
 
       this.cdr.detectChanges();
 

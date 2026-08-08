@@ -475,7 +475,7 @@ margin-top:0;
   border:none;
   border-radius:7px;
 
-  background:#9b5de0;
+  background:#2E8B57;
 
   color:#fff;
 
@@ -495,7 +495,7 @@ margin-top:0;
 
 
 .checkout-btn:hover{
-  background:#8d4fd3;
+  background:#1F6B45;
 }
 
 
@@ -510,7 +510,7 @@ margin-top:0;
 
   border-radius:6px;
 
-  background:#7d35cc;
+  background:#14532D;
 
   text-align:center;
 
@@ -616,7 +616,7 @@ margin-top:0;
   border:none;
   background:none;
   font-size:20px;
-  color:#7c3aed;
+  color:#2E8B57;
 }
 
 .cart-title{
@@ -632,12 +632,12 @@ margin-top:0;
 .cart-title span{
   display:block;
   font-size:13px;
-  color:#0f9d58;
+  color:#1F6B45;
 }
 
 .bag-icon{
   font-size:20px;
-  color:#16a34a;
+  color:#2E8B57;
 }
 
   .cart-drawer{

@@ -1,0 +1,77 @@
+<div class="settings-admin-page">
+
+  <div class="page-header">
+
+    <p class="eyebrow">SITE SETTINGS</p>
+
+    <h2>সাইট লোগো</h2>
+
+    <p>
+      এখান থেকে আপনার ওয়েবসাইটের লোগো পরিবর্তন করতে পারবেন।
+      পরিবর্তনটি সাথে সাথে পুরো সাইটে (নেভবার সহ) দেখা যাবে।
+    </p>
+
+  </div>
+
+
+  <section class="panel">
+
+    <div class="panel-heading">
+      <h3>বর্তমান লোগো</h3>
+    </div>
+
+    <div class="logo-preview-row">
+
+      <div class="logo-box">
+
+        <img
+          *ngIf="settings.logoUrl && !previewUrl"
+          [src]="settings.logoUrl"
+          alt="Current Logo">
+
+        <span *ngIf="!settings.logoUrl && !previewUrl">
+          কোনো লোগো সেট করা নেই
+        </span>
+
+        <img
+          *ngIf="previewUrl"
+          [src]="previewUrl"
+          alt="New Logo Preview">
+
+      </div>
+
+      <div class="upload-controls">
+
+        <label class="file-btn">
+          ছবি নির্বাচন করুন
+          <input
+            type="file"
+            accept="image/*"
+            (change)="onFileChange($event)">
+        </label>
+
+        <p class="hint">
+          বর্গাকার (square) ছবি সবচেয়ে ভালো দেখাবে। PNG/JPG/WEBP — যেকোনো ফরম্যাট চলবে।
+        </p>
+
+        <p class="error" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </p>
+
+        <button
+          type="button"
+          class="save-btn"
+          [disabled]="saving || !selectedFile"
+          (click)="save()">
+
+          {{ saving ? 'আপলোড হচ্ছে...' : 'লোগো সেভ করুন' }}
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

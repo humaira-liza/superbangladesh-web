@@ -892,6 +892,23 @@ return;
 
 
   // =========================
+  // DISCOUNTED PRICE (rounded, for card display)
+  // =========================
+
+  getFinalPrice(p: any): number {
+
+    const price = Number(p?.price) || 0;
+    const discount = Number(p?.discount) || 0;
+
+    if (!discount) {
+      return price;
+    }
+
+    return Math.round(price - (price * discount / 100));
+  }
+
+
+  // =========================
   // ADD TO CART
   // =========================
 
@@ -915,9 +932,10 @@ return;
     }
 
 
-    this.cart.add(
-      product
-    );
+    this.cart.add({
+      ...product,
+      price: this.getFinalPrice(product)
+    });
 
 
     this.cdr.detectChanges();
@@ -939,9 +957,10 @@ return;
     event?.stopPropagation();
 
 
-    this.cart.increaseByProduct(
-      product
-    );
+    this.cart.increaseByProduct({
+      ...product,
+      price: this.getFinalPrice(product)
+    });
 
 
     this.cdr.detectChanges();

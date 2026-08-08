@@ -178,14 +178,14 @@
         <div class="price-line">
 
           <span class="price">
-            {{ p.price | bnNumber:'৳' }}
+            {{ getFinalPrice(p) | bnNumber:'৳' }}
           </span>
 
           <span
             class="old-price"
-            *ngIf="p.price">
+            *ngIf="p.discount">
 
-            {{ (p.price + 20) | bnNumber:'৳' }}
+            {{ p.price | bnNumber:'৳' }}
 
           </span>
 

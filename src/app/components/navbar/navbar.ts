@@ -45,6 +45,10 @@ import {
   MapLoaderService
 } from '../../services/maploader.service';
 
+import {
+  SettingsService
+} from '../../services/settings.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -113,6 +117,15 @@ showMobileSearch = false;
 
 
   /* =========================
+     SITE LOGO
+     (Admin panel > Site Settings থেকে
+     লোগো পরিবর্তন করা যায়)
+  ========================= */
+
+  logoUrl = '/images/love-logo.png';
+
+
+  /* =========================
      MOBILE CATEGORY SIDEBAR
   ========================= */
 
@@ -137,6 +150,7 @@ showMobileSearch = false;
     public languageService: LanguageService,
     private mapLoader: MapLoaderService,
     private http: HttpClient,
+    private settingsService: SettingsService,
     @Inject(PLATFORM_ID) platformId: Object
   ) {
 
@@ -160,6 +174,22 @@ showMobileSearch = false;
 
 
   ngOnInit(): void {
+
+    // Admin panel > Site Settings থেকে বসানো লোগো লোড হয়
+    // (না পেলে ডিফল্ট love-logo.png-ই থেকে যাবে)
+    this.settingsService
+      .getSettings()
+      .subscribe({
+        next: (res) => {
+
+          if (res?.logoUrl) {
+            this.logoUrl = res.logoUrl;
+          }
+        },
+        error: () => {
+          // API না পেলেও ডিফল্ট লোগো দিয়ে navbar কাজ করবে
+        }
+      });
 
     // Admin panel এ Footer Management থেকে বসানো
     // Messenger/WhatsApp/Instagram লিংক এখানে লোড হয়

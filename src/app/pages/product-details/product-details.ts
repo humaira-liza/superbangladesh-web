@@ -101,9 +101,28 @@ export class ProductDetails implements OnInit {
 
   }
 
+  // =========================
+  // DISCOUNTED PRICE (rounded, for cart/checkout)
+  // =========================
+
+  getFinalPrice(p: any): number {
+
+    const price = Number(p?.price) || 0;
+    const discount = Number(p?.discount) || 0;
+
+    if (!discount) {
+      return price;
+    }
+
+    return Math.round(price - (price * discount / 100));
+  }
+
   increaseQty(): void {
 
-    this.cart.increaseByProduct(this.product);
+    this.cart.increaseByProduct({
+      ...this.product,
+      price: this.getFinalPrice(this.product)
+    });
 
     this.quantity =
       this.cart.getQty(this.product.id);
@@ -121,7 +140,10 @@ export class ProductDetails implements OnInit {
 
   addToCart(): void {
 
-    this.cart.add(this.product);
+    this.cart.add({
+      ...this.product,
+      price: this.getFinalPrice(this.product)
+    });
 
     this.quantity =
       this.cart.getQty(this.product.id);
@@ -130,7 +152,10 @@ export class ProductDetails implements OnInit {
 
   buyNow(): void {
 
-    this.cart.add(this.product);
+    this.cart.add({
+      ...this.product,
+      price: this.getFinalPrice(this.product)
+    });
 
     this.router.navigate(['/cart']);
 

@@ -1,0 +1,31 @@
+<div class="rewards-page">
+
+  <div class="rewards-card">
+
+    <div class="icon">⭐</div>
+
+    <h1 *ngIf="languageService.language() === 'bn'">
+      রিওয়ার্ডস শীঘ্রই আসছে
+    </h1>
+    <h1 *ngIf="languageService.language() !== 'bn'">
+      Rewards Are Coming Soon
+    </h1>
+
+    <p *ngIf="languageService.language() === 'bn'">
+      আমরা একটি পয়েন্ট ও রিওয়ার্ড সিস্টেম নিয়ে কাজ করছি, যেখানে প্রতিটি অর্ডারে
+      আপনি পয়েন্ট জমাবেন এবং পরবর্তী কেনাকাটায় ছাড় পাবেন। এই ফিচারটি এখনো
+      প্রস্তুত হয়নি — শীঘ্রই যুক্ত হবে।
+    </p>
+    <p *ngIf="languageService.language() !== 'bn'">
+      We're building a points &amp; rewards program — earn points on every
+      order and redeem them for discounts on future purchases. This feature
+      isn't live yet, but it's on the way.
+    </p>
+
+    <a routerLink="/offers" class="cta-btn">
+      {{ languageService.language() === 'bn' ? 'এই মুহূর্তে অফার দেখুন' : 'See current offers instead' }}
+    </a>
+
+  </div>
+
+</div>

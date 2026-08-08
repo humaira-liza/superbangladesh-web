@@ -424,13 +424,13 @@
 }
 
 .price{
-    font-size:30px;
+    font-size:18px;
     font-weight:700;
     color:#222;
 }
 
 .old-price{
-    font-size:14px;
+    font-size:13px;
     color:#777;
     text-decoration:line-through;
 }
@@ -493,6 +493,30 @@
   border-radius: 999px;
 
   background: #ef4444;
+
+  color: #ffffff;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  z-index: 8;
+
+  pointer-events: none;
+}
+
+
+.discount-badge {
+  position: absolute;
+
+  top: 3px;
+  right: 2px;
+
+  padding: 4px 7px;
+
+  border-radius: 999px;
+
+  background: #2E8B57;
 
   color: #ffffff;
 

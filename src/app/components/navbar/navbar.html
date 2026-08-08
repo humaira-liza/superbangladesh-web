@@ -20,7 +20,7 @@
     (click)="goHome()"
   >
     <img
-      src="/images/love-logo.png"
+      [src]="logoUrl"
       class="brand-logo"
       alt="Super Bangladesh"
     >
@@ -246,7 +246,7 @@
     >
 
       <img
-        src="/images/love-logo.png"
+        [src]="logoUrl"
         alt="Super Bangladesh Logo"
         class="brand-logo"
       />
@@ -571,6 +571,9 @@
     [title]="t('chat')"
   >
     <i class="fa-solid fa-comments"></i>
+    <span class="chat-btn-badge">
+      <i class="fa-solid fa-question"></i>
+    </span>
   </button>
 
 </div>

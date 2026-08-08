@@ -1,0 +1,126 @@
+<div class="offers-page">
+
+  <div class="offers-header">
+
+    <h1>
+      🎁 {{ languageService.language() === 'bn' ? 'সকল অফার' : 'All Offers' }}
+    </h1>
+
+    <p>
+      {{
+        languageService.language() === 'bn'
+          ? 'ছাড়ে থাকা পণ্যগুলো এখানে দেখুন'
+          : 'Discounted products, all in one place'
+      }}
+    </p>
+
+  </div>
+
+
+  <!-- LOADING -->
+
+  <div class="state-msg" *ngIf="loading">
+    {{ t('loading') || '...' }}
+  </div>
+
+
+  <!-- ERROR -->
+
+  <div class="state-msg" *ngIf="!loading && errorMessage">
+    {{ errorMessage }}
+  </div>
+
+
+  <!-- EMPTY -->
+
+  <div
+    class="state-msg"
+    *ngIf="!loading && !errorMessage && products.length === 0">
+
+    {{
+      languageService.language() === 'bn'
+        ? 'এই মুহূর্তে কোনো অফার নেই। শীঘ্রই আবার দেখুন!'
+        : 'No offers right now. Please check back soon!'
+    }}
+
+  </div>
+
+
+  <!-- PRODUCTS -->
+
+  <div
+    class="product-grid"
+    *ngIf="!loading && !errorMessage && products.length > 0">
+
+    <article
+      class="product-card"
+      [class.out-product]="p.stock <= 0"
+      *ngFor="let p of products; trackBy: trackByProduct"
+      (click)="openProduct(p.id)">
+
+      <div class="product-image">
+
+        <div class="out-badge" *ngIf="p.stock <= 0">
+          {{ t('outOfStock') }}
+        </div>
+
+        <div class="discount-badge" *ngIf="p.discount">
+          -{{ p.discount | bnNumber }}%
+        </div>
+
+        <img
+          loading="lazy"
+          decoding="async"
+          [src]="getProductImage(p.imageUrl || p.image_url)"
+          (error)="onImgError($event)"
+        />
+
+        <button
+          type="button"
+          class="add-btn"
+          *ngIf="p.stock > 0"
+          (click)="addToCart(p,$event)">
+          +
+        </button>
+
+      </div>
+
+      <div class="product-info">
+
+        <div class="price-line">
+
+          <span class="price">
+            {{ getFinalPrice(p) | bnNumber:'৳' }}
+          </span>
+
+          <span class="old-price" *ngIf="p.discount">
+            {{ p.price | bnNumber:'৳' }}
+          </span>
+
+        </div>
+
+        <h3>{{ languageService.productName(p) }}</h3>
+
+        <div class="meta-line">
+
+          <span class="unit" *ngIf="p.quantity && p.unit">
+            {{ p.quantity | bnNumber }} {{ languageService.translateUnit(p.unit) }}
+          </span>
+
+          <span class="unit" *ngIf="!p.quantity && p.unit">
+            {{ languageService.translateUnit(p.unit) }}
+          </span>
+
+          <span class="delivery">
+            ◷ {{ t('deliveryOneHour') }}
+          </span>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</div>
