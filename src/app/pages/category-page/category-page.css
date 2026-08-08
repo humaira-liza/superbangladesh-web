@@ -671,6 +671,30 @@
     width:160px;
   }
 
+  /* keep child-grid (1–2 subcategory) pages in step with this
+     breakpoint too, instead of falling back to the 240px desktop size */
+  .child-grid{
+    grid-template-columns:repeat(2,180px);
+  }
+
+  .child-grid .category-card{
+    width:180px;
+  }
+
+  .child-grid .image-box{
+    width:170px;
+    height:160px;
+  }
+
+  .child-grid .image-box img{
+    width:155px;
+    height:155px;
+  }
+
+  .child-grid .category-card h3{
+    width:180px;
+  }
+
 
 .product-grid{
     grid-template-columns:repeat(5,minmax(0,1fr));
@@ -734,6 +758,29 @@
 
     .child-grid{
         grid-template-columns:repeat(2,1fr);
+    }
+
+    /* undo the desktop child-grid enlargement (240px etc.) so
+       mobile stays a proper responsive 2-column grid */
+    .child-grid .category-card{
+        width:100%;
+    }
+
+    .child-grid .image-box{
+        width:100%;
+        height:150px;
+    }
+
+    .child-grid .image-box img{
+        width:140px;
+        height:140px;
+    }
+
+    .child-grid .category-card h3{
+        width:100%;
+        margin-top:8px;
+        font-size:14px;
+        font-weight:500;
     }
 
    .category-card{
