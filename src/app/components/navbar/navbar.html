@@ -23,6 +23,7 @@
       [src]="logoUrl"
       class="brand-logo"
       alt="Super Bangladesh"
+      (error)="onLogoError()"
     >
 
     <span>
@@ -249,6 +250,7 @@
         [src]="logoUrl"
         alt="Super Bangladesh Logo"
         class="brand-logo"
+        (error)="onLogoError()"
       />
 
 
@@ -572,6 +574,124 @@
   >
     <i class="fa-solid fa-comment-dots"></i>
   </button>
+
+</div>
+
+<!-- =========================
+     LOCATION OFF -> HELP MODAL
+     (mobile + desktop উভয় জায়গা থেকেই
+     "Use my current location"-এ location
+     off থাকলে এই একই modal আসবে)
+========================= -->
+
+<div
+  class="location-help-overlay"
+  *ngIf="showLocationHelp"
+  (click)="closeLocationHelp()"
+>
+</div>
+
+<div
+  class="location-help-modal"
+  *ngIf="showLocationHelp"
+  (click)="$event.stopPropagation()"
+>
+
+  <button
+    type="button"
+    class="location-help-close"
+    (click)="closeLocationHelp()"
+  >
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+
+  <div class="location-help-icon">
+    <i class="fa-solid fa-location-crosshairs"></i>
+  </div>
+
+  <h3 class="location-help-title">
+    {{ t('geolocationOffTitle') }}
+  </h3>
+
+  <p
+    class="location-help-desc"
+    *ngIf="locationHelpReason === 'denied'"
+  >
+    {{ t('geolocationDenied') }}
+  </p>
+
+  <p
+    class="location-help-desc"
+    *ngIf="locationHelpReason === 'unavailable'"
+  >
+    {{ t('geolocationUnavailable') }}
+  </p>
+
+  <p
+    class="location-help-desc"
+    *ngIf="locationHelpReason === 'timeout'"
+  >
+    {{ t('geolocationTimeout') }}
+  </p>
+
+  <p
+    class="location-help-desc"
+    *ngIf="locationHelpReason === 'unsupported'"
+  >
+    {{ t('geolocationNotSupported') }}
+  </p>
+
+  <ol
+    class="location-help-steps"
+    *ngIf="locationHelpReason !== 'unsupported'"
+  >
+    <ng-container *ngIf="isAndroid">
+      <li>{{ t('geolocationStepsAndroid1') }}</li>
+      <li>{{ t('geolocationStepsAndroid2') }}</li>
+    </ng-container>
+
+    <ng-container *ngIf="isIOS">
+      <li>{{ t('geolocationStepsIOS1') }}</li>
+      <li>{{ t('geolocationStepsIOS2') }}</li>
+      <li>{{ t('geolocationStepsIOS3') }}</li>
+    </ng-container>
+
+    <ng-container *ngIf="!isAndroid && !isIOS">
+      <li>{{ t('geolocationStepsDesktop1') }}</li>
+      <li>{{ t('geolocationStepsDesktop2') }}</li>
+    </ng-container>
+  </ol>
+
+  <div class="location-help-actions">
+
+    <button
+      type="button"
+      class="location-help-btn primary"
+      *ngIf="isAndroid"
+      (click)="openDeviceLocationSettings()"
+    >
+      <i class="fa-solid fa-gear"></i>
+      {{ t('geolocationOpenSettings') }}
+    </button>
+
+    <button
+      type="button"
+      class="location-help-btn primary"
+      (click)="retryLocation()"
+    >
+      <i class="fa-solid fa-rotate-right"></i>
+      {{ t('geolocationTryAgain') }}
+    </button>
+
+    <button
+      type="button"
+      class="location-help-btn"
+      (click)="goToCityListFromHelp()"
+    >
+      {{ t('changeCity') }}
+    </button>
+
+  </div>
 
 </div>
 

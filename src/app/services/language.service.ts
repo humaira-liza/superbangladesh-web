@@ -631,6 +631,61 @@ export class LanguageService {
       bn: 'লোকেশন খুঁজে পেতে বেশি সময় লাগছে। GPS/নেটওয়ার্ক কানেকশন চেক করে আবার চেষ্টা করুন, অথবা শহর ম্যানুয়ালি সিলেক্ট করুন।'
     },
 
+    geolocationUnavailable: {
+      en: 'We could not detect your location right now. Your device\'s location/GPS might be turned off.',
+      bn: 'এই মুহূর্তে আপনার লোকেশন শনাক্ত করা যায়নি। আপনার ডিভাইসের লোকেশন/জিপিএস বন্ধ থাকতে পারে।'
+    },
+
+    geolocationOffTitle: {
+      en: 'Location is turned off',
+      bn: 'লোকেশন বন্ধ আছে'
+    },
+
+    geolocationOpenSettings: {
+      en: 'Open Location Settings',
+      bn: 'লোকেশন সেটিংস খুলুন'
+    },
+
+    geolocationTryAgain: {
+      en: 'Try Again',
+      bn: 'আবার চেষ্টা করুন'
+    },
+
+    geolocationStepsAndroid1: {
+      en: 'Tap "Open Location Settings" below, or go to Settings > Location and turn it on.',
+      bn: 'নিচের "লোকেশন সেটিংস খুলুন" বাটনে চাপুন, অথবা Settings > Location-এ গিয়ে অন করুন।'
+    },
+
+    geolocationStepsAndroid2: {
+      en: 'Then come back to this page and tap "Try Again".',
+      bn: 'তারপর এই পেজে ফিরে এসে "আবার চেষ্টা করুন" চাপুন।'
+    },
+
+    geolocationStepsIOS1: {
+      en: 'Open iPhone Settings > Privacy & Security > Location Services and turn it on.',
+      bn: 'আইফোনের Settings > Privacy & Security > Location Services-এ গিয়ে অন করুন।'
+    },
+
+    geolocationStepsIOS2: {
+      en: 'Scroll down, find your browser (Safari/Chrome) and set it to "While Using the App".',
+      bn: 'নিচে স্ক্রল করে আপনার ব্রাউজার (Safari/Chrome) খুঁজে বের করে "While Using the App" সিলেক্ট করুন।'
+    },
+
+    geolocationStepsIOS3: {
+      en: 'Then come back to this page and tap "Try Again".',
+      bn: 'তারপর এই পেজে ফিরে এসে "আবার চেষ্টা করুন" চাপুন।'
+    },
+
+    geolocationStepsDesktop1: {
+      en: 'Click the location/lock icon at the left of your browser\'s address bar.',
+      bn: 'আপনার ব্রাউজারের ঠিকানা বারের বাম পাশের লোকেশন/লক আইকনে ক্লিক করুন।'
+    },
+
+    geolocationStepsDesktop2: {
+      en: 'Set "Location" to Allow, then click "Try Again" below.',
+      bn: '"Location" অপশনটি Allow করে দিন, তারপর নিচের "আবার চেষ্টা করুন" চাপুন।'
+    },
+
 
     /* =========================
        ORDERS PAGE

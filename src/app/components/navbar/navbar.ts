@@ -97,6 +97,14 @@ showMobileSearch = false;
 
   locatingCurrentLocation = false;
 
+  // "Location is off, help me turn it on" modal
+  // (mobile + desktop উভয় জায়গা থেকেই এই একই
+  // modal ট্রিগার হয় — useCurrentLocationNavbar() থেকে)
+  showLocationHelp = false;
+
+  locationHelpReason:
+    'denied' | 'unavailable' | 'timeout' | 'unsupported' = 'denied';
+
 
   /* =========================
      CHAT
@@ -121,9 +129,21 @@ showMobileSearch = false;
      SITE LOGO
      (Admin panel > Site Settings থেকে
      লোগো পরিবর্তন করা যায়)
+
+     ⚠️ LOGO FIX: the old default pointed to
+     '/images/love-logo.png', a file that never
+     existed in /public — so on every fresh load,
+     before the admin-panel logo finished loading
+     from the API, the browser showed its broken-image
+     icon. favicon.ico DOES exist in /public, so it's
+     used as the safe placeholder while the real logo
+     loads. onLogoError() below also falls back to it
+     if the admin-panel logoUrl itself ever 404s.
   ========================= */
 
-  logoUrl = '/images/love-logo.png';
+  readonly fallbackLogoUrl = '/favicon.ico';
+
+  logoUrl = this.fallbackLogoUrl;
 
 
   /* =========================
@@ -178,7 +198,15 @@ showMobileSearch = false;
   ngOnInit(): void {
 
     // Admin panel > Site Settings থেকে বসানো লোগো লোড হয়
-    // (না পেলে ডিফল্ট love-logo.png-ই থেকে যাবে)
+    // (না পেলে ডিফল্ট favicon-ই থেকে যাবে)
+    //
+    // ⚠️ ZONELESS FIX: এই অ্যাপে zone.js নেই (Angular zoneless),
+    // তাই HttpClient response আসার পরে plain field (this.logoUrl)
+    // বদলালেও Angular নিজে থেকে re-render করে না — যতক্ষণ না কোনো
+    // click-এর মতো Angular-tracked event CD চালায়। এই জন্যই আগে
+    // লোগো প্রথমে ভাঙা দেখাতো, আর লোগোতে ক্লিক করলে (যেটা একটা
+    // Angular click event, তাই CD চলে) ঠিক হয়ে যেত। markForCheck()
+    // এখন response আসামাত্রই re-render বাধ্য করে।
     this.settingsService
       .getSettings()
       .subscribe({
@@ -187,6 +215,8 @@ showMobileSearch = false;
           if (res?.logoUrl) {
             this.logoUrl = res.logoUrl;
           }
+
+          this.cdr.markForCheck();
         },
         error: () => {
           // API না পেলেও ডিফল্ট লোগো দিয়ে navbar কাজ করবে
@@ -219,11 +249,29 @@ showMobileSearch = false;
           if (res.instagramUrl) {
             this.chatContact.instagramUrl = res.instagramUrl;
           }
+
+          this.cdr.markForCheck();
         },
         error: () => {
           // API না পেলেও আগের ডিফল্ট নাম্বার/লিংক দিয়ে চ্যাট বাটন কাজ করবে
         }
       });
+  }
+
+
+  /* =========================
+     LOGO IMAGE FAILS TO LOAD
+     (admin panel-এর logoUrl নিজেই যদি ভাঙা/৪০৪ হয়,
+     তাহলে favicon fallback-এ চলে যাবে — চিরস্থায়ী
+     broken-image icon আর দেখাবে না)
+  ========================= */
+
+  onLogoError(): void {
+
+    if (this.logoUrl !== this.fallbackLogoUrl) {
+      this.logoUrl = this.fallbackLogoUrl;
+      this.cdr.markForCheck();
+    }
   }
 
 
@@ -492,12 +540,9 @@ showMobileSearch = false;
 
   useCurrentLocationNavbar(): void {
 
-    if (!navigator.geolocation) {
+    if (!this.isBrowser || !navigator.geolocation) {
 
-      alert(
-        this.t('geolocationNotSupported')
-      );
-
+      this.openLocationHelp('unsupported');
       return;
     }
 
@@ -539,22 +584,30 @@ showMobileSearch = false;
 
         this.locatingCurrentLocation = false;
 
-        // TIMEOUT (3) shows a clearer message than the generic
-        // "denied" one — mobile GPS/network location can take a
-        // while or fail silently, which previously just left the
-        // button stuck on "Locating..." forever with no feedback.
-        if (err && err.code === err.TIMEOUT) {
+        // ⚠️ LOCATION-OFF FIX: previously this just showed a plain
+        // alert() with no way to actually fix the problem, so once
+        // a user denied the permission once, the button looked
+        // "broken" forever (the browser won't re-prompt). Now we
+        // open an in-app help panel — same on mobile and desktop —
+        // that explains *why* it failed and exactly where to turn
+        // location back on for their device/browser, with a
+        // "Try Again" button and (on Android) a real deep-link
+        // into the system Location settings.
+        if (err && err.code === err.PERMISSION_DENIED) {
 
-          alert(
-            this.t('geolocationTimeout') ||
-            this.t('geolocationDenied')
-          );
+          this.openLocationHelp('denied');
+
+        } else if (err && err.code === err.POSITION_UNAVAILABLE) {
+
+          this.openLocationHelp('unavailable');
+
+        } else if (err && err.code === err.TIMEOUT) {
+
+          this.openLocationHelp('timeout');
 
         } else {
 
-          alert(
-            this.t('geolocationDenied')
-          );
+          this.openLocationHelp('denied');
         }
 
         // ⚠️ ZONELESS FIX: same as above — geolocation error
@@ -568,6 +621,88 @@ showMobileSearch = false;
         maximumAge: 0
       }
     );
+  }
+
+
+  /* =========================
+     LOCATION OFF -> HELP PANEL
+     (মোবাইল/ডেস্কটপ উভয় জায়গা থেকেই
+     useCurrentLocationNavbar() এই একই
+     মেথড কল করে, তাই ফিক্স একবারেই
+     দুই জায়গায় কাজ করবে)
+  ========================= */
+
+  openLocationHelp(
+    reason: 'denied' | 'unavailable' | 'timeout' | 'unsupported'
+  ): void {
+
+    this.locationHelpReason = reason;
+    this.showLocationHelp = true;
+    this.showLocationMenu = false;
+
+    this.cdr.markForCheck();
+  }
+
+
+  closeLocationHelp(): void {
+
+    this.showLocationHelp = false;
+  }
+
+
+  retryLocation(): void {
+
+    this.showLocationHelp = false;
+    this.useCurrentLocationNavbar();
+  }
+
+
+  goToCityListFromHelp(): void {
+
+    this.showLocationHelp = false;
+    this.locationMenuStep = 'cities';
+    this.showLocationMenu = true;
+  }
+
+
+  get isAndroid(): boolean {
+
+    return (
+      this.isBrowser &&
+      /android/i.test(navigator.userAgent)
+    );
+  }
+
+
+  get isIOS(): boolean {
+
+    return (
+      this.isBrowser &&
+      /iphone|ipad|ipod/i.test(navigator.userAgent)
+    );
+  }
+
+
+  // Android Chrome একটি বিশেষ intent:// URI মেনে চলে যা সরাসরি
+  // সিস্টেমের Location সেটিংস স্ক্রিন খুলে দিতে পারে — এটা আসলেই
+  // কাজ করে। কিন্তু iOS Safari এবং ডেস্কটপ ব্রাউজারে security
+  // কারণে ওয়েবপেজ থেকে সরাসরি browser/OS-এর privacy settings খোলা
+  // সম্ভব না (কোনো ওয়েবসাইটই এটা পারে না) — তাই ওই ক্ষেত্রে
+  // step-by-step নির্দেশনাই একমাত্র উপায়, যা modal-এ দেখানো হয়।
+  openDeviceLocationSettings(): void {
+
+    if (!this.isBrowser || !this.isAndroid) {
+      return;
+    }
+
+    try {
+
+      window.location.href =
+        'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end';
+
+    } catch {
+      // Deep link ব্যর্থ হলেও modal-এর ধাপগুলো তো আছেই
+    }
   }
 
 

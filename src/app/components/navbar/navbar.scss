@@ -1577,3 +1577,146 @@ gap:10px;
 
     padding:16px;
 }
+
+/* =========================
+   LOCATION OFF -> HELP MODAL
+   (mobile + desktop উভয় জায়গাতেই একই CSS কাজ করে,
+   কারণ এটা কোনো media-query ব্লকের ভেতরে নেই)
+========================= */
+
+.location-help-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(10,30,20,.45);
+  z-index:20000;
+}
+
+.location-help-modal{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+
+  width:min(92vw,380px);
+  max-height:86vh;
+  overflow-y:auto;
+
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 12px 40px rgba(0,0,0,.25);
+
+  padding:22px 20px 20px;
+  z-index:20001;
+
+  text-align:center;
+}
+
+.location-help-close{
+  position:absolute;
+  top:10px;
+  right:10px;
+
+  width:30px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:none;
+  border-radius:50%;
+  background:#F2F5F3;
+  color:#175E3D;
+
+  cursor:pointer;
+}
+
+.location-help-close:hover{
+  background:#E1EFE6;
+}
+
+.location-help-icon{
+  width:56px;
+  height:56px;
+
+  margin:4px auto 12px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+  background:#EAF7EE;
+  color:#1F6B45;
+
+  font-size:22px;
+}
+
+.location-help-title{
+  margin:0 0 8px;
+  font-size:17px;
+  font-weight:700;
+  color:#12331F;
+}
+
+.location-help-desc{
+  margin:0 0 14px;
+  font-size:13.5px;
+  line-height:1.5;
+  color:#4B5A52;
+}
+
+.location-help-steps{
+  text-align:left;
+  margin:0 0 16px;
+  padding-left:20px;
+
+  font-size:13px;
+  line-height:1.6;
+  color:#354339;
+}
+
+.location-help-steps li{
+  margin-bottom:6px;
+}
+
+.location-help-actions{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.location-help-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+
+  width:100%;
+  padding:11px 14px;
+
+  border-radius:10px;
+  border:1px solid #D8E6DD;
+
+  background:#fff;
+  color:#175E3D;
+
+  font-size:14px;
+  font-weight:600;
+
+  cursor:pointer;
+}
+
+.location-help-btn:hover{
+  background:#F2F5F3;
+}
+
+.location-help-btn.primary{
+  background:#1F6B45;
+  border-color:#1F6B45;
+  color:#fff;
+}
+
+.location-help-btn.primary:hover{
+  background:#175E3D;
+}
