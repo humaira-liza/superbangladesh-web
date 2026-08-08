@@ -1,5 +1,6 @@
 
 import {
+  ChangeDetectorRef,
   Component,
   OnInit,
   AfterViewInit,
@@ -61,7 +62,8 @@ export class Checkout implements OnInit, AfterViewInit {
     private router: Router,
     private http: HttpClient,
     public languageService: LanguageService,
-    private mapLoader: MapLoaderService
+    private mapLoader: MapLoaderService,
+    private cdr: ChangeDetectorRef
   ) {}
 
 
@@ -196,6 +198,12 @@ export class Checkout implements OnInit, AfterViewInit {
         this.address = label;
       }
     }
+
+    // ⚠️ ZONELESS FIX: reverseGeocode() uses raw fetch(), which
+    // (like navigator.geolocation) runs outside Angular's tracked
+    // contexts in this zoneless app — without this the map hint /
+    // address never visibly updated even after the data arrived.
+    this.cdr.markForCheck();
   }
 
 
@@ -207,6 +215,9 @@ export class Checkout implements OnInit, AfterViewInit {
 
     this.searchResults =
       await this.mapLoader.search(this.searchQuery);
+
+    // ⚠️ ZONELESS FIX: same reason as setLocation() above.
+    this.cdr.markForCheck();
   }
 
   selectSearchResult(
@@ -255,10 +266,16 @@ export class Checkout implements OnInit, AfterViewInit {
         }
 
         this.setLocation(lat, lng);
+
+        // ⚠️ ZONELESS FIX: navigator.geolocation callback runs
+        // outside Angular's tracked contexts — without this the
+        // "Locating..." button stayed stuck even after finishing.
+        this.cdr.markForCheck();
       },
       (err) => {
 
         this.locating = false;
+        this.cdr.markForCheck();
 
         // TIMEOUT (3) আগে হ্যান্ডল হতো না — কোনো timeout option
         // দেওয়া ছিল না, ফলে মোবাইলে GPS slow/off থাকলে বা

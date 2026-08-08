@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   HostListener,
   Inject,
@@ -151,6 +152,7 @@ showMobileSearch = false;
     private mapLoader: MapLoaderService,
     private http: HttpClient,
     private settingsService: SettingsService,
+    private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) platformId: Object
   ) {
 
@@ -524,6 +526,13 @@ showMobileSearch = false;
         );
 
         this.selectLocation(matched || label || 'Dhaka');
+
+        // ⚠️ ZONELESS FIX: navigator.geolocation callbacks and raw
+        // fetch() (inside reverseGeocode) run outside Angular's
+        // tracked contexts, so the app never knows state changed.
+        // Without this, the UI stayed stuck on "Finding your
+        // location..." forever even though the work had finished.
+        this.cdr.markForCheck();
       },
 
       (err) => {
@@ -547,6 +556,10 @@ showMobileSearch = false;
             this.t('geolocationDenied')
           );
         }
+
+        // ⚠️ ZONELESS FIX: same as above — geolocation error
+        // callback is untracked by Angular, so force a UI update.
+        this.cdr.markForCheck();
       },
 
       {
