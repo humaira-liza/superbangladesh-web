@@ -130,18 +130,19 @@ showMobileSearch = false;
      (Admin panel > Site Settings থেকে
      লোগো পরিবর্তন করা যায়)
 
-     ⚠️ LOGO FIX: the old default pointed to
-     '/images/love-logo.png', a file that never
-     existed in /public — so on every fresh load,
-     before the admin-panel logo finished loading
-     from the API, the browser showed its broken-image
-     icon. favicon.ico DOES exist in /public, so it's
-     used as the safe placeholder while the real logo
-     loads. onLogoError() below also falls back to it
-     if the admin-panel logoUrl itself ever 404s.
+     ⚠️ LOGO FIX v2: প্রথমে fallback হিসেবে favicon.ico
+     ব্যবহার করা হয়েছিল, কিন্তু সেটা আসলে Angular CLI-র
+     ডিফল্ট গোলাপি "A" আইকন — তাই reload করলে ১ সেকেন্डের
+     জন্য ভুল ব্র্যান্ডের আইকন ফ্ল্যাশ করতো, তারপর আসল
+     লোগো লোড হয়ে ঠিক হয়ে যেত। এখন fallback হলো সম্পূর্ণ
+     transparent ১x১ pixel — তাই লোড হওয়ার আগ পর্যন্ত কোনো
+     ভুল আইকনই দেখাবে না, শুধু পাশের "Super Bangladesh"
+     লেখাটা দেখা যাবে (brand-logo-র width/height ফিক্সড
+     থাকায় কোনো layout jump ও হবে না)।
   ========================= */
 
-  readonly fallbackLogoUrl = '/favicon.ico';
+  readonly fallbackLogoUrl =
+    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ycQAOw==';
 
   logoUrl = this.fallbackLogoUrl;
 
