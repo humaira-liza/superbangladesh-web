@@ -96,7 +96,7 @@
 }
 
 .crumb-link{
-    font-size:22px;
+    font-size:18px;
     font-weight:700;
     color:#9ca3af;
 
@@ -109,7 +109,7 @@
 }
 
 .crumb-current{
-    font-size:22px;
+    font-size:18px;
     font-weight:700;
     color:#1f2937;
 }
@@ -169,17 +169,15 @@
 
 .category-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill,170px);
+    grid-template-columns:repeat(auto-fill,185px);
     justify-content:flex-start;
-    column-gap:28px;
-    row-gap:30px;
+    column-gap:36px;
+    row-gap:34px;
 }
 
 .child-grid{
-    grid-template-columns:repeat(2,220px);
     justify-content:flex-start;
-    column-gap:60px;
-    row-gap:32px;
+    row-gap:28px;
 }
 
 /* =========================
@@ -187,7 +185,7 @@
 ========================= */
 
 .category-card{
-    width:170px;
+    width:185px;
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -199,8 +197,8 @@
 }
 
 .image-box{
-    width:165px;
-    height:165px;
+    width:180px;
+    height:180px;
 
     display:flex;
     align-items:center;
@@ -208,13 +206,13 @@
 }
 
 .image-box img{
-    width:150px;
-    height:150px;
+    width:174px;
+    height:174px;
     object-fit:contain;
 }
 
 .category-card h3{
-    width:170px;
+    width:185px;
     margin-top:10px;
     font-size:15px;
     font-weight:500;
@@ -224,22 +222,30 @@
 
 /* child-grid cards (pages with only 1–2 subcategories) get a little
    more room, similar to Chaldal's spacious 2-item layout */
+.child-grid{
+    grid-template-columns:repeat(2,240px);
+    column-gap:20px;
+}
+
 .child-grid .category-card{
-    width:220px;
+    width:240px;
 }
 
 .child-grid .image-box{
-    width:180px;
-    height:170px;
+    width:240px;
+    height:230px;
 }
 
 .child-grid .image-box img{
-    width:160px;
-    height:160px;
+    width:225px;
+    height:225px;
 }
 
 .child-grid .category-card h3{
-    width:220px;
+    width:240px;
+    margin-top:14px;
+    font-size:17px;
+    font-weight:600;
 }
 
 /* =========================
@@ -602,14 +608,14 @@
 
   .category-grid:not(.child-grid) .image-box{
       width:100%;
-      max-width:195px;
-      height:190px;
+      max-width:215px;
+      height:210px;
       margin:0 auto;
   }
 
   .category-grid:not(.child-grid) .image-box img{
-      width:178px;
-      height:178px;
+      width:198px;
+      height:198px;
   }
 
   .category-grid:not(.child-grid) .category-card h3{
@@ -723,7 +729,7 @@
   .category-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:18px 14px;
+    gap:22px 16px;
 }
 
     .child-grid{
@@ -739,7 +745,7 @@
 }
    .image-box{
     width:100%;
-    height:135px;
+    height:150px;
 
     display:flex;
     align-items:center;
@@ -747,8 +753,8 @@
 }
 
 .image-box img{
-    width:125px;
-    height:125px;
+    width:140px;
+    height:140px;
     object-fit:contain;
 }
 
@@ -756,7 +762,7 @@
     width:100%;
     text-align:center;
     font-size:14px;
-    margin-top:6px;
+    margin-top:8px;
 }
 
     /* ---------- PRODUCT ---------- */

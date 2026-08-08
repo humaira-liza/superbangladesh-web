@@ -533,7 +533,7 @@
   align-items:center;
   justify-content:center;
 
-  gap:0;
+  gap:6px;
 
   margin:0;
 }
@@ -545,7 +545,9 @@
 
   flex-shrink:0;
 
-  margin-right:-12px;           /* লেখার সাথে একদম লাগানো */
+  /* লোগো ছবির সাদা ব্যাকগ্রাউন্ড থাকলেও যেন
+     navbar-এর উপর বক্স/স্কয়ার হয়ে না দেখায় */
+  mix-blend-mode:multiply;
 }
 
 .mobile-brand span{
@@ -1137,7 +1139,7 @@ gap:10px;
   display:flex;
   align-items:center;
 
-  gap:0;
+  gap:8px;
 
   cursor:pointer;
 
@@ -1154,10 +1156,9 @@ gap:10px;
 
   flex-shrink:0;
 
-  margin-right:-8px;
-
-  position:relative;
-  top:2px;   /* লোগো একটু নিচে নামবে */
+  /* লোগো ছবির সাদা ব্যাকগ্রাউন্ড থাকলেও যেন
+     navbar-এর উপর বক্স/স্কয়ার হয়ে না দেখায় */
+  mix-blend-mode:multiply;
 
 }
 

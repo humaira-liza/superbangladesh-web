@@ -273,6 +273,15 @@
   {{ t('manageCategoryStructure') }}
 </p>
 
+<p class="order-hint">
+  💡 প্রতিটি Main Category বা Sub Category-র পাশে "Order" বক্সে সংখ্যা বসিয়ে Save করলে
+  ওয়েবসাইটের sidebar ও ক্যাটাগরি পেজে সেই ক্রমেই দেখাবে —
+  ছোট সংখ্যা আগে দেখাবে (যেমন Fruits &amp; Vegetables-কে 1 আর
+  Cooking-কে 2 দিলে Fruits &amp; Vegetables আগে দেখাবে)। Sub Category-এর
+  ক্রম বদলাতে চাইলে সেই Sub Category-র পাশের Order বক্সেও একইভাবে
+  সংখ্যা বসিয়ে Save করুন।
+</p>
+
 <input
   type="text"
   class="category-search"
@@ -364,12 +373,20 @@
 
          <div class="row-actions">
 
-  <input
-    type="number"
-    min="0"
-    [(ngModel)]="main.displayOrder"
-    style="width:70px"
-  >
+  <div class="order-control main-order-control">
+
+    <label>
+      {{ t('displayOrderLabel') }}
+    </label>
+
+    <input
+      type="number"
+      min="0"
+      [(ngModel)]="main.displayOrder"
+      style="width:70px"
+    >
+
+  </div>
 
   <button
     type="button"
@@ -447,6 +464,29 @@
 
 
           <div class="row-actions">
+
+            <div class="order-control main-order-control">
+
+              <label>
+                {{ t('displayOrderLabel') }}
+              </label>
+
+              <input
+                type="number"
+                min="0"
+                [(ngModel)]="sub.displayOrder"
+                style="width:70px"
+              >
+
+            </div>
+
+            <button
+              type="button"
+              class="primary-btn"
+              (click)="saveDisplayOrder(sub)"
+            >
+              {{ t('save') }}
+            </button>
 
             <button
               type="button"

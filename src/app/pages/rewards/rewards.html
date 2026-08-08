@@ -1,29 +1,180 @@
 <div class="rewards-page">
 
-  <div class="rewards-card">
+  <!-- ================= LOADING ================= -->
+  <div class="rewards-loading" *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
 
-    <div class="icon">⭐</div>
+  <!-- ================= NOT LOGGED IN ================= -->
+  <div class="rewards-wrap" *ngIf="!loading && !loggedIn">
+    <div class="rewards-card center-card">
 
-    <h1 *ngIf="languageService.language() === 'bn'">
-      রিওয়ার্ডস শীঘ্রই আসছে
-    </h1>
-    <h1 *ngIf="languageService.language() !== 'bn'">
-      Rewards Are Coming Soon
-    </h1>
+      <div class="icon">⭐</div>
 
-    <p *ngIf="languageService.language() === 'bn'">
-      আমরা একটি পয়েন্ট ও রিওয়ার্ড সিস্টেম নিয়ে কাজ করছি, যেখানে প্রতিটি অর্ডারে
-      আপনি পয়েন্ট জমাবেন এবং পরবর্তী কেনাকাটায় ছাড় পাবেন। এই ফিচারটি এখনো
-      প্রস্তুত হয়নি — শীঘ্রই যুক্ত হবে।
-    </p>
-    <p *ngIf="languageService.language() !== 'bn'">
-      We're building a points &amp; rewards program — earn points on every
-      order and redeem them for discounts on future purchases. This feature
-      isn't live yet, but it's on the way.
-    </p>
+      <h1 *ngIf="languageService.language() === 'bn'">রিওয়ার্ডস দেখতে লগইন করুন</h1>
+      <h1 *ngIf="languageService.language() !== 'bn'">Log in to see your rewards</h1>
 
-    <a routerLink="/offers" class="cta-btn">
-      {{ languageService.language() === 'bn' ? 'এই মুহূর্তে অফার দেখুন' : 'See current offers instead' }}
+      <p *ngIf="languageService.language() === 'bn'">
+        প্রতিটি সম্পন্ন হওয়া অর্ডারে আপনি পয়েন্ট অর্জন করবেন, যা পরবর্তী কেনাকাটায় ছাড় হিসেবে ব্যবহার করতে পারবেন।
+      </p>
+      <p *ngIf="languageService.language() !== 'bn'">
+        Earn points on every completed order and redeem them for discounts on your next purchase.
+      </p>
+
+      <a routerLink="/login" class="cta-btn">
+        {{ languageService.language() === 'bn' ? 'লগইন করুন' : 'Log In' }}
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ================= LOGGED IN — NO SUMMARY (error) ================= -->
+  <div class="rewards-wrap" *ngIf="!loading && loggedIn && !summary">
+    <div class="rewards-card center-card">
+
+      <div class="icon">⚠️</div>
+
+      <h1 *ngIf="languageService.language() === 'bn'">রিওয়ার্ডস লোড করা যায়নি</h1>
+      <h1 *ngIf="languageService.language() !== 'bn'">Couldn't load your rewards</h1>
+
+      <p *ngIf="languageService.language() === 'bn'">দয়া করে একটু পর আবার চেষ্টা করুন।</p>
+      <p *ngIf="languageService.language() !== 'bn'">Please try again in a moment.</p>
+
+      <a routerLink="/offers" class="cta-btn">
+        {{ languageService.language() === 'bn' ? 'অফার দেখুন' : 'See Offers' }}
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ================= MAIN REWARDS DASHBOARD ================= -->
+  <div class="rewards-wrap" *ngIf="!loading && loggedIn && summary">
+
+    <!-- ---- HERO / POINTS BALANCE ---- -->
+    <div class="rewards-hero" [class]="'tier-' + (summary.tier | lowercase)">
+
+      <div class="hero-top">
+
+        <div class="hero-tier-badge">
+          {{ summary.tier === 'GOLD' ? '🥇' : (summary.tier === 'SILVER' ? '🥈' : '🥉') }}
+          <span>{{ tierLabel(summary.tier) }}</span>
+        </div>
+
+        <div class="hero-points">
+          <span class="hero-points-number">{{ summary.points | bnNumber }}</span>
+          <span class="hero-points-label">
+            {{ languageService.language() === 'bn' ? 'পয়েন্ট' : 'Points' }}
+          </span>
+        </div>
+
+      </div>
+
+      <div class="hero-value">
+        {{ languageService.language() === 'bn' ? 'বর্তমান মূল্য' : 'Worth right now' }}:
+        <strong>{{ summary.redeemableValue | bnNumber:'৳' }}</strong>
+      </div>
+
+      <!-- TIER LADDER -->
+      <div class="tier-ladder">
+
+        <div class="tier-track">
+          <div class="tier-track-fill" [style.width.%]="progressPercent()"></div>
+        </div>
+
+        <div class="tier-stops">
+          <div
+            class="tier-stop"
+            *ngFor="let tstep of tiers"
+            [class.reached]="isTierReached(tstep.threshold)">
+            <span class="tier-stop-icon">{{ tstep.icon }}</span>
+            <span class="tier-stop-label">{{ tierLabel(tstep.key) }}</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="hero-next" *ngIf="summary.tier !== 'GOLD'">
+        <ng-container *ngIf="languageService.language() === 'bn'">
+          পরবর্তী ধাপে যেতে আরও <strong>{{ summary.pointsToNextTier | bnNumber }}</strong> পয়েন্ট প্রয়োজন
+        </ng-container>
+        <ng-container *ngIf="languageService.language() !== 'bn'">
+          <strong>{{ summary.pointsToNextTier | bnNumber }}</strong> points to the next tier
+        </ng-container>
+      </div>
+
+      <div class="hero-next" *ngIf="summary.tier === 'GOLD'">
+        {{ languageService.language() === 'bn' ? 'আপনি সর্বোচ্চ ধাপে পৌঁছে গেছেন 🎉' : "You've reached the top tier 🎉" }}
+      </div>
+
+    </div>
+
+    <!-- ---- HOW IT WORKS ---- -->
+    <div class="rewards-stats">
+
+      <div class="stat-box">
+        <div class="stat-icon">🛍️</div>
+        <div class="stat-value">{{ summary.ordersCompleted | bnNumber }}</div>
+        <div class="stat-label">
+          {{ languageService.language() === 'bn' ? 'সম্পন্ন অর্ডার' : 'Completed Orders' }}
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-icon">✨</div>
+        <div class="stat-value">
+          ৳{{ summary.takaPerPoint | bnNumber }} = {{ 1 | bnNumber }} {{ languageService.language() === 'bn' ? 'পয়েন্ট' : 'pt' }}
+        </div>
+        <div class="stat-label">
+          {{ languageService.language() === 'bn' ? 'প্রতি খরচে পয়েন্ট অর্জন' : 'Earn rate on every order' }}
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-icon">🎁</div>
+        <div class="stat-value">100 {{ languageService.language() === 'bn' ? 'পয়েন্ট' : 'pts' }} = ৳{{ (100 * summary.pointValueTaka) | bnNumber }}</div>
+        <div class="stat-label">
+          {{ languageService.language() === 'bn' ? 'রিডিম মূল্য' : 'Redemption value' }}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ---- POINTS HISTORY ---- -->
+    <div class="history-card">
+
+      <h2>{{ languageService.language() === 'bn' ? 'পয়েন্ট হিস্টোরি' : 'Points History' }}</h2>
+
+      <div class="history-empty" *ngIf="summary.history.length === 0">
+        <ng-container *ngIf="languageService.language() === 'bn'">
+          এখনো কোনো পয়েন্ট অর্জিত হয়নি — অর্ডার সম্পন্ন হলে এখানে দেখাবে।
+        </ng-container>
+        <ng-container *ngIf="languageService.language() !== 'bn'">
+          No points yet — they'll show up here once an order is completed.
+        </ng-container>
+      </div>
+
+      <div class="history-table" *ngIf="summary.history.length > 0">
+
+        <div class="history-row history-head">
+          <span>{{ languageService.language() === 'bn' ? 'ইনভয়েস' : 'Invoice' }}</span>
+          <span>{{ languageService.language() === 'bn' ? 'তারিখ' : 'Date' }}</span>
+          <span>{{ languageService.language() === 'bn' ? 'পরিমাণ' : 'Amount' }}</span>
+          <span class="col-right">{{ languageService.language() === 'bn' ? 'পয়েন্ট' : 'Points' }}</span>
+        </div>
+
+        <div class="history-row" *ngFor="let h of summary.history">
+          <span class="col-invoice">{{ h.invoiceNumber || ('#' + h.orderId) }}</span>
+          <span>{{ h.date | date:'d MMM y' }}</span>
+          <span>{{ h.amount | bnNumber:'৳' }}</span>
+          <span class="col-right col-points">+{{ h.pointsEarned | bnNumber }}</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <a routerLink="/offers" class="cta-btn secondary-cta">
+      {{ languageService.language() === 'bn' ? 'এই মুহূর্তে অফার দেখুন' : 'See current offers' }}
     </a>
 
   </div>

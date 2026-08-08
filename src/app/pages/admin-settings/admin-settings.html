@@ -1,76 +1,101 @@
 <div class="settings-admin-page">
 
   <div class="page-header">
+    <p class="eyebrow">SITE SETTINGS</p>
+    <h2>Logo &amp; Branding</h2>
+    <p>Upload the logo that appears in the website navbar.</p>
+  </div>
 
-    <p class="eyebrow">{{ t('siteSettingsEyebrow') }}</p>
+  <div class="loading-box" *ngIf="loading">
+    Loading settings...
+  </div>
 
-    <h2>{{ t('siteLogoTitle') }}</h2>
+  <div class="panel" *ngIf="!loading">
 
-    <p>
-      {{ t('siteLogoDescription') }}
+    <h3>Site Logo</h3>
+
+    <div class="logo-grid">
+
+      <!-- CURRENT LOGO -->
+      <div class="logo-box">
+        <span class="logo-box-label">Current Logo</span>
+
+        <div class="logo-preview">
+          <img
+            *ngIf="logoUrl"
+            [src]="logoUrl"
+            alt="Current logo"
+          />
+          <span
+            class="no-logo"
+            *ngIf="!logoUrl"
+          >
+            No logo uploaded yet
+          </span>
+        </div>
+      </div>
+
+      <!-- NEW LOGO PREVIEW -->
+      <div class="logo-box" *ngIf="previewUrl">
+        <span class="logo-box-label">New Logo Preview</span>
+
+        <div class="logo-preview">
+          <img
+            [src]="previewUrl"
+            alt="New logo preview"
+          />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="upload-row">
+
+      <label class="upload-btn">
+        <i class="fa-solid fa-upload"></i>
+        Choose Image
+        <input
+          type="file"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          hidden
+        />
+      </label>
+
+      <span class="file-name" *ngIf="selectedFile">
+        {{ selectedFile.name }}
+      </span>
+
+      <button
+        type="button"
+        class="clear-link"
+        *ngIf="selectedFile"
+        (click)="clearSelection()"
+      >
+        Remove
+      </button>
+
+    </div>
+
+    <p class="hint">
+      Use a square image with a transparent background (PNG) for the
+      cleanest result in the navbar.
+    </p>
+
+    <p class="error-text" *ngIf="errorMessage">
+      {{ errorMessage }}
     </p>
 
   </div>
 
-
-  <section class="panel">
-
-    <div class="panel-heading">
-      <h3>{{ t('currentLogo') }}</h3>
-    </div>
-
-    <div class="logo-preview-row">
-
-      <div class="logo-box">
-
-        <img
-          *ngIf="settings.logoUrl && !previewUrl"
-          [src]="settings.logoUrl"
-          alt="Current Logo">
-
-        <span *ngIf="!settings.logoUrl && !previewUrl">
-          {{ t('noLogoSet') }}
-        </span>
-
-        <img
-          *ngIf="previewUrl"
-          [src]="previewUrl"
-          alt="New Logo Preview">
-
-      </div>
-
-      <div class="upload-controls">
-
-        <label class="file-btn">
-          {{ t('chooseImage') }}
-          <input
-            type="file"
-            accept="image/*"
-            (change)="onFileChange($event)">
-        </label>
-
-        <p class="hint">
-          {{ t('squareImageHint') }}
-        </p>
-
-        <p class="error" *ngIf="errorMessage">
-          {{ errorMessage }}
-        </p>
-
-        <button
-          type="button"
-          class="save-btn"
-          [disabled]="saving || !selectedFile"
-          (click)="save()">
-
-          {{ saving ? t('uploading') : t('saveLogo') }}
-
-        </button>
-
-      </div>
-
-    </div>
-
-  </section>
+  <div class="save-bar" *ngIf="!loading">
+    <button
+      type="button"
+      [disabled]="saving || !selectedFile"
+      (click)="save()"
+    >
+      {{ saving ? 'Saving...' : 'Save Logo' }}
+    </button>
+  </div>
 
 </div>

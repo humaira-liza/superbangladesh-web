@@ -1,20 +1,58 @@
+* { box-sizing: border-box; }
+
 .rewards-page{
     min-height:60vh;
+    padding:130px 20px 60px;
+    display:flex;
+    justify-content:center;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.rewards-loading{
+    width:100%;
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:130px 20px 60px;
+    min-height:300px;
+}
+
+.spinner{
+    width:34px;
+    height:34px;
+    border:3px solid #e5e7eb;
+    border-top-color:#2E8B57;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{ transform:rotate(360deg); }
+}
+
+/* =========================
+   SIMPLE CARD (logged out / error)
+========================= */
+
+.rewards-wrap{
+    width:100%;
+    max-width:640px;
 }
 
 .rewards-card{
-    max-width:480px;
-    width:100%;
-    text-align:center;
     background:#fff;
     border-radius:18px;
     padding:44px 30px;
     box-shadow:0 10px 30px rgba(0,0,0,.06);
     border:1px solid #E1EFE6;
+}
+
+.center-card{
+    max-width:480px;
+    margin:0 auto;
+    text-align:center;
 }
 
 .icon{
@@ -52,12 +90,273 @@
     background:#1F6B45;
 }
 
+.secondary-cta{
+    display:block;
+    width:fit-content;
+    margin:28px auto 0;
+    background:#fff;
+    color:#2E8B57;
+    border:1.5px solid #2E8B57;
+}
+
+.secondary-cta:hover{
+    background:#f0faf4;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.rewards-hero{
+    border-radius:20px;
+    padding:32px 28px 26px;
+    color:#fff;
+    background:linear-gradient(135deg,#175E3D 0%,#2E8B57 55%,#3FA96C 100%);
+    box-shadow:0 14px 34px rgba(23,94,61,.22);
+    position:relative;
+    overflow:hidden;
+}
+
+.rewards-hero.tier-gold{
+    background:linear-gradient(135deg,#7a5b00 0%,#c9971f 55%,#e8b93a 100%);
+    box-shadow:0 14px 34px rgba(154,115,0,.25);
+}
+
+.rewards-hero.tier-silver{
+    background:linear-gradient(135deg,#4b5563 0%,#6b7280 55%,#9ca3af 100%);
+    box-shadow:0 14px 34px rgba(75,85,99,.22);
+}
+
+.hero-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-bottom:6px;
+}
+
+.hero-tier-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 14px;
+    border-radius:999px;
+    background:rgba(255,255,255,.18);
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:.3px;
+}
+
+.hero-points{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+}
+
+.hero-points-number{
+    font-size:40px;
+    font-weight:800;
+    line-height:1;
+}
+
+.hero-points-label{
+    font-size:15px;
+    opacity:.85;
+    font-weight:600;
+}
+
+.hero-value{
+    font-size:14px;
+    opacity:.92;
+    margin-bottom:22px;
+}
+
+.hero-value strong{
+    font-size:16px;
+}
+
+/* TIER LADDER */
+
+.tier-ladder{
+    margin-bottom:14px;
+}
+
+.tier-track{
+    width:100%;
+    height:8px;
+    border-radius:999px;
+    background:rgba(255,255,255,.25);
+    overflow:hidden;
+    margin-bottom:12px;
+}
+
+.tier-track-fill{
+    height:100%;
+    border-radius:999px;
+    background:#fff;
+    transition:width .4s ease;
+}
+
+.tier-stops{
+    display:flex;
+    justify-content:space-between;
+}
+
+.tier-stop{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+    opacity:.55;
+    font-size:12px;
+    font-weight:700;
+}
+
+.tier-stop.reached{
+    opacity:1;
+}
+
+.tier-stop-icon{
+    font-size:18px;
+}
+
+.hero-next{
+    font-size:13px;
+    opacity:.92;
+}
+
+/* =========================
+   STATS ROW
+========================= */
+
+.rewards-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    margin-top:20px;
+}
+
+.stat-box{
+    background:#fff;
+    border:1px solid #E1EFE6;
+    border-radius:16px;
+    padding:20px 16px;
+    text-align:center;
+    box-shadow:0 4px 14px rgba(0,0,0,.03);
+}
+
+.stat-icon{
+    font-size:24px;
+    margin-bottom:8px;
+}
+
+.stat-value{
+    font-size:16px;
+    font-weight:800;
+    color:#175E3D;
+    margin-bottom:4px;
+}
+
+.stat-label{
+    font-size:12px;
+    color:#777;
+    line-height:1.4;
+}
+
+/* =========================
+   HISTORY
+========================= */
+
+.history-card{
+    background:#fff;
+    border:1px solid #E1EFE6;
+    border-radius:16px;
+    padding:22px 20px;
+    margin-top:20px;
+    box-shadow:0 4px 14px rgba(0,0,0,.03);
+}
+
+.history-card h2{
+    font-size:16px;
+    font-weight:800;
+    color:#175E3D;
+    margin:0 0 16px;
+}
+
+.history-empty{
+    font-size:13.5px;
+    color:#888;
+    padding:14px 0;
+    text-align:center;
+}
+
+.history-row{
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr .8fr;
+    gap:8px;
+    padding:12px 4px;
+    font-size:13.5px;
+    color:#333;
+    border-bottom:1px solid #F1F3F1;
+    align-items:center;
+}
+
+.history-row:last-child{
+    border-bottom:none;
+}
+
+.history-head{
+    font-size:12px;
+    font-weight:700;
+    color:#999;
+    text-transform:uppercase;
+    letter-spacing:.3px;
+    border-bottom:1.5px solid #E1EFE6;
+}
+
+.col-invoice{
+    font-weight:700;
+    color:#175E3D;
+}
+
+.col-right{
+    text-align:right;
+}
+
+.col-points{
+    font-weight:800;
+    color:#2E8B57;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:600px){
+
     .rewards-page{
         padding:100px 16px 40px;
     }
 
     .rewards-card{
         padding:34px 20px;
+    }
+
+    .rewards-hero{
+        padding:24px 18px 20px;
+    }
+
+    .hero-points-number{
+        font-size:32px;
+    }
+
+    .rewards-stats{
+        grid-template-columns:1fr;
+    }
+
+    .history-row{
+        grid-template-columns:1.2fr .9fr 1fr .7fr;
+        font-size:12.5px;
     }
 }
